@@ -58,7 +58,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 **How is this different than other R books?**  
 
 * It is community-driven - written for epidemiologists by epidemiologists in their spare time and leveraging experience in local, national, academic, and emergency settings  
-* It uses practical epi examples - cleaning case linelists, transmission chains, epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...  
+* It uses practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...  
 
 
 
@@ -83,11 +83,11 @@ We are seeking to translate this book into languages other than English. If you 
 
 
 <!-- ======================================================= -->
-## Contact us {-}
+## Contact us {#contact_us .unnumbered}
 
 * Structured feedback in this [form](https://forms.gle/A5SnRVws7tPD15Js9)  
 * Email us at **epiRhandbook@gmail.com**  
-* Submit issues or pull requests to our [Github repository](https://github.com/nsbatra/R_epi_handbook)  
+* Submit issues to our [Github repository](https://github.com/epirhandbook/R_epi_handbook)  
 * Twitter handle **@epiRhandbook**  
 
 
@@ -106,7 +106,7 @@ This handbook is **not** an approved product of any specific organization. Altho
 
 **Project core team:** [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Amrish Baidjoe](https://twitter.com/Ammer_B), Pat Keating, [Henry Laurenson-Schafer](https://github.com/henryls1), [Finlay Campbell](https://github.com/finlaycampbell)  
 
-**Authors**: [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Paula Blomquist](https://www.linkedin.com/in/paula-bianca-blomquist-53188186/), [Finlay Campbell](https://github.com/finlaycampbell), [Henry Laurenson-Schafer](https://github.com/henryls1), [Isaac Florence](www.Twitter.com/isaacatflorence), [Natalie Fischer](www.linkedin.com/in/nataliefischer211), Aminata Ndiaye, Liza Coyer, [Jonathan Polonsky](https://twitter.com/jonny_polonsky), Yurie Izawa, [Chris Bailey](https://twitter.com/cbailey_58?lang=en), [Daniel Molling](https://www.linkedin.com/in/daniel-molling-4005716a/), [Isha Berry](https://twitter.com/ishaberry2), Emma Buajitti, Mathilde Mousset, Sara Hollis, Wen Lin  
+**Authors**: [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Paula Blomquist](https://www.linkedin.com/in/paula-bianca-blomquist-53188186/), [Finlay Campbell](https://github.com/finlaycampbell), [Henry Laurenson-Schafer](https://github.com/henryls1), [Isaac Florence](www.Twitter.com/isaacatflorence), [Natalie Fischer](www.linkedin.com/in/nataliefischer211), Aminata Ndiaye, Liza Coyer, [Jonathan Polonsky](https://twitter.com/jonny_polonsky), Yurie Izawa, [Chris Bailey](https://twitter.com/cbailey_58?lang=en), [Daniel Molling](https://www.linkedin.com/in/daniel-molling-4005716a/), [Isha Berry](https://twitter.com/ishaberry2), Emma Buajitti, [Mathilde Mousset](https://mathildemousset.wordpress.com/research/), [Sara Hollis](https://www.linkedin.com/in/saramhollis/), Wen Lin  
 
 **Reviewers**: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Laura Haskins, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
 
@@ -124,7 +124,7 @@ This handbook is **not** an approved product of any specific organization. Altho
 
 ### Funding and support {-}  
 
-The handbook project received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network ([TEPHINET](https://www.tephinet.org/)). *This handbook was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.*
+This publication received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network ([TEPHINET](https://www.tephinet.org/)). *This publication was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.*
 
 Administrative support was provided by the EPIET Alumni Network ([EAN](https://epietalumni.net/)), with special thanks to Annika Wendland. EPIET is the European Programme for Intervention Epidemiology Training.  
 
@@ -251,6 +251,8 @@ A few other points:
 
 * This is a code reference book accompanied by relatively brief examples - *not* a thorough textbook on R or data science  
 * This is a *R handbook* for use within applied epidemiology - not a manual on the methods or science of applied epidemiology  
+* This is intended to be a living document - optimal R packages for a given task change often and we welcome discussion about which to emphasize in this handbook  
+
 
 
 
@@ -352,7 +354,7 @@ Pivoting|**tidyr** (pivot functions), **reshape2** (melt/cast), **tidyr** (sprea
 Clean column names|**linelist**, **janitor**|**janitor**|Consolidation of packages emphasized
 Epiweeks |**lubridate**, **aweek**, **tsibble**, **zoo**|**lubridate** generally, the others for specific cases| **lubridate's** flexibility, consistency, package maintenance prospects  
 ggplot labels |`labs()`, `ggtitle()`/`ylab()`/`xlab()` |`labs()` |all labels in one place, simplicity  
-Initially convert to factor |`factor()`, `as_factor()`|`factor()` (**base**)|can define levels in same command
+Convert to factor |`factor()`, **forcats**|**forcats**|its various functions also convert to factor in same command
 Epidemic curves|**incidence**, **ggplot2**, **EpiCurve**|**incidence2** as quick, **ggplot2** as detailed|dependability
 Concatenation|`paste()`, `paste0()`, `str_glue()`, `glue()`|`str_glue()`|More simple syntax than paste functions; within **stringr**
 
@@ -421,48 +423,85 @@ options(scipen=1, digits=7)
 
 ## Download offline handbook  
 
-You can download the offline version of this handbook as an HTML file. Once downloaded, you can view the file in your web browser even if you no longer have internet access.  
+You can download the offline version of this handbook as an HTML file. Once downloaded, you can view the file in your web browser even if you no longer have internet access. If you are considering offline use of the Epi R Handbook here are a few things to consider:  
 
-Note: The file is large (>40MB). When you open it, it may take several minutes for the images and the Table of Contents to load. Also, the offline handbook displays as one long page, so please search for specific content using with Ctrl+f (Cmd-f). 
-If you are considering offline use, please also see the page [Suggested packages] to assist you with installing appropriate R packages before you lose internet connectivity.  
-
+* When you open the file it may take a minute or two for the images and the Table of Contents to load  
+* The offline handbook has a slightly different layout - one very long page with Table of Contents on the left. To search for specific terms use Ctrl+f (Cmd-f)  
+* See the [Suggested packages] page to assist you with installing appropriate R packages before you lose internet connectivity  
+* Install our R package **handbookfiles** that contains all the example data (install process described below)  
 
 **There are two ways you can download the handbook:**  
 
-### Option 1: Download link {.unnumbered}  
-
-Right-click this [link](https://github.com/epirhandbook/Epi_R_handbook/raw/master/offline_long/Epi_R_Handbook_offline.html) and select "Save link as".  
-
-If on a Mac, use Cmd+click. If on a mobile, press and hold the link and select "Save link". The handbook will download to your device. If a screen with raw HTML code appears, ensure you follow the above instructions.  
 
 
-### Option 2: Download via our R package {.unnumbered}  
+### Option 1: Use download link {.unnumbered}  
 
-Alternatively, you can download the handbook using our R package **handbookfiles**.  
+For quick access, right-click [this link](https://github.com/epirhandbook/Epi_R_handbook/raw/master/offline_long/Epi_R_Handbook_offline.html) and select "Save link as".  
 
-Run the following code to install our R package **handbookfiles** from the Github repository *epirhandbook*. This package is not on CRAN, so use the special function `p_install_gh()` to install it from Github.  
+If on a Mac, use Cmd+click. If on a mobile, press and hold the link and select "Save link". The handbook will download to your device. If a screen with raw HTML code appears, ensure you have followed the above instructions or try Option 2.  
+
+
+
+
+### Option 2: Use our R package {.unnumbered}  
+
+We offer an R package called **handbookfiles**. It includes a function `download_book()` that will download the handbook file from our Github repository to your computer.  
+
+This package also contains a function `get_data()` that will download all the example data to your computer.  
+
+
+To install our R package **handbookfiles**, run the following code. This package is not on CRAN, so use the function `p_install_gh()` to install it from our *epirhandbook* Github page.   
 
 ```{r, eval=F}
+# install the latest version of the Epi R Handbook package
 pacman::p_install_gh("epirhandbook/handbookfiles")
 ```
 
-Now, run the function `download_book()` (with empty parentheses) to download the handbook to your computer. By default a pop-up window will appear, allowing you to select a save location. Alternatively, you can provide a file path to `save_loc = `.  
+Next, run the function `download_book()` (with empty parentheses) to download the handbook to your computer. A window will appear allowing you to select a save location.  
 
 ```{r, eval=F}
-handbookfiles::download_book()
+# download the offline handbook to your computer
+download_book()
 ```
+
+
 
 
 
 ## Download data to follow along  
 
-To "follow along" with the pages, you can download the datasets and use them yourself. See the instructions for download below. All the data in this handbook are available from the **["data" folder](https://github.com/nsbatra/Epi_R_handbook/tree/master/data)** of our Github repository.  
+To "follow along" with the handbook pages, you can download the data and use them yourself.  
+
+### Option 1: Use our R package {.unnumbered}  
+
+The easiest approach to download all the data is to install our R package **handbookfiles**. It contains a function `get_data()` that will save all the example data to a folder of your choice on your computer.  
+
+To install our R package **handbookfiles**, run the following code. This package is not on CRAN, so use the function `p_install_gh()` to install it from our *epirhandbook* Github page.   
+```{r, eval=F}
+# install the latest version of the Epi R Handbook package
+pacman::p_install_gh("epirhandbook/handbookfiles")
+```
+
+Next, use the function `get_data()` to download the example data to your computer. Run `get_data("all")` to get *all* the example data, or provide a specific file name and extension within the quotes to retrieve only one file.  
+
+The data have already been downloaded with the package, and simply need to be transferred out to a folder on your computer. A pop-up window will appear, allowing you to select a save folder location. We suggest you create a new "data" folder as there are about 30 files (including example data and example outputs).  
+
+```{r, eval=F}
+# download all the example data into a folder on your computer
+get_data("all")
+```
+
+
+If you wish, you can also review all the data in this handbook in the **["data" folder](https://github.com/epirhandbook/Epi_R_handbook/tree/master/data)** of our Github repository.  
 
 
 
+### Option 2: Download one-by-one {.unnumbered}  
+
+This option involves downloading the data file-by-file from our Github repository via either a link or an R command specific to the file. Some file types allow a download button, while others can be downloaded via an R command.  
 
 
-### Case linelist {.unnumbered}
+#### Case linelist {.unnumbered}
 
 This is a fictional Ebola outbreak, expanded by the handbook team from the `ebola_sim` practice dataset in the **outbreaks** package.  
 
@@ -484,7 +523,7 @@ cleaning_dict <- import("https://github.com/epirhandbook/Epi_R_handbook/raw/mast
 ```
 
 
-### Malaria count data {.unnumbered}  
+#### Malaria count data {#data_malaria .unnumbered}  
 
 These data are fictional counts of malaria cases by age group, facility, and day. A .rds file is an R-specific file type that preserves column classes. This ensures you will have only minimal cleaning to do after importing the data into R.  
 
@@ -494,7 +533,7 @@ These data are fictional counts of malaria cases by age group, facility, and day
 </a>
 
 
-### Likert-scale data {.unnumbered}  
+#### Likert-scale data {.unnumbered}  
 
 These are fictional data from a Likert-style survey, used in the page on [Demographic pyramids and Likert-scales]. You can load these data directly into R by running the following commands in R.  
 
@@ -506,28 +545,20 @@ likert_data <- import("https://raw.githubusercontent.com/nsbatra/Epi_R_handbook/
 ```
 
 
-### Flexdashboard {.unnumbered}  
+#### Flexdashboard {.unnumbered}  
 
 Below are links to the file associated with the page on [Dashboards with R Markdown]:  
 
 * To download the R Markdown for the outbreak dashboard, right-click this [link](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/flexdashboard/outbreak_dashboard.Rmd) (Cmd+click for Mac) and select "Save link as".  
 * To download the HTML dashboard, right-click this [link](https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/flexdashboard/outbreak_dashboard_test.html) (Cmd+click for Mac) and select "Save link as".  
 
-### Contact Tracing Data (from Go.Data or other digital outbreak investigation tools) {.unnumbered} 
+### Contact Tracing {.unnumbered} 
 
-UNDER CONSTRUCTION
+The [Contact Tracing] page demonstrated analysis of contact tracing data, using example data from [Go.Data](https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting). The data used in the page can be downloaded as .rds files by clicking the following links:  
 
-The [Contact Tracing] page walks through analysis considerations specific to Contact Tracing and utilizes dummy data from the [*Go.Data Github Repository*](https://github.com/WorldHealthOrganization/godata/tree/master/analytics/r-reporting) where you can access sample .rds and .csv files from a Go.Data sandbox instance after data is retrieved from API and cleaned. 
-
-```{r out.width = "100%", fig.align = "center", echo=F}
-knitr::include_graphics(here::here("images", "godata_dummydata_github.png"))
-```
-
-This includes data collections for case registration/investigations; contacts registration & followups; lab results; relationships; teams; and users (i.e. assigned Contact Tracers, lab personnel, or system administrators) as shown in screenshot above.
-
-<a href='https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/followups_clean.rds' class='download-button'>
+<a href='https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/cases_clean.rds' class='download-button'>
 	Click to download
-	<span>the contact followups data (.rds file)</span>
+	<span>the case investigation data (.rds file)</span>
 </a>
 
 <a href='https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/contacts_clean.rds' class='download-button'>
@@ -535,32 +566,37 @@ This includes data collections for case registration/investigations; contacts re
 	<span>the contact registration data (.rds file)</span>
 </a>
 
-<a href='https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/cases_clean.rds' class='download-button'>
+<a href='https://github.com/WorldHealthOrganization/godata/blob/master/analytics/r-reporting/data/followups_clean.rds' class='download-button'>
 	Click to download
-	<span>the case investigation data (.rds file)</span>
+	<span>the contact follow-up data (.rds file)</span>
 </a>
 
-<span style="color: black;">**_NOTE:_** This is just one example of what structured contact tracing data could look like - if you have other sample contact tracing data from other tools (i.e. KoBo, DHIS2 Tracker, CommCare, etc) please join or start a conversation on our Github Page.</span> 
-
-<span style="color: darkgreen;">**_TIP:_** If you are deploying Go.Data in your setting and want to connect to your instance's API, please visit the [Contact Tracing] page for more information. If you would like access to a sandbox instance of Go.Data to try out the platform, please visit the [Go.Data Community of Practice](https://community-godata.who.int/) and select "Access Sign Up Page" button.</span>
 
 
-### GIS {.unnumbered}  
+<span style="color: black;">**_NOTE:_** Structured contact tracing data from other software (e.g. KoBo, DHIS2 Tracker, CommCare) may look different. If you would like to contribute alternative sample data or content for this page, please [contact us](#contact_us).</span> 
 
-UNDER CONSTRUCTION
+<span style="color: darkgreen;">**_TIP:_** If you are deploying Go.Data and want to connect to your instance's API, see the Import and export page [(API section)](#import_api) and the [Go.Data Community of Practice](https://community-godata.who.int/).</span>
+
+
+#### GIS {.unnumbered}  
 
 Shapefiles have many sub-component files, each with a different file extention. One file will have the ".shp" extension, but others may have ".dbf", ".prj", etc.  
 
-The [GIS basics] page provides links to the *Humanitarian Data Exchange* website where you can download the shapefiles directly. For example, the health facility points can be downloaded [here](https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities). Download the points shapefile (shp) ".zip" folder. Once saved to your computer, "unzip" the folder. You will see several files with different extensions (e.g. ".shp", ".prj", ".shx") - all these must be saved in the same folder. As described in the [GIS basics] page, provide the filepath and name of the ".shp" file to `st_read()` from the **sf** package.  
+The [GIS basics] page provides links to the *Humanitarian Data Exchange* website where you can download the shapefiles directly as zipped files.  
 
-Alternatively, you can download the shapefiles from the R Handbook Github "data" folder (see the "gis" sub-folder). However, be aware that you will need to download *each* sub-file individually to your computer. In Github, click on each file individually and download them by clicking on the "Download" button. Below, you can see how the shapefile "sle_adm3" consists of many files - each of which must be downloaded from Github.  
+For example, the health facility points data can be downloaded [here](https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities). Download "hotosm_sierra_leone_health_facilities_points_shp.zip". Once saved to your computer, "unzip" the folder. You will see several files with different extensions (e.g. ".shp", ".prj", ".shx") - all these must be saved to the same folder on your computer. Then to import into R, provide the file path and name of the ".shp" file to `st_read()` from the **sf** package (as described in the [GIS basics] page).  
+
+If you follow Option 1 to download all the example data (via our R package **handbookfiles**), all the shapefiles are included.  
+
+
+Alternatively, you can download the shapefiles from the R Handbook Github "data" folder (see the "gis" sub-folder). However, be aware that you will need to download *each* sub-file individually to your computer. In Github, click on each file individually and download them by clicking on the "Download" button. Below, you can see how the shapefile "sle_adm3" consists of many files - each of which would need to be downloaded from Github.  
 
 ```{r out.height = "50%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "download_shp.png"))
 ```
 
 
-### Phylogenetic trees {.unnumbered}  
+#### Phylogenetic trees {.unnumbered}  
 
 See the page on [Phylogenetic trees]. Newick file of phylogenetic tree constructed from whole genome sequencing of 299 Shigella sonnei samples and corresponding sample data (converted to a text file). The Belgian samples and resulting data are kindly provided by the Belgian NRC for Salmonella and Shigella in the scope of a project conducted by an ECDC EUPHEM Fellow, and will also be published in a manuscript. The international data are openly available on public databases (ncbi) and have been previously published.  
 
@@ -576,7 +612,7 @@ ape::read.tree("Shigella_tree.txt")
 ```
 
 
-### Standardization {.unnumbered}  
+#### Standardization {.unnumbered}  
 
 See the page on [Standardization]. You can load the data directly from our Github repository on the internet into your R session with the following commands:  
 
@@ -613,7 +649,7 @@ standard_pop_data <- import("https://github.com/epirhandbook/Epi_R_handbook/raw/
 
 
 
-### Time series and outbreak detection {.unnumbered}  
+#### Time series and outbreak detection {#data_outbreak .unnumbered}  
 
 See the page on [Time series and outbreak detection]. We use campylobacter cases reported in Germany 2002-2011, as available from the **surveillance** R package.
 
@@ -676,7 +712,7 @@ Also used are climate data (temperature in degrees celsius and rain fail in mill
 
 
 
-### Survey analysis {.unnumbered}  
+#### Survey analysis {#data_survey .unnumbered}  
 
 For the [survey analysis](https://epirhandbook.com/survey-analysis.html) page we use fictional mortality survey data based off MSF OCA survey templates,
 this fictional data was generated as part of the ["R4Epis" project](https://r4epis.netlify.app/).
@@ -695,6 +731,27 @@ this fictional data was generated as part of the ["R4Epis" project](https://r4ep
 	Click to download
 	<span> Fictional survey population data (.xlsx)</span>
 </a>
+
+
+
+
+#### Shiny {#data_shiny .unnumbered}  
+
+The page on [Dashboards with Shiny] demonstrated constructions of a simple app to display malaria data.  
+
+To download the R files that produce the Shiny app:  
+
+You can <a href='https://github.com/epirhandbook/Epi_R_handbook/blob/master/data/malaria_app/app.R' class='download-button'>
+	click here to download the app.R file<span> that contains both the UI and Server code for the Shiny app.</span></a>
+
+You can <a href='https://github.com/epirhandbook/Epi_R_handbook/blob/master/data/malaria_app/data/facility_count_data.rds' class='download-button'>
+	click here to download the facility_count_data.rds file<span> that contains malaria data for the Shiny app. Note that you may need to store it within a "data" folder for the here() file paths to work correctly.</span></a>
+
+You can <a href='https://github.com/epirhandbook/Epi_R_handbook/blob/master/data/malaria_app/global.R' class='download-button'>
+	click here to download the global.R file<span> that should run prior to the app opening, as explained in the page.</span></a>
+	
+You can <a href='https://github.com/epirhandbook/Epi_R_handbook/blob/master/data/malaria_app/funcs/plot_epicurve.R' class='download-button'>
+	click here to download the plot_epicurve.R file<span> that is sourced by global.R. Note that you may need to store it within a "funcs" folder for the here() file paths to work correctly.</span></a>
 
 
 ```{r include=FALSE, cache=FALSE}
@@ -2822,11 +2879,24 @@ Of note:
 
 To see the versions of R, RStudio, and R packages used during the production of this handbook, see the page on [Editorial and technical notes].  
 
+## Packages from CRAN  
 
 ```{r, eval=F}
 
-# List of useful epidemiology R packages  
+##########################################
+# List of useful epidemiology R packages #
+##########################################
 
+# This script uses the p_load() function from pacman R package, 
+# which installs if package is absent, and loads for use if already installed
+
+
+# Ensures the package "pacman" is installed
+if (!require("pacman")) install.packages("pacman")
+
+
+# Packages available from CRAN
+##############################
 pacman::p_load(
      
      # learning R
@@ -2855,12 +2925,14 @@ pacman::p_load(
           #stringr,    # work with strings and characters
           #forcats,    # work with factors 
           #lubridate,  # work with dates
+          #purrr       # iteration and working with lists
      linelist,     # cleaning linelists
      naniar,       # assessing missing data
      
      # statistics  
      ############
      gtsummary,    # making descriptive and statistical tables
+     rstatix,      # quickly run statistical tests and summaries
      janitor,      # tables and data cleaning
      
      # epidemic modeling
@@ -2881,6 +2953,8 @@ pacman::p_load(
      cowplot,          # combining plots  
      # patchwork,      # combining plots (alternative)     
      RColorBrewer,     # color scales
+     ggnewscale,       # to add additional layers of color schemes
+
      
      # plots - specific types
      ########################
@@ -2888,12 +2962,16 @@ pacman::p_load(
      incidence,        # epidemic curves
      gghighlight,      # highlight a subset
      ggrepel,          # smart labels
+     plotly,           # interactive graphics
+     gganimate,        # animated graphics 
+
      
      # gis
      ######
      sf,               # to manage spatial data using a Simple Feature format
      tmap,             # to produce simple maps, works for both interactive and static maps
      OpenStreetMap,    # to add OSM basemap in ggplot map
+     spdep,            # spatial statistics 
      
      # routine reports
      #################
@@ -2918,10 +2996,20 @@ pacman::p_load(
      ###############
      ggtree,           # visualization and annotation of trees
      ape,              # analysis of phylogenetics and evolution
-     
-     # interactive
-     plotly            # interactive graphics
+     treeio            # to visualize phylogenetic files
+ 
 )
+
+
+# Packages to download from Github (not available on CRAN)
+##########################################################
+
+# Development version of epicontacts (for transmission chains with a time x-axis)
+pacman::p_install_gh("reconhub/epicontacts@timeline")
+
+# The package for this handbook, which includes all the example data
+pacman::p_install_gh("epirhandbook/handbookfiles")
+
 
 
 ```
@@ -3747,7 +3835,7 @@ latest_file <- dir_info(here("data", "example", "linelists")) %>%  # collect fil
 
 
 <!-- ======================================================= -->
-## APIs {}
+## APIs {#import_api}
 
 An "Automated Programming Interface" (API) can be used to directly request data from a website. APIs are a set of rules that allow one software application to interact with another. The client (you) sends a "request" and receives a "response" containing content. The R packages **httr** and **jsonlite** can facilitate this process. 
 
@@ -4427,7 +4515,7 @@ linelist %>%
 
 
 
-### "tidyselect" helper functions {.unnumbered}  
+### "tidyselect" helper functions {#clean_tidyselect .unnumbered}  
 
 These helper functions exist to make it easy to specify columns to keep, discard, or transform. They are from the package **tidyselect**, which is included in **tidyverse** and underlies how columns are selected in **dplyr** functions.  
 
@@ -4735,7 +4823,7 @@ Read more about using `mutate ()` on grouped dataframes in this [tidyverse mutat
 
 
 
-### Transform multiple columns {.unnumbered}
+### Transform multiple columns {#clean_across .unnumbered}
 
 
 Often to write concise code you want to apply the same transformation to multiple columns at once. A transformation can be applied to multiple columns at once using the `across()` function from the package **dplyr** (also contained within **tidyverse** package). `across()` can be used with any **dplyr** function, but is commonly used within `select()`, `mutate()`, `filter()`, or `summarise()`. See how it is applied to `summarise()` in the page on [Descriptive tables].  
@@ -5089,12 +5177,11 @@ This is a function from the **forcats** package. The **forcats** package handles
 
 If your data are class Factor and you try to convert `NA` to "Missing" by using `replace_na()`, you will get this error: `invalid factor level, NA generated`. You have tried to add "Missing" as a value, when it was not defined as a possible level of the factor, and it was rejected.  
 
-The easiest way to solve this is to use the **forcats** function `fct_explicit_na()` takes a factor column and converts `NA` values to the character "(Missing)".  
+The easiest way to solve this is to use the **forcats** function `fct_explicit_na()` which converts a column to class factor, and converts `NA` values to the character "(Missing)".  
 
 ```{r, eval=F}
 linelist %>% 
-  mutate(hospital = as_factor(hospital),
-         hospital = fct_explicit_na(hospital))
+  mutate(hospital = fct_explicit_na(hospital))
 ```
 
 A slower alternative would be to add the factor level using `fct_expand()` and then convert the missing values.  
@@ -5648,23 +5735,39 @@ A typical cleaning step after you have cleaned the columns and re-coded values i
 Within `filter()`, specify the logic that must be `TRUE` for a row in the dataset to be kept. Below we show how to filter rows based on simple and complex logical conditions.  
 
 
+
 <!-- ======================================================= -->
-### Simple `filter()` {.unnumbered} 
+### Simple filter {.unnumbered} 
 
 This simple example re-defines the dataframe `linelist` as itself, having filtered the rows to meet a logical condition. **Only the rows where the logical statement within the parentheses evaluates to `TRUE` are kept.**  
 
-In this case, the logical statement is `!is.na(case_id)`, which is asking whether the value in the column `case_id` is **not** missing (`NA`). When placed in front of a function like `is.na()` the operator `!` inverts the criteria. Thus, rows where `case_id` is **not** missing are kept.  
+In this example, the logical statement is `gender == "f"`, which is asking whether the value in the column `gender` is equal to "f" (case sensitive).   
 
 Before the filter is applied, the number of rows in `linelist` is `r nrow(linelist)`.
 
-```{r}
+```{r, eval=F}
 linelist <- linelist %>% 
-  filter(!is.na(case_id))  # keep only rows where case_id is not missing
+  filter(gender == "f")   # keep only rows where gender is equal to "f"
 ```
 
-After the filter is applied, the number of rows in `linelist` is `r nrow(linelist)`. 
+After the filter is applied, the number of rows in `linelist` is `r linelist %>% filter(gender == "f") %>% nrow()`.
 
-#### Filter by row number {.unnumbered}  
+
+### Filter out missing values {.unnumbered}  
+
+It is fairly common to want to filter out rows that have missing values. Resist the urge to write `filter(!is.na(column) & !is.na(column))` and instead use the **tidyr** function that is custom-built for this purpose: `drop_na()`. If run with empty parentheses, it removes rows with *any* missing values. Alternatively, you can provide names of specific columns to be evaluated for missingness, or use the "tidyselect" helper functions described [above](#clean_tidyselect).  
+
+```{r, eval=F}
+linelist %>% 
+  drop_na(case_id, age_years)  # drop rows with missing values for case_id or age_years
+```
+
+See the page on [Missing data] for many techniques to analyse and manage missingness in your data. 
+
+
+
+
+### Filter by row number {.unnumbered}  
 
 In a data frame or tibble, each row will usually have a "row number" that (when seen in R Viewer) appears to the left of the first column. It is not itself a true column in the data, but it can be used in a `filter()` statement.  
 
@@ -5685,9 +5788,12 @@ You can also convert the row numbers to a true column by piping your data frame 
 
 
 <!-- ======================================================= -->
-### Complex `filter()` {.unnumbered} 
+### Complex filter {.unnumbered} 
 
-More complex logical statements can be constructed using parentheses `( )`, OR `|`, and AND `&` operators. An example is below:  
+More complex logical statements can be constructed using parentheses `( )`, OR `|`, negate `!`, `%in%`, and AND `&` operators. An example is below:  
+
+
+Note: You can use the `!` operator in front of a logical criteria to negate it. For example, `!is.na(column)` evaluates to true if the column value is *not* missing. Likewise `!column %in% c("a", "b", "c")` evaluates to true if the column value is *not* in the vector.  
 
 
 #### Examine the data  {.unnumbered}  
@@ -6610,7 +6716,7 @@ See the page on [Grouping data] for a thorough explanation of grouping data with
 ```{r}
 # Make aggregated dataset of weekly case counts
 weekly_counts <- linelist %>% 
-  filter(!is.na(date_onset)) %>%      # remove cases missing onset date
+  drop_na(date_onset) %>%             # remove cases missing onset date
   mutate(weekly_cases = floor_date(   # make new column, week of onset
     date_onset,
     unit = "week")) %>%            
@@ -8003,13 +8109,15 @@ ggplot(data = linelist)+
 
 ## Convert to factor  
 
-To initially convert a character or numeric column to the class factor you have two options: the **base** R function `factor()`, or the **forcats** function `as_factor()`. We suggest using the **base** R function `factor()` because it allows you to convert to factor *and* set the order of the levels in one command (90% of the time this is all you really want to do).  
+To convert a character or numeric column to class *factor*, you can use any function from the **forcats** package (many are detailed [below](#fct_adjust)). They will convert to class factor and then also perform or allow certain ordering of the levels - for example using `fct_relevel()` lets you manually specify the level order. The function `as_factor()` simply converts the class without any further capabilities.  
 
-Below we use `mutate()` and `factor()` to convert the column `delay_cat` from class character to class factor. The column `delay_cat` is created in the [Preparation](#fct_newcat) section above. 
+The **base** R function `factor()` converts a column to factor and allows you to manually specify the order of the levels, as a character vector to its `levels = ` argument.  
+
+Below we use `mutate()` and `fct_relevel()` to convert the column `delay_cat` from class character to class factor. The column `delay_cat` is created in the [Preparation](#fct_newcat) section above. 
 
 ```{r}
 linelist <- linelist %>%
-  mutate(delay_cat = factor(delay_cat))
+  mutate(delay_cat = fct_relevel(delay_cat))
 ```
 
 *The unique "values" in this column are now considered "levels" of the factor.*  The levels have an *order*, which can be printed with the **base** R function `levels()`, or alternatively viewed in a count table via `table()` from **base** R or `tabyl()` from **janitor**. By default, the order of the levels will be alpha-numeric, as before. Note that `NA` is not a factor level.  
@@ -8018,14 +8126,11 @@ linelist <- linelist %>%
 levels(linelist$delay_cat)
 ```
 
-However, you can conveniently specify the levels and their order in the `factor()` command, as a character vector to the `levels = ` argument. The spelling must exactly match the values. The vector of values you provide sets two things:  
-
-1) The column's possible/acceptable values. These can include values that do not yet exist in the column (but might later). Later, if add rows or attempt to otherwise convert/add new values to `delay_cat`, R will return an error if the value is not in the defined levels.  
-2) The order of the levels  
+The function `fct_relevel()` has the additional utility of allowing you to manually specify the level order. Simply write the level values in order, in quotation marks, separated by commas, as shown below. Note that the spelling must exactly match the values. If you want to create levels that do not exist in the data, use [`fct_expand()` instead](#fct_add)).  
 
 ```{r}
 linelist <- linelist %>%
-  mutate(delay_cat = factor(delay_cat, levels = c("<2 days", "2-5 days", ">5 days")))
+  mutate(delay_cat = fct_relevel(delay_cat, "<2 days", "2-5 days", ">5 days"))
 ```
 
 We can now see that the levels are ordered, as specified in the previous command, in a sensible order.  
@@ -8044,8 +8149,8 @@ ggplot(data = linelist)+
 
 ## Add or drop levels  
 
-### Add {.unnumbered}
-If you need to add levels to a factor, you can do this with `fct_expand()`. Just write the factor name followed by the new levels (separated by commas). By tabulating the values, we can see the new levels and the zero counts. You can use `table()` from **base** R, or `tabyl()` from **janitor**:  
+### Add {#fct_add .unnumbered}
+If you need to add levels to a factor, you can do this with `fct_expand()`. Just write the column name followed by the new levels (separated by commas). By tabulating the values, we can see the new levels and the zero counts. You can use `table()` from **base** R, or `tabyl()` from **janitor**:  
 
 ```{r}
 linelist %>% 
@@ -8070,7 +8175,7 @@ linelist %>%
 
 
 
-## Adjust level order  
+## Adjust level order {#fct_adjust} 
 
 The package **forcats** offers useful functions to easily adjust the order of a factor's levels (after a column been defined as class factor): 
 
@@ -8083,7 +8188,9 @@ These functions can be applied to a factor column in two contexts:
 
 ### Manually {.unnumbered} 
 
-This function is used to manually order the factor levels. Within the parentheses first provide the factor column name, then provide either:  
+This function is used to manually order the factor levels. If used on a non-factor column, the column will first be converted to class factor.  
+
+Within the parentheses first provide the factor column name, then provide either:  
 
 * All the levels in the desired order (as a character vector `c()`), or  
 * One level and it's corrected placement using the `after = ` argument  
@@ -9361,8 +9468,8 @@ Here is an example of grouping cases into days *without* using `complete()`. Not
 
 ```{r}
 daily_counts <- linelist %>% 
-  filter(!is.na(date_onset)) %>%        # remove that were missing date_onset
-  count(date_onset)                     # count number of rows per unique date
+  drop_na(date_onset) %>%        # remove that were missing date_onset
+  count(date_onset)              # count number of rows per unique date
 ```
 
 ```{r message=FALSE, echo=F}
@@ -9373,14 +9480,14 @@ Below we add the `complete()` command to ensure every day in the range is repres
 
 ```{r, eval=F}
 daily_counts <- linelist %>% 
-  filter(!is.na(date_onset)) %>%                  # remove case missing date_onset
-  count(date_onset) %>%                           # count number of rows per unique date
-  complete(                                       # ensure all days appear even if no cases
-    date_onset = seq.Date(                          # re-define date colume as daily sequence of dates
+  drop_na(date_onset) %>%                 # remove case missing date_onset
+  count(date_onset) %>%                   # count number of rows per unique date
+  complete(                               # ensure all days appear even if no cases
+    date_onset = seq.Date(                # re-define date colume as daily sequence of dates
       from = min(date_onset, na.rm=T), 
       to = max(date_onset, na.rm=T),
       by = "day"),
-    fill = list(n = 0))                             # set new filled-in rows to display 0 in column n (not NA as default) 
+    fill = list(n = 0))                   # set new filled-in rows to display 0 in column n (not NA as default) 
 ```
 
 ```{r message=FALSE, echo=F}
@@ -9395,7 +9502,7 @@ The same principle can be applied for weeks. First create a new column that is t
 ```{r}
 # Make dataset of weekly case counts
 weekly_counts <- linelist %>% 
-  filter(!is.na(date_onset)) %>%          # remove cases missing date_onset
+  drop_na(date_onset) %>%                 # remove cases missing date_onset
   mutate(week = lubridate::floor_date(date_onset, unit = "week")) %>%  # new column of week of onset
   count(week) %>%                         # group data by week and count rows per group
   complete(                               # ensure all days appear even if no cases
@@ -9420,7 +9527,7 @@ To aggregate cases into months, again use `floor_date()` from the **lubridate** 
 ```{r}
 # Make dataset of monthly case counts
 monthly_counts <- linelist %>% 
-  filter(!is.na(date_onset)) %>% 
+  drop_na(date_onset) %>% 
   mutate(month = lubridate::floor_date(date_onset, unit = "months")) %>%  # new column, 1st of month of onset
   count(month) %>%                          # count cases by month
   complete(
@@ -12262,7 +12369,7 @@ options(scipen=1, digits=7)
 knitr::include_graphics(here::here("images", "descriptive_tables.png"))
 ```
 
-This page demonstrates the use of **janitor**, **dplyr**, **gtsummary**, and **base** R to summarise data and create tables with descriptive statistics. 
+This page demonstrates the use of **janitor**, **dplyr**, **gtsummary**, **rstatix**, and **base** R to summarise data and create tables with descriptive statistics. 
 
 Each of these packages has advantages and disadvantages in the areas of code simplicity, accessibility of outputs, quality of printed outputs. Use this page to decide which approach works for your scenario.  
 
@@ -12270,16 +12377,13 @@ Each of these packages has advantages and disadvantages in the areas of code sim
 *See the [Tables for presentation] page for tips on how to nicely format and print your tables.*  
 
 
-You have several choices when producing tabulation and cross-tabulation summary tables. Some of the factors to consider include code simplicity and ease, the desired output (printed to R console, or as "pretty" .png/.jpeg/.html image), and what you can do with the data afterward. Consider the points below as you choose the tool for your situation.
+You have several choices when producing tabulation and cross-tabulation summary tables. Some of the factors to consider include code simplicity, customizeability, the desired output (printed to R console, as data frame, or as "pretty" .png/.jpeg/.html image), and ease of post-processing. Consider the points below as you choose the tool for your situation.
 
-* Use `tabyl()` from **janitor** to produce and "adorn" tabulations and cross-tabulations.
-  * Cons: requires post-processing (e.g with **flextable**) for publication-ready tables.  
-* Use `summarise()` and `count()` from **dplyr** if calculating more complex statistics or preparing data for `ggplot()`
-  * Cons: similar to above but requires even more manipulation
-* Use `tbl_summary()` from **gtsummary** to produce detailed publication-ready tables
-  * Cons: missings not automatically included in percentage calculations. To use for plotting need to extract tibble from list output.
-* Use `table()` from **base** R if you do not have access to the above packages
-  * Cons: requires the most manipulation and post-processing
+* Use `tabyl()` from **janitor** to produce and "adorn" tabulations and cross-tabulations  
+* Use `get_summary_stats()` from **rstatix** to easily generate data frames of numeric summary statistics for multiple columns and/or groups  
+* Use `summarise()` and `count()` from **dplyr** for more complex statistics, tidy data frame outputs, or preparing data for `ggplot()`  
+* Use `tbl_summary()` from **gtsummary** to produce detailed publication-ready tables  
+* Use `table()` from **base** R if you do not have access to the above packages  
 
 
 <!-- ======================================================= -->
@@ -12298,6 +12402,7 @@ pacman::p_load(
   skimr,        # get overview of data
   tidyverse,    # data management + ggplot2 graphics 
   gtsummary,    # summary statistics and tests
+  rstatix,      # summary statistics and statistical tests
   janitor,      # adding totals and percents to tables
   scales,       # easily convert proportions to percents  
   flextable     # converting tables to pretty images
@@ -12379,7 +12484,15 @@ You can return individual statistics with **base** R functions like `max()`, `mi
 <span style="color: orange;">**_CAUTION:_** If your data contain missing values, R wants you to know this and so will return `NA` unless you specify to the above mathematical functions that you want R to ignore missing values, via the argument `na.rm = TRUE`.</span>
 
 
+You can use the `get_summary_stats()` function from **rstatix** to return summary statistics *in a data frame format*. This can be helpful for performing subsequent operations or plotting on the numbers. See the [Simple statistical tests] page for more details on the **rstatix** package and its functions.  
 
+```{r}
+linelist %>% 
+  get_summary_stats(
+    age, wt_kg, ht_cm, ct_blood, temp,  # columns to calculate for
+    type = "common")                    # summary stats to return
+
+```
 
 
 
@@ -12766,6 +12879,22 @@ linelist %>%
     )
 ```
 
+While **dplyr** `summarise()` certainly offers more fine control, you may find that all the summary statistics you need can be produced with `get_summary_stat()` from the **rstatix** package. If operating on grouped data, if will return 0%, 25%, 50%, 75%, and 100%. If applied to ungrouped data, you can specify the percentiles with `probs = c(.05, .5, .75, .98)`.  
+
+
+```{r}
+linelist %>% 
+  group_by(hospital) %>% 
+  rstatix::get_summary_stats(age, type = "quantile")
+```
+
+```{r}
+linelist %>% 
+  rstatix::get_summary_stats(age, type = "quantile")
+```
+
+
+
 ### Summarise aggregated data {.unnumbered}  
 
 *If you begin with aggregated data*, using `n()` return the number of *rows*, not the sum of the aggregated counts. To get sums, use `sum()` on the data's counts column.  
@@ -12776,8 +12905,7 @@ Below we create this example data frame of `linelist` case counts by outcome and
 
 ```{r}
 linelist_agg <- linelist %>% 
-  filter(!is.na(gender),
-         !is.na(outcome)) %>% 
+  drop_na(gender, outcome) %>% 
   count(outcome, gender)
 
 linelist_agg
@@ -13065,9 +13193,11 @@ table
 
 
 
-## **gtsummary** package   
+## **gtsummary** package {#tbl_gt}   
 
 If you want to print your summary statistics in a pretty, publication-ready graphic, you can use the **gtsummary** package and its function `tbl_summary()`. The code can seem complex at first, but the outputs look very nice and print to your RStudio Viewer panel as an HTML image. Read a [vignette here](http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html).    
+
+You can also add the results of statistical tests to **gtsummary** tables. This process is described in the **gtsummary** section of the [Simple statistical tests](#stats_gt) page.  
 
 To introduce `tbl_summary()` we will show the most basic behavior first, which actually produces a large and beautiful table. Then, we will examine in detail how to make adjustments and more tailored tables. 
 
@@ -13287,7 +13417,24 @@ options(scipen=1, digits=7)
 # Simple statistical tests { }
 
 
-This page demonstrates the use of **base** R, **gtsummary**, and **dplyr** to conduct simple statistical tests.  
+This page demonstrates how to conduct simple statistical tests using **base** R, **rstatix**, and **gtsummary**.  
+
+* T-test  
+* Shapiro-Wilk test  
+* Wilcoxon rank sum test  
+* Kruskal-Wallis test  
+* Chi-squared test  
+* Correlations between numeric variables  
+
+...many other tests can be performed, but we showcase just these common ones and link to further documentation.  
+
+Each of the above packages bring certain advantages and disadvantages:  
+
+* Use **base** R functions to print a statistical outputs to the R Console  
+* Use **rstatix** functions to return results in a data frame, or if you want tests to run by group  
+* Use **gtsummary** if you want to quickly print publication-ready tables  
+
+
 
 <!-- ======================================================= -->
 ## Preparation {  }
@@ -13305,15 +13452,17 @@ pacman::p_load(
   skimr,        # get overview of data
   tidyverse,    # data management + ggplot2 graphics, 
   gtsummary,    # summary statistics and tests
+  rstatix,      # statistics
+  corrr,        # correlation analayis for numeric variables
   janitor,      # adding totals and percents to tables
-  flextable,    # converting tables to HTML
-  corrr         # correlation analayis for numeric variables
+  flextable     # converting tables to HTML
   )
 ```
 
 ### Import data {.unnumbered}
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data.
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).  
+
 
 ```{r, echo=F}
 # import the linelist into R
@@ -13322,7 +13471,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 
 ```{r, eval=F}
 # import the linelist
-linelist <- import("linelist_cleaned.xlsx")
+linelist <- import("linelist_cleaned.rds")
 ```
 
 The first 50 rows of the linelist are displayed below.
@@ -13336,9 +13485,9 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 
 
 
-## **base** R {.unnumbered}
+## **base** R {}
 
-You can use **base** R functions to produce the results of statistical tests. The commands are relatively simple and results will print to the R Console for simple viewing. However, the outputs are usually lists and so are harder to manipulate if you want to use the results in subsequent code operations. 
+You can use **base** R functions to conduct statistical tests. The commands are relatively simple and results will print to the R Console for simple viewing. However, the outputs are usually lists and so are harder to manipulate if you want to use the results in subsequent operations. 
 
 ### T-tests {.unnumbered} 
 
@@ -13348,7 +13497,7 @@ A [t-test](https://en.wikipedia.org/wiki/Student%27s_t-test), also called "Stude
 
 ```{r}
 ## compare mean age by outcome group with a t-test
-t.test(age_years ~ outcome, data = linelist)
+t.test(age_years ~ gender, data = linelist)
 ```
 
 **Syntax 2:** You can compare two separate numeric vectors using this alternative syntax. For example, if the two columns are in different data sets.  
@@ -13357,7 +13506,7 @@ t.test(age_years ~ outcome, data = linelist)
 t.test(df1$age_years, df2$age_years)
 ```
 
-You can also use a t-test to determine whether a sample mean is significantly different from some specific value. Here we conduct a one-sample t-test with the known/hypothesized population mean on the right side of the equation:  
+You can also use a t-test to determine whether a sample mean is significantly different from some specific value. Here we conduct a one-sample t-test with the known/hypothesized population mean as `mu = `:  
 
 ```{r, eval=F}
 t.test(linelist$age_years, mu = 45)
@@ -13409,15 +13558,114 @@ chisq.test(linelist$gender, linelist$outcome)
 
 
 
-## `gtsummary` package {.unnumbered}
+## **rstatix** package {}
 
-Use **gtsummary** if you are looking to add the results of a statistical test to a pretty table (described in descriptive tables section). 
+The **rstatix** package offers the ability to run statistical tests and retrieve results in a "pipe-friendly" framework. The results are automatically in a data frame so that you can perform subsequent operations on the results. It is also easy to group the data being passed into the functions, so that the statistics are run for each group.  
+
+
+### Summary statistics {.unnumbered}  
+
+The function `get_summary_stats()` is a quick way to return summary statistics. Simply pipe your dataset to this function and provide the columns to analyse. If no columns are specified, the statistics are calculated for all columns.  
+
+By default, a full range of summary statistics are returned: n, max, min, median, 25%ile, 75%ile, IQR, median absolute deviation (mad), mean, standard deviation, standard error, and a confidence interval of the mean. 
+
+
+```{r}
+linelist %>%
+  rstatix::get_summary_stats(age, temp)
+```
+
+You can specify a subset of summary statistics to return by providing one of the following values to `type = `: "full", "common", "robust", "five_number", "mean_sd", "mean_se", "mean_ci", "median_iqr", "median_mad", "quantile", "mean", "median", "min", "max".  
+
+It can be used with grouped data as well, such that a row is returned for each grouping-variable:  
+
+```{r}
+linelist %>%
+  group_by(hospital) %>%
+  rstatix::get_summary_stats(age, temp, type = "common")
+```
+
+You can also use **rstatix** to conduct statistical tests:  
+
+### T-test {.unnumbered}  
+
+Use a formula syntax to specify the numeric and categorical columns:  
+
+```{r}
+linelist %>% 
+  t_test(age_years ~ gender)
+```
+
+Or use `~ 1` and specify `mu = ` for a one-sample T-test. This can also be done by group.  
+
+```{r}
+linelist %>% 
+  t_test(age_years ~ 1, mu = 30)
+```
+
+If applicable, the statistical tests can be done by group, as shown below:  
+
+```{r}
+linelist %>% 
+  group_by(gender) %>% 
+  t_test(age_years ~ 1, mu = 18)
+```
+
+### Shapiro-Wilk test {.unnumbered}  
+
+As stated above, sample size must be between 3 and 5000.  
+
+```{r}
+linelist %>% 
+  head(500) %>%            # first 500 rows of case linelist, for example only
+  shapiro_test(age_years)
+```
+
+### Wilcoxon rank sum test {.unnumbered}  
+
+```{r}
+linelist %>% 
+  wilcox_test(age_years ~ gender)
+```
+
+
+### Kruskal-Wallis test {.unnumbered}  
+
+Also known as the Mann-Whitney U test.  
+
+```{r}
+linelist %>% 
+  kruskal_test(age_years ~ outcome)
+```
+
+
+### Chi-squared test {.unnumbered}  
+
+The chi-square test function accepts a table, so first we create a cross-tabulation. There are many ways to create a cross-tabulation (see [Descriptive tables]) but here we use `tabyl()` from **janitor** and remove the left-most column of value labels before passing to `chisq_test()`.  
+
+```{r}
+linelist %>% 
+  tabyl(gender, outcome) %>% 
+  select(-1) %>% 
+  chisq_test()
+
+```
+
+Many many more functions and statistical tests can be run with **rstatix** functions. See the documentation for **rstatix** [online here](https://github.com/kassambara/rstatix) or by entering ?rstatix.  
+
+
+
+
+
+## `gtsummary` package {#stats_gt}
+
+Use **gtsummary** if you are looking to add the results of a statistical test to a pretty table that was created with this package (as described in the **gtsummary** section of the [Descriptive tables](#tbl_gt) page).  
 
 Performing statistical tests of comparison with `tbl_summary` is done by adding the 
 `add_p` function to a table and specifying which test to use. It is possible to get p-values corrected for multiple testing by using the
 `add_q` function. Run `?tbl_summary` for details.  
 
-### Chi-squared test 
+### Chi-squared test {.unnumbered}
 
 Compare the proportions of a categorical variable in two groups. The default statistical test for `add_p()` when applied to a categorical variable is to perform a chi-squared test of independence with continuity correction, but if any expected call count is below 5 then a Fisher's exact test is used. 
 
@@ -13485,157 +13733,157 @@ linelist %>%
 
 
 
-## `dplyr` package {.unnumbered}
+<!-- ## `dplyr` package {} -->
 
-Performing statistical tests in `dplyr` alone is very dense, again because it 
-does not fit within the tidy-data framework. It requires using `purrr` to create
-a list of dataframes for each of the subgroups you want to compare. See the page on [Iteration, loops, and lists] to learn about **purrr**.  
+<!-- Performing statistical tests in `dplyr` alone is very dense, again because it  -->
+<!-- does not fit within the tidy-data framework. It requires using `purrr` to create -->
+<!-- a list of dataframes for each of the subgroups you want to compare. See the page on [Iteration, loops, and lists] to learn about **purrr**.   -->
 
-An easier alternative may be the `rstatix` package. 
+<!-- An easier alternative may be the `rstatix` package.  -->
 
-### T-tests {.unnumbered} 
+<!-- ### T-tests {.unnumbered}  -->
 
-```{r ttest_dplyr}
+<!-- ```{r ttest_dplyr} -->
 
-linelist %>% 
-  ## only keep variables of interest
-  select(age, outcome) %>% 
-  ## drop those missing outcome 
-  filter(!is.na(outcome)) %>% 
-  ## specify the grouping variable
-  group_by(outcome) %>% 
-  ## create a subset of data for each group (as a list)
-  nest() %>% 
-  ## spread in to wide format
-  pivot_wider(names_from = outcome, values_from = data) %>% 
-  mutate(
-    ## calculate the mean age for the death group
-    Death_mean = map(Death, ~mean(.x$age, na.rm = TRUE)),
-    ## calculate the sd among dead 
-    Death_sd = map(Death, ~sd(.x$age, na.rm = TRUE)),
-    ## calculate the mean age for the recover group
-    Recover_mean = map(Recover, ~mean(.x$age, na.rm = TRUE)), 
-    ## calculate the sd among recovered 
-    Recover_sd = map(Recover, ~sd(.x$age, na.rm = TRUE)),
-    ## using both grouped data sets compare mean age with a t-test
-    ## keep only the p.value
-    t_test = map2(Death, Recover, ~t.test(.x$age, .y$age)$p.value)
-  ) %>% 
-  ## drop datasets 
-  select(-Death, -Recover) %>% 
-  ## return a dataset with the medians and p.value (drop missing)
-  unnest(cols = everything())
+<!-- linelist %>%  -->
+<!--   ## only keep variables of interest -->
+<!--   select(age, outcome) %>%  -->
+<!--   ## drop those missing outcome  -->
+<!--   filter(!is.na(outcome)) %>%  -->
+<!--   ## specify the grouping variable -->
+<!--   group_by(outcome) %>%  -->
+<!--   ## create a subset of data for each group (as a list) -->
+<!--   nest() %>%  -->
+<!--   ## spread in to wide format -->
+<!--   pivot_wider(names_from = outcome, values_from = data) %>%  -->
+<!--   mutate( -->
+<!--     ## calculate the mean age for the death group -->
+<!--     Death_mean = map(Death, ~mean(.x$age, na.rm = TRUE)), -->
+<!--     ## calculate the sd among dead  -->
+<!--     Death_sd = map(Death, ~sd(.x$age, na.rm = TRUE)), -->
+<!--     ## calculate the mean age for the recover group -->
+<!--     Recover_mean = map(Recover, ~mean(.x$age, na.rm = TRUE)),  -->
+<!--     ## calculate the sd among recovered  -->
+<!--     Recover_sd = map(Recover, ~sd(.x$age, na.rm = TRUE)), -->
+<!--     ## using both grouped data sets compare mean age with a t-test -->
+<!--     ## keep only the p.value -->
+<!--     t_test = map2(Death, Recover, ~t.test(.x$age, .y$age)$p.value) -->
+<!--   ) %>%  -->
+<!--   ## drop datasets  -->
+<!--   select(-Death, -Recover) %>%  -->
+<!--   ## return a dataset with the medians and p.value (drop missing) -->
+<!--   unnest(cols = everything()) -->
 
-```
-
-
-### Wilcoxon rank sum test {.unnumbered}
-
-```{r wilcox_dplyr}
-
-linelist %>% 
-  ## only keep variables of interest
-  select(age, outcome) %>% 
-  ## drop those missing outcome 
-  filter(!is.na(outcome)) %>% 
-  ## specify the grouping variable
-  group_by(outcome) %>% 
-  ## create a subset of data for each group (as a list)
-  nest() %>% 
-  ## spread in to wide format
-  pivot_wider(names_from = outcome, values_from = data) %>% 
-  mutate(
-    ## calculate the median age for the death group
-    Death_median = map(Death, ~median(.x$age, na.rm = TRUE)),
-    ## calculate the sd among dead 
-    Death_iqr = map(Death, ~str_c(
-      quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE), 
-      collapse = ", "
-      )),
-    ## calculate the median age for the recover group
-    Recover_median = map(Recover, ~median(.x$age, na.rm = TRUE)), 
-    ## calculate the sd among recovered 
-    Recover_iqr = map(Recover, ~str_c(
-      quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE), 
-      collapse = ", "
-      )),
-    ## using both grouped data sets compare age distribution with a wilcox test
-    ## keep only the p.value
-    wilcox = map2(Death, Recover, ~wilcox.test(.x$age, .y$age)$p.value)
-  ) %>% 
-  ## drop datasets 
-  select(-Death, -Recover) %>% 
-  ## return a dataset with the medians and p.value (drop missing)
-  unnest(cols = everything())
-
-```
-
-### Kruskal-wallis test {.unnumbered}
+<!-- ``` -->
 
 
-```{r kruskal_dplyr}
+<!-- ### Wilcoxon rank sum test {.unnumbered} -->
 
-linelist %>% 
-  ## only keep variables of interest
-  select(age, outcome) %>% 
-  ## drop those missing outcome 
-  filter(!is.na(outcome)) %>% 
-  ## specify the grouping variable
-  group_by(outcome) %>% 
-  ## create a subset of data for each group (as a list)
-  nest() %>% 
-  ## spread in to wide format
-  pivot_wider(names_from = outcome, values_from = data) %>% 
-  mutate(
-    ## calculate the median age for the death group
-    Death_median = map(Death, ~median(.x$age, na.rm = TRUE)),
-    ## calculate the sd among dead 
-    Death_iqr = map(Death, ~str_c(
-      quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE), 
-      collapse = ", "
-      )),
-    ## calculate the median age for the recover group
-    Recover_median = map(Recover, ~median(.x$age, na.rm = TRUE)), 
-    ## calculate the sd among recovered 
-    Recover_iqr = map(Recover, ~str_c(
-      quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE), 
-      collapse = ", "
-      )),
-    ## using the original data set compare age distribution with a kruskal test
-    ## keep only the p.value
-    kruskal = kruskal.test(linelist$age, linelist$outcome)$p.value
-  ) %>% 
-  ## drop datasets 
-  select(-Death, -Recover) %>% 
-  ## return a dataset with the medians and p.value (drop missing)
-  unnest(cols = everything())
+<!-- ```{r wilcox_dplyr} -->
 
-```
+<!-- linelist %>%  -->
+<!--   ## only keep variables of interest -->
+<!--   select(age, outcome) %>%  -->
+<!--   ## drop those missing outcome  -->
+<!--   filter(!is.na(outcome)) %>%  -->
+<!--   ## specify the grouping variable -->
+<!--   group_by(outcome) %>%  -->
+<!--   ## create a subset of data for each group (as a list) -->
+<!--   nest() %>%  -->
+<!--   ## spread in to wide format -->
+<!--   pivot_wider(names_from = outcome, values_from = data) %>%  -->
+<!--   mutate( -->
+<!--     ## calculate the median age for the death group -->
+<!--     Death_median = map(Death, ~median(.x$age, na.rm = TRUE)), -->
+<!--     ## calculate the sd among dead  -->
+<!--     Death_iqr = map(Death, ~str_c( -->
+<!--       quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE),  -->
+<!--       collapse = ", " -->
+<!--       )), -->
+<!--     ## calculate the median age for the recover group -->
+<!--     Recover_median = map(Recover, ~median(.x$age, na.rm = TRUE)),  -->
+<!--     ## calculate the sd among recovered  -->
+<!--     Recover_iqr = map(Recover, ~str_c( -->
+<!--       quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE),  -->
+<!--       collapse = ", " -->
+<!--       )), -->
+<!--     ## using both grouped data sets compare age distribution with a wilcox test -->
+<!--     ## keep only the p.value -->
+<!--     wilcox = map2(Death, Recover, ~wilcox.test(.x$age, .y$age)$p.value) -->
+<!--   ) %>%  -->
+<!--   ## drop datasets  -->
+<!--   select(-Death, -Recover) %>%  -->
+<!--   ## return a dataset with the medians and p.value (drop missing) -->
+<!--   unnest(cols = everything()) -->
 
-### Chi-squared test {.unnumbered} 
+<!-- ``` -->
+
+<!-- ### Kruskal-wallis test {.unnumbered} -->
 
 
-```{r}
-linelist %>% 
-  ## do everything by gender 
-  group_by(outcome) %>% 
-  ## count the variable of interest
-  count(gender) %>% 
-  ## calculate proportion 
-  ## note that the denominator here is the sum of each gender
-  mutate(percentage = n / sum(n) * 100) %>% 
-  pivot_wider(names_from = outcome, values_from = c(n, percentage)) %>% 
-  filter(!is.na(gender)) %>% 
-  mutate(pval = chisq.test(linelist$gender, linelist$outcome)$p.value)
-```
+<!-- ```{r kruskal_dplyr} -->
+
+<!-- linelist %>%  -->
+<!--   ## only keep variables of interest -->
+<!--   select(age, outcome) %>%  -->
+<!--   ## drop those missing outcome  -->
+<!--   filter(!is.na(outcome)) %>%  -->
+<!--   ## specify the grouping variable -->
+<!--   group_by(outcome) %>%  -->
+<!--   ## create a subset of data for each group (as a list) -->
+<!--   nest() %>%  -->
+<!--   ## spread in to wide format -->
+<!--   pivot_wider(names_from = outcome, values_from = data) %>%  -->
+<!--   mutate( -->
+<!--     ## calculate the median age for the death group -->
+<!--     Death_median = map(Death, ~median(.x$age, na.rm = TRUE)), -->
+<!--     ## calculate the sd among dead  -->
+<!--     Death_iqr = map(Death, ~str_c( -->
+<!--       quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE),  -->
+<!--       collapse = ", " -->
+<!--       )), -->
+<!--     ## calculate the median age for the recover group -->
+<!--     Recover_median = map(Recover, ~median(.x$age, na.rm = TRUE)),  -->
+<!--     ## calculate the sd among recovered  -->
+<!--     Recover_iqr = map(Recover, ~str_c( -->
+<!--       quantile(.x$age, probs = c(0.25, 0.75), na.rm = TRUE),  -->
+<!--       collapse = ", " -->
+<!--       )), -->
+<!--     ## using the original data set compare age distribution with a kruskal test -->
+<!--     ## keep only the p.value -->
+<!--     kruskal = kruskal.test(linelist$age, linelist$outcome)$p.value -->
+<!--   ) %>%  -->
+<!--   ## drop datasets  -->
+<!--   select(-Death, -Recover) %>%  -->
+<!--   ## return a dataset with the medians and p.value (drop missing) -->
+<!--   unnest(cols = everything()) -->
+
+<!-- ``` -->
+
+<!-- ### Chi-squared test {.unnumbered}  -->
+
+
+<!-- ```{r} -->
+<!-- linelist %>%  -->
+<!--   ## do everything by gender  -->
+<!--   group_by(outcome) %>%  -->
+<!--   ## count the variable of interest -->
+<!--   count(gender) %>%  -->
+<!--   ## calculate proportion  -->
+<!--   ## note that the denominator here is the sum of each gender -->
+<!--   mutate(percentage = n / sum(n) * 100) %>%  -->
+<!--   pivot_wider(names_from = outcome, values_from = c(n, percentage)) %>%  -->
+<!--   filter(!is.na(gender)) %>%  -->
+<!--   mutate(pval = chisq.test(linelist$gender, linelist$outcome)$p.value) -->
+<!-- ``` -->
 
 
 <!-- ======================================================= -->
 
 ## Correlations 
 
-Correlation between numeric variables can be investigated using the tidyverse  
-`corrr` package. It allows you to compute correlations using Pearson, Kendall
+Correlation between numeric variables can be investigated using the **tidyverse**  
+**corrr** package. It allows you to compute correlations using Pearson, Kendall
 tau or Spearman rho. The package creates a table and also has a function to 
 automatically plot the values. 
 
@@ -13712,9 +13960,7 @@ options(scipen=1, digits=7)
 
 <!-- ======================================================= -->
 
-## Overview {  }
-
-This page demonstrates the use of **base** R regression function such as `glm()` and the **gtsummary** package to 
+This page demonstrates the use of **base** R regression functions such as `glm()` and the **gtsummary** package to 
 look at associations between variables (e.g. odds ratios, risk ratios and hazard
 ratios). It also uses functions like `tidy()` from the **broom** package to clean-up regression outputs.  
 
@@ -13750,7 +13996,8 @@ pacman::p_load(
 ```
 
 ### Import data {.unnumbered}
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data.
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).  
+
 
 ```{r, echo=F}
 # import the linelist into R
@@ -13759,7 +14006,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 
 ```{r, eval=F}
 # import the linelist
-linelist <- import("linelist_cleaned.xlsx")
+linelist <- import("linelist_cleaned.rds")
 ```
 
 The first 50 rows of the linelist are displayed below.
@@ -13771,7 +14018,9 @@ DT::datatable(head(linelist, 50), rownames = FALSE, options = list(pageLength = 
 
 ### Clean data {.unnumbered}
 
-**Store the explanatory variables**  
+#### Store explanatory variables {.unnumbered}  
+
+We store the names of the explanatory columns as a character vector. This will be referenced later.  
 
 ```{r}
 ## define variables of interest 
@@ -13779,32 +14028,35 @@ explanatory_vars <- c("gender", "fever", "chills", "cough", "aches", "vomit")
 ```
 
 
-**Convert to 1's and 0's**  
+#### Convert to 1's and 0's  {.unnumbered}   
 
-Below we convert the explanatory columns from "yes"/"no" "m"/"f", and "dead"/"alive" to **1 / 0**, to cooperate with the expectations of logistic regression models. To do this efficiently, we define a vector of the column names of our explanatory variables. 
+Below we convert the explanatory columns from "yes"/"no", "m"/"f", and "dead"/"alive" to **1 / 0**, to cooperate with the expectations of logistic regression models. To do this efficiently, used `across()` from **dplyr** to transform multiple columns at one time. The function we apply to each column is `case_when()` (also **dplyr**) which applies logic to convert specified values to 1's and 0's. See sections on `across()` and `case_when()` in the [Cleaning data and core functions page](#clean_across)).  
 
-We apply the function `case_when()` to convert specified values to 1's and 0's. This function is applied all the `explanatory_vars`  columns using `across()` (see page on [Grouping data]).  
+Note: the "." below represents the column that is being processed by `across()` at that moment.
 
 ```{r}
 ## convert dichotomous variables to 0/1 
-linelist <- linelist %>% 
-  mutate(
-    ## for each of the variables listed and "outcome"
-    across(
-      all_of(c(explanatory_vars, "outcome")), 
-      ## recode male, yes and death to 1; female, no and recover to 0
-      ## otherwise set to missing
-           ~case_when(
-             . %in% c("m", "yes", "Death")   ~ 1,
-             . %in% c("f", "no",  "Recover") ~ 0, 
-             TRUE                            ~ NA_real_
-           ))
+linelist <- linelist %>%  
+  mutate(across(                                      
+    .cols = all_of(c(explanatory_vars, "outcome")),  ## for each column listed and "outcome"
+    .fns = ~case_when(                              
+      . %in% c("m", "yes", "Death")   ~ 1,           ## recode male, yes and death to 1
+      . %in% c("f", "no",  "Recover") ~ 0,           ## female, no and recover to 0
+      TRUE                            ~ NA_real_)    ## otherwise set to missing
+    )
   )
+
+       
+      
 ```
 
-**Drop rows with missing values**  
+#### Drop rows with missing values {.unnumbered}  
 
-To drop rows with missing values, we add the column `age` to the `explanatory_vars` (`age` would have produced an error in the previous `case_when()` operation). Then we pipe the `linelist` to `drop_na()` to remove any rows with missing values in the `outcome` column or any of the `explanatory_vars` columns.  
+To drop rows with missing values, can use the **tidyr** function `drop_na()`. However, we only want to do this for rows that are missing values in the columns of interest.  
+
+The first thing we must to is make sure our `explanatory_vars` vector includes the column `age` (`age` would have produced an error in the previous `case_when()` operation, which was only for dichotomous variables). Then we pipe the `linelist` to `drop_na()` to remove any rows with missing values in the `outcome` column or any of the `explanatory_vars` columns.  
+
+Before running the code, the number of rows in the `linelist` is `r nrow(linelist)`.  
 
 ```{r}
 ## add in age_category to the explanatory vars 
@@ -13825,7 +14077,7 @@ The number of rows remaining in `linelist` is `r nrow(linelist)`.
 
 Just like in the page on [Descriptive tables](https://epirhandbook.com/descriptive-tables.html), your use case will determine which R package you use. We present two options for doing univariate analysis:  
 
-* Use functions available in **base** to quickly print results to the console. Use the **broom** package to tidy up the outputs.  
+* Use functions available in **base** R to quickly print results to the console. Use the **broom** package to tidy up the outputs.  
 * Use the **gtsummary** package to model and get publication-ready outputs  
 
 
@@ -13843,7 +14095,7 @@ The function `glm()` from the **stats** package (part of **base** R) is used to 
 glm(formula, family, data, weights, subset, ...)
 ```
 
-* `formula = ` The model is provided to `glm()` as an equation, with the outcome on the left and explanatory variables on the right of a tilde `~`. In this example we are assessing the association between different age categories and the outcome of death (now coded as 1, see Preparation section).  
+* `formula = ` The model is provided to `glm()` as an equation, with the outcome on the left and explanatory variables on the right of a tilde `~`.  
 * `family = ` This determines the type of model to run. For logistic regression, use `family = "binomial"`, for poisson use `family = "poisson"`. Other examples are in the table below.  
 * `data = ` Specify your data frame  
 
@@ -13871,14 +14123,14 @@ For a walk-through of different regressions, see the [UCLA stats page](https://s
 
 #### Univariate `glm()` {.unnumbered}
 
-Below is a univariate model of `outcome` by age category. We save the model output as `model` and then print it within `summary()` to the console. Note the Estimates provided are the *log odds*. The baseline level is the first factor level of `age_cat` (0-4).  
+In this example we are assessing the association between different age categories and the outcome of death (coded as 1 in the Preparation section). Below is a univariate model of `outcome` by `age_cat`. We save the model output as `model` and then print it with `summary()` to the console. Note the estimates provided are the *log odds* and that the baseline level is the first factor level of `age_cat` ("0-4").  
 
 ```{r}
 model <- glm(outcome ~ age_cat, family = "binomial", data = linelist)
 summary(model)
 ```
 
-To alter the baseline level of a given variable, ensure the column is class Factor and set the first level (see page on [Factors]. For example below we take `linelist` column `age_cat` and set "20-29" as the baseline before piping the modified dataset into `glm()`.  
+To alter the baseline level of a given variable, ensure the column is class Factor and move the desired level to the first position with `fct_relevel()` (see page on [Factors]). For example, below we take column `age_cat` and set "20-29" as the baseline before piping the modified data frame into `glm()`.  
 
 ```{r}
 linelist %>% 
@@ -13889,17 +14141,17 @@ linelist %>%
 
 #### Printing results {.unnumbered}
 
-For most uses, several modifications must be made to the above outputs. The function `tidy()` from the package **broom** is very convenient for making the model results presentable. Here we demonstrate how to combine model outputs with a table of counts.  
+For most uses, several modifications must be made to the above outputs. The function `tidy()` from the package **broom** is convenient for making the model results presentable.  
+
+Here we demonstrate how to combine model outputs with a table of counts.  
 
 1) Get the *exponentiated* log odds ratio estimates and confidence intervals by passing the model to `tidy()` and setting `exponentiate = TRUE` and `conf.int = TRUE`.  
 
 ```{r odds_base_single}
 
 model <- glm(outcome ~ age_cat, family = "binomial", data = linelist) %>% 
-  # clean up the outputs of the regression (exponentiate and produce CIs)
-  tidy(exponentiate = TRUE, conf.int = TRUE) %>% 
-  # round all numeric columns
-  mutate(across(is.numeric, round, digits = 2))
+  tidy(exponentiate = TRUE, conf.int = TRUE) %>%        # exponentiate and produce CIs
+  mutate(across(where(is.numeric), round, digits = 2))  # round all numeric columns
 ```
 
 Below is the outputted tibble `model`:  
@@ -13909,24 +14161,27 @@ Below is the outputted tibble `model`:
 DT::datatable(model, rownames = FALSE, options = list(pageLength = nrow(model), scrollX=T), class = 'white-space: nowrap' )
 ```
 
-2) Combine these model results with a table of counts. Below, we create the counts table by applying **dplyr** functions on the `linelist` (see page on [Grouping data]).  
-
-* Group rows by outcome, and get counts by age category  
-* Pivot wider so the column are `age_cat`, `0`, and `1`  
-* Remove row for `NA` `age_cat`, if applicable, to align with the model results  
+2) Combine these model results with a table of counts. Below, we create the a counts cross-table with the `tabyl()` function from **janitor**, as covered in the [Descriptive tables] page.  
 
 ```{r}
-
 counts_table <- linelist %>% 
-  ## remove cases with missing outcome or age category
-  filter(!is.na(outcome) & !is.na(age_cat)) %>% 
-  ## get counts of variable of interest grouped by outcome
-  group_by(outcome) %>% 
-  ## gets number or rows by unique outcome-age category combinations  
-  count(age_cat) %>% 
-  ## spread data to wide format (as in cross-tabulation)
-  pivot_wider(names_from = outcome, values_from = n) 
+  janitor::tabyl(age_cat, outcome)
 ```
+
+
+<!-- * Group rows by outcome, and get counts by age category   -->
+<!-- * Pivot wider so the column are `age_cat`, `0`, and `1`   -->
+<!-- * Remove row for `NA` `age_cat`, if applicable, to align with the model results   -->
+
+<!-- ```{r} -->
+<!-- counts_table <- linelist %>%  -->
+<!--   filter(!is.na(outcome) & !is.na(age_cat)) %>%    # ensure outcome and age_cat are present  -->
+<!--   group_by(outcome) %>%                            # get counts of variable of interest grouped by outcome -->
+<!--   count(age_cat) %>%   ## gets number or rows by unique outcome-age category combinations   -->
+<!--   pivot_wider(names_from = outcome, values_from = n)    ## spread data to wide format (as in cross-tabulation) -->
+
+<!-- ``` -->
+
 
 Here is what this `counts_table` data frame looks like:  
 
@@ -13935,24 +14190,21 @@ Here is what this `counts_table` data frame looks like:
 DT::datatable(counts_table, rownames = FALSE, options = list(pageLength = nrow(counts_table), scrollX=T), class = 'white-space: nowrap' )
 ```
 
-Now we can bind the `counts_table` and the `model` results together horizontally with `bind_cols()` (**dplyr**). In this code, the `.` represents the piped object `counts_table` and we bind it to `model`. To finish the process, we use `select()` to pick the desired columns and their order, and apply the **base** R `round()` function to all numeric columns specifying 2 decimal places.  
+Now we can bind the `counts_table` and the `model` results together horizontally with `bind_cols()` (**dplyr**). Remember that with `bind_cols()` the rows in the two data frames must be aligned perfectly. In this code, because we are binding within a pipe chain, we use `.` to represent the piped object `counts_table` as we bind it to `model`. To finish the process, we use `select()` to pick the desired columns and their order, and finally apply the **base** R `round()` function across all numeric columns to specify 2 decimal places.  
 
 ```{r, message=F, warning=F}
-combined <- counts_table %>% 
-  ## merge with the outputs of the regression 
-  bind_cols(., model) %>% 
-  ## only keep columns interested in 
-  select(term, 2:3, estimate, conf.low, conf.high, p.value) %>% 
-  ## round values to 2 decimal places
-  mutate(across(is.numeric, round, digits = 2))
+combined <- counts_table %>%           # begin with table of counts
+  bind_cols(., model) %>%              # combine with the outputs of the regression 
+  select(term, 2:3, estimate,          # select and re-order cols
+         conf.low, conf.high, p.value) %>% 
+  mutate(across(where(is.numeric), round, digits = 2)) ## round to 2 decimal places
 ```
 
-Here is what the combined data frame looks like:  
+Here is what the combined data frame looks like, printed nicely as an image with a function from **flextable**. The [Tables for presentation] explains how to customize such tables with **flextable**, or or you can use numerous other packages such as **knitr** or **GT**.  
 
-
-```{r, message=FALSE, echo=F}
-# display the linelist data as a table
-DT::datatable(combined, rownames = FALSE, options = list(pageLength = nrow(combined), scrollX=T), class = 'white-space: nowrap' )
+```{r}
+combined <- combined %>% 
+  flextable::qflextable()
 ```
 
 
@@ -13960,10 +14212,9 @@ DT::datatable(combined, rownames = FALSE, options = list(pageLength = nrow(combi
 
 Below we present a method using `glm()` and `tidy()` for a more simple approach, see the section on **gtsummary**.  
 
-To run the models on several exposure variables to produce univariate odds ratios (i.e. 
-not controlling for each other), you can use the approach below. It uses `str_c()` from **stringr** to create univariate formulas,, runs the `glm()` regression on each formula, passes each `glm()` output to `tidy()` and finally collapses all the model outputs together with `bind_rows()` from **tidyr***. This approach uses `map()` from the package **purrr** to iterate - see the page on [Iteration, loops, and lists] for more information on this tool.  
+To run the models on several exposure variables to produce univariate odds ratios (i.e. not controlling for each other), you can use the approach below. It uses `str_c()` from **stringr** to create univariate formulas (see [Characters and strings]), runs the `glm()` regression on each formula, passes each `glm()` output to `tidy()` and finally collapses all the model outputs together with `bind_rows()` from **tidyr**. This approach uses `map()` from the package **purrr** to iterate - see the page on [Iteration, loops, and lists] for more information on this tool.  
 
-1) Create a vector of column names of the explanatory variables. We already have this as `explanatory_vars` from the data Preparation section of this page.  
+1) Create a vector of column names of the explanatory variables. We already have this as `explanatory_vars` from the Preparation section of this page.  
 
 2) Use `str_c()` to create multiple string formulas, with `outcome` on the left, and a column name from `explanatory_vars` on the right. The period `.` substitutes for the column name in `explanatory_vars`.  
 
@@ -13973,7 +14224,7 @@ explanatory_vars %>% str_c("outcome ~ ", .)
 
 3) Pass these string formulas to `map()` and set `~glm()` as the function to apply to each input. Within `glm()`, set the regression formula as `as.formula(.x)` where `.x` will be replaced by the string formula defined in the step above. `map()` will loop over each of the string formulas, running regressions for each one.  
 
-4) The outputs of this first `map()` are passed to a second `map()` command, which applied `tidy()` to the regression outputs.  
+4) The outputs of this first `map()` are passed to a second `map()` command, which applies `tidy()` to the regression outputs.  
 
 5) Finally the output of the second `map()` (a list of tidied data frames) is condensed with `bind_rows()`, resulting in one data frame with all the univariate results.  
 
@@ -14001,7 +14252,7 @@ models <- explanatory_vars %>%       # begin with variables of interest
   bind_rows() %>% 
   
   # round all numeric columns
-  mutate(across(is.numeric, round, digits = 2))
+  mutate(across(where(is.numeric), round, digits = 2))
 ```
 
 This time, the end object `models` is longer because it now represents the combined results of several univariate regressions. Click through to see all the rows of `model`.  
@@ -14025,7 +14276,7 @@ univ_tab_base <- explanatory_vars %>%
         pivot_wider(              ## spread to wide format (as in cross-tabulation)
           names_from = outcome,
           values_from = n) %>% 
-        filter(!is.na(.data[[.x]])) %>%  ## drop rows with missings
+        drop_na(.data[[.x]]) %>%         ## drop rows with missings
         rename("variable" = .x) %>%      ## change variable of interest column to "variable"
         mutate(variable = as.character(variable))} ## convert to character, else non-dichotomous (categorical) variables come out as factor and cant be merged
       ) %>% 
@@ -14040,7 +14291,7 @@ univ_tab_base <- explanatory_vars %>%
   select(term, 2:3, estimate, conf.low, conf.high, p.value) %>% 
   
   ## round decimal places
-  mutate(across(is.numeric, round, digits = 2))
+  mutate(across(where(is.numeric), round, digits = 2))
 
 ```
 
@@ -14057,7 +14308,7 @@ DT::datatable(univ_tab_base, rownames = FALSE, options = list(pageLength = 5, sc
 
 <!-- ======================================================= -->
 
-### **gtsummary** package {.unnumbered}
+### **gtsummary** package {#reg_gt_uni .unnumbered}
 
 Below we present the use of `tbl_uvregression()` from the **gtsummary** package. Just like in the page on [Descriptive tables](https://epirhandbook.com/descriptive-tables.html), **gtsummary** functions do a good job of running statistics *and* producing professional-looking outputs. This function produces a table of univariate regression results.  
 
@@ -14095,20 +14346,6 @@ Stratified analysis is currently still being worked on for **gtsummary**,
 this page will be updated in due course. 
 
 
-<!-- ======================================================= -->
-
-### **gtsummary** package {.unnumbered}
-
-TODO
-
-<!-- ======================================================= -->
-
-### **base** R {.unnumbered}
-
-TODO
-
-<!-- ======================================================= -->
-
 
 
 ## Multivariable  
@@ -14118,12 +14355,13 @@ For multivariable analysis, we again present two approaches:
 * `glm()` and `tidy()`  
 * **gtsummary** package  
 
-The workflow is similar for each, as shown below, and only the last step of pulling a final table together is different.
+The workflow is similar for each and only the last step of pulling together a final table is different.
 
 
 ### Conduct multivariable {.unnumbered}  
 
-Use `glm()` but add more variables to the right side of the equation, separated by plus symbols (`+`). 
+
+Here we use `glm()` but add more variables to the right side of the equation, separated by plus symbols (`+`). 
 
 
 To run the model with all of our explanatory variables we would run:  
@@ -14141,7 +14379,7 @@ glm(outcome ~ gender + age_cat * fever, family = "binomial", data = linelist)
 ```
 
 
-*Optionally*, you can leverage the pre-defined vector of column names and re-create the above command using `str_c()` as shown below. This might be useful if your explanatory variable names are changing, or you don't want to type them all out again.  
+*Optionally*, you can use this code to leverage the pre-defined vector of column names and re-create the above command using `str_c()`. This might be useful if your explanatory variable names are changing, or you don't want to type them all out again.  
 
 ```{r mv_regression}
 
@@ -14156,7 +14394,7 @@ mv_reg <- explanatory_vars %>%  ## begin with vector of explanatory column names
 
 #### Building the model {.unnumbered}  
 
-You can build you model step-by-step, saving various models that include certain explanatory variables. You can compare these models with likelihood-ratio tests using `lrtest()` from the package **lmtest**, as below:  
+You can build your model step-by-step, saving various models that include certain explanatory variables. You can compare these models with likelihood-ratio tests using `lrtest()` from the package **lmtest**, as below:  
 
 <span style="color: black;">**_NOTE:_** Using **base** `anova(model1, model2, test = "Chisq)` produces the same results </span> 
 
@@ -14188,16 +14426,13 @@ As described in the section on univariate analysis, pass the model output to `ti
 ```{r mv_regression_base}
 
 mv_tab_base <- final_mv_reg %>% 
-  ## get a tidy dataframe of estimates 
-  broom::tidy(exponentiate = TRUE, conf.int = TRUE) %>% 
-  ## round 
-  mutate(across(is.numeric, round, digits = 2))
+  broom::tidy(exponentiate = TRUE, conf.int = TRUE) %>%  ## get a tidy dataframe of estimates 
+  mutate(across(where(is.numeric), round, digits = 2))          ## round 
 ```
 
 Here is what the resulting data frame looks like: 
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
 DT::datatable(mv_tab_base, rownames = FALSE, options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -14211,22 +14446,28 @@ DT::datatable(mv_tab_base, rownames = FALSE, options = list(pageLength = 10, scr
 
 #### Combine with **gtsummary**  {.unnumbered}  
 
-The `gtsummary` package provides the `tbl_regression` function, which will 
-take the outputs from a regression (`glm()` in this case) and produce an easy 
-summary table. You can also combine several different output tables produced by `gtsummary` with 
-the `tbl_merge` function. 
+The **gtsummary** package provides the `tbl_regression()` function, which will 
+take the outputs from a regression (`glm()` in this case) and produce an nice 
+summary table. 
 
 ```{r mv_regression_gt}
 ## show results table of final regression 
 mv_tab <- tbl_regression(final_mv_reg, exponentiate = TRUE)
 ```
 
-And now combine the univariate and multivariable results:  
+Let's see the table:  
+
+```{r}
+mv_tab
+```
+
+You can also combine several different output tables produced by **gtsummary** with 
+the `tbl_merge()` function. We now combine the multivariable results with the **gtsummary** *univariate* results that we created [above](#reg_gt_uni):  
 
 ```{r}
 ## combine with univariate results 
 tbl_merge(
-  tbls = list(univ_tab, mv_tab), 
+  tbls = list(univ_tab, mv_tab),                          # combine
   tab_spanner = c("**Univariate**", "**Multivariable**")) # set header names
 ```
 
@@ -14236,7 +14477,7 @@ tbl_merge(
 
 An alternative way of combining the `glm()`/`tidy()` univariate and multivariable outputs is with the **dplyr** join functions.  
 
-* Join the univariate results from earlier (which contains counts) with the tidied multivariable results  
+* Join the univariate results from earlier (`univ_tab_base`, which contains counts) with the tidied multivariable results `mv_tab_base`  
 * Use `select()` to keep only the columns we want, specify their order, and re-name them  
 * Use `round()` with two decimal places on all the column that are class Double  
 
@@ -14257,7 +14498,7 @@ left_join(univ_tab_base, mv_tab_base, by = "term") %>%
     "mv_ci_high"     = conf.high.y,
     "mv_pval"        = p.value.y 
   ) %>% 
-  mutate(across(is.double, round, 2))
+  mutate(across(where(is.double), round, 2))   
 
 ```
 
@@ -14269,33 +14510,48 @@ left_join(univ_tab_base, mv_tab_base, by = "term") %>%
 ## Forest plot {  }
 
 This section shows how to produce a plot with the outputs of your regression.
-There are two options, you can build a plot yourself using `ggplot2` or use a 
-meta-package called **easystats** (package that includes many packages).  
+There are two options, you can build a plot yourself using **ggplot2** or use a 
+meta-package called **easystats** (a package that includes many packages).  
+
+See the page on [ggplot basics] if you are unfamiliar with the **ggplot2** plotting package.  
 
 
 <!-- ======================================================= -->
 
 ### **ggplot2** package {.unnumbered}
 
-You can build a forest plot with `ggplot()` by plotting elements of the multivariable regression results. Add the layers:  
+You can build a forest plot with `ggplot()` by plotting elements of the multivariable regression results. Add the layers of the plots using these "geoms":  
 
 * estimates with `geom_point()`  
 * confidence intervals with `geom_errorbar()`  
 * a vertical line at OR = 1 with `geom_vline()`  
 
-You may want to re-arrange the order of the variables/levels on the y-axis (see how the order of age_cat levels is alphabetical and not sensical). To do this, use `fct_relevel()` from the **forcats** package to classify the column `term` as a factor and specify the order manually. See the page on [Factors] for more details.  
+Before plotting, you may want to use `fct_relevel()` from the **forcats** package to set the order of the variables/levels on the y-axis. `ggplot()` may display them in alpha-numeric order which would not work well for these age category values ("30" would appear before "5"). See the page on [Factors] for more details.  
 
 ```{r ggplot_forest}
 
 ## remove the intercept term from your multivariable results
 mv_tab_base %>% 
+  
+  #set order of levels to appear along y-axis
+  mutate(term = fct_relevel(
+    term,
+    "vomit", "gender", "fever", "cough", "chills", "aches",
+    "age_cat5-9", "age_cat10-14", "age_cat15-19", "age_cat20-29",
+    "age_cat30-49", "age_cat50-69", "age_cat70+")) %>%
+  
+  # remove "intercept" row from plot
   filter(term != "(Intercept)") %>% 
+  
   ## plot with variable on the y axis and estimate (OR) on the x axis
   ggplot(aes(x = estimate, y = term)) +
+  
   ## show the estimate as a point
   geom_point() + 
+  
   ## add in an error bar for the confidence intervals
   geom_errorbar(aes(xmin = conf.low, xmax = conf.high)) + 
+  
   ## show where OR = 1 is for reference as a dashed line
   geom_vline(xintercept = 1, linetype = "dashed")
   
@@ -14306,13 +14562,14 @@ mv_tab_base %>%
 
 ### **easystats** packages {.unnumbered}
 
-The alternative if you do not want to decide all of the different things required
-for a `ggplot`, is to use a combination of **easystats** packages. 
-In this case the **parameters** package function `model_parameters()` does the equivalent
-of **broom** package function `tidy()`. The **see** package then accepts those outputs
+An alternative, if you do not want to the fine level of control that **ggplot2** provides, is to use a combination of **easystats** packages.  
+
+The function `model_parameters()` from the **parameters** package does the equivalent
+of the **broom** package function `tidy()`. The **see** package then accepts those outputs
 and creates a default forest plot as a `ggplot()` object. 
 
 ```{r easystats_forest}
+pacman::p_load(easystats)
 
 ## remove the intercept term from your multivariable results
 final_mv_reg %>% 
@@ -14326,7 +14583,7 @@ final_mv_reg %>%
 
 ## Resources {  }
 
-Much of the information in this page is adapted from these resources and vignettes online:  
+The content of this page was informed by these resources and vignettes online:  
 
 [gtsummary](http://www.danieldsjoberg.com/gtsummary/articles/tbl_regression.html)  
 
@@ -14381,14 +14638,13 @@ knitr::include_graphics(here::here("images", "missingness.png"))
 knitr::include_graphics(here::here("images", "missingness_overview.png"))
 ```
 
-This page will cover:  
+This page will cover how to:  
 
-1) Useful functions for assessing missingness  
-2) Assess missingness in a dataframe  
-3) How to filter out rows by missingness  
-3) Plotting missingness over time  
-4) Handling how `NA` is displayed in plots  
-5) Missing value imputation, MCAR, MAR, MNAR  
+1) Assess missingness  
+2) filter out rows by missingness  
+3) Plot missingness over time  
+4) Handle how `NA` is displayed in plots  
+5) Perform missing value imputation: MCAR, MAR, MNAR  
 
 
 
@@ -14403,14 +14659,15 @@ This code chunk shows the loading of packages required for the analyses. In this
 pacman::p_load(
   rio,           # import/export
   tidyverse,     # data mgmt and viz
-  naniar         # assess and visualize missingness
+  naniar,        # assess and visualize missingness
+  mice           # missing data imputation
 )
 ```
 
 
 ### Import data {.unnumbered}
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data.
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).  
 
 ```{r, echo=F}
 # import the linelist into R
@@ -14419,7 +14676,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 
 ```{r, eval=F}
 # import the linelist
-linelist <- import("linelist_cleaned.xlsx")
+linelist <- import("linelist_cleaned.rds")
 ```
 
 The first 50 rows of the linelist are displayed below.
@@ -14549,6 +14806,14 @@ If applied to a vector, it will remove `NA` values from the vector it is applied
 sum(na.omit(my_vector))
 ```
 
+**`drop_na()`**  
+
+This is a **tidyr** function that is useful in a [data cleaning pipeline][Cleaning data and core functions]. If run with the parentheses empty, it removes rows with *any* missing values. If column names are specified in the parentheses, rows with missing values in those columns will be dropped. You can also use "tidyselect" syntax to specify the columns.  
+
+```{r, eval=F}
+linelist %>% 
+  drop_na(case_id, date_onset, age) # drops rows missing values for any of these columns
+```
 
 **`na.rm = TRUE`**  
 
@@ -15170,25 +15435,24 @@ country_data <- pop_countries %>%
      left_join(deaths_countries, by = c("Country", "age_cat5", "Sex"))
 ```
 
-We can now classify `Sex`, `age_cat5`, and `Country` as factors so their ordering is specified correctly. We use the `as_factor()` function from the **forcats** package, as described in the page on [Factors]. Note, classifying the factor levels doesn't visibly change the data, but the `arrange()` command does sort it by Country, age category, and sex.  
+We can now classify `Sex`, `age_cat5`, and `Country` as factors and set the level order using `fct_relevel()` function from the **forcats** package, as described in the page on [Factors]. Note, classifying the factor levels doesn't visibly change the data, but the `arrange()` command does sort it by Country, age category, and sex.  
 
 ```{r, warning=F, message=F}
 country_data <- country_data %>% 
-     mutate(
-          Country = as_factor(Country),
-          Country = fct_relevel(Country, "A", "B"),
+  mutate(
+    Country = fct_relevel(Country, "A", "B"),
+      
+    Sex = fct_relevel(Sex, "Male", "Female"),
+        
+    age_cat5 = fct_relevel(
+      age_cat5,
+      "0-4", "5-9", "10-14", "15-19",
+      "20-24", "25-29",  "30-34", "35-39",
+      "40-44", "45-49", "50-54", "55-59",
+      "60-64", "65-69", "70-74",
+      "75-79", "80-84", "85")) %>% 
           
-          Sex = as_factor(Sex),
-          Sex = fct_relevel(Sex, "Male", "Female"),
-          
-          age_cat5 = as_factor(age_cat5),
-          age_cat5 = fct_relevel(age_cat5,
-                                 "0-4", "5-9", "10-14", "15-19",
-                                 "20-24", "25-29",  "30-34", "35-39",
-                                 "40-44", "45-49", "50-54", "55-59",
-                                 "60-64", "65-69", "70-74",
-                                 "75-79", "80-84", "85")) %>% 
-          arrange(Country, age_cat5, Sex)
+  arrange(Country, age_cat5, Sex)
 
 ```
 
@@ -15667,7 +15931,7 @@ counts_7day <- linelist %>%
     ) %>%
   
   # remove counts with missing onset_date
-  filter(!is.na(date_onset))
+  drop_na(date_onset)
 ```
 
 The new dataset now looks like this. Note how some days are not present (no cases on those days). A simple `slide_dbl()` would incorrectly include the first seven rows in the first window.    
@@ -15731,7 +15995,7 @@ ll_months <- linelist %>%
   mutate(
     month_onset = floor_date(date_onset, "month")) %>% 
   count(month_onset) %>% 
-  filter(!is.na(month_onset)) %>% 
+  drop_na(month_onset) %>% 
   mutate(
     monthly_roll = slider::slide_index_dbl(
       n,                                # calculate avg based on value in new_cases column
@@ -15761,7 +16025,7 @@ By default `geom_ma()` uses a simple moving average (`ma_fun = "SMA"`), but othe
 ```{r}
 linelist %>% 
   count(date_onset) %>%                 # count cases per day
-  filter(!is.na(date_onset)) %>%        # remove cases missing onset date
+  drop_na(date_onset) %>%               # remove cases missing onset date
   ggplot(aes(x = date_onset, y = n))+   # start ggplot
     geom_line(                          # plot raw values
       size = 1,
@@ -16962,7 +17226,7 @@ forecasts <- purrr::map(unique(case_roll$.id),
   ## define the cut off based on latest non missing count data 
   cv_cut_off <- mini_data %>% 
     ## only keep non-missing rows
-    filter(!is.na(case_int)) %>% 
+    drop_na(case_int) %>% 
     ## get the latest week
     summarise(max(epiweek)) %>% 
     ## extract so is not in a dataframe
@@ -18702,7 +18966,7 @@ followups_clean <- followups %>%
   
   # Other cleaning
   mutate(followup_number = replace(followup_number, followup_number > 14, NA)) %>% # clean erroneous data
-  filter(!is.na(contact_id))                        # remove rows with missing contact_id
+  drop_na(contact_id)                               # remove rows with missing contact_id
 ```
 
 For each follow-up encounter, we have a follow-up status (such as whether the encounter occurred and if so, did the contact have symptoms or not). To see all the values we can run a quick `tabyl()` (from **janitor**) or `table()` (from **base** R) (see [Descriptive tables]).   by `followup_status` to see the frequency of each of the outcomes.  
@@ -19413,8 +19677,8 @@ survey_data <- survey_data %>%
 It is important that you drop erroneous observations before adding survey weights. 
 For example if you have observations with negative observation time, you will need
 to check those. 
-Another thing is if you want to drop empty rows (e.g. with `filter(!is.na(uid))`)
-or remove duplicates (see handbook section on [de-duplication](https://epirhandbook.com/de-duplication.html)
+Another thing is if you want to drop empty rows (e.g. with `drop_na(uid)`)
+or remove duplicates (see handbook section on [De-duplication] 
 for details). 
 Those without consent need to be dropped too. 
 
@@ -19486,7 +19750,7 @@ survey_data <- survey_data %>%
 ## drop those that are missing weights
 #
 survey_data <- survey_data %>%
-  filter(!is.na(surv_weight_cluster_strata))
+  drop_na(surv_weight_cluster_strata)
 ```
 
 
@@ -19629,7 +19893,7 @@ differences that may be irrelevant after weighting your data.
 ## counts and props of the study population
 ag <- survey_data %>% 
   group_by(age_group) %>% 
-  filter(!is.na(age_group)) %>% 
+  drop_na(age_group) %>% 
   tally() %>% 
   mutate(proportion = n / sum(n), 
          n_total = sum(n))
@@ -22617,7 +22881,7 @@ pacman::p_load(
 
 ### Import data {.unnumbered}  
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data.
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).
 
 ```{r, eval=T, echo=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
@@ -22625,7 +22889,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 ```
 
 ```{r, eval=F}
-linelist <- rio::import("linelist_cleaned.xlsx")
+linelist <- rio::import("linelist_cleaned.rds")
 ```
 
 The first 50 rows of the linelist are displayed below. We will focus on the continuous variables `age`, `wt_kg` (weight in kilos), `ct_blood` (CT values), and `days_onset_hosp` (difference between onset date and hospitalisation).  
@@ -23424,7 +23688,7 @@ ggplot(data = linelist,
 
 
 # with ggplot2 box plots
-ggplot(data = linelist %>% filter(!is.na(gender)), mapping = aes(y = age, x = gender, fill = gender))+
+ggplot(data = linelist %>% drop_na(gender), mapping = aes(y = age, x = gender, fill = gender))+
   geom_violin()+
   #ggforce::geom_sina(aes(color = gender), alpha = 0.5)+
   geom_boxplot( fill = NA)+
@@ -23650,7 +23914,7 @@ Below is code for creating **violin plots** (`geom_violin`) and **jitter plots**
 
 
 # A) Jitter plot by group
-ggplot(data = linelist %>% filter(!is.na(outcome)), 
+ggplot(data = linelist %>% drop_na(outcome), 
        mapping = aes(y = age,                     # Continuous variable
            x = outcome,                           # Grouping variable
            color = outcome))+                     # Color variable
@@ -23660,7 +23924,7 @@ ggplot(data = linelist %>% filter(!is.na(outcome)),
 
 
 # B) Violin plot by group
-ggplot(data = linelist %>% filter(!is.na(outcome)), 
+ggplot(data = linelist %>% drop_na(outcome), 
        mapping = aes(y = age,                      # Continuous variable
            x = outcome,                            # Grouping variable
            fill = outcome))+                       # fill variable (color)
@@ -23677,7 +23941,7 @@ One can combine the two using the `geom_sina()` function from the **ggforce** pa
 pacman::p_load(ggforce)
 
 # A) Sina plot by group
-ggplot(data = linelist %>% filter(!is.na(outcome)), 
+ggplot(data = linelist %>% drop_na(outcome), 
        aes(y = age,             # numeric variable
            x = outcome)) +      # group variable
   geom_violin()+                # create the violin plot
@@ -23686,7 +23950,7 @@ ggplot(data = linelist %>% filter(!is.na(outcome)),
 
 
 # A) Sina plot by group
-ggplot(data = linelist %>% filter(!is.na(outcome)), 
+ggplot(data = linelist %>% drop_na(outcome), 
        aes(y = age,             # numeric variable
            x = outcome)) +      # group variable
   geom_violin(aes(fill = outcome), # fill variable (color of violin background)
@@ -23755,7 +24019,7 @@ ggplot(data = linelist,
   labs(title = "A) Scatter plot of weight and age")
 
 # Scatter plot of weight and age by gender and Ebola outcome
-ggplot(data = linelist %>% filter(!is.na(gender) & !is.na(outcome)), # filter retains non-missing gender/outcome
+ggplot(data = linelist %>% drop_na(gender, outcome), # filter retains non-missing gender/outcome
        aes(y = wt_kg, x = age))+
   geom_point() +
   labs(title = "B) Scatter plot of weight and age faceted by gender and outcome")+
@@ -23928,7 +24192,7 @@ linelist <- linelist %>%
                                   "Missing")))
 
 
-ggplot(linelist %>% filter(!is.na(outcome))) + 
+ggplot(linelist %>% drop_na(outcome)) + 
   geom_bar(aes(x=hospital, fill = outcome)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90)) +
@@ -24054,11 +24318,11 @@ You may consider dropping rows not needed for this analysis. For instance, for t
 ```{r}
 #Drop missing from full linelist
 linelist <- linelist %>% 
-  filter(!is.na(outcome))
+  drop_na(outcome)
 
 #Drop missing from dplyr table
 outcome_n <- outcome_n %>% 
-  filter(!is.na(outcome))
+  drop_na(outcome)
 
 ```
 
@@ -24349,11 +24613,12 @@ We can look at a common example using age groups - by default the 5-9 age group 
 
 ```{r, eval = T, warning=F, message=F}
 
-# remove the instances of age_cat5 where data is missing
-ggplot(linelist %>%
-         filter(!is.na(age_cat5)),
-       # relevel the factor within the ggplot call (can do externally as well)
-       aes(x = forcats::fct_relevel(age_cat5, "5-9", after = 1))) +
+
+ggplot(
+  data = linelist %>% drop_na(age_cat5),     # remove rows where age_cat5 is missing
+  mapping = aes(
+    x = forcats::fct_relevel(age_cat5, "5-9", after = 1))) +    # relevel factor
+
   geom_histogram(stat = "count") +
   labs(x = "Age group", y = "Number of hospitalisations",
        title = "Total hospitalisations by age group") +
@@ -26162,7 +26427,7 @@ ggplot(data = linelist)+           # begin with linelist (many hospitals)
 
 The order in which grouped bars are stacked is best adjusted by classifying the grouping column as class Factor. You can then designate the factor level order (and their display labels). See the page on [Factors] or [ggplot tips] for details.  
 
-Before making the plot, convert the grouping column to class Factor using `as_factor()` from the **forcats** package. Then you can make other adjustments to the levels, as detailed in the page on [Factors].  
+Before making the plot, use the `fct_relevel()` function from **forcats** package to convert the grouping column to class factor and manually adjust the level order, as detailed in the page on [Factors].  
 
 ```{r}
 # load forcats package for working with factors
@@ -26170,8 +26435,7 @@ pacman::p_load(forcats)
 
 # Define new dataset with hospital as factor
 plot_data <- linelist %>% 
-  mutate(hospital = as_factor(hospital)) %>%                      # define hospital as factor
-  mutate(hospital = fct_relevel(hospital, c("Missing", "Other"))) # Set "Missing" and "Other" as top levels to appear on epicurve top
+  mutate(hospital = fct_relevel(hospital, c("Missing", "Other"))) # Convert to factor and set "Missing" and "Other" as top levels to appear on epicurve top
 
 levels(plot_data$hospital) # print levels in order
 ```
@@ -26584,7 +26848,7 @@ ll_counts_7day <- linelist %>%    # begin with linelist
   
   ## count cases by date
   count(date_onset, name = "new_cases") %>%   # name new column with counts as "new_cases"
-  filter(!is.na(date_onset)) %>%              # remove cases with missing date_onset
+  drop_na(date_onset) %>%                     # remove cases with missing date_onset
   
   ## calculate the average number of cases in 7-day window
   mutate(
@@ -27037,7 +27301,7 @@ central_weekly <- linelist %>%
   filter(hospital == "Central Hospital") %>%   # filter linelist
   mutate(week = lubridate::floor_date(date_onset, unit = "weeks")) %>%  
   count(week) %>%                              # summarize weekly case counts
-  filter(!is.na(week)) %>%                     # remove cases with missing onset_date
+  drop_na(week) %>%                            # remove cases with missing onset_date
   complete(                                    # fill-in all weeks with no cases reported
     week = seq.Date(
       from = min(week),   
@@ -28566,7 +28830,7 @@ We begin by getting the case counts for each unique age category and hospital co
 ```{r}
 # counts by hospital and age category
 links <- linelist %>% 
-  filter(!is.na(age_cat)) %>% 
+  drop_na(age_cat) %>% 
   select(hospital, age_cat) %>%
   count(hospital, age_cat) %>% 
   rename(source = hospital,
@@ -28633,14 +28897,14 @@ Here is an example where the patient Outcome is included as well. Note in the da
 ```{r}
 # counts by hospital and age category
 age_hosp_links <- linelist %>% 
-  filter(!is.na(age_cat)) %>% 
+  drop_na(age_cat) %>% 
   select(hospital, age_cat) %>%
   count(hospital, age_cat) %>% 
   rename(source = age_cat,          # re-name
          target = hospital)
 
 hosp_out_links <- linelist %>% 
-    filter(!is.na(age_cat)) %>% 
+    drop_na(age_cat) %>% 
     select(hospital, outcome) %>% 
     count(hospital, outcome) %>% 
     rename(source = hospital,       # re-name
@@ -29201,7 +29465,7 @@ Next, we create a dataframe of the infectors - at the moment it consists of a si
 ```{r}
 infectors <- linelist %>% 
   select(infector) %>% 
-  filter(!is.na(infector))
+  drop_na(infector)
 ```
 
 ```{r message=FALSE, echo=F}
@@ -29537,7 +29801,7 @@ DT::datatable(facility_order, rownames = FALSE, options = list(pageLength = 5, s
 
 
 
-Now use the above vector (`facility_order$location_name`) to be the order of the factor levels of location_name in the dataframe `agg_weeks`:  
+Now use the above vector (`facility_order$location_name`) to be the order of the factor levels of location_name in the data frame `agg_weeks`:  
 
 ```{r, warning=F, message=F}
 # load package 
@@ -29545,9 +29809,10 @@ pacman::p_load(forcats)
 
 # create factor and define levels manually
 agg_weeks <- agg_weeks %>% 
-  mutate(location_name = as_factor(location_name),
-         location_name = fct_relevel(location_name, 
-                                     levels = facility_order$location_name))
+  mutate(location_name = fct_relevel(
+    location_name,
+    levels = facility_order$location_name)
+    )
 ```
 
 And now the data are re-plotted, with location_name being an ordered factor:  
@@ -29811,11 +30076,11 @@ pacman::p_load(
 ```
 	
 You will require the development version of **epicontacts**, which can be
-installed from github using the **remotes** package. You only need to run the code
-below once, not every time you use the package.
+installed from github using the `p_install_github()` function from **pacman**. You only need to run this command
+below once, not every time you use the package (thereafter, you can use `p_load()` as usual).
 
 ```{r transmission_chains_epicontacts_install, eval = FALSE}
-remotes::install_github("reconhub/epicontacts@timeline")
+pacman::p_install_gh("reconhub/epicontacts@timeline")
 ```
 
 
@@ -30548,7 +30813,7 @@ pacman::p_load(
   ape,             # to import and export phylogenetic files
   ggtree,          # to visualize phylogenetic files
   treeio,          # to visualize phylogenetic files
-  ggnewscale)      # to vadd additional layers of color schemes
+  ggnewscale)      # to add additional layers of color schemes
 
 ```
 
@@ -32755,13 +33020,14 @@ This page will cover the basic use of the **flexdashboard** package. This packag
 
 Advantages of **flexdashboard**:  
 
-* Requires minimal non-standard R coding - with very little practice you can quickly create a dashboard  
+* It requires minimal non-standard R coding - with very little practice you can quickly create a dashboard  
 * The dashboard can usually be emailed to colleagues as a self-contained HTML file - no server required  
 * You can combine **flexdashboard** with **shiny**, **ggplotly**, and other *"html widgets"* to add interactivity  
 
 Disadvantages of **flexdashboard**:  
 
 * Less customization as compared to using **shiny** alone to create a dashboard  
+
 
 Very comprehensive tutorials on using **flexdashboard** that informed this page can be found in the Resources section. Below we describe the core features and give an example of building a dashboard to explore an outbreak, using the case `linelist` data.  
 
@@ -32805,7 +33071,7 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 ```
 
 
-## New R Markdown  
+## Create new R Markdown  
 
 After you have installed the package, create a new R Markdown file by clicking through to *File > New file > R Markdown*. 
 
@@ -32826,11 +33092,11 @@ knitr::include_graphics(here::here("images", "flexdashboard_new2.png"))
 
 ## The script  
 
-The script is a R Markdown script, and so has the same components and organization as described in the page on [Reports with R Markdown]. We briefly re-visit these and highlight differences from other R Markdown output formats:  
+The script is a R Markdown script, and so has the same components and organization as described in the page on [Reports with R Markdown]. We briefly re-visit these and highlight differences from other R Markdown output formats.  
 
 ### YAML {.unnumbered}  
 
-At the top of the script is the "YAML" header. This must begin with three dashes `---` and must close with three dashes `---`. YAML parameters comes in `key:value` pairs. The placement of colons in YAML is important - the `key:value` pairs are separated by colons (not equals signs!). 
+At the top of the script is the "YAML" header. This must begin with three dashes `---` and must close with three dashes `---`. YAML parameters comes in `key:value` pairs. **The indentation and placement of colons in YAML is important** - the `key:value` pairs are separated by colons (not equals signs!). 
 
 The YAML should begin with metadata for the document. The order of these primary YAML parameters (not indented) does not matter. For example:  
 
@@ -32842,7 +33108,7 @@ date: "`r Sys.Date()`"
 
 You can use R code in YAML values by putting it like in-line code (preceeded by `r` within backticks) but also within quotes (see above for Date).  
 
-A required YAML parameter is `output: `, which specifies the type of file to be produced (e.g. `html_document`, `pdf_document`, `word_document`, or `powerpoint_presentation`). For **flexdashboard** this parameter value is a bit confusing - it must be set as `output:flexdashboard::flex_dashboard`. Note the single and double colons, adn the underscore. This YAML output parameter is often followed by *an additional colon* and indented sub-parameters (see `orientation: ` and `vertical_layout: ` parameters below).  
+A required YAML parameter is `output: `, which specifies the type of file to be produced (e.g. `html_document`, `pdf_document`, `word_document`, or `powerpoint_presentation`). For **flexdashboard** this parameter value is a bit confusing - it must be set as `output:flexdashboard::flex_dashboard`. Note the single and double colons, and the underscore. This YAML output parameter is often followed by *an additional colon* and indented sub-parameters (see `orientation: ` and `vertical_layout: ` parameters below).  
 
 ```{r, eval=F}
 title: "My dashboard"
@@ -32862,16 +33128,16 @@ If appropriate, logical values should be given in YAML in lowercase (`true`, `fa
 
 ### Code chunks {.unnumbered}  
 
-A R Markdown script will contain multiple code "chunks" - these are areas of the script where you can write multiple-line R code and they function just like mini R scripts.  
+A R Markdown script can contain multiple code "chunks" - these are areas of the script where you can write multiple-line R code and they function just like mini R scripts.  
 
-Code chunks are created with three back-ticks and curly brackets with a lowercase r within. The chunk is closed with three backticks. You can create a new chunk by typing it out yourself, by using the keyboard shortcut "Ctrl + Alt + i" (or Cmd + Shift + r in Mac), or by clicking the green 'insert a new code chunk' icon at the top of your script editor. Many examples are given below.  
+Code chunks are created with three back-ticks and curly brackets with a lowercase "r" within. The chunk is closed with three backticks. You can create a new chunk by typing it out yourself, by using the keyboard shortcut "Ctrl + Alt + i" (or Cmd + Shift + r in Mac), or by clicking the green 'insert a new code chunk' icon at the top of your script editor. Many examples are given below.  
 
 
 ### Narrative text {.unnumbered}  
 
 Outside of an R code "chunk", you can write narrative text. As described in the page on [Reports with R Markdown], you can italicize text by surrounding it with one asterisk (*), or bold by surrounding it with two asterisks (**). Recall that bullets and numbering schemes are sensitive newlines, indentation, and finishing a line with two spaces.  
 
-You can also insert in-line R code into text as described in the [Reports with R Markdown] page, by surrounding the code with backticks and starting the command with "r" (see example with date above).  
+You can also insert in-line R code into text as described in the [Reports with R Markdown] page, by surrounding the code with backticks and starting the command with "r": `` `r 1+1` ``(see example with date above).  
 
 
 
@@ -32902,7 +33168,7 @@ Note that these attributes are written after a *heading* in a text portion of th
 Section attributes specific to **flexdashboard** include:  
 
 * `{data-orientation=}` Set to either `rows` or `columns`. If your dashboard has multiple pages, add this attribute to each page to indicate orientation (further explained in [layout section](#layout)).  
-* `{data-width = }` and `{data-height = }` set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical). Absolute sizes are adjusted to best fill the space on any display device thanks to the [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) engine.  
+* `{data-width=}` and `{data-height=}` set relative size of charts, columns, rows laid out in the same dimension (horizontal or vertical). Absolute sizes are adjusted to best fill the space on any display device thanks to the [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) engine.  
      * Height of charts also depends on whether you set the YAML parameter `vertical_layout: fill` or `vertical_layout: scroll`. If set to scroll, figure height will reflect the traditional `fig.height = ` option in the R code chunk.  
      * See complete size documentation at the [flexdashboard website](https://rmarkdown.rstudio.com/flexdashboard/using.html#sizing)  
 * `{.hidden}` Use this to exclude a specific page from the navigation bar  
@@ -32921,7 +33187,7 @@ Adjust the layout of your dashboard in the following ways:
 
 ### Pages {.unnumbered}  
 
-First-level headings (#) in the R Markdown will represent "pages" of the dashboard. By default pages will appear in a navigation bar along the top of the dashboard.  
+First-level headings (#) in the R Markdown will represent "pages" of the dashboard. By default, pages will appear in a navigation bar along the top of the dashboard.  
 
 ```{r, out.height = c('100%'), out.width = c('100%'), echo=F}
 knitr::include_graphics(here::here("images", "flexdashboard_pages_top_script.png"))
@@ -33017,10 +33283,13 @@ knitr::include_graphics(here::here("images", "flexdashboard_tables_view.png"))
 
 If you want to show a dynamic table that allows the user to filter, sort, and/or click through "pages" of the data frame, use the package **DT** and it's function `datatable()`, as in the code below.  
 
-The example code below, the data frame `linelist` is printed. You can set `rownames = FALSE` to conserve horizontal space, and `filter="top"` to have filters on top of every column. A list of other specifications can be provided to `options = `. Below, we set `pageLength = ` so that 5 rows appear and `scrollX = ` so the user can use a scroll bar on the bottom to scroll horizontally. The argument `class = 'white-space: nowrap'` ensures that each row is only one line (not multiple lines). You can read about other possible arguments and values [here](https://rstudio.github.io/DT/?_ga=2.2810736.1321860763.1619286819-369061888.1601594705) or by entering `?datatable`
+The example code below, the data frame `linelist` is printed. You can set `rownames = FALSE` to conserve horizontal space, and `filter = "top"` to have filters on top of every column. A list of other specifications can be provided to `options = `. Below, we set `pageLength = ` so that 5 rows appear and `scrollX = ` so the user can use a scroll bar on the bottom to scroll horizontally. The argument `class = 'white-space: nowrap'` ensures that each row is only one line (not multiple lines). You can read about other possible arguments and values [here](https://rstudio.github.io/DT/?_ga=2.2810736.1321860763.1619286819-369061888.1601594705) or by entering `?datatable`
 
 ```{r, eval=F}
-DT::datatable(linelist, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+DT::datatable(linelist, 
+              rownames = FALSE, 
+              options = list(pageLength = 5, scrollX = TRUE), 
+              class = 'white-space: nowrap' )
 ```
 
 ### Plots {.unnumbered}  
@@ -33052,7 +33321,7 @@ knitr::include_graphics(here::here("images", "flexdashboard_ggplotly.gif"))
 
 ### HTML widgets {.unnumbered}
 
-[HTML widgets for R](http://www.htmlwidgets.org/) are a special class of R packages that enable increased interactivity by utilizing JavaScript libraries. You can embed them in R Markdown outputs (such as a flexdashboard) and in Shiny dashboards.  
+[HTML widgets for R](http://www.htmlwidgets.org/) are a special class of R packages that increases interactivity by utilizing JavaScript libraries. You can embed them in R Markdown outputs (such as a flexdashboard) and in Shiny dashboards.  
 
 Some common examples of these widgets include:  
 
@@ -33083,7 +33352,7 @@ Integrating the R package **shiny** can make your dashboards even more reactive 
 
 You can use **shiny** to produce apps/dashboards *without* flexdashboard too. The handbook page on [Dashboards with Shiny] gives an overview of this approach, including primers on **shiny** syntax, app file structure, and options for sharing/publishing (including free server options). These syntax and general tips translate into the **flexdashboard** context as well.  
 
-Embedding **shiny** in **flexdashboard** is however, a fundamental change to your flexdashboard. It will no longer produce an HTML output that you can send by email and anyone could open and view. Instead, it will be an "app". The "Knit" button at the top of the script will be replaced by a "Run document" icon, which will open an intstance of the interactive the dashboard locally on your computer.  
+Embedding **shiny** in **flexdashboard** is however, a fundamental change to your flexdashboard. It will no longer produce an HTML output that you can send by email and anyone could open and view. Instead, it will be an "app". The "Knit" button at the top of the script will be replaced by a "Run document" icon, which will open an instance of the interactive the dashboard locally on your computer.  
 
 Sharing your dashboard will now require that you either:  
 
@@ -33161,7 +33430,7 @@ To read a health-related example of a Shiny-**flexdashboard** using the **shiny*
 
 ## Sharing  
 
-These dashboards outputs will save as an HTML file (.html), which can be emailed (if size permits). This is useful, as you can send the "dashboard" report and not have to set up a server to host it as a website.  
+Dashboards that do not contain Shiny elements will output an HTML file (.html), which can be emailed (if size permits). This is useful, as you can send the "dashboard" report and not have to set up a server to host it as a website.  
 
 If you have embedded **shiny**, you will not be able to send an output by email, but you can send the script itself to an R user, or host the dashboard on a server as explained above.  
 
@@ -33232,18 +33501,34 @@ For an alternative method of making dashboards that is faster, easier, but perha
 
 
 
+## Preparation  
+
+
+### Load packages {.unnumbered}  
+
+In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
+
+We begin by installing the **shiny** R package:  
+
+```{r, eval = FALSE}
+pacman::p_load("shiny")
+```
+
+
+### Import data {.unnumbered}  
+
+If you would like to follow-along with this page, see this section of the [Download handbook and data](#data_shiny). There are links to download the R scripts and data files that produce the final Shiny app.  
+
+If you try to re-construct the app using these files, please be aware of the R project folder structure that is created over the course of the demonstration (e.g. folders for "data" and for "funcs").  
+
+
+
 <!-- ======================================================= -->
 ## The structure of a shiny app {  }
 
 ### Basic file structures {.unnumbered}  
 
 To understand `shiny`, we first need to understand how the file structure of an app works! We should make a brand new directory before we start. This can actually be made easier by choosing _New project_ in _Rstudio_, and choosing _Shiny Web Application_. This will create the basic structure of a shiny app for you.
-
-Lets also install shiny before we go any further:
-
-```{r, eval = FALSE}
-install.packages("shiny")
-```
 
 When opening this project, you'll notice there is a `.R` file already present called _app.R_. It is *essential* that we have one of two basic file structures:
 
@@ -33881,6 +34166,16 @@ ui <- fluidPage(
 ```{r, echo=F}
 knitr::include_graphics(here::here("images", "shiny", "app_text_view.png"))
 ```
+
+
+### Adding a link {.unnumbered}
+
+To add a link to a website, use `tags$a()` with the link and display text as shown below. To have as a standalone paragraph, put it within `p()`. To have only a few words of a sentence linked, break the sentence into parts and use `tags$a()` for the hyperlinked part. To ensure the link opens in a *new* browser window, add `target = "_blank"` as an argument.  
+
+```{r, eval=F}
+tags$a(href = "www.epiRhandbook.com", "Visit our website!")
+```
+
 
 
 ### Adding a download button {.unnumbered}

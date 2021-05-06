@@ -9,7 +9,14 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.4/tabs.js"></script><script src="libs/bs3compat-0.2.4/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style_bs4.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="libs/datatables-binding-0.15/datatables.js"></script><link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style_bs4.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -33,7 +40,9 @@
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html"></a></li>
 <li class="book-part">Preview pages</li>
-<li><a class="" href="survey-analysis.html"><span class="header-section-number">1</span> Survey analysis</a></li>
+<li><a class="" href="cleaning-data-and-core-functions.html"><span class="header-section-number">1</span> Cleaning data and core functions</a></li>
+<li><a class="" href="simple-statistical-tests.html"><span class="header-section-number">2</span> Simple statistical tests</a></li>
+<li><a class="" href="descriptive-tables.html"><span class="header-section-number">3</span> Descriptive tables</a></li>
 </ul>
 
         <div class="book-extra">
@@ -72,7 +81,7 @@
 <ul>
 <li>It is community-driven - written for epidemiologists by epidemiologists in their spare time and leveraging experience in local, national, academic, and emergency settings<br>
 </li>
-<li>It uses practical epi examples - cleaning case linelists, transmission chains, epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees…</li>
+<li>It uses practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees…</li>
 </ul>
 <!-- ======================================================= -->
 </div>
@@ -96,8 +105,8 @@
 <p>We are seeking to translate this book into languages other than English. If you can help, please contact us.</p>
 <!-- ======================================================= -->
 </div>
-<div id="contact-us" class="section level2 unnumbered">
-<h2>Contact us<a class="anchor" aria-label="anchor" href="#contact-us"><i class="fas fa-link"></i></a>
+<div id="contact_us" class="section level2 unnumbered">
+<h2>Contact us<a class="anchor" aria-label="anchor" href="#contact_us"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
 <li>Structured feedback in this <a href="https://forms.gle/A5SnRVws7tPD15Js9">form</a><br>
@@ -121,7 +130,7 @@
 </h3>
 <p><strong>Editor-in-Chief:</strong> <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a></p>
 <p><strong>Project core team:</strong> <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a>, <a href="https://github.com/aspina7">Alex Spina</a>, <a href="https://twitter.com/Ammer_B">Amrish Baidjoe</a>, Pat Keating, <a href="https://github.com/henryls1">Henry Laurenson-Schafer</a>, <a href="https://github.com/finlaycampbell">Finlay Campbell</a></p>
-<p><strong>Authors</strong>: <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a>, <a href="https://github.com/aspina7">Alex Spina</a>, <a href="https://www.linkedin.com/in/paula-bianca-blomquist-53188186/">Paula Blomquist</a>, <a href="https://github.com/finlaycampbell">Finlay Campbell</a>, <a href="https://github.com/henryls1">Henry Laurenson-Schafer</a>, <a href="www.Twitter.com/isaacatflorence">Isaac Florence</a>, <a href="www.linkedin.com/in/nataliefischer211">Natalie Fischer</a>, Aminata Ndiaye, Liza Coyer, <a href="https://twitter.com/jonny_polonsky">Jonathan Polonsky</a>, Yurie Izawa, <a href="https://twitter.com/cbailey_58?lang=en">Chris Bailey</a>, <a href="https://www.linkedin.com/in/daniel-molling-4005716a/">Daniel Molling</a>, <a href="https://twitter.com/ishaberry2">Isha Berry</a>, Emma Buajitti, Mathilde Mousset, Sara Hollis, Wen Lin</p>
+<p><strong>Authors</strong>: <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a>, <a href="https://github.com/aspina7">Alex Spina</a>, <a href="https://www.linkedin.com/in/paula-bianca-blomquist-53188186/">Paula Blomquist</a>, <a href="https://github.com/finlaycampbell">Finlay Campbell</a>, <a href="https://github.com/henryls1">Henry Laurenson-Schafer</a>, <a href="www.Twitter.com/isaacatflorence">Isaac Florence</a>, <a href="www.linkedin.com/in/nataliefischer211">Natalie Fischer</a>, Aminata Ndiaye, Liza Coyer, <a href="https://twitter.com/jonny_polonsky">Jonathan Polonsky</a>, Yurie Izawa, <a href="https://twitter.com/cbailey_58?lang=en">Chris Bailey</a>, <a href="https://www.linkedin.com/in/daniel-molling-4005716a/">Daniel Molling</a>, <a href="https://twitter.com/ishaberry2">Isha Berry</a>, Emma Buajitti, <a href="https://mathildemousset.wordpress.com/research/">Mathilde Mousset</a>, Sara Hollis, Wen Lin</p>
 <p><strong>Reviewers</strong>: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Laura Haskins, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga</p>
 <p><strong>Illustrations</strong>: Calder Fong</p>
 <!-- **Editor-in-Chief:** Neale Batra  -->
@@ -132,7 +141,7 @@
 <div id="funding-and-support" class="section level3 unnumbered">
 <h3>Funding and support<a class="anchor" aria-label="anchor" href="#funding-and-support"><i class="fas fa-link"></i></a>
 </h3>
-<p>The handbook project received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network (<a href="https://www.tephinet.org/">TEPHINET</a>). <em>This handbook was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.</em></p>
+<p>This publication received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network (<a href="https://www.tephinet.org/">TEPHINET</a>). <em>This publication was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.</em></p>
 <p>Administrative support was provided by the EPIET Alumni Network (<a href="https://epietalumni.net/">EAN</a>), with special thanks to Annika Wendland. EPIET is the European Programme for Intervention Epidemiology Training.</p>
 </div>
 <div id="inspiration" class="section level3 unnumbered">
@@ -158,14 +167,14 @@
 
 <div class="chapter-nav">
 <div class="empty"></div>
-<div class="next"><a href="survey-analysis.html"><span class="header-section-number">1</span> Survey analysis</a></div>
+<div class="next"><a href="cleaning-data-and-core-functions.html"><span class="header-section-number">1</span> Cleaning data and core functions</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#section"></a></li>
 <li><a class="nav-link" href="#r-for-applied-epi-and-public-health">R for applied ‘epi’ and public health</a></li>
 <li><a class="nav-link" href="#how-to-read-this-handbook">How to read this handbook</a></li>
-<li><a class="nav-link" href="#contact-us">Contact us</a></li>
+<li><a class="nav-link" href="#contact_us">Contact us</a></li>
 <li>
 <a class="nav-link" href="#acknowledgements">Acknowledgements</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#contributors">Contributors</a></li>
