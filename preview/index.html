@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>About this handbook | The Epidemiologist R Handbook</title>
+<title>R for applied ‘epi’ and public health | The Epidemiologist R Handbook</title>
 <meta name="author" content="the handbook team">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +13,9 @@
 <script src="libs/datatables-binding-0.15/datatables.js"></script><link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="libs/selectize-0.12.0/selectize.min.js"></script><link href="libs/tabwid-1.0.0/tabwid.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style_bs4.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
@@ -38,7 +40,9 @@
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html"></a></li>
 <li class="book-part">Preview pages</li>
-<li><a class="" href="contact-tracing.html"><span class="header-section-number">1</span> Contact tracing</a></li>
+<li><a class="" href="cleaning-data-and-core-functions.html"><span class="header-section-number">1</span> Cleaning data and core functions</a></li>
+<li><a class="" href="simple-statistical-tests.html"><span class="header-section-number">2</span> Simple statistical tests</a></li>
+<li><a class="" href="descriptive-tables.html"><span class="header-section-number">3</span> Descriptive tables</a></li>
 </ul>
 
         <div class="book-extra">
@@ -48,8 +52,8 @@
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="section" class="section level1 unnumbered">
 <h1 class="unnumbered"><a class="anchor" aria-label="anchor" href="#section"><i class="fas fa-link"></i></a></h1>
-<div class="inline-figure"><img src="images/R%20Handbook%20Logo.png" width="100%" style="display: block; margin: auto;"></div>
-<meta name="description" content="The Epi R Handbook is a R reference manual for applied epidemiology and public health.">
+<div class="inline-figure"><img src="images/Epi%20R%20Handbook%20Banner%20Beige%201500x500.png" width="100%" style="display: block; margin: auto;"></div>
+<meta name="description" content="The Epi R Handbook is an R reference manual for applied epidemiology and public health.">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <p><span style="color: red;"><strong>THIS IS A DRAFT. REVIEWERS GIVE FEEDBACK AT THIS <a href="https://forms.gle/4RNdRRLGx67xW9yq9">LINK</a></strong>.</span></p>
 <p><span style="color: darkgreen;"><strong>DO YOU LIKE THIS HANDBOOK? SHOULD SOMETHING BE CHANGED? PLEASE TELL US!</strong></span></p>
@@ -57,11 +61,13 @@
 <input type="submit" value="FEEDBACK">
 </form>
 <!-- ======================================================= -->
-<div id="about-this-handbook" class="section level2 unnumbered">
-<h2>About this handbook<a class="anchor" aria-label="anchor" href="#about-this-handbook"><i class="fas fa-link"></i></a>
+<!-- ## An R reference manual for applied epidemiology and public health {.unnumbered} -->
+<!-- <span style="color: brown;">**The Epi R Handbook is an R reference manual for applied epidemiology and public health.**</span> -->
+<!-- ## About this handbook   -->
+<div id="r-for-applied-epi-and-public-health" class="section level2 unnumbered">
+<h2>R for applied ‘epi’ and public health<a class="anchor" aria-label="anchor" href="#r-for-applied-epi-and-public-health"><i class="fas fa-link"></i></a>
 </h2>
-<p><span style="color: brown;"><strong>The Epi R Handbook is a R reference manual for applied epidemiology and public health.</strong></span></p>
-<p><strong>This book strives to:</strong></p>
+<p><strong>This handbook strives to:</strong></p>
 <ul>
 <li>Serve as a quick R code reference manual<br>
 </li>
@@ -73,9 +79,9 @@
 </ul>
 <p><strong>How is this different than other R books?</strong></p>
 <ul>
-<li>It is written by epidemiologists, for epidemiologists - leveraging experience in local, national, academic, and emergency settings<br>
+<li>It is community-driven - written for epidemiologists by epidemiologists in their spare time and leveraging experience in local, national, academic, and emergency settings<br>
 </li>
-<li>It provides examples of epidemic curves, transmission chains, automated reports and dashboards, epidemic modeling and projections, demographic pyramids and standardization, record matching, outbreak detection, survey analysis, causal diagrams, survival analysis, GIS basics, phylogenetic trees, etc…</li>
+<li>It uses practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees…</li>
 </ul>
 <!-- ======================================================= -->
 </div>
@@ -99,10 +105,19 @@
 <p>We are seeking to translate this book into languages other than English. If you can help, please contact us.</p>
 <!-- ======================================================= -->
 </div>
-<div id="edit-or-contribute" class="section level2 unnumbered">
-<h2>Edit or contribute<a class="anchor" aria-label="anchor" href="#edit-or-contribute"><i class="fas fa-link"></i></a>
+<div id="contact_us" class="section level2 unnumbered">
+<h2>Contact us<a class="anchor" aria-label="anchor" href="#contact_us"><i class="fas fa-link"></i></a>
 </h2>
-<p>We welcome your comments and suggestions at the <a href="https://forms.gle/A5SnRVws7tPD15Js9">feedback link</a>, by email to <strong><a href="mailto:epiRhandbook@gmail.com" class="email">epiRhandbook@gmail.com</a></strong> or via issue/pull request at our <a href="https://github.com/nsbatra/R_epi_handbook">Github repository</a>.</p>
+<ul>
+<li>Structured feedback in this <a href="https://forms.gle/A5SnRVws7tPD15Js9">form</a><br>
+</li>
+<li>Email us at <strong><a href="mailto:epiRhandbook@gmail.com" class="email">epiRhandbook@gmail.com</a></strong><br>
+</li>
+<li>Submit issues or pull requests to our <a href="https://github.com/nsbatra/R_epi_handbook">Github repository</a><br>
+</li>
+<li>Twitter handle <strong><span class="citation">@epiRhandbook</span></strong>
+</li>
+</ul>
 <!-- ======================================================= -->
 </div>
 <div id="acknowledgements" class="section level2 unnumbered">
@@ -113,27 +128,29 @@
 <div id="contributors" class="section level3 unnumbered">
 <h3>Contributors<a class="anchor" aria-label="anchor" href="#contributors"><i class="fas fa-link"></i></a>
 </h3>
-<p><strong>Editor-in-Chief:</strong> Neale Batra</p>
-<p><strong>Project core team:</strong> Neale Batra, Alex Spina, Amrish Baidjoe, Pat Keating, Henry Laurenson-Schafer, Finlay Campbell</p>
-<p><strong>Authors</strong>: Neale Batra, Alex Spina, Paula Blomquist, Finlay Campbell, Henry Laurenson-Schafer, Isaac Florence, Natalie Fischer, Aminata Ndiaye, Liza Coyer, Jonathan Polonsky, Yurie Izawa, Daniel Molling, Isha Berry, Chris Bailey, Emma Buajitti, Wen Lin, Sara Hollis</p>
-<p><strong>Reviewers</strong>: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Olivia Varsaneux, Nienke Meeuwissen, Molly Mantus, Adam Vaughan, Lionel Monteiro, Joao Muianga</p>
+<p><strong>Editor-in-Chief:</strong> <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a></p>
+<p><strong>Project core team:</strong> <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a>, <a href="https://github.com/aspina7">Alex Spina</a>, <a href="https://twitter.com/Ammer_B">Amrish Baidjoe</a>, Pat Keating, <a href="https://github.com/henryls1">Henry Laurenson-Schafer</a>, <a href="https://github.com/finlaycampbell">Finlay Campbell</a></p>
+<p><strong>Authors</strong>: <a href="https://www.linkedin.com/in/neale-batra/">Neale Batra</a>, <a href="https://github.com/aspina7">Alex Spina</a>, <a href="https://www.linkedin.com/in/paula-bianca-blomquist-53188186/">Paula Blomquist</a>, <a href="https://github.com/finlaycampbell">Finlay Campbell</a>, <a href="https://github.com/henryls1">Henry Laurenson-Schafer</a>, <a href="www.Twitter.com/isaacatflorence">Isaac Florence</a>, <a href="www.linkedin.com/in/nataliefischer211">Natalie Fischer</a>, Aminata Ndiaye, Liza Coyer, <a href="https://twitter.com/jonny_polonsky">Jonathan Polonsky</a>, Yurie Izawa, <a href="https://twitter.com/cbailey_58?lang=en">Chris Bailey</a>, <a href="https://www.linkedin.com/in/daniel-molling-4005716a/">Daniel Molling</a>, <a href="https://twitter.com/ishaberry2">Isha Berry</a>, Emma Buajitti, <a href="https://mathildemousset.wordpress.com/research/">Mathilde Mousset</a>, Sara Hollis, Wen Lin</p>
+<p><strong>Reviewers</strong>: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Laura Haskins, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga</p>
+<p><strong>Illustrations</strong>: Calder Fong</p>
+<!-- **Editor-in-Chief:** Neale Batra  -->
+<!-- **Project core team:** Neale Batra, Alex Spina, Amrish Baidjoe, Pat Keating, Henry Laurenson-Schafer, Finlay Campbell   -->
+<!-- **Authors**: Neale Batra, Alex Spina, Paula Blomquist, Finlay Campbell, Henry Laurenson-Schafer, [Isaac Florence](www.Twitter.com/isaacatflorence), Natalie Fischer, Aminata Ndiaye, Liza Coyer, Jonathan Polonsky, Yurie Izawa, Chris Bailey, Daniel Molling, Isha Berry, Emma Buajitti, Mathilde Mousset, Sara Hollis, Wen Lin   -->
+<!-- **Reviewers**: Pat Keating, Mathilde Mousset, Annick Lenglet, Margot Charette, Isha Berry, Paula Blomquist, Natalie Fischer, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Daniel Molling, Kate Kelsey, Berhe Etsay, John Rossow, Mackenzie Zendt, James Wright, Wayne Enanoria, Laura Haskins, Flavio Finger, Tim Taylor, Jae Hyoung Tim Lee, Brianna Bradley, Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga   -->
 </div>
 <div id="funding-and-support" class="section level3 unnumbered">
 <h3>Funding and support<a class="anchor" aria-label="anchor" href="#funding-and-support"><i class="fas fa-link"></i></a>
 </h3>
-<p>The handbook project received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network (<a href="https://www.tephinet.org/">TEPHINET</a>). <em>This handbook was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.</em></p>
+<p>This publication received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network (<a href="https://www.tephinet.org/">TEPHINET</a>). <em>This publication was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.</em></p>
 <p>Administrative support was provided by the EPIET Alumni Network (<a href="https://epietalumni.net/">EAN</a>), with special thanks to Annika Wendland. EPIET is the European Programme for Intervention Epidemiology Training.</p>
 </div>
 <div id="inspiration" class="section level3 unnumbered">
 <h3>Inspiration<a class="anchor" aria-label="anchor" href="#inspiration"><i class="fas fa-link"></i></a>
 </h3>
 <p>The multitude of tutorials and vignettes that provided knowledge for development of handbook content are credited within their respective pages.</p>
-<p>More generally, the following sources provided inspiration and laid the groundwork for this handbook:<br><a href="https://r4epis.netlify.app/">The “R4Epis” project</a> (a collaboration between MSF and RECON)<br><a href="https://www.repidemicsconsortium.org/">R Epidemics Consortium (RECON)</a><br><a href="https://r4ds.had.co.nz/">R for Data Science book (R4DS)</a><br><a href="https://bookdown.org/yihui/bookdown/">bookdown: Authoring Books and Technical Documents with R Markdown</a><br><a href="https://www.netlify.com">Netlify</a> hosts this website</p>
-</div>
-<div id="image-credits" class="section level3 unnumbered">
-<h3>Image credits<a class="anchor" aria-label="anchor" href="#image-credits"><i class="fas fa-link"></i></a>
-</h3>
-<p>Images in logo from US CDC Public Health Image Library) include <a href="https://phil.cdc.gov/Details.aspx?pid=19623">2013 Yemen looking for mosquito breeding sites</a>, <a href="https://phil.cdc.gov/Details.aspx?pid=23186">Ebola virus</a>, and <a href="https://phil.cdc.gov/Details.aspx?pid=19838">Survey in Rajasthan</a>.</p>
+<p>More generally, the following sources provided inspiration for this handbook:<br><a href="https://r4epis.netlify.app/">The “R4Epis” project</a> (a collaboration between MSF and RECON)<br><a href="https://www.repidemicsconsortium.org/">R Epidemics Consortium (RECON)</a><br><a href="https://r4ds.had.co.nz/">R for Data Science book (R4DS)</a><br><a href="https://bookdown.org/yihui/bookdown/">bookdown: Authoring Books and Technical Documents with R Markdown</a><br><a href="https://www.netlify.com">Netlify</a> hosts this website</p>
+<!-- ### Image credits {-}   -->
+<!-- Images in logo from US CDC Public Health Image Library) include [2013 Yemen looking for mosquito breeding sites](https://phil.cdc.gov/Details.aspx?pid=19623), [Ebola virus](https://phil.cdc.gov/Details.aspx?pid=23186), and [Survey in Rajasthan](https://phil.cdc.gov/Details.aspx?pid=19838).   -->
 </div>
 </div>
 <div id="terms-of-use-and-license" class="section level2 unnumbered">
@@ -141,6 +158,7 @@
 </h2>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a><br>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
 <p>Universities and academic courses are welcome to use this handbook with their students. If you have questions about your intended use, email <strong><a href="mailto:epirhandbook@gmail.com" class="email">epirhandbook@gmail.com</a></strong>.</p>
+<p>TO DO Contributor code</p>
 
 </div>
 </div>
@@ -149,20 +167,19 @@
 
 <div class="chapter-nav">
 <div class="empty"></div>
-<div class="next"><a href="contact-tracing.html"><span class="header-section-number">1</span> Contact tracing</a></div>
+<div class="next"><a href="cleaning-data-and-core-functions.html"><span class="header-section-number">1</span> Cleaning data and core functions</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#section"></a></li>
-<li><a class="nav-link" href="#about-this-handbook">About this handbook</a></li>
+<li><a class="nav-link" href="#r-for-applied-epi-and-public-health">R for applied ‘epi’ and public health</a></li>
 <li><a class="nav-link" href="#how-to-read-this-handbook">How to read this handbook</a></li>
-<li><a class="nav-link" href="#edit-or-contribute">Edit or contribute</a></li>
+<li><a class="nav-link" href="#contact_us">Contact us</a></li>
 <li>
 <a class="nav-link" href="#acknowledgements">Acknowledgements</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#contributors">Contributors</a></li>
 <li><a class="nav-link" href="#funding-and-support">Funding and support</a></li>
 <li><a class="nav-link" href="#inspiration">Inspiration</a></li>
-<li><a class="nav-link" href="#image-credits">Image credits</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#terms-of-use-and-license">Terms of Use and License</a></li>
@@ -186,7 +203,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-04-30.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-05-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
