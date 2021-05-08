@@ -9,13 +9,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.4/tabs.js"></script><script src="libs/bs3compat-0.2.4/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script><link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="libs/datatables-binding-0.15/datatables.js"></script><link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script><link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
-<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script><link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
-<script src="libs/selectize-0.12.0/selectize.min.js"></script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style_bs4.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style_bs4.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -40,8 +34,6 @@
 <li><a class="" href="index.html"></a></li>
 <li class="book-part">Preview pages</li>
 <li><a class="active" href="r-basics.html"><span class="header-section-number">1</span> R Basics</a></li>
-<li><a class="" href="iteration-loops-and-lists.html"><span class="header-section-number">2</span> Iteration, loops, and lists</a></li>
-<li><a class="" href="epidemic-curves.html"><span class="header-section-number">3</span> Epidemic curves</a></li>
 </ul>
 
         <div class="book-extra">
@@ -53,8 +45,9 @@
 <h1>
 <span class="header-section-number">1</span> R Basics<a class="anchor" aria-label="anchor" href="#r-basics"><i class="fas fa-link"></i></a>
 </h1>
+<div class="inline-figure"><img src="images/basics_header_close.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Welcome!</p>
-<p>This page reviews the essentials of R. This page is not intended to be a comprehensive tutorial, but it provides the basics and can be useful for refreshing your memory. The section on <a href="r-basics.html#learning">Resource for learning</a> links to more comprehensive tutorials.</p>
+<p>This page reviews the essentials of R. It is not intended to be a comprehensive tutorial, but it provides the basics and can be useful for refreshing your memory. The section on <a href="r-basics.html#learning">Resource for learning</a> links to more comprehensive tutorials.</p>
 <p>Parts of this page have been adapted with permission from the <a href="https://r4epis.netlify.app/">R4Epis project</a>.</p>
 <p>See the page on [Transition to R] for tips on switching to R from STATA, SAS, or Excel.</p>
 <!-- ======================================================= -->
@@ -130,23 +123,15 @@
 <div id="twitter" class="section level3 unnumbered">
 <h3>Twitter<a class="anchor" aria-label="anchor" href="#twitter"><i class="fas fa-link"></i></a>
 </h3>
-<p>R has a vibrant twitter community where you can learn tips, shortcuts, and news - follow these accounts:</p>
-<ul>
-<li>R Function A Day <a href="https://twitter.com/rfunctionaday">@rfuntionaday</a> is an <em>incredible</em> resource<br>
-</li>
-<li>R for Data Science <a href="https://twitter.com/rstats4ds?lang=en">@rstats4ds</a><br>
-</li>
-<li>RStudio <a href="https://twitter.com/rstudio?lang=en">@RStudio</a><br>
-</li>
-<li>RStudio Tips <a href="https://twitter.com/rstudiotips">@rstudiotips</a><br>
-</li>
-<li>R-Bloggers <a href="https://twitter.com/Rbloggers">@Rbloggers</a><br>
-</li>
-<li>R-ladies <a href="https://twitter.com/RLadiesGlobal">@RLadiesGlobal</a>
-</li>
-<li>Hadley Wickham <a href="https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">@hadleywickham</a>
-</li>
-</ul>
+<p>R has a vibrant twitter community where you can learn tips, shortcuts, and news - follow these accounts:<br>
+* Follow us! <a href="https://twitter.com/epirhandbook">@epiRhandbook</a><br>
+* R Function A Day <a href="https://twitter.com/rfunctionaday">@rfuntionaday</a> is an <em>incredible</em> resource<br>
+* R for Data Science <a href="https://twitter.com/rstats4ds?lang=en">@rstats4ds</a><br>
+* RStudio <a href="https://twitter.com/rstudio?lang=en">@RStudio</a><br>
+* RStudio Tips <a href="https://twitter.com/rstudiotips">@rstudiotips</a><br>
+* R-Bloggers <a href="https://twitter.com/Rbloggers">@Rbloggers</a><br>
+* R-ladies <a href="https://twitter.com/RLadiesGlobal">@RLadiesGlobal</a>
+* Hadley Wickham <a href="https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">@hadleywickham</a></p>
 <p>Also:</p>
 <p><strong>#epitwitter</strong> and <strong>#rstats</strong></p>
 </div>
@@ -419,7 +404,7 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create an age pyramid</span>
 <span class="fu">age_pyramid</span><span class="op">(</span>data <span class="op">=</span> <span class="va">linelist</span>, age_group <span class="op">=</span> <span class="st">"age_cat5"</span>, split_by <span class="op">=</span> <span class="st">"gender"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="75%" height="75%"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="75%" height="75%"></div>
 <p>The above command can be equivalently written as below, in a longer style with a new line for each argument. This style can be easier to read, and easier to write “comments” with <code>#</code> to explain each part (commenting extensively is good practice!). To run this longer command you can highlight the entire command and click “Run”, or just place your cursor in the first line and then press the Ctrl and Enter keys simultaneously.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create an age pyramid</span>
@@ -428,7 +413,7 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
   age_group <span class="op">=</span> <span class="st">"age_cat5"</span>, <span class="co"># provide age group column</span>
   split_by <span class="op">=</span> <span class="st">"gender"</span>     <span class="co"># use gender column for two sides of pyramid</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="75%" height="75%"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="75%" height="75%"></div>
 <p>The first half of an argument assignment (e.g. <code>data =</code>) does not need to be specified if the arguments are written in a specific order (specified in the function’s documentation). The below code produces the exact same pyramid as above, because the function expects the argument order: data frame, <code>age_group</code> variable, <code>split_by</code> variable.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># This command will produce the exact same graphic as above</span>
@@ -448,7 +433,7 @@ The lower-right pane includes several important tabs. Typical plot graphics incl
   proportional <span class="op">=</span> <span class="cn">TRUE</span>,         <span class="co"># percents instead of counts</span>
   pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"purple"</span><span class="op">)</span>  <span class="co"># colors</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="75%" height="75%"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="75%" height="75%"></div>
 <!-- ======================================================= -->
 </div>
 <div id="writing-functions" class="section level3 unnumbered">
@@ -1831,7 +1816,7 @@ We also advise surrounding such operators with spaces, for readability.</p>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="index.html"></a></div>
-<div class="next"><a href="iteration-loops-and-lists.html"><span class="header-section-number">2</span> Iteration, loops, and lists</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1948,7 +1933,7 @@ We also advise surrounding such operators with spaces, for readability.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-05-03.</p>
+    <p>"<strong>The Epidemiologist R Handbook</strong>" was written by the handbook team. It was last built on 2021-05-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
