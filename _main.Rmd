@@ -5,8 +5,8 @@ description: "The Epi R Handbook is a R reference manual for applied epidemiolog
 author: "the handbook team"
 date: "`r Sys.Date()`"
 #url: 'https://github.com/nsbatra/Epi_R_handbook'
-github-repo: epirhandbook/Epi_R_handbook
 #twitter-handle: 
+cover-image: "`r here::here('images', 'epiRhandbook Hex Sticker 500x500.png')`"
 #cover-image: images/R_Handbook_Logo.png
 site: bookdown::bookdown_site
 # output: bookdown::gitbook:
@@ -30,13 +30,13 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<span style="color: red;">**THIS IS A DRAFT.  REVIEWERS GIVE FEEDBACK AT THIS [LINK](https://forms.gle/4RNdRRLGx67xW9yq9)**.</span>
+<!-- <span style="color: red;">**THIS IS A DRAFT.  REVIEWERS GIVE FEEDBACK AT THIS [LINK](https://forms.gle/4RNdRRLGx67xW9yq9)**.</span> -->
 
-<span style="color: darkgreen;">**DO YOU LIKE THIS HANDBOOK? SHOULD SOMETHING BE CHANGED? PLEASE TELL US!**</span>
+<!-- <span style="color: darkgreen;">**DO YOU LIKE THIS HANDBOOK? SHOULD SOMETHING BE CHANGED? PLEASE TELL US!**</span> -->
 
-<form target="_blank" action="https://forms.gle/A5SnRVws7tPD15Js9">
-    <input type="submit" value="FEEDBACK" />
-</form>
+<!-- <form target="_blank" action="https://forms.gle/A5SnRVws7tPD15Js9"> -->
+<!--     <input type="submit" value="FEEDBACK" /> -->
+<!-- </form> -->
 
 <!-- ======================================================= -->
 <!-- ## An R reference manual for applied epidemiology and public health {.unnumbered} -->
@@ -46,19 +46,59 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 <!-- ## About this handbook   -->
 
-## R for applied 'epi' and public health {-}  
+## R for applied epi and public health {-}  
 
 **This handbook strives to:**  
 
 * Serve as a quick R code reference manual  
-* Provide task-centered examples for addressing common epidemiologic problems  
-* Assist epidemiologists transitioning to R from SAS, STATA, SPSS, and Excel  
-* Be accessible in settings with low internet-connectivity via an **offline version** ([instructions here][Download handbook and data])  
+* Provide task-centered examples addressing common epidemiological problems  
+* Assist epidemiologists transitioning to R  
+* Be accessible in settings with low internet-connectivity via an **[offline version](Download handbook and data)**  
 
-**How is this different than other R books?**  
 
-* It is community-driven - *written for epidemiologists by epidemiologists* in their spare time and leveraging experience in local, national, academic, and emergency settings  
-* It uses practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...  
+<!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
+
+
+
+<!-- **How is this different than other R books?**   -->
+
+<!-- * It is community-driven - *written for epidemiologists by epidemiologists* in their spare time and leveraging experience in local, national, academic, and emergency settings   -->
+
+<!-- Dual-column created based on the rmarkdown cookbook here: https://bookdown.org/yihui/rmarkdown-cookbook/multi-column.html -->
+
+
+
+<br>
+
+
+:::: {style="display: flex;"}
+
+::: {}
+```{r, out.width = "100%", fig.align = "center", echo=F}
+knitr::include_graphics(here::here("images", "epiRhandbook_HexSticker_500x500.png"))
+```
+:::
+
+
+::: {.col data-latex="{0.05\textwidth}"}
+\ 
+<!-- an empty Div (with a white space), serving as
+a column separator -->
+:::
+
+::: {}
+<span style="color: black;">**Written by epis, for epis**</span>
+
+We are applied epidemiologists from around the world, writing in our spare time to offer this resource to the community. Your encouragement and feedback is most welcome:  
+
+* Structured **[feedback form](https://forms.gle/A5SnRVws7tPD15Js9)**  
+* Email **epiRhandbook@gmail.com** or tweet **@[epirhandbook](https://twitter.com/epirhandbook)**  
+* Submit issues to our **[Github repository](https://github.com/epirhandbook/Epi_R_handbook)**  
+
+:::
+
+::::
+
 
 
 
@@ -69,33 +109,23 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 
 * Search via the search box above the Table of Contents 
 * Click the "copy" icons to copy code  
-* See the "Resources" section of each page for further resources  
+* See the "Resources" section of each page for further material  
 * "Follow-along" by [downloading the example data][Download handbook and data]  
-* Adjust the font size with your browser zoom settings  
 
 **Offline version**  
 
-See instructions to download the offline version of the handbook in the [Download book and data] page.  
+See instructions to download the offline version in the [Download handbook and data] page.  
 
 **Languages**  
 
-We are seeking to translate this book into languages other than English. If you can help, please contact us.  
-
-
-<!-- ======================================================= -->
-## Contact us {#contact_us .unnumbered}
-
-* Structured feedback in this [form](https://forms.gle/A5SnRVws7tPD15Js9)  
-* Email us at **epiRhandbook@gmail.com**  
-* Submit issues to our [Github repository](https://github.com/epirhandbook/R_epi_handbook)  
-* Twitter handle **@epiRhandbook**  
+We want to translate this into languages other than English. If you can help, please contact us.  
 
 
 
 <!-- ======================================================= -->
 ## Acknowledgements {-}  
 
-This handbook is produced by a collaboration of epidemiologists from around the world in their spare time, drawing upon experiences with organizations including local, state/provincial, and national health agencies, the World Health Organization (WHO), MSF (Médecins Sans Frontières / Doctors without Borders), hospital systems, and academic institutions.
+This handbook is produced by a collaboration of epidemiologists from around the world drawing upon experience with organizations including local, state, provincial, and national health agencies, the World Health Organization (WHO), Médecins Sans Frontières / Doctors without Borders (MSF), hospital systems, and academic institutions.
 
 This handbook is **not** an approved product of any specific organization. Although we strive for accuracy, we provide no guarantee of the content in this book.  
 
@@ -108,7 +138,7 @@ This handbook is **not** an approved product of any specific organization. Altho
 
 **Authors**: [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Paula Blomquist](https://www.linkedin.com/in/paula-bianca-blomquist-53188186/), [Finlay Campbell](https://github.com/finlaycampbell), [Henry Laurenson-Schafer](https://github.com/henryls1), [Isaac Florence](www.Twitter.com/isaacatflorence), [Natalie Fischer](www.linkedin.com/in/nataliefischer211), Aminata Ndiaye, [Liza Coyer]( https://www.linkedin.com/in/liza-coyer-86022040/), [Jonathan Polonsky](https://twitter.com/jonny_polonsky), [Yurie Izawa](https://ch.linkedin.com/in/yurie-izawa-a1590319), [Chris Bailey](https://twitter.com/cbailey_58?lang=en), [Daniel Molling](https://www.linkedin.com/in/daniel-molling-4005716a/), [Isha Berry](https://twitter.com/ishaberry2), [Emma Buajitti](https://twitter.com/buajitti), [Mathilde Mousset](https://mathildemousset.wordpress.com/research/), [Sara Hollis](https://www.linkedin.com/in/saramhollis/), Wen Lin  
 
-**Reviewers**: Pat Keating, Annick Lenglet, Margot Charette, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Kate Kelsey, [Berhe Etsay](https://www.linkedin.com/in/berhe-etsay-5752b1154/), John Rossow, Mackenzie Zendt, James Wright, Laura Haskins, [Flavio Finger](ffinger.github.io), Tim Taylor, [Jae Hyoung Tim Lee](https://www.linkedin.com/in/jaehyoungtlee/), Brianna Bradley, [Wayne Enanoria](https://www.linkedin.com/in/wenanoria), Manual Albela Miranda, Molly Mantus, Priscilla Spencer, Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
+**Reviewers**: Pat Keating, Annick Lenglet, Margot Charette, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Kate Kelsey, [Berhe Etsay](https://www.linkedin.com/in/berhe-etsay-5752b1154/), John Rossow, Mackenzie Zendt, James Wright, Laura Haskins, [Flavio Finger](ffinger.github.io), Tim Taylor, [Jae Hyoung Tim Lee](https://www.linkedin.com/in/jaehyoungtlee/), Brianna Bradley, [Wayne Enanoria](https://www.linkedin.com/in/wenanoria), Manual Albela Miranda, [Molly Mantus](https://www.linkedin.com/in/molly-mantus-174550150/), Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
 
 **Illustrations**: Calder Fong  
 
@@ -124,11 +154,14 @@ This handbook is **not** an approved product of any specific organization. Altho
 
 ### Funding and support {-}  
 
-This publication received supportive funding via a COVID-19 emergency capacity-building grant from Training Programs in Epidemiology and Public Health Interventions Network ([TEPHINET](https://www.tephinet.org/)). *This publication was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.*
+The handbook received supportive funding via a COVID-19 emergency capacity-building grant from [TEPHINET](https://www.tephinet.org/), the global network of Field Epidemiology Training Programs (FETPs).  
 
 Administrative support was provided by the EPIET Alumni Network ([EAN](https://epietalumni.net/)), with special thanks to Annika Wendland. EPIET is the European Programme for Intervention Epidemiology Training.  
 
 Special thanks to Médecins Sans Frontières (MSF) Operational Centre Amsterdam (OCA) for their support during the development of this handbook.  
+
+
+*This publication was supported by Cooperative Agreement number NU2GGH001873, funded by the Centers for Disease Control and Prevention through TEPHINET, a program of The Task Force for Global Health. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention, the Department of Health and Human Services, The Task Force for Global Health, Inc. or TEPHINET.*
 
 
 
@@ -154,9 +187,8 @@ More generally, the following sources provided inspiration for this handbook:
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 
-Universities and academic courses are welcome to use this handbook with their students. If you have questions about your intended use, email **epirhandbook@gmail.com**.  
+Academic courses and epidemiologist training programs are welcome to use this handbook with their students. If you have questions about your intended use, email **epirhandbook@gmail.com**.  
 
-TO DO Contributor code  
 
 
 ```{r include=FALSE, cache=FALSE}
@@ -15891,13 +15923,14 @@ The **slider** package provides several "sliding window" functions to compute ro
 
 Here are some of the common functions:  
 
-* `slide_dbl()` - iterates through a numeric column performing an operation using a sliding window  
-  * `slide_sum()` - rolling sum shortcut function  
-  * `slide_mean()` - rolling average shortcut function  
-* `slide_index_dbl()` - applies the rolling window using a separate *index* column (this is useful if using dates or if there are missing rows)  
+* `slide_dbl()` - iterates through a *numeric* (hence "_dbl") column performing an operation using a sliding window  
+  * `slide_sum()` - rolling sum shortcut function for `slide_dbl()`  
+  * `slide_mean()` - rolling average shortcut function for `slide_dbl()` 
+* `slide_index_dbl()` - applies the rolling window on a numeric column using a separate column to *index* the window progression (useful if rolling by date with some dates absent)  
   * `slide_index_sum()` - rolling sum shortcut function with indexing  
   * `slide_index_mean()` - rolling mean shortcut function with indexing  
   
+The **slider** package has many other functions that are covered in the Resources section of this page. We briefly touch upon the most common.  
 
 **Core arguments**  
 
@@ -15942,7 +15975,7 @@ However, in many applied epidemiology circumstances you may have dates absent fr
 
 ### Indexed data {.unnumbered}  
 
-Below, we show an example using `slide_index_dbl()` on the case linelist.  
+Below, we show an example using `slide_index_dbl()` on the case linelist. Let us say that our objective is to calculate a rolling 7-day incidence - the sum of cases using a rolling 7-day window. If you are looking for an example of rolling average, see the section below on [grouped rolling](#roll_slider_group).    
 
 To begin, the dataset `daily_counts` is created to reflect the daily case counts from the `linelist`, as calculated with `count()` from **dplyr**.  
 
@@ -15960,7 +15993,7 @@ Here is the `daily_counts` data frame - there are `r nrow(daily_counts)` rows, e
 DT::datatable(daily_counts, rownames = FALSE, options = list(pageLength = 6, scrollX=T) )
 ```
 
-Let us say that our objective is to calculate a rolling 7-day incidence - the sum of cases using a rolling 7-day window. If you are looking for an example of rolling average, see the section below on [grouped rolling](#roll_slider_group).  
+
 
 It is crucial to recognize that a standard rolling function (like `slide_dbl()` would use a window of 7 *rows*, not 7 *days*. So, if there are any absent dates, some windows will actually extend more than 7 calendar days!  
 
@@ -20757,6 +20790,7 @@ pacman::p_load(
   survminer,     # survival analysis
   rio,           # importing data  
   here,          # relative file pathways  
+  janitor,       # tabulations
   SemiCompRisks, # dataset examples and advanced tools for working with Semi-Competing Risks data
   tidyverse,     # data manipulation and visualization
   Epi,           # stat analyses in Epi
@@ -20773,7 +20807,7 @@ This page explores survival analyses using the linelist used in most of the prev
 
 ### Import dataset {.unnumbered}  
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download handbook and data] page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data.
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).  
 
 ```{r echo=F}
 # import linelist
@@ -20782,7 +20816,7 @@ linelist_case_data <- rio::import(here::here("data", "case_linelists", "linelist
 
 ```{r eval=F}
 # import linelist
-linelist_case_data <- rio::import("linelist_cleaned.xlsx")
+linelist_case_data <- rio::import("linelist_cleaned.rds")
 ```
 
 ### Data management and transformation {.unnumbered}
@@ -20797,6 +20831,7 @@ Thus, we will create different variables needed to respect that structure and ru
 
 We define:
 
+- a new data frame `linelist_surv` for this analysis  
 - our event of interest as being "death" (hence our survival probability will be the probability of being alive after a certain time after the time of origin),
 - the follow-up time (`futime`) as the time between the time of onset and the time of outcome *in days*,
 - censored patients as those who recovered or for whom the final outcome is not known ie the event "death" was not observed (`event=0`).
@@ -20805,7 +20840,7 @@ We define:
 
 <span style="color: darkgreen;">**_TIP:_** Given that filtering to greater than (>) or less than (<) a date can remove rows with missing values, applying the filter on the wrong dates will also remove the rows with missing dates.</span>
 
-We then create from the var `age_cat` another variable `age_cat_small` that indicates reduces the categories of the age groups to 3.
+We then use `case_when()` to create a column `age_cat_small` in which there are only 3 age categories.
 
 ```{r }
 #create a new data called linelist_surv from the linelist_case_data
@@ -20833,12 +20868,12 @@ linelist_surv <-  linelist_case_data %>%
        # now convert it to factor and specify the levels.
        # Note that the NA values remain NA's and are not put in a level "unknown" for example,
        # since in the next analyses they have to be removed.
-       age_cat_small = factor(age_cat_small,
-                              levels = c("0-4", "5-19", "20+")))
+       age_cat_small = fct_relevel(age_cat_small, "0-4", "5-19", "20+")
+       )
 ```
 
 
-<span style="color: darkgreen;">**_TIP:_** We can verify the new variables we have created by doing a summary on the `futime` and a cross-tabulation between `event` and `outcome` from which it was created. Besides this verification it is a good habit communicating on the median follow-up time when interpreting survival analysis results.</span>
+<span style="color: darkgreen;">**_TIP:_** We can verify the new columns we have created by doing a summary on the `futime` and a cross-tabulation between `event` and `outcome` from which it was created. Besides this verification it is a good habit to communicate the median follow-up time when interpreting survival analysis results.</span>
 
 ```{r }
 
@@ -20846,50 +20881,62 @@ summary(linelist_surv$futime)
 
 # cross tabulate the new event var and the outcome var from which it was created
 # to make sure the code did what it was intended to
-with(linelist_surv, 
-     table(outcome, event, useNA = "ifany")
-     )
-
-
-# cross tabulate the new age_cat_small var and the age_cat var from which it was created,
-# to make sure the code did what it was intended to
-
-with(linelist_surv, 
-     table(age_cat_small, age_cat, useNA = "ifany")
-     ) 
-
-
-# print the 10 first observations of the linelist_surv data looking at specific variables (including those newly created)
-
-head(linelist_surv[,c("case_id", "age_cat_small", "date_onset","date_outcome","outcome","event","futime")], 10)
-
+linelist_surv %>% 
+  tabyl(outcome, event)
 ```
 
-We can also cross-tabule the variable `age_cat_small` and `gender` to have more details on the distribution of this new variable among the gender groups. For this we use the `stat.table()` function of the **Epi** package.
+Now we cross-tabulate the new age_cat_small var and the old age_cat col to ensure correct assingments  
+
+```{r}
+linelist_surv %>% 
+  tabyl(age_cat_small, age_cat)
+```
+
+Now we review the 10 first observations of the `linelist_surv` data looking at specific variables (including those newly created).  
+
+
+```{r}
+linelist_surv %>% 
+  select(case_id, age_cat_small, date_onset, date_outcome, outcome, event, futime) %>% 
+  head(10)
+```
+
+We can also cross-tabulate the columns `age_cat_small` and `gender` to have more details on the distribution of this new column by gender. We use `tabyl()` and the *adorn* functions from **janitor** as described in the [Descriptive tables] page. 
+
+<!-- For this we use the `stat.table()` function of the **Epi** package. -->
 
 ```{r}
 
-Epi::stat.table( 
-  #give variables for the cross tabulation
-  list(
-    gender, 
-    age_cat_small
-    ),
-  
-  #precise the function you want to call (mean,count..)
-  list( 
-    count(),
-    percent(age_cat_small)
-    ), 
-  
-  #add margins
-  margins=T, 
-  
-  #data used
-  data = linelist_surv 
-  )
+linelist_surv %>% 
+  tabyl(gender, age_cat_small, show_na = F) %>% 
+  adorn_totals(where = "both") %>% 
+  adorn_percentages() %>% 
+  adorn_pct_formatting() %>% 
+  adorn_ns(position = "front")
 
 ```
+
+<!-- Epi::stat.table(  -->
+<!--   #give variables for the cross tabulation -->
+<!--   list( -->
+<!--     gender,  -->
+<!--     age_cat_small -->
+<!--     ), -->
+
+<!--   #precise the function you want to call (mean,count..) -->
+<!--   list(  -->
+<!--     count(), -->
+<!--     percent(age_cat_small) -->
+<!--     ),  -->
+
+<!--   #add margins -->
+<!--   margins=T,  -->
+
+<!--   #data used -->
+<!--   data = linelist_surv  -->
+<!--   ) -->
+
+<!-- ``` -->
 
 
 <!-- ======================================================= -->
@@ -20898,45 +20945,61 @@ Epi::stat.table(
 
 ### Building a surv-type object {.unnumbered}
 
-We will first use `Surv()` to build a standard survival object form the follow-up time and the event variables.The result of such a step is to produce an object of type *survival* that focuses on the time information by precising whether or not the event of interest (death) was observed. This is done using a “+” after the time in the print out of *survobj* that indicates right-censoring.
+We will first use `Surv()` from **survival** to build a survival object from the follow-up time and event columns.  
+
+The result of such a step is to produce an object of type *Surv* that condenses the time information and whether the event of interest (death) was observed. This object will ultimately be used in the right-hand side of subsequent model formulae (see [documentation](https://cran.r-project.org/web/packages/survival/vignettes/survival.pdf)).  
+
 
 ```{r survobj }
+# Use Suv() syntax for right-censored data
+survobj <- Surv(time = linelist_surv$futime,
+                event = linelist_surv$event)
+```
 
-survobj <- with(linelist_surv, 
-                
-                survival::Surv(futime, event)
-                
-                )
+<!-- ```{r} -->
+<!-- survobj <- with(linelist_surv, -->
 
+<!--                 survival::Surv(futime, event) -->
+
+<!--                 ) -->
+<!-- ``` -->
+
+
+To review, here are the first 10 rows of the `linelist_surv` data, viewing only some important columns.  
+
+```{r}
+linelist_surv %>% 
+  select(case_id, date_onset, date_outcome, futime, outcome, event) %>% 
+  head(10)
+```
+
+And here are the first 10 elements of `survobj`. It prints as essentially a vector of follow-up time, with "+" to represent if an observation was right-censored. See how the numbers align above and below.  
+
+```{r}
 #print the 50 first elements of the vector to see how it presents
-head(survobj,50)
-
-
+head(survobj, 10)
 ```
 
 
 ### Running initial analyses {.unnumbered}
 
-We then start our analysis using the `survfit()` function to produce a *survfit object*, which fits the default calculations for **_Kaplan Meier_** (KM) estimates of the overall (marginal) survival curve, which are in fact a step function with jumps at observed event times. The final *survfit object*  contains one or more survival curvesis and is created using the *Surv object* as a response variable in the model formul.
+We then start our analysis using the `survfit()` function to produce a *survfit object*, which fits the default calculations for **_Kaplan Meier_** (KM) estimates of the overall (marginal) survival curve, which are in fact a step function with jumps at observed event times. The final *survfit object*  contains one or more survival curves and is created using the *Surv* object as a response variable in the model formula.  
 
 <span style="color: black;">**_NOTE:_** The Kaplan-Meier estimate is a nonparametric maximum likelihood estimate (MLE) of the survival function. . (see resources for more information).</span>
 
-The summary of this *survfit object* will give what is called a *life table* that contains:
+The summary of this *survfit object* will give what is called a *life table*. For each time step of the follow-up (`time`) where an event happened (in ascending order):  
 
-* for each of the time of the follow-up (`time`) where an event happened and that are ascending ordered, 
-* the number of people who were at risk of developing the event (people who did not have the event yet nor were censored: `n.risk`),
-* those who did develop it  (`n.event`), 
-* and from this, the probability of not developing the event  (probability of not dying or of surviving past that specific time ).
-* Finally the standard error and the confidence interval for that probability are derived.
+* the number of people who were at risk of developing the event (people who did not have the event yet nor were censored: `n.risk`)  
+* those who did develop the event  (`n.event`)  
+* and from the above: the probability of *not* developing the event (probability of not dying, or of surviving past that specific time)  
+* finally, the standard error and the confidence interval for that probability are derived and displayed  
 
+We fit the KM estimates using the formula where the previously Surv object "survobj" is the response variable. "~ 1" precises we run the model for the overall survival.  
 
 ```{r fit}
-
-#fit the KM estimates using the formula where the previously Surv object "survobj" is the response variable. "~ 1" precises we run the model for the overall survival.
-
-linelistsurv_fit <-  survival::survfit(
-  survobj ~ 1
-  )
+# fit the KM estimates using a formula where the Surv object "survobj" is the response variable.
+# "~ 1" signifies that we run the model for the overall survival  
+linelistsurv_fit <-  survival::survfit(survobj ~ 1)
 
 #print its summary for more details
 summary(linelistsurv_fit)
@@ -20944,100 +21007,96 @@ summary(linelistsurv_fit)
 ```
 
 
-While using `summary()` we can add the option `times` and  precise the specific times at which we want to see the survival information 
+While using `summary()` we can add the option `times` and  specify certain times at which we want to see the survival information 
 
 ```{r print_spec_times}
 
 #print its summary at specific times
-summary(
-  linelistsurv_fit,
-        times=c(5,10,20,30,60)
-        )
+summary(linelistsurv_fit, times = c(5,10,20,30,60))
 
 ```
 
 
-We can also use the `print()` function. The `print.rmean=TRUE` argument is used to obtain the mean survival time and its standard error (se).
+We can also use the `print()` function. The `print.rmean = TRUE` argument is used to obtain the mean survival time and its standard error (se).
 
-<span style="color: black;">**_NOTE:_** The restricted mean survival time (RMST) is a specific survival measure more and more used in cancer survival analysis and which is often defined as the area under the survival curve given we observe patients up to restricted time T: more details in resources</span>
+<span style="color: black;">**_NOTE:_** The restricted mean survival time (RMST) is a specific survival measure more and more used in cancer survival analysis and which is often defined as the area under the survival curve, given we observe patients up to restricted time T (more details in Resources section).
 
 
 ```{r, mean_survtime}
-
-#print the linelistsurv_fit object and ask for information on the mean survival time and its se. 
-print(
-  linelistsurv_fit, 
-      print.rmean = TRUE
-      )
+# print linelistsurv_fit object with mean survival time and its se. 
+print(linelistsurv_fit, print.rmean = TRUE)
 
 ```
 
 
-<span style="color: darkgreen;">**_TIP:_** We can create the *surv object* directly in the `survfit()` function and save a line of code. This will then give `linelistsurv_quick <-  survfit(Surv(futime, event) ~ 1, data=linelist_surv)`. But as you have seen, in such case we have to precise the data where the variables time and event are taken from.</span>
+<span style="color: darkgreen;">**_TIP:_** We can create the *surv object* directly in the `survfit()` function and save a line of code. This will then look like: `linelistsurv_quick <-  survfit(Surv(futime, event) ~ 1, data=linelist_surv)`.</span>
 
-Besides the `summary()` function, we can also use the `str()` function that gives more details on the structure of the `survfit()` object. Among those details is an important one: *cumhaz* which allows for instance to plot the **_cumulative hazard_**, with the **_hazard_** being the **_instantaneous rate of event occurrence_** (see references).
+
+### Cumulative hazard {.unnumbered}  
+
+Besides the `summary()` function, we can also use the `str()` function that gives more details on the structure of the `survfit()` object. It is a list of 16 elements.  
+
+Among these elements is an important one: `cumhaz`, which is a numeric vector. This could be plotted to allow show the **_cumulative hazard_**, with the **_hazard_** being the **_instantaneous rate of event occurrence_** (see references).
 
 ```{r fit_struct}
 
-print(
-  str(linelistsurv_fit)
-      )
+str(linelistsurv_fit)
 
 ```
 
 <!-- ======================================================= -->
 ### Plotting Kaplan-Meir curves  {.unnumbered}
 
-Once the KM estimates are fitted, we can visualize that probability of being alive through the time using the basic `plot()` function that draws the so-known "Kaplan-Meier curve". In other words the curve below is a conventional illustration of the survival experience in the whole patient group.
+Once the KM estimates are fitted, we can visualize the probability of being alive through a given time using the basic `plot()` function that draws the "Kaplan-Meier curve". In other words, the curve below is a conventional illustration of the survival experience in the whole patient group.
 
-We can easily verify the follow-up time min and max on the curve. 
+We can quickly verify the follow-up time min and max on the curve.  
 
-An easy way to interpret it is to say that at time zero, all the participants are still alive: survival probability is then 100%. Then it decreases over time as patients die. The proportion of participants surviving past 60 days of f-u is around 40%.
+An easy way to interpret is to say that at time zero, all the participants are still alive and survival probability is then 100%. This probability decreases over time as patients die. The proportion of participants surviving past 60 days of follow-up is around 40%.
 
 ```{r }
 
 plot(linelistsurv_fit, 
-     xlab = "Days of follow-up",    #xaxis label
-     ylab="Survival Probability",   #yaxis label
-     main= "Overall survival curve" #figure title
+     xlab = "Days of follow-up",    # x-axis label
+     ylab="Survival Probability",   # y-axis label
+     main= "Overall survival curve" # figure title
      )
 
 ```
 
-The confidence interval of the KM estimates of the survival are also plotted by default and can be dismissed by adding the option `conf.int=FALSE` to the `plot()` command.
+The confidence interval of the KM survival estimates are also plotted by default and can be dismissed by adding the option `conf.int = FALSE` to the `plot()` command.
 
-Since the event of interest is "death", drawing a curve describing the complements of the survival proportions will lead to drawing the cumulative mortality proportions.
+Since the event of interest is "death", drawing a curve describing the complements of the survival proportions will lead to drawing the cumulative mortality proportions. This can be done with `lines()`, which adds information to an existing plot.  
 
 
-```{r }
+```{r}
 
+# original plot
 plot(
-     linelistsurv_fit,
-     xlab = "Days of follow-up",       
-     ylab="Survival Probability",       
-     mark.time=TRUE,              #mark times of events to facilitate reading of the curve: a "+" sign is printed on the curve at every event
-     conf.int=FALSE,             #do not plot the confidence interval
-     main= "Overall survival curve and cumulative mortality"
-     )
+  linelistsurv_fit,
+  xlab = "Days of follow-up",       
+  ylab = "Survival Probability",       
+  mark.time = TRUE,              # mark events on the curve: a "+" is printed at every event
+  conf.int = FALSE,              # do not plot the confidence interval
+  main = "Overall survival curve and cumulative mortality"
+  )
 
+# draw an additional curve to the previous plot
+lines(
+  linelistsurv_fit,
+  lty = 3,             # use different line type for clarity
+  fun = "event",       # draw the cumulative events instead of the survival 
+  mark.time = FALSE,
+  conf.int = FALSE
+  )
 
-
-#draw an additional curve to the previous plot
-lines( 
-      linelistsurv_fit, 
-      lty=3,          #use a different line type to differenciate between the two curves and for legend clarity purposes
-      fun = "event", #draw the cumulative events instead of the survival 
-      mark.time=FALSE, 
-      conf.int=FALSE 
-      )
-
-#add a legend to the plot
-legend("topright", #position of the legend in the plot
-       legend=c("Survival","Cum. Mortality"), #legend text 
-       lty = c(1,3), #line types to use in the legend, should follow linetype used to draw the two curves
-       cex=.85, #factor that defines size of the legend text
-       bty = "n" #no box type to be drawn for the legend
-       )
+# add a legend to the plot
+legend(
+  "topright",                               # position of legend
+  legend = c("Survival", "Cum. Mortality"), # legend text 
+  lty = c(1, 3),                            # line types to use in the legend
+  cex = .85,                                # parametes that defines size of legend text
+  bty = "n"                                 # no box type to be drawn for the legend
+  )
 
 ```
 
@@ -21048,98 +21107,113 @@ To compare the survival within different groups of our observed participants or 
 
 ### Log rank test {.unnumbered}
 
-The log rank test is a popular test that compares the entire survival experience between two or more *independent* groups and can be thought of as a test of whether the survival curves are identical (overlapping) or not (null hypothesis of no difference in survival between the groups). The `survdiff()` function of the **survival package** allows running the log-rank test when we specify `rho=0` (which is the default). The test results gives a chi-square statistic along with a p-value since the log rank statistic is approximately distributed as a chi-square test statistic.
+The log rank test is a popular test that compares the entire survival experience between two or more *independent* groups and can be thought of as a test of whether the survival curves are identical (overlapping) or not (null hypothesis of no difference in survival between the groups). The `survdiff()` function of the **survival package** allows running the log-rank test when we specify `rho = 0` (which is the default). The test results gives a chi-square statistic along with a p-value since the log rank statistic is approximately distributed as a chi-square test statistic.
 
 We first try to compare the survival curves by gender group. For this, we first try to visualize it (check whether the two survival curves are overlapping). A new *survfit object*  will be created with a slightly different formula. Then the *survdiff object* will be created.
 
+By supplying ` ~ gender` as the right side of the formula, we no longer plot the overall survival but instead by gender.  
+
+
 ```{r comp_surv, warning=FALSE}
 
-#create the new survfit object based on gender
-linelistsurv_fit_sex <-  survfit(
-  
-              Surv(futime, event) ~ gender, #formula to create the survival curve: ~ gender indicates we no longer plot the overall survival but based on gender
-              data = linelist_surv #data to use 
-              )
+# create the new survfit object based on gender
+linelistsurv_fit_sex <-  survfit(Surv(futime, event) ~ gender, data = linelist_surv)
+```
 
+Now we can plot the survival curves by gender. Have a look at the *order* of the strata levels in the gender column before defining your colors and legend.  
 
-#plot the survival curves by gender: have a look at the order of the strata level in the gender var before defining your colors
+```{r}
+# set colors
 col_sex <- c("lightgreen", "darkgreen")
 
-plot(linelistsurv_fit_sex,
-     col=col_sex,
-     xlab = "Days of follow-up", 
-     ylab="Survival Probability"
-     )
+# create plot
+plot(
+  linelistsurv_fit_sex,
+  col = col_sex,
+  xlab = "Days of follow-up",
+  ylab = "Survival Probability")
 
-legend("topright", 
-       legend=c("Female","Male"), 
-       col =col_sex,
-       lty = 1, cex=.9, bty = "n" 
-       )
+# add legend
+legend(
+  "topright",
+  legend = c("Female","Male"),
+  col = col_sex,
+  lty = 1,
+  cex = .9,
+  bty = "n")
+```
 
+And now we can compute the test of the difference between the survival curves using `survdiff()`
+
+```{r}
 #compute the test of the difference between the survival curves
 survival::survdiff(
-          Surv(futime, event) ~ gender, 
-          data = linelist_surv
-         )
+  Surv(futime, event) ~ gender, 
+  data = linelist_surv
+  )
 
 ```
 
-We see that the survival curve for women and the one for men overlap up to 15 days of follow-up and then women seem to have a slightly better survival. Yet the log-rank test does not gives enough evidence of a statistical difference between the survival for women and the survival for Men at `\alpha= 0.05`.
+We see that the survival curve for women and the one for men overlap and the log-rank test does not gives enough evidence of a statistical difference between the survival for women and the survival for Men at `alpha = 0.05`.
 
+Some other R packages allow illustrating survival curves for different groups and testing the difference all at once. Using the `ggsurvplot()` function from the **survminer** package, we can also include in our curve the printed risk tables for each group, as well the p-value from the log-rank test. 
 
-Some packages allow illustrating survival curves for different groups and testing the difference at once. Using the `ggsurvplot()` function from the *survminer* package, we can add in our curve the print of the risk tables for each group as well the p-value from the log-rank test. 
-
-We find back the p-value that was found in the previous step.
-
-<span style="color: orange;">**_CAUTION:_** **survminer** functions require since the latest versions, specifying again the data used to fit the survival object. Remember doing this to avoid non-specific error messages. </span>
+<span style="color: orange;">**_CAUTION:_** **survminer** functions require that you specify the survival object *and* again specify the data used to fit the survival object. Remember to do this to avoid non-specific error messages. </span>
 
 ```{r, warning=F, message=F}
 
 survminer::ggsurvplot(
-  
     linelistsurv_fit_sex, 
-    data= linelist_surv, #precise again the data used to fit the linelistsurv_fit_sex even though it is already precised in that object
-    conf.int = F, #do not show confidence interval of KM estimates
-    surv.scale = "percent",  #present probabilities in the y axis in %
-    break.time.by=10, #present the time axis with an increment of 10 days
-    xlab = "Follow-up days", ylab= "Survival Probability",
-    pval=T, pval.coord= c(40,.91),  #print p-value of Log-rank test and at the position with these coordinates
-    risk.table=T,  #print the risk table 
-    legend.title = "Gender",
-    legend.labs = c("Female","Male"), font.legend = 10, #legend characteristics
-    palette = "Dark2", #existing palette name precised,
-    surv.median.line = "hv", #draw a line to the median survival
-    ggtheme = theme_light()
+    data = linelist_surv,          # again specify the data used to fit linelistsurv_fit_sex 
+    conf.int = FALSE,              # do not show confidence interval of KM estimates
+    surv.scale = "percent",        # present probabilities in the y axis in %
+    break.time.by = 10,            # present the time axis with an increment of 10 days
+    xlab = "Follow-up days",
+    ylab = "Survival Probability",
+    pval = T,                      # print p-value of Log-rank test 
+    pval.coord = c(40,.91),        # print p-value at these plot coordinates
+    risk.table = T,                # print the risk table at bottom 
+    legend.title = "Gender",       # legend characteristics
+    legend.labs = c("Female","Male"),
+    font.legend = 10, 
+    palette = "Dark2",             # specify color palette 
+    surv.median.line = "hv",       # draw horizontal and vertical lines to the median survivals
+    ggtheme = theme_light()        # simplify plot background
 )
 
 ```
 
 
-We can then look for a difference in the source of the contamination. In this case, the Log rank test gives enough evidence of a difference in the survival probabilities at `\alpha= 0.005`.
-The survival probabilities for patients that got infected in funerals are higher than the survival probabilities for patients that got infected in other places, suggesting a survival benefit.
+We may also want to test for differences in survival by the source of infection (source of contamination).  
+
+In this case, the Log rank test gives enough evidence of a difference in the survival probabilities at `alpha= 0.005`. The survival probabilities for patients that were infected at funerals are higher than the survival probabilities for patients that got infected in other places, suggesting a survival benefit.
 
 ```{r}
 
 linelistsurv_fit_source <-  survfit(
-              Surv(futime, event) ~ source,
-              data = linelist_surv
-              )
+  Surv(futime, event) ~ source,
+  data = linelist_surv
+  )
 
+# plot
 ggsurvplot( 
-      linelistsurv_fit_source, data= linelist_surv,
-      size=1, linetype = "strata",
-      conf.int = T, 
-      surv.scale = "percent",  
-      break.time.by=10, 
-      xlab = "Follow-up days", ylab= "Survival Probability",
-      pval=T, pval.coord= c(40,.91),  
-      risk.table=T,
-      legend.title = "Source of \ninfection", legend.labs = c("Funeral","Other"), 
-      font.legend = 10,
-      palette = c("#E7B800","#3E606F"),
-      surv.median.line = "hv", 
-      ggtheme = theme_light()
+  linelistsurv_fit_source,
+  data = linelist_surv,
+  size = 1, linetype = "strata",   # line types
+  conf.int = T,
+  surv.scale = "percent",  
+  break.time.by = 10, 
+  xlab = "Follow-up days",
+  ylab= "Survival Probability",
+  pval = T,
+  pval.coord = c(40,.91),
+  risk.table = T,
+  legend.title = "Source of \ninfection",
+  legend.labs = c("Funeral", "Other"),
+  font.legend = 10,
+  palette = c("#E7B800","#3E606F"),
+  surv.median.line = "hv", 
+  ggtheme = theme_light()
 )
 
 ```
@@ -21149,10 +21223,7 @@ ggsurvplot(
 
 Cox proportional hazards regression is one of the most popular regression techniques for survival analysis. Other models  can also be used since the Cox model requires *important assumptions* that need to be verified for an appropriate use such as the proportional hazards assumption: see references. 
 
-In a Cox proportional hazards regression model, the measure of effect is the **_hazard rate_** (HR), which is the risk of failure (or the risk of death in our example), given that the participant has survived up to a specific time.  Usually, we are interested in comparing *independent* groups with respect to their hazards, and we use a hazard ratio, which is analogous to an odds ratio in the setting of multiple logistic regression analysis. The `cox.ph()` from the **survival** package is used to fit the model.
-The function `cox.zph()` from **survival** package may be used to test the proportional hazards assumption for a Cox regression model fit. 
-
-
+In a Cox proportional hazards regression model, the measure of effect is the **_hazard rate_** (HR), which is the risk of failure (or the risk of death in our example), given that the participant has survived up to a specific time.  Usually, we are interested in comparing *independent* groups with respect to their hazards, and we use a hazard ratio, which is analogous to an odds ratio in the setting of multiple logistic regression analysis. The `cox.ph()` function from the **survival** package is used to fit the model. The function `cox.zph()` from **survival** package may be used to test the proportional hazards assumption for a Cox regression model fit. 
 
 <span style="color: black;">**_NOTE:_** A probability must lie in the range 0 to 1. However, the hazard represents the expected number of events per one unit of time. 
 
@@ -21164,15 +21235,15 @@ The function `cox.zph()` from **survival** package may be used to test the propo
 
 We can first fit a model to assess the effect of age and gender on the survival. By just printing the model, we have the information on:
 
-  + the estimated regression coefficients (`coef`) which quantifies the association between the predictors and the outcome,
+  + the estimated regression coefficients `coef` which quantifies the association between the predictors and the outcome,
   + their exponential (for interpretability, `exp(coef)`) which produces the *hazard ratio*,
-  + their standard error (`se(coef)`),
+  + their standard error `se(coef)`,
   + the z-score: how many standard errors is the estimated coefficient away from  0,
-  + and the p-value:  the propability that the estimated coefficient could be 0.
+  + and the p-value:  the probability that the estimated coefficient could be 0.
   
-  The `summary()` function applied to the cox model object gives more info such as the confidence interval of the estimated HR and the different test scores.
+The `summary()` function applied to the cox model object gives more information, such as the confidence interval of the estimated HR and the different test scores.
 
-The effect of the first covariate `gender`  is presented in the first row. `genderm` is printed stating that the first strata level ("f") i.e the female group is the reference group for the gender. Thus the interpretation of the test parameter is that of men compared to women. The p-value  indicates there was no enough evidence of an effect of the gender on the expected hazard or of an association between gender and all-cause mortality.
+The effect of the first covariate `gender`  is presented in the first row. `genderm` (male) is printed, implying that the first strata level ("f"), i.e the female group, is the reference group for the gender. Thus the interpretation of the test parameter is that of men compared to women. The p-value indicates there was not enough evidence of an effect of the gender on the expected hazard or of an association between gender and all-cause mortality.
 
 The same lack of evidence is noted regarding age-group.
 
@@ -21205,11 +21276,11 @@ test_ph_sexage
 ```
 
 
-<span style="color: black;">**_NOTE:_** A second argument called *method* can be specified when computing the cox model. It is the determines how ties are handled. The *default* is "efron", and the other options are "breslow" and "exact".</span>
+<span style="color: black;">**_NOTE:_** A second argument called *method* can be specified when computing the cox model, that determines how ties are handled. The *default* is "efron", and the other options are "breslow" and "exact".</span>
 
 In another model we add more risk factors such as the source of infection and the number of days between date of onset and admission. This time, we first  verify the proportional hazards assumption before going forward.
 
-In this model, we have included a continuous predictor (`days_onset_hosp`). In this case we interpret the parameter estimates as the increase in the expected log of the relative hazard for each one unit increase in the predictor, holding other predictors constant. We first verify the proportional hazards assumption.  The graphical verification of this assumption may be performed with the function `ggcoxzph()` from the *survminer* package. 
+In this model, we have included a continuous predictor (`days_onset_hosp`). In this case we interpret the parameter estimates as the increase in the expected log of the relative hazard for each one unit increase in the predictor, holding other predictors constant. We first verify the proportional hazards assumption.  
 
 ```{r coxmodel_fit_ph,  message=FALSE}
 
@@ -21223,12 +21294,17 @@ linelistsurv_cox <-  coxph(
 #test the proportional hazard model
 linelistsurv_ph_test <- cox.zph(linelistsurv_cox)
 linelistsurv_ph_test
+```
+
+The graphical verification of this assumption may be performed with the function `ggcoxzph()` from the **survminer** package. 
+
+```{r}
 survminer::ggcoxzph(linelistsurv_ph_test)
 
 ```
 
 
-The model results indicates there is a negative association between onset to admission duration and all-cause mortality. The expected hazard is 0.9 times lower in a person who who is one day later admitted than another, holding gender constant. Or in a more straightforward explanation, a one unit increase in the duration of onset to admission is associated with a 10.7% (`coef *100`) decrease in the risk of death.
+The model results indicate there is a negative association between onset to admission duration and all-cause mortality. The expected hazard is 0.9 times lower in a person who who is one day later admitted than another, holding gender constant. Or in a more straightforward explanation, a one unit increase in the duration of onset to admission is associated with a 10.7% (`coef *100`) decrease in the risk of death.
 
 Results show also a positive association between the source of infection and the all-cause mortality. Which is to say there is an increased risk of death (1.21x) for patients that got a source of infection other than funerals.
 
@@ -21239,6 +21315,21 @@ Results show also a positive association between the source of infection and the
 summary(linelistsurv_cox)
 
 ```
+
+
+We can verify this relationship with a table:  
+
+
+```{r}
+linelist_case_data %>% 
+  tabyl(days_onset_hosp, outcome) %>% 
+  adorn_percentages() %>%  
+  adorn_pct_formatting()
+
+```
+
+
+We would need to consider and investigate why this association exists in the data. One possible explanation could be that patients who live long enough to be admitted later had less severe disease to begin with. Another perhaps more likely explanation is that since we used a simulated fake dataset, this pattern does not reflect reality!  
 
 
 <!-- ======================================================= -->
