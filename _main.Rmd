@@ -55,7 +55,7 @@ knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x5
 * Serve as a quick R code reference manual  
 * Provide task-centered examples addressing common epidemiological problems  
 * Assist epidemiologists transitioning to R  
-* Be accessible in settings with low internet-connectivity via an **[offline version](Download handbook and data)**  
+* Be accessible in settings with low internet-connectivity via an **[offline version][Download handbook and data]**  
 
 
 <!-- * Use practical epi examples - cleaning case linelists, making transmission chains and epidemic curves, automated reports and dashboards, modeling incidence and making projections, demographic pyramids and rate standardization, record matching, outbreak detection, survey analysis, survival analysis, GIS basics, contact tracing, phylogenetic trees...   -->
@@ -279,7 +279,7 @@ In this page we describe the philosophical approach, style, and specific editori
 
 ## Approach and style
 
-The potential audience for this book is large. It will surely be used by people very new to R, and also by experienced R users looking for best practices and tips. So it must be both accessible and succinct. Therefore, our approach was to provide *just enough* text explanation that someone very new to R can apply the code and follow what is the code is doing.  
+The potential audience for this book is large. It will surely be used by people very new to R, and also by experienced R users looking for best practices and tips. So it must be both accessible and succinct. Therefore, our approach was to provide *just enough* text explanation that someone very new to R can apply the code and follow what the code is doing.  
 
 A few other points:  
 
@@ -475,7 +475,7 @@ You can download the offline version of this handbook as an HTML file so that yo
 
 ### Use download link {.unnumbered}  
 
-For quick access, right-click [this link](https://github.com/epirhandbook/Epi_R_handbook/raw/master/offline_long/Epi_R_Handbook_offline.html) and select "Save link as".  
+For quick access, **right-click** [this link](https://github.com/epirhandbook/Epi_R_handbook/raw/master/offline_long/Epi_R_Handbook_offline.html) **and select "Save link as"**.  
 
 If on a Mac, use Cmd+click. If on a mobile, press and hold the link and select "Save link". The handbook will download to your device. If a screen with raw HTML code appears, ensure you have followed the above instructions or try Option 2.  
 
