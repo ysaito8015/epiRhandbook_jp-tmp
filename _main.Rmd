@@ -138,7 +138,7 @@ This handbook is **not** an approved product of any specific organization. Altho
 
 **Authors**: [Neale Batra](https://www.linkedin.com/in/neale-batra/), [Alex Spina](https://github.com/aspina7), [Paula Blomquist](https://www.linkedin.com/in/paula-bianca-blomquist-53188186/), [Finlay Campbell](https://github.com/finlaycampbell), [Henry Laurenson-Schafer](https://github.com/henryls1), [Isaac Florence](www.Twitter.com/isaacatflorence), [Natalie Fischer](www.linkedin.com/in/nataliefischer211), [Aminata Ndiaye](https://twitter.com/aminata_fadl), [Liza Coyer]( https://www.linkedin.com/in/liza-coyer-86022040/), [Jonathan Polonsky](https://twitter.com/jonny_polonsky), [Yurie Izawa](https://ch.linkedin.com/in/yurie-izawa-a1590319), [Chris Bailey](https://twitter.com/cbailey_58?lang=en), [Daniel Molling](https://www.linkedin.com/in/daniel-molling-4005716a/), [Isha Berry](https://twitter.com/ishaberry2), [Emma Buajitti](https://twitter.com/buajitti), [Mathilde Mousset](https://mathildemousset.wordpress.com/research/), [Sara Hollis](https://www.linkedin.com/in/saramhollis/), Wen Lin  
 
-**Reviewers**: Pat Keating, Annick Lenglet, Margot Charette, Daniely Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Kate Kelsey, [Berhe Etsay](https://www.linkedin.com/in/berhe-etsay-5752b1154/), John Rossow, Mackenzie Zendt, James Wright, Laura Haskins, [Flavio Finger](ffinger.github.io), Tim Taylor, [Jae Hyoung Tim Lee](https://www.linkedin.com/in/jaehyoungtlee/), [Brianna Bradley](https://www.linkedin.com/in/brianna-bradley-bb8658155), [Wayne Enanoria](https://www.linkedin.com/in/wenanoria), Manual Albela Miranda, [Molly Mantus](https://www.linkedin.com/in/molly-mantus-174550150/), Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
+**Reviewers**: Pat Keating, Annick Lenglet, Margot Charette, Danielly Xavier, Esther Kukielka, Michelle Sloan, Aybüke Koyuncu, Rachel Burke, Kate Kelsey, [Berhe Etsay](https://www.linkedin.com/in/berhe-etsay-5752b1154/), John Rossow, Mackenzie Zendt, James Wright, Laura Haskins, [Flavio Finger](ffinger.github.io), Tim Taylor, [Jae Hyoung Tim Lee](https://www.linkedin.com/in/jaehyoungtlee/), [Brianna Bradley](https://www.linkedin.com/in/brianna-bradley-bb8658155), [Wayne Enanoria](https://www.linkedin.com/in/wenanoria), Manual Albela Miranda, [Molly Mantus](https://www.linkedin.com/in/molly-mantus-174550150/), Pattama Ulrich, Joseph Timothy, Adam Vaughan, Olivia Varsaneux, Lionel Monteiro, Joao Muianga  
 
 **Illustrations**: Calder Fong  
 
@@ -182,13 +182,23 @@ More generally, the following sources provided inspiration for this handbook:
 <!-- Images in logo from US CDC Public Health Image Library) include [2013 Yemen looking for mosquito breeding sites](https://phil.cdc.gov/Details.aspx?pid=19623), [Ebola virus](https://phil.cdc.gov/Details.aspx?pid=23186), and [Survey in Rajasthan](https://phil.cdc.gov/Details.aspx?pid=19838).   -->
 
 
-## Terms of Use and License {-}  
+## Terms of Use and Contribution {-}  
+
+### License {.unnumbered} 
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 
 Academic courses and epidemiologist training programs are welcome to use this handbook with their students. If you have questions about your intended use, email **epiRhandbook@gmail.com**.  
 
+
+### Citation {.unnumbered}
+
+The Epidemiologist R Handbook. <a rel="license" href="https://zenodo.org/badge/231610102.svg"><img alt="DOI" style="border-width:0" src="https://zenodo.org/badge/231610102.svg" /></a><br />
+
+### Contribution {.unnumbered}  
+
+If you would like to make a content contribution, please contact with us first via Github issues or by email. We are implementing a schedule for updates and are creating a contributor guide.  
 
 Please note that the epiRhandbook project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
@@ -3014,7 +3024,7 @@ pacman::p_load(
      # plots - specific types
      ########################
      DiagrammeR,       # diagrams using DOT language
-     incidence,        # epidemic curves
+     incidence2,       # epidemic curves
      gghighlight,      # highlight a subset
      ggrepel,          # smart labels
      plotly,           # interactive graphics
@@ -3066,7 +3076,7 @@ Below are commmands to install two packages directly from Github repositories.
 * The **epirhandbook** package contains all the example data for this handbook and can be used to download the offline version of the handbook.  
 
 
-```{r}
+```{r, eval=F}
 # Packages to download from Github (not available on CRAN)
 ##########################################################
 
@@ -6300,7 +6310,7 @@ Below we present two approaches to converting a column from character values to 
 
 Use of `as.Date()` requires that:  
 
-* You *specify the **existing** format of the raw character date* or the origin date if suppling dates as numbers (see section on Excel dates)  
+* You *specify the **existing** format of the raw character date* or the origin date if supplying dates as numbers (see section on Excel dates)  
 * If used on a character column, all date values must have the same exact format (if this is not the case, try `guess_dates()` from the **linelist** package)  
 
 **First**, check the class of your column with `class()` from **base** R. If you are unsure or confused about the class of your data (e.g. you see "POSIXct", etc.) it can be easiest to first convert the column to class Character with `as.character()`, and then convert it to class Date.  
@@ -7012,8 +7022,6 @@ pacman::p_load(
 ### Import data  {.unnumbered}  
 
 
-### Import data {.unnumbered}
-
 In this page we will occassionally reference the cleaned `linelist` of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).  
 
 ```{r, echo=F}
@@ -7095,7 +7103,7 @@ Use `str_glue()` to insert dynamic R code into a string. This is a very useful f
 
 * All content goes between double quotation marks `str_glue("")`  
 * Any dynamic code or references to pre-defined values are placed within curly brackets `{}` within the double quotation marks. There can be many curly brackets in the same `str_glue()` command.  
-* To display character quotes '', use single quotes within the surrounding double quotes (e.g. when providing date format - see example below)  
+* To display character quotes '', use *single* quotes within the surrounding double quotes (e.g. when providing date format - see example below)  
 * Tip: You can use `\n` to force a new line  
 * Tip: You use `format()` to adjust date display, and use `Sys.Date()` to display the current date  
 
@@ -17548,10 +17556,11 @@ For example in our data set we would use the data from 2002 to 2009 to predict 2
 and then see how accurate those predictions are. Then refit the model to include
 2010 data and use that to predict 2011 counts.  
 
-As can be seen in the figure below by *Hyndman et al* in "Forecasting principles 
-and practice". 
+As can be seen in the figure below by *Hyndman et al* in ["Forecasting principles 
+and practice"](https://otexts.com/fpp3/). 
 
 ![](`r "https://otexts.com/fpp3/fpp_files/figure-html/traintest-1.png"`)
+*figure reproduced with permission from the authors* 
 
 The downside of this is that you are not using all the data available to you, and 
 it is not the final model that you are using for prediction. 
@@ -17559,10 +17568,11 @@ it is not the final model that you are using for prediction.
 An alternative is to use a method called cross-validation. In this scenario you 
 roll over all of the data available to fit multiple models to predict one year ahead. 
 You use more and more data in each model, as seen in the figure below from the 
-same *Hyndman et al* text. 
+same [*Hyndman et al* text]((https://otexts.com/fpp3/). 
 For example, the first model uses 2002 to predict 2003, the second uses 2002 and 
 2003 to predict 2004, and so on. 
 ![](`r "https://otexts.com/fpp2/fpp_files/figure-html/cv1-1.png"`)
+*figure reproduced with permission from the authors*
 
 In the below we use **purrr** package `map()` function to loop over each dataset. 
 We then put estimates in one data set and merge with the original case counts, 
