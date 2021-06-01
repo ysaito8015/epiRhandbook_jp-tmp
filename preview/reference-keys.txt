@@ -1,3 +1,0 @@
-download-handbook-and-data
-download-offline-handbook
-download-data-to-follow-along
