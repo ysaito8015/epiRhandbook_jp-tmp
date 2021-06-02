@@ -26,6 +26,8 @@ documentclass: book
 
 ```{r, out.width = "100%", fig.align = "center", echo=F}
 knitr::include_graphics(here::here("images", "Epi R Handbook banner beige 1500x500.png"))
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <meta name="description" content="The Epi R Handbook is an R reference manual for applied epidemiology and public health.">
@@ -238,6 +240,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:index.Rmd-->
@@ -278,6 +284,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_about_book.Rmd-->
@@ -458,6 +468,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/editorial_style.Rmd-->
@@ -507,7 +521,14 @@ Run the following code to install our R package **epirhandbook** from the [Githu
 pacman::p_install_gh("appliedepi/epirhandbook")
 ```
 
-Next, run the function `download_book()` (with empty parentheses) to download the handbook to your computer. Assuming you are in RStudio, a window will appear allowing you to select a save location.  
+Now, load the package for use in your current R session:  
+
+```{r, eval=F}
+# load the package for use
+pacman::p_load(epirhandbook)
+```
+
+Next, run the package's function `download_book()` (with empty parentheses) to download the handbook to your computer. Assuming you are in RStudio, a window will appear allowing you to select a save location.  
 
 ```{r, eval=F}
 # download the offline handbook to your computer
@@ -533,7 +554,15 @@ To install our R package **epirhandbook**, run the following code. This package 
 pacman::p_install_gh("appliedepi/epirhandbook")
 ```
 
-Next, use the function `get_data()` to download the example data to your computer. Run `get_data("all")` to get *all* the example data, or provide a specific file name and extension within the quotes to retrieve only one file.  
+
+Now, load the package for use in your current R session:  
+
+```{r, eval=F}
+# load the package for use
+pacman::p_load(epirhandbook)
+```
+
+Next, use the package's function `get_data()` to download the example data to your computer. Run `get_data("all")` to get *all* the example data, or provide a specific file name and extension within the quotes to retrieve only one file.  
 
 The data have already been downloaded with the package, and simply need to be transferred out to a folder on your computer. A pop-up window will appear, allowing you to select a save folder location. We suggest you create a new "data" folder as there are about 30 files (including example data and example outputs).  
 
@@ -850,6 +879,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/data_used.Rmd-->
@@ -890,6 +923,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_basics.Rmd-->
@@ -942,7 +979,7 @@ The R community of users is enormous and collaborative. New packages and tools t
 
 **Objects** - Everything you store in R - datasets, variables, a list of village names, a total population number, even outputs such as graphs - are *objects* which are *assigned a name* and *can be referenced* in later commands. Read more [in the Objects section](#objects).  
 
-**Functions** - A function is a code operation that accept inputs and returns a transformed output. Read more [in the Function section](#functions).  
+**Functions** - A function is a code operation that accept inputs and returns a transformed output. Read more [in the Functions section](#functions).  
 
 **Packages** - An R package is a shareable bundle of functions. Read more [in the Packages section](#packages).  
 
@@ -993,14 +1030,16 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 ### Twitter {.unnumbered}  
 
 R has a vibrant twitter community where you can learn tips, shortcuts, and news - follow these accounts:  
+
 * Follow us! [\@epiRhandbook](https://twitter.com/epirhandbook)  
 * R Function A Day [\@rfuntionaday](https://twitter.com/rfunctionaday) is an *incredible* resource  
 * R for Data Science [\@rstats4ds](https://twitter.com/rstats4ds?lang=en)  
 * RStudio [\@RStudio](https://twitter.com/rstudio?lang=en)  
 * RStudio Tips [\@rstudiotips](https://twitter.com/rstudiotips)  
 * R-Bloggers [\@Rbloggers](https://twitter.com/Rbloggers)  
-* R-ladies [\@RLadiesGlobal](https://twitter.com/RLadiesGlobal)
-* Hadley Wickham [\@hadleywickham](https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)
+* R-ladies [\@RLadiesGlobal](https://twitter.com/RLadiesGlobal)  
+* Hadley Wickham [\@hadleywickham](https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)  
+
 
 Also:  
 
@@ -1031,6 +1070,8 @@ The [R4Epis](https://r4epis.netlify.app/) project website aims to "develop stand
 <!-- ======================================================= -->
 ## Installation  
 
+### R and RStudio {.unnumbered}  
+
 **How to install R**  
 
 Visit this website [https://www.r-project.org/](https://www.r-project.org/) and download the latest version of R suitable for your computer.  
@@ -1052,7 +1093,7 @@ Be aware that the old R version will still exist in your computer. You can tempo
 
 To update RStudio, you can go to the website above and re-download RStudio. Another option is to click "Help" -> "Check for Updates" within RStudio, but this may not show the very latest updates.  
 
-To see which versions of R, RStudio, or packages were used when this Handbook as made, see the page on [Datasets and version used]. 
+To see which versions of R, RStudio, or packages were used when this Handbook as made, see the page on [Editorial and technical notes]. 
 
 
 ### Other software you *may* need to install {.unnumbered} 
@@ -1219,10 +1260,11 @@ This basics section on functions explains:
 sqrt(49)
 ```
 
-The object provided to a function also can be a column in a dataset (see the [Objects](#objects) section for detail on all the kinds of objects). You can reference a specific column within a dataset using the `$` notation to separate the name of the dataset and the name of the column (`dataset$column`). In the example below, the function `summary()` is applied to the numeric column `age` in the dataset `linelist`, and the output is a summary of the column's numeric and missing values.  
+The object provided to a function also can be a column in a dataset (see the [Objects](#objects) section for detail on all the kinds of objects). Because R can store multiple datasets, you will need to specify both the dataset and the column. One way to do this is using the `$` notation to link the name of the dataset and the name of the column (`dataset$column`). In the example below, the function `summary()` is applied to the numeric column `age` in the dataset `linelist`, and the output is a summary of the column's numeric and missing values.  
 
 
 ```{r basics_functions_summary}
+# Print summary statistics of column 'age' in the dataset 'linelist'
 summary(linelist$age)
 ```
 
@@ -1248,19 +1290,19 @@ knitr::include_graphics(here::here("images", "Function_Bread_Example.png"))
 
 **In a more realistic example**, the `age_pyramid()` command below produces an age pyramid plot based on defined age groups and a binary split column, such as `gender`. The function is given three arguments within the parentheses, separated by commas. The values supplied to the arguments establish `linelist` as the dataframe to use, `age_cat5` as the column to count, and `gender` as the binary column to use for splitting the pyramid by color.
 
-```{r basics_functions_arguments, include=FALSE, results='hide', message=FALSE, warning=FALSE, eval=T}
+```{r basics_functions_arguments, include=FALSE, results='hide', message=FALSE, warning=FALSE,}
 ## create an age group variable by specifying categorical breaks
 linelist$age_group <- cut(linelist$age, breaks = c(0, 5, 10, 15, 20, 30, 45, 60))
 ```
 
-```{r message=FALSE, warning=FALSE, eval=T, out.width = "75%", out.height="75%"}
+```{r message=FALSE, warning=FALSE,  out.width = "75%", out.height="75%"}
 # Create an age pyramid
 age_pyramid(data = linelist, age_group = "age_cat5", split_by = "gender")
 ```
 
 The above command can be equivalently written as below, in a longer style with a new line for each argument. This style can be easier to read, and easier to write "comments" with `#` to explain each part (commenting extensively is good practice!). To run this longer command you can highlight the entire command and click "Run", or just place your cursor in the first line and then press the Ctrl and Enter keys simultaneously.  
 
-```{r message=FALSE, warning=FALSE, eval=T, out.width = "75%", out.height="75%"}
+```{r message=FALSE, warning=FALSE,  out.width = "75%", out.height="75%"}
 # Create an age pyramid
 age_pyramid(
   data = linelist,        # use case linelist
@@ -1446,27 +1488,31 @@ To check whether a package in installed and/or loaded, you can view the Packages
 
 **Install from Github**
 
-Sometimes, you need to install a package that is not yet available from CRAN. Or perhaps the package is available on CRAN but you want the *development version* with new features not yet offered in the more stable published CRAN version. These are often hosted on the website Github in a public-facing code "repository".  
+Sometimes, you need to install a package that is not yet available from CRAN. Or perhaps the package is available on CRAN but you want the *development version* with new features not yet offered in the more stable published CRAN version. These are often hosted on the website [github.com](https://github.com/) in a free, public-facing code "repository". Read more about Github in the handbook page on [Version control and collaboration with Git and Github].  
 
-To download these packages, you can use `p_load_gh()` from **pacman**. You may also see guidance to use the **remotes** or **devtools** packages. In the background, this **pacman** function utilizes `install_github()` from **devtools**.  
+To download R packages from Github, you can use the function `p_load_gh()` from **pacman**, which will install the package if necessary, and load it for use in your current R session. Alternatives to install include using the **remotes** or **devtools** packages. Read more about all the **pacman** functions in the [package documentation](https://cran.r-project.org/web/packages/pacman/pacman.pdf).  
 
-To install from github, you have to provide different information to the function. You must provide the Github ID of the repository owner, and the name of the code repository which contains the package.  
+To install from Github, you have to provide more information. You must provide:  
 
-In the examples below, the first name listed in the quotation marks is the Github ID of the repository owner, and after the slash is the name of the repository. If you want to install from a branch other than the main/master branch, add the branch name after an "@" after the repository name.  
+1) The Github ID of the repository owner
+2) The name of the repository that contains the package  
+3) *(optional) The name of the "branch" (specific development version) you want to download*  
 
+In the examples below, the first word in the quotation marks is the Github ID of the repository owner, after the slash is the name of the repository (the name of the package).  
 
 ```{r, eval=F}
-# install/load package from github repository
+# install/load the epicontacts package from its Github repository
 p_load_gh("reconhub/epicontacts")
-
-# load development version of package which you had downloaded from github repository
-p_load_gh("reconhub/epicontacts")
-
-# install development version of package, but not the main branch
-p_install_gh("reconhub/epicontacts@timeline")
 ```
 
-Read more about **pacman** in this [online vignette](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html)
+If you want to install from a "branch" (version) other than the main branch, add the branch name after an "@", after the repository name.  
+
+```{r, eval=F}
+# install the "timeline" branch of the epicontacts package from Github
+p_load_gh("reconhub/epicontacts@timeline")
+```
+
+If there is no difference between the Github version and the version on your computer, no action will be taken. You can "force" a re-install by instead using `p_load_current_gh()` with the argument `update = TRUE`. Read more about **pacman** in this [online vignette](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html)
 
 
 **Install from ZIP or TAR**
@@ -1923,7 +1969,7 @@ list | A list is like vector, but holds other objects that can be other differen
 
 **You can test the class of an object by providing its name to the function `class()`**. Note: you can reference a specific column within a dataset using the `$` notation to separate the name of the dataset and the name of the column.
 
-```{r, echo=TRUE, eval=T}
+```{r, echo=TRUE,}
 class(linelist)         # class should be a data frame or tibble
 
 class(linelist$age)     # class should be numeric
@@ -2614,6 +2660,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/basics.Rmd-->
@@ -2925,6 +2975,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/transition_to_R.Rmd-->
@@ -3130,6 +3184,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/packages_suggested.Rmd-->
@@ -3282,6 +3340,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/r_projects.Rmd-->
@@ -4227,6 +4289,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/importing.Rmd-->
@@ -4267,6 +4333,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_data_management.Rmd-->
@@ -4450,7 +4520,7 @@ The columns names of `linelist_raw` are printed below using `names()` from **bas
 names(linelist_raw)
 ```
 
-<span style="color: black;">**_NOTE:_** To reference a column name that includes spaces, surround the name with back-ticks, for example: linelist$`` `r '\x60infection date\x60'` ``. note that on your keyboard, the back-tick (`) is different from the single quotation mark (').</span>
+<span style="color: black;">**_NOTE:_** To reference a column name that includes spaces, surround the name with back-ticks, for example: linelist$`` ` '\x60infection date\x60'` ``. note that on your keyboard, the back-tick (`) is different from the single quotation mark (').</span>
 
 
 ### Labels {.unnumbered}  
@@ -4753,14 +4823,14 @@ When evaluating duplicate rows, it takes into account a range of columns - by de
 
 In this simple example, we just add the empty command `distinct()` to the pipe chain. This ensures there are no rows that are 100% duplicates of other rows (evaluated across all columns).  
 
-We begin with `r nrow(linelist)` rows in `linelist`. 
+We begin with ` nrow(linelist)` rows in `linelist`. 
 
 ```{r}
 linelist <- linelist %>% 
   distinct()
 ```
 
-After de-duplication there are `r nrow(linelist)` rows. Any removed rows would have been 100% duplicates of other rows.  
+After de-duplication there are ` nrow(linelist)` rows. Any removed rows would have been 100% duplicates of other rows.  
 
 Below, the `distinct()` command is added to the cleaning pipe chain:
 
@@ -5047,7 +5117,7 @@ linelist$bmi = linelist$wt_kg / (linelist$ht_cm / 100) ^ 2)
 
 **Below, a new column is added to the pipe chain and some classes are converted.**  
 
-```{r eval=TRUE}
+```{r }
 # CLEANING 'PIPE' CHAIN (starts with raw data and pipes it through cleaning steps)
 ##################################################################################
 
@@ -5832,14 +5902,14 @@ This simple example re-defines the dataframe `linelist` as itself, having filter
 
 In this example, the logical statement is `gender == "f"`, which is asking whether the value in the column `gender` is equal to "f" (case sensitive).   
 
-Before the filter is applied, the number of rows in `linelist` is `r nrow(linelist)`.
+Before the filter is applied, the number of rows in `linelist` is ` nrow(linelist)`.
 
 ```{r, eval=F}
 linelist <- linelist %>% 
   filter(gender == "f")   # keep only rows where gender is equal to "f"
 ```
 
-After the filter is applied, the number of rows in `linelist` is `r linelist %>% filter(gender == "f") %>% nrow()`.
+After the filter is applied, the number of rows in `linelist` is ` linelist %>% filter(gender == "f") %>% nrow()`.
 
 
 ### Filter out missing values {.unnumbered}  
@@ -5920,12 +5990,12 @@ What other criteria can we filter on to remove the first outbreak (in 2012 & 201
 
 We want to exclude:  
 
-* The `r nrow(linelist %>% filter(hospital %in% c("Hospital A", "Hospital B") | date_onset < as.Date("2013-06-01")))` rows with onset in 2012 and 2013 at either hospital A, B, or Port:  
-  * Exclude `r nrow(linelist %>% filter(date_onset < as.Date("2013-06-01")))` rows with onset in 2012 and 2013
-  * Exclude `r nrow(linelist %>% filter(hospital %in% c('Hospital A', 'Hospital B') & is.na(date_onset)))` rows from Hospitals A & B with missing onset dates  
-  * Do **not** exclude `r nrow(linelist %>% filter(!hospital %in% c('Hospital A', 'Hospital B') & is.na(date_onset)))` other rows with missing onset dates.  
+* The ` nrow(linelist %>% filter(hospital %in% c("Hospital A", "Hospital B") | date_onset < as.Date("2013-06-01")))` rows with onset in 2012 and 2013 at either hospital A, B, or Port:  
+  * Exclude ` nrow(linelist %>% filter(date_onset < as.Date("2013-06-01")))` rows with onset in 2012 and 2013
+  * Exclude ` nrow(linelist %>% filter(hospital %in% c('Hospital A', 'Hospital B') & is.na(date_onset)))` rows from Hospitals A & B with missing onset dates  
+  * Do **not** exclude ` nrow(linelist %>% filter(!hospital %in% c('Hospital A', 'Hospital B') & is.na(date_onset)))` other rows with missing onset dates.  
 
-We start with a linelist of `r `nrow(linelist)`. Here is our filter statement:  
+We start with a linelist of ` `nrow(linelist)`. Here is our filter statement:  
 
 ```{r}
 linelist <- linelist %>% 
@@ -6096,7 +6166,7 @@ linelist <- linelist_raw %>%
 If you want to perform a calculation within a row, you can use `rowwise()` from **dplyr**. See this online vignette on [row-wise calculations](https://cran.r-project.org/web/packages/dplyr/vignettes/rowwise.html).  
 For example, this code applies `rowwise()` and then creates a new column that sums the number of the specified symptom columns that have value "yes", for each row in the linelist. The columns are specified within `sum()` by name within a vector `c()`. `rowwise()` is essentially a special kind of `group_by()`, so it is best to use `ungroup()` when you are done (page on [Grouping data]).  
 
-```{r, eval=T}
+```{r,}
 linelist %>%
   rowwise() %>%
   mutate(num_symptoms = sum(c(fever, chills, cough, aches, vomit) == "yes")) %>% 
@@ -6113,7 +6183,7 @@ Put the column-specification criteria within the **dplyr** function `c_across()`
 * Creates new column `num_NA_dates`, defined for each row as the number of columns (with name containing "date") for which `is.na()` evaluated to TRUE (they are missing data).  
 * `ungroup()` to remove the effects of `rowwise()` for subsequent steps  
 
-```{r, eval=T}
+```{r,}
 linelist %>%
   rowwise() %>%
   mutate(num_NA_dates = sum(is.na(c_across(contains("date"))))) %>% 
@@ -6216,6 +6286,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cleaning.Rmd-->
@@ -6263,7 +6337,7 @@ pacman::p_load(
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow along step-by-step, see instruction in the [Download handbook and data] page. We assume the file is in the working directory so no sub-folders are specified in this file path.  
 
-```{r, eval=T, echo=F}
+```{r,  echo=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
@@ -6280,7 +6354,7 @@ linelist <- import("linelist_cleaned.xlsx")
 
 You can get the current "system" date or system datetime of your computer by doing the following with **base** R.  
 
-```{r eval=T}
+```{r}
 # get the system date - this is a DATE class
 Sys.Date()
 
@@ -6366,7 +6440,7 @@ Converting character objects to dates can be made easier by using the **lubridat
 The **lubridate** package provides several different helper functions designed to convert character objects to dates in an intuitive, and more lenient way than specifying the format in `as.Date()`. These functions are specific to the rough date format, but allow for a variety of separators, and synonyms for dates (e.g. 01 vs Jan vs January) - they are named after abbreviations of date formats. 
 
 
-```{r, eval = T}
+```{r, }
 # install/load lubridate 
 pacman::p_load(lubridate)
 ```
@@ -6470,7 +6544,7 @@ The function `guess_dates()` from the **linelist** package attempts to read a "m
 
 For example `guess_dates` would see a vector of the following character dates "03 Jan 2018", "07/03/1982", and "08/20/85" and convert them to class Date as: `2018-01-03`, `1982-03-07`, and `1985-08-20`.  
 
-```{r, eval = T}
+```{r, }
 linelist::guess_dates(c("03 Jan 2018",
                         "07/03/1982",
                         "08/20/85"))
@@ -6612,7 +6686,7 @@ To learn more about `case_when()` see the page on [Cleaning data and core functi
 
 Here we define a date to use for the examples:  
 
-```{r, eval = T}
+```{r, }
 # create object of class Date
 example_date <- ymd("2020-03-01")
 ```
@@ -6974,6 +7048,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/dates.Rmd-->
@@ -8111,6 +8189,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/characters_strings.Rmd-->
@@ -8677,6 +8759,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/factors.Rmd-->
@@ -8790,7 +8876,7 @@ Let us take the `count_data` dataset imported in the Preparation section above a
 DT::datatable(count_data, rownames = FALSE, options = list(pageLength = 5, scrollX=T) )
 ```
 
-Each observation in this dataset refers to the malaria counts at one of 65 facilities on a given date, ranging from `r count_data$data_date %>% min()` to `r count_data$data_date %>% max()`. These facilities are located in one `Province` (North) and four `District`s (Spring, Bolo, Dingo, and Barnard). The dataset provides the overall counts of malaria, as well as age-specific counts in each of three age groups - <4 years, 5-14 years, and 15 years and older.
+Each observation in this dataset refers to the malaria counts at one of 65 facilities on a given date, ranging from ` count_data$data_date %>% min()` to ` count_data$data_date %>% max()`. These facilities are located in one `Province` (North) and four `District`s (Spring, Bolo, Dingo, and Barnard). The dataset provides the overall counts of malaria, as well as age-specific counts in each of three age groups - <4 years, 5-14 years, and 15 years and older.
 
 "Wide" data like this are not adhering to "tidy data" standards, because the column headers do not actually represent "variables" - they represent *values* of a hypothetical "age group" variable. 
 
@@ -9255,6 +9341,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/pivoting.Rmd-->
@@ -9356,7 +9446,7 @@ ll_by_outcome
 
 To see the groups *and the number of rows in each group*, pass the grouped data to `tally()`. To see just the unique groups without counts you can pass to `group_keys()`.  
 
-See below that there are **three** unique values in the grouping column `outcome`: "Death", "Recover", and `NA`. See that there were `r nrow(linelist %>% filter(outcome == "Death"))` deaths, `r nrow(linelist %>% filter(outcome == "Recover"))` recoveries, and `r nrow(linelist %>% filter(is.na(outcome)))` with no outcome recorded.
+See below that there are **three** unique values in the grouping column `outcome`: "Death", "Recover", and `NA`. See that there were ` nrow(linelist %>% filter(outcome == "Death"))` deaths, ` nrow(linelist %>% filter(outcome == "Recover"))` recoveries, and ` nrow(linelist %>% filter(is.na(outcome)))` with no outcome recorded.
 
 ```{r}
 linelist %>% 
@@ -9387,7 +9477,7 @@ linelist %>%
 
 ### Add/drop grouping columns {.unnumbered}  
 
-By default, if you run `group_by()` on data that are already grouped, the old groups will be removed and the new one(s) will apply. If you want to add new groups to the existing ones, include the argument `.add=TRUE`.  
+By default, if you run `group_by()` on data that are already grouped, the old groups will be removed and the new one(s) will apply. If you want to add new groups to the existing ones, include the argument `.add = TRUE`.  
 
 ````{r, eval=F}
 # Grouped by outcome
@@ -9689,7 +9779,7 @@ For example, to retrieve only the latest 5 admissions from each hospital:
 2) Arrange the records from latest to earliest `date_hospitalisation` *within each hospital group*  
 3) Slice to retrieve the first 5 rows from each hospital  
 
-```{r, eval=T}
+```{r,}
 linelist %>%
   group_by(hospital) %>%
   arrange(hospital, date_hospitalisation) %>%
@@ -9835,6 +9925,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/grouping.Rmd-->
@@ -10098,7 +10192,7 @@ knitr::include_graphics(here::here("images", "right-join.gif"))
 
 **Example**  
 
-Below is the output of a `left_join()` of `hosp_info` (secondary data frame, [view here](#joins_hosp_info))  *into* `linelist_mini` (baseline data frame, [view here](#joins_llmini)). The original `linelist_mini` has `r nrow(linelist_mini)` rows. The modified `linelist_mini` is displayed. Note the following:  
+Below is the output of a `left_join()` of `hosp_info` (secondary data frame, [view here](#joins_hosp_info))  *into* `linelist_mini` (baseline data frame, [view here](#joins_llmini)). The original `linelist_mini` has ` nrow(linelist_mini)` rows. The modified `linelist_mini` is displayed. Note the following:  
 
 * Two new columns, `catchment_pop` and `level` have been added on the left side of `linelist_mini`  
 * All original rows of the baseline data frame `linelist_mini` are kept  
@@ -10169,7 +10263,7 @@ Animated example of a full join ([image source](https://github.com/gadenbuie/tid
 
 **Example**  
 
-Below is the output of a `full_join()` of `hosp_info` (originally `r nrow(hosp_info)`, [view here](#joins_hosp_info))  *into* `linelist_mini` (originally `r nrow(linelist_mini)`, [view here](#joins_llmini)). Note the following:  
+Below is the output of a `full_join()` of `hosp_info` (originally ` nrow(hosp_info)`, [view here](#joins_hosp_info))  *into* `linelist_mini` (originally ` nrow(linelist_mini)`, [view here](#joins_llmini)). Note the following:  
 
 * All baseline rows are kept (`linelist_mini`)  
 * Rows in the secondary that do not match to the baseline are kept ("ignace" and "sisters"), with values in the corresponding baseline columns  `case_id` and `onset` filled in with missing values  
@@ -10800,6 +10894,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/joining_matching.Rmd-->
@@ -10958,7 +11056,7 @@ See `?get_dupes` for more details, or see this [online reference](https://cran.r
 
 To keep only unique rows of a data frame, use `distinct()` from **dplyr** (as demonstrated in the [Cleaning data and core functions] page). Rows that are duplicates are removed such that only the first of such rows is kept. By default, "first" means the highest `rownumber` (order of rows top-to-bottom). Only unique rows remain.  
 
-In the example below, we run `distinct()` such that the column `recordID` is excluded from consideration - thus **two duplicate rows are removed**. The first row (for "adam") was 100% duplicated and has been removed. Also row 3 (for "amrish") was a duplicate in every column *except* `recordID` (which is not being considered) and so is also removed. The `obs` dataset n is now `r nrow(obs)-2`, not `r nrow(obs)` rows).  
+In the example below, we run `distinct()` such that the column `recordID` is excluded from consideration - thus **two duplicate rows are removed**. The first row (for "adam") was 100% duplicated and has been removed. Also row 3 (for "amrish") was a duplicate in every column *except* `recordID` (which is not being considered) and so is also removed. The `obs` dataset n is now ` nrow(obs)-2`, not ` nrow(obs)` rows).  
 
 *Scroll to the left to see the entire data frame*  
 
@@ -11462,6 +11560,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/deduplication.Rmd-->
@@ -11578,7 +11680,7 @@ hospital_names <- unique(linelist$hospital)
 hospital_names # print
 ```
 
-We have chosen the term `hosp` to represent values from the vector `hospital_names`. For the first iteration of the loop, the value of `hosp` will be `r hospital_names[[1]]`. For the second loop it will be `r hospital_names[[2]]`. And so on...  
+We have chosen the term `hosp` to represent values from the vector `hospital_names`. For the first iteration of the loop, the value of `hosp` will be ` hospital_names[[1]]`. For the second loop it will be ` hospital_names[[2]]`. And so on...  
 
 ```{r, eval=F}
 # a 'for loop' with character sequence
@@ -12426,6 +12528,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/iteration.Rmd-->
@@ -12467,6 +12573,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_analysis.Rmd-->
@@ -12555,7 +12665,7 @@ Below, the function `skim()` is applied to the entire `linelist` data frame. An 
 skim(linelist)
 ```
 
-```{r eval=T, echo=F}
+```{r  echo=F}
 # sparkline histograms not showing correctly, so avoiding them.
 skim_without_charts(linelist)
 ```
@@ -13517,6 +13627,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/tables_descriptive.Rmd-->
@@ -14059,6 +14173,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/stat_tests.Rmd-->
@@ -14166,7 +14284,7 @@ To drop rows with missing values, can use the **tidyr** function `drop_na()`. Ho
 
 The first thing we must to is make sure our `explanatory_vars` vector includes the column `age` (`age` would have produced an error in the previous `case_when()` operation, which was only for dichotomous variables). Then we pipe the `linelist` to `drop_na()` to remove any rows with missing values in the `outcome` column or any of the `explanatory_vars` columns.  
 
-Before running the code, the number of rows in the `linelist` is `r nrow(linelist)`.  
+Before running the code, the number of rows in the `linelist` is ` nrow(linelist)`.  
 
 ```{r}
 ## add in age_category to the explanatory vars 
@@ -14178,7 +14296,7 @@ linelist <- linelist %>%
 
 ```
 
-The number of rows remaining in `linelist` is `r nrow(linelist)`.  
+The number of rows remaining in `linelist` is ` nrow(linelist)`.  
 
 
 <!-- ======================================================= -->
@@ -14798,6 +14916,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/regression.Rmd-->
@@ -15223,7 +15345,7 @@ ggplot(data = outcome_missing)+
 
 To quickly remove rows with missing values, use the **dplyr** function `drop_na()`.  
 
-The original `linelist` has `r nrow(linelist)` rows. The adjusted number of rows is shown below:  
+The original `linelist` has ` nrow(linelist)` rows. The adjusted number of rows is shown below:  
 
 ```{r}
 linelist %>% 
@@ -15487,6 +15609,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/missing_data.Rmd-->
@@ -16019,6 +16145,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/standardization.Rmd-->
@@ -16150,7 +16280,7 @@ daily_counts <- linelist %>%
 ```
 
 
-Here is the `daily_counts` data frame - there are `r nrow(daily_counts)` rows, each day is represented by one row, but especially early in the epidemic *some days are not present (there were no cases admitted on those days)*.  
+Here is the `daily_counts` data frame - there are ` nrow(daily_counts)` rows, each day is represented by one row, but especially early in the epidemic *some days are not present (there were no cases admitted on those days)*.  
 
 
 ```{r, echo=F}
@@ -16452,6 +16582,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/moving_average.Rmd-->
@@ -16778,7 +16912,7 @@ counts <- counts %>%
 ## alternatively interpolate missings by linear trend 
 ## between two nearest adjacent points
 counts <- counts %>% 
-  mutate(case_int = na_interpolation(case_miss)
+  mutate(case_int = imputeTS::na_interpolation(case_miss)
          )
 
 ## to check what values have been imputed compared to the original
@@ -17043,7 +17177,7 @@ model <- glm_nb_model(
 fitted_model <- trending::fit(model, counts)
 
 ## calculate confidence intervals and prediction intervals 
-observed <- predict(fitted_model)
+observed <- predict(fitted_model, simulate_pi = FALSE)
 
 ## plot your regression 
 ggplot(data = observed, aes(x = epiweek)) + 
@@ -17180,7 +17314,7 @@ To formally test which weeks are most highly related between cases and temperatu
 We can use the cross-correlation function (`CCF()`) from the **feasts** package. 
 You could also visualise (rather than using `arrange`) using the `autoplot()` function. 
 
-```{r cross_correlation}
+```{r cross_correlation, warning=FALSE}
 
 counts %>% 
   ## calculate cross-correlation between interpolated counts and temperature
@@ -17200,6 +17334,15 @@ counts %>%
 We see from this that a lag of 4 weeks is most highly correlated, 
 so we make a lagged temperature variable to include in our regression. 
 
+<span style="color: red;">**_DANGER:_** Note that the first four weeks of our data
+in the lagged temperature variable are missing (`NA`) - as there are not four 
+weeks prior to get data from. In order to use this dataset with the **trending** 
+`predict()` function, we need to use the the `simulate_pi = FALSE` argument within
+`predict()` further down. If we did want to use the simulate option, then 
+we have to drop these missings and store as a new data set by adding `drop_na(t2m_lag4)` 
+to the code chunk below.</span>  
+ 
+
 ```{r lag_tempvar}
 
 counts <- counts %>% 
@@ -17215,6 +17358,12 @@ counts <- counts %>%
 We fit a negative binomial regression as done previously. This time we add the 
 temperature variable lagged by four weeks. 
 
+<span style="color: orange;">**_CAUTION:_** Note the use of `simulate_pi = FALSE`
+within the `predict()` argument. This is because the default behaviour of **trending** 
+is to use the **ciTools** package to estimate a prediction interval. This does not 
+work if there are `NA` counts, and also produces more granular intervals. 
+See `?trending::predict.trending_model_fit` for details. </span>  
+
 ```{r nb_reg_bivar, warning = FALSE}
 
 ## define the model you want to fit (negative binomial) 
@@ -17223,7 +17372,7 @@ model <- glm_nb_model(
   case_int ~
     ## use epiweek to account for the trend
     epiweek +
-    ## use the furier terms to account for seasonality
+    ## use the fourier terms to account for seasonality
     fourier + 
     ## use the temperature lagged by four weeks 
     t2m_lag4
@@ -17233,7 +17382,7 @@ model <- glm_nb_model(
 fitted_model <- trending::fit(model, counts)
 
 ## calculate confidence intervals and prediction intervals 
-observed <- predict(fitted_model)
+observed <- predict(fitted_model, simulate_pi = FALSE)
 
 ```
 
@@ -17340,7 +17489,7 @@ what we expect, then it could suggest there is an outbreak.
 The second method is based on similar principles but uses the **surveillance** package,
 which has a number of different algorithms for aberration detection.
 
-<span style="color: orange;">**_CAUTION:_** Normally, you are interested in the current year (where you only know counts up to the present week). So in this example we are pretending to be in week 52 of 2011.</span>
+<span style="color: orange;">**_CAUTION:_** Normally, you are interested in the current year (where you only know counts up to the present week). So in this example we are pretending to be in week 39 of 2011.</span>
 
 <!-- ======================================================= -->
 ### **trending** package {.unnumbered}
@@ -17468,7 +17617,13 @@ list (equivalent of using square brackets, e.g. `dat[[1]]`), and can then fit
 our model to the baseline data, and then use the `predict()` function for our data
 of interest after the cut-off.  
 
-See the page on [Iteration](https://epirhandbook.com/iteration-loops-and-lists.html) to learn more about **purrr**.  
+See the page on [Iteration, loops, and lists] to learn more about **purrr**.  
+
+<span style="color: orange;">**_CAUTION:_** Note the use of `simulate_pi = FALSE`
+within the `predict()` argument. This is because the default behaviour of **trending** 
+is to use the **ciTools** package to estimate a prediction interval. This does not 
+work if there are `NA` counts, and also produces more granular intervals. 
+See `?trending::predict.trending_model_fit` for details. </span>  
 
 ```{r forecast_regression, warning = FALSE}
 # split data for fitting and prediction
@@ -17496,11 +17651,11 @@ fitted_model <- trending::fit(model, fitting_data)
 
 # get confint and estimates for fitted data
 observed <- fitted_model %>% 
-  predict()
+  predict(simulate_pi = FALSE)
 
 # forecast with data want to predict with 
 forecasts <- fitted_model %>% 
-  predict(pred_data)
+  predict(pred_data, simulate_pi = FALSE)
 
 ## combine baseline and predicted datasets
 observed <- bind_rows(observed, forecasts)
@@ -17538,7 +17693,7 @@ ggplot(data = observed, aes(x = epiweek)) +
   annotate(geom = "text", 
            label = "Forecast", 
            x = cut_off, 
-           y = max(observed$upper_pi), 
+           y = max(observed$upper_pi) - 250, 
            angle = 90, 
            vjust = 1
            ) + 
@@ -17584,6 +17739,12 @@ We then put estimates in one data set and merge with the original case counts,
 to use the **yardstick** package to compute measures of accuracy. 
 We compute four measures including: Root mean squared error (RMSE), Mean absolute error	
 (MAE), Mean absolute scaled error (MASE), Mean absolute percent error (MAPE).
+
+<span style="color: orange;">**_CAUTION:_** Note the use of `simulate_pi = FALSE`
+within the `predict()` argument. This is because the default behaviour of **trending** 
+is to use the **ciTools** package to estimate a prediction interval. This does not 
+work if there are `NA` counts, and also produces more granular intervals. 
+See `?trending::predict.trending_model_fit` for details. </span>  
 
 ```{r cross_validation, warning = FALSE}
 
@@ -17701,7 +17862,7 @@ forecasts <- purrr::map(unique(case_roll$.id),
   
   # forecast with data want to predict with 
   forecasts <- fitted_model %>% 
-    predict(pred_data) %>% 
+    predict(pred_data, simulate_pi = FALSE) %>% 
     ## only keep the week and the forecast estimate
     select(epiweek, estimate)
     
@@ -17971,6 +18132,12 @@ We then use these terms to fit a negative binomial regression, and produce a
 table with percentage change. What this example shows is that there was no 
 significant change. 
 
+<span style="color: orange;">**_CAUTION:_** Note the use of `simulate_pi = FALSE`
+within the `predict()` argument. This is because the default behaviour of **trending** 
+is to use the **ciTools** package to estimate a prediction interval. This does not 
+work if there are `NA` counts, and also produces more granular intervals. 
+See `?trending::predict.trending_model_fit` for details. </span>  
+
 ```{r interrupted_regression, warning = FALSE}
 
 
@@ -17992,7 +18159,7 @@ model <- glm_nb_model(
 fitted_model <- trending::fit(model, counts)
 
 ## calculate confidence intervals and prediction intervals 
-observed <- predict(fitted_model)
+observed <- predict(fitted_model, simulate_pi = FALSE)
 
 
 
@@ -18105,6 +18272,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/time_series.Rmd-->
@@ -18233,7 +18404,7 @@ In this handbook we emphasize `p_load()` from **pacman**, which installs the pac
 You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
 
 	
-```{r epidemic_models_packages, eval = TRUE}
+```{r epidemic_models_packages, }
 pacman::p_load(
    rio,          # File import
    here,         # File locator
@@ -18456,7 +18627,7 @@ plot(epinow_res)
 
 We can also look at various summary statistics:
 
-```{r epidemic_models_epinow_summary, eval=T}
+```{r epidemic_models_epinow_summary,}
 ## summary table
 epinow_res$summary
 ```
@@ -18471,7 +18642,7 @@ estimates <- as_tibble(epinow_res$estimates$summarised)
 estimates
 ```
 
-```{r epidemic_models_tibble_show, eval=T, echo = F}
+```{r epidemic_models_tibble_show,  echo = F}
 ## show outputs
 estimates <- as_tibble(epinow_res$estimates$summarised)
 DT::datatable(
@@ -18574,7 +18745,7 @@ further details.
 
 We will create the input using **incidence2**. See the page on [Epidemic curves] for more examples with the **incidence2** package. Since there have been updates to the **incidence2** package that don't completely align with `estimateR()`'s expected input, there are some minor additional steps needed. The incidence object consists of a tibble with dates and their respective case counts. We use `complete()` from **tidyr** to ensure all dates are included (even those with no cases), and then `rename()` the columns to align with what is expected by `estimate_R()` in a later step.  
 
-```{r epidemic_models_epiestim_incidence, eval=T}
+```{r epidemic_models_epiestim_incidence,}
 ## get incidence from onset date
 cases <- incidence2::incidence(linelist, date_index = date_onset) %>% # get case counts by day
   tidyr::complete(date_index = seq.Date(                              # ensure all dates are represented
@@ -18597,7 +18768,7 @@ standard deviation of the serial interval in a `config` object created using the
 function `make_config`. We use a mean and standard deviation of 12.0 and 5.2, respectively, defined in
 [this paper](https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-014-0196-0):
 
-```{r epidemic_models_epiestim_config, eval=T}
+```{r epidemic_models_epiestim_config,}
 ## make config
 config_lit <- make_config(
   mean_si = 12.0,
@@ -18607,7 +18778,7 @@ config_lit <- make_config(
 
 We can then estimate R<sub>t</sub> with the `estimate_R` function:
 
-```{r epidemic_models_epiestim_lit, eval=T, warning = FALSE}
+```{r epidemic_models_epiestim_lit,  warning = FALSE}
 epiestim_res_lit <- estimate_R(
   incid = cases,
   method = "parametric_si",
@@ -18617,7 +18788,7 @@ epiestim_res_lit <- estimate_R(
 
 and plot a summary of the outputs:
 
-```{r epidemic_models_epiestim_lit_plot, eval=T, warning = FALSE}
+```{r epidemic_models_epiestim_lit_plot,  warning = FALSE}
 plot(epiestim_res_lit)
 ```
 
@@ -18653,7 +18824,7 @@ using `get_pairwise`, to a gamma distribution. We use the handy `fit_disc_gamma`
 from the **epitrix** package for this fitting procedure, as we require a
 _discretised_ distribution.
 
-```{r epidemic_models_incubation_estimate_epiestim, eval=T, warning = FALSE}
+```{r epidemic_models_incubation_estimate_epiestim,  warning = FALSE}
 ## estimate gamma serial interval
 serial_interval <- fit_disc_gamma(get_pairwise(epic, "date_onset"))
 ```
@@ -18661,7 +18832,7 @@ serial_interval <- fit_disc_gamma(get_pairwise(epic, "date_onset"))
 We then pass this information to the `config` object, run **EpiEstim**
 again and plot the results:
 
-```{r epidemic_models_epiestim_emp, eval=T, warning = FALSE}
+```{r epidemic_models_epiestim_emp,  warning = FALSE}
 ## make config
 config_emp <- make_config(
   mean_si = serial_interval$mu,
@@ -18689,7 +18860,7 @@ clunky way of specifying these estimations times, in that you have to provide a
 vector of __integers__ referring to the start and end dates for each time
 window.
 
-```{r epidemic_models_epiestim_config_late, eval=T}
+```{r epidemic_models_epiestim_config_late,}
 
 ## define a vector of dates starting on June 1st
 start_dates <- seq.Date(
@@ -18715,7 +18886,7 @@ config_partial <- make_config(
 ```
 Now we re-run **EpiEstim** and can see that the estimates only start from June:
 
-```{r epidemic_models_epiestim_config_late_run, eval=T}
+```{r epidemic_models_epiestim_config_late_run,}
 
 ## run epiestim
 epiestim_res_partial <- estimate_R(
@@ -18923,7 +19094,7 @@ convert these values into the shape and scale parameters required for a gamma
 distribution, we will use the function `gamma_mucv2shapescale` from the
 **epitrix** package.
 
-```{r epidemic_models_projections_distcrete, eval=T}
+```{r epidemic_models_projections_distcrete,}
 
 ## get shape and scale parameters from the mean mu and the coefficient of
 ## variation (e.g. the ratio of the standard deviation to the mean)
@@ -18943,7 +19114,7 @@ Here is a quick check to make sure the serial interval looks correct. We
 access the density of the gamma distribution we have just defined by `$d`, which
 is equivalent to calling `dgamma`:
 
-```{r epidemic_models_projections_distcrete_plot, eval=T}
+```{r epidemic_models_projections_distcrete_plot,}
 
 ## check to make sure the serial interval looks correct
 qplot(
@@ -18985,7 +19156,7 @@ using `get_pairwise`, to a gamma distribution. We use the handy `fit_disc_gamma`
 from the **epitrix** package for this fitting procedure, as we require a
 _discretised_ distribution.
 
-```{r epidemic_models_incubation_estimate_projections, eval=T, warning = FALSE}
+```{r epidemic_models_incubation_estimate_projections,  warning = FALSE}
 ## estimate gamma serial interval
 serial_interval <- fit_disc_gamma(get_pairwise(epic, "date_onset"))
 
@@ -19006,7 +19177,7 @@ element in a vector), and simulate 1000 values from a gamma distribution using
 `rgamma`. You can also provide your own vector of R<sub>t</sub> values that you
 want to use for forward projections.
 
-```{r epidemic_models_projection_setup, eval=T, warning = FALSE}
+```{r epidemic_models_projection_setup,  warning = FALSE}
 
 ## create incidence object from dates of onset
 inc <- incidence::incidence(linelist$date_onset)
@@ -19026,7 +19197,7 @@ We then use the `project()` function to make the actual forecast. We specify how
 many days we want to project for via the `n_days` arguments, and specify the
 number of simulations using the `n_sim` argument.
 
-```{r epidemic_models_make_projection, eval=T}
+```{r epidemic_models_make_projection,}
 
 ## make projection
 proj <- project(
@@ -19060,7 +19231,7 @@ proj_df <- as.data.frame(proj)
 proj_df
 ```
 
-```{r epidemic_models_projection_dt, eval=T, echo = F}
+```{r epidemic_models_projection_dt,  echo = F}
 
 ## convert to data frame for raw data
 proj_df <- as.data.frame(proj)
@@ -19120,6 +19291,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/epidemic_models.Rmd-->
@@ -19201,7 +19376,7 @@ cases <- import(here("data", "godata", "cases_clean.rds")) %>%
          occupation, classification, was_contact, hospitalization_typeid)
 ```
 
-Here are the `r nrow(cases)` cases:  
+Here are the ` nrow(cases)` cases:  
 
 ```{r, message=FALSE, echo=F}
 DT::datatable(cases, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
@@ -19226,7 +19401,7 @@ contacts <- import(here("data", "godata", "contacts_clean.rds")) %>%
   mutate(admin_2_name = replace_na(admin_2_name, "Djembe"))
 ```
 
-Here are the `r nrow(contacts)` rows of the `contacts` dataset:  
+Here are the ` nrow(contacts)` rows of the `contacts` dataset:  
 
 ```{r, message=FALSE, echo=F}
 DT::datatable(contacts, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
@@ -19245,7 +19420,7 @@ followups <- rio::import(here::here("data", "godata", "followups_clean.rds")) %>
   mutate(followup_status = str_to_lower(followup_status))
 ```
 
-Here are the first 50 rows of the `r nrow(followups)`-row `followups` dataset (each row is a follow-up interaction, with outcome status in the `followup_status` column):  
+Here are the first 50 rows of the ` nrow(followups)`-row `followups` dataset (each row is a follow-up interaction, with outcome status in the `followup_status` column):  
 
 ```{r, message=FALSE, echo=F}
 DT::datatable(head(followups, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
@@ -19662,7 +19837,7 @@ contacts_table %>%
   add_header_above(c(" " = 3, 
                      "Of contacts currently under follow up" = 5,
                      "Status of last visit" = 3)) %>% 
-  footnote(general = str_glue("Data are current to {format(report_date, '%b %d %Y')}"))
+  kableExtra::footnote(general = str_glue("Data are current to {format(report_date, '%b %d %Y')}"))
 
 ```
 
@@ -19775,6 +19950,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/contact_tracing.Rmd-->
@@ -20947,6 +21126,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/survey_analysis.Rmd-->
@@ -21367,7 +21550,7 @@ survival::survdiff(
 
 ```
 
-We see that the survival curve for women and the one for men overlap and the log-rank test does not gives enough evidence of a statistical difference between the survival for women and the survival for Men at `alpha = 0.05`.
+We see that the survival curve for women and the one for men overlap and the log-rank test does not give evidence of a survival difference between women and men.
 
 Some other R packages allow illustrating survival curves for different groups and testing the difference all at once. Using the `ggsurvplot()` function from the **survminer** package, we can also include in our curve the printed risk tables for each group, as well the p-value from the log-rank test. 
 
@@ -21716,6 +21899,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/survival_analysis.Rmd-->
@@ -22235,7 +22422,7 @@ linelist_sf_hf_2k <- linelist_sf_hf %>%
   select(case_id, osm_id.x, nearest_clinic, amenity.x, osm_id.y)
 ```
 
-Now we can count the results: `r nrow(linelist_sf_hf_2k[is.na(linelist_sf_hf_2k$osm_id.y),])` out of 1000 cases did not intersect with any buffer (that value is missing), and so live more than 30 mins walk from the nearest health facility.
+Now we can count the results: ` nrow(linelist_sf_hf_2k[is.na(linelist_sf_hf_2k$osm_id.y),])` out of 1000 cases did not intersect with any buffer (that value is missing), and so live more than 30 mins walk from the nearest health facility.
 
 ```{r}
 # Cases which did not get intersected with any of the health facility buffers
@@ -22642,7 +22829,7 @@ moran_i <-spdep::moran.test(sle_adm3_dat$cases,    # numeric vector with variabl
 
 moran_i                                            # print results of Moran's I test
 ```
-The output from the `moran.test()` function shows us a Moran I statistic of `r round(moran_i$estimate[1],2)`. This indicates the presence of spatial autocorrelation in our data - specifically, that regions with similar numbers of Ebola cases are likely to be close together. The p-value provided by `moran.test()` is generated by comparison to the expectation under null hypothesis of no spatial autocorrelation, and can be used if you need to report the results of a formal hypothesis test.
+The output from the `moran.test()` function shows us a Moran I statistic of ` round(moran_i$estimate[1],2)`. This indicates the presence of spatial autocorrelation in our data - specifically, that regions with similar numbers of Ebola cases are likely to be close together. The p-value provided by `moran.test()` is generated by comparison to the expectation under null hypothesis of no spatial autocorrelation, and can be used if you need to report the results of a formal hypothesis test.
 
 **Local Moran's I** - We can decompose the (global) Moran's I statistic calculated above to identify *localized* spatial autocorrelation; that is, to identify specific clusters in our data. This statistic, which is sometimes called a **Local Indicator of Spatial Association (LISA)** statistic, summarizes the extent of spatial autocorrelation around each individual region. It can be useful for finding "hot" and "cold" spots on the map.
 
@@ -22727,7 +22914,7 @@ lee_test <- spdep::lee.test(
 lee_test
 ```
 
-The output above shows that the Lee's L statistic for our two variables was `r round(lee_test$estimate[1],2)`, which indicates weak negative correlation. This confirms our visual assessment that the pattern of cases and population are not related to one another, and provides evidence that the spatial pattern of cases is not strictly a result of population density in high-risk areas.
+The output above shows that the Lee's L statistic for our two variables was ` round(lee_test$estimate[1],2)`, which indicates weak negative correlation. This confirms our visual assessment that the pattern of cases and population are not related to one another, and provides evidence that the spatial pattern of cases is not strictly a result of population density in high-risk areas.
 
 The Lee L statistic can be useful for making these kinds of inferences about the relationship between spatially distributed variables; however, to describe the nature of the relationship between two variables in more detail, or adjust for confounding, *spatial regression* techniques will be needed. These are described briefly in the following section.
 
@@ -22810,6 +22997,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/gis.Rmd-->
@@ -22850,6 +23041,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_data_viz.Rmd-->
@@ -23432,6 +23627,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/tables_presentation.Rmd-->
@@ -23474,7 +23673,7 @@ pacman::p_load(
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).
 
-```{r, eval=T, echo=F}
+```{r,  echo=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
@@ -23504,7 +23703,7 @@ Some simple ways we can prepare our data to make it better for plotting can incl
 
 Here are some examples of this in action:
 
-```{r, eval = TRUE}
+```{r, }
 # make display version of columns with more friendly names
 linelist <- linelist %>%
   mutate(
@@ -23542,7 +23741,7 @@ DT::datatable(head(symptoms_data, 50), rownames = FALSE, filter="top", options =
 
 If we wanted to plot the number of cases with specific symptoms, we are limited by the fact that each symptom is a specific column. However, we can *pivot* the symptoms columns to a longer format like this:
 
-```{r, eval = T}
+```{r, }
 symptoms_data_long <- symptoms_data %>%    # begin with "mini" linelist called symptoms_data
   
   pivot_longer(
@@ -23840,7 +24039,7 @@ Facets can quickly contain an overwhelming amount of information - its good to e
 
 Below we import and do some quick modifications for simplicity:  
 
-```{r, eval = TRUE, warning=F, message=F}
+```{r, , warning=F, message=F}
 # These data are daily counts of malaria cases, by facility-day
 malaria_data <- import(here("data", "malaria_facility_count_data.rds")) %>%  # import
   select(-submitted_date, -Province, -newid)                                 # remove unneeded columns
@@ -24103,7 +24302,7 @@ It can be nice to organize the arguments in logical sections. To describe just s
 * The caption horizontal alignment with `element_text(hjust = 0)` (from right to left)  
 * The subtitle is italicized with `element_text(face = "italic")`  
 
-```{r, eval=TRUE, warning=F, message=F}
+```{r, , warning=F, message=F}
 age_by_wt + 
   theme_classic()+                                 # pre-defined theme adjustments
   theme(
@@ -24639,6 +24838,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/ggplot_basics.Rmd-->
@@ -24676,7 +24879,7 @@ pacman::p_load(
 
 For this page, we import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).  
 
-```{r, eval=T, echo=F}
+```{r,  echo=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
 ```
@@ -24696,9 +24899,15 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 
 
 <!-- ======================================================= -->
-## Colour schemes {#ggplot_tips_colors}
+## Scales for color, fill, axes, etc. {#ggplot_tips_colors}
 
-One thing that can initially be difficult to understand with **ggplot2** is control of colour schemes. Note that this section discusses the color of *plot objects* (geoms/shapes) such as points, bars, lines, tiles, etc. To adjust color of accessory text, titles, or background color see the [Themes](#ggplot_basics_themes) section of the [ggplot basics] page. 
+In **ggplot2**, when aesthetics of plotted data (e.g. size, color, shape, fill, plot axis) are mapped to columns in the data, the exact display can be adjusted with the corresponding "scale" command. In this section we explain some common scale adjustments.  
+
+
+
+### Color schemes
+
+One thing that can initially be difficult to understand with **ggplot2** is control of color schemes. Note that this section discusses the color of *plot objects* (geoms/shapes) such as points, bars, lines, tiles, etc. To adjust color of accessory text, titles, or background color see the [Themes](#ggplot_basics_themes) section of the [ggplot basics] page. 
 
 To control "color" of *plot objects* you will be adjusting either the `color = ` aesthetic (the *exterior* color) or the `fill = ` aesthetic (the *interior* color). One exception to this pattern is `geom_point()`, where you really only get to control `color = `, which controls the color of the point (interior and exterior).  
 
@@ -24816,6 +25025,117 @@ ggplot(data = linelist)+
   labs(title = "Adjustment of scales") # Adjust the title of the fill legend
 ```
 
+### Continuous axes scales {.unnumbered}  
+
+When data are mapping to the plot axes, these too can be adjusted with scales commands. A common example is adjusting the display of an axis (e.g. y-axis) that is mapped to a column with continuous data. 
+
+We may want to adjust the breaks or display of the values in the ggplot using `scale_y_continuous()`. As noted above, use the argument `breaks = ` to provide a sequence of values that will serve as "breaks" along the scale. These are the values at which numbers will display. To this argument, you can provide a `c()` vector containing the desired break values, or you can provide a regular sequence of numbers using the **base** R function `seq()`. This `seq()` function accepts `to = `, `from = `, and `by = `.
+
+```{r, warning=F, message=F, out.width=c('50%', '50%'), fig.show='hold'}
+# BASELINE - no scale adjustment
+ggplot(data = linelist)+
+  geom_bar(mapping = aes(x = outcome, fill = gender))+
+  labs(title = "Baseline - no scale adjustments")
+
+# 
+ggplot(data = linelist)+
+  geom_bar(mapping = aes(x = outcome, fill = gender))+
+  scale_y_continuous(
+    breaks = seq(
+      from = 0,
+      to = 3000,
+      by = 100)
+  )+
+  labs(title = "Adjusted y-axis breaks")
+
+```
+
+
+
+#### Display percents {.unnumbered}  
+
+If your original data values are proportions, you can easily display them as percents with "%" by providing `labels = scales::percent` in your scales command, as shown below.  
+
+While an alternative would be to convert the values to character and add a "%" character to the end, this approach will cause complications because your data will no longer be continuous numeric values. 
+
+
+```{r, warning=F, message=F, out.width=c('50%', '50%'), fig.show='hold'}
+# Original y-axis proportions
+#############################
+linelist %>%                                   # start with linelist
+  group_by(hospital) %>%                       # group data by hospital
+  summarise(                                   # create summary columns
+    n = n(),                                     # total number of rows in group
+    deaths = sum(outcome == "Death", na.rm=T),   # number of deaths in group
+    prop_death = deaths/n) %>%                   # proportion deaths in group
+  ggplot(                                      # begin plotting
+    mapping = aes(
+      x = hospital,
+      y = prop_death))+ 
+  geom_col()+
+  theme_minimal()+
+  labs(title = "Display y-axis original proportions")
+
+
+
+# Display y-axis proportions as percents
+########################################
+linelist %>%         
+  group_by(hospital) %>% 
+  summarise(
+    n = n(),
+    deaths = sum(outcome == "Death", na.rm=T),
+    prop_death = deaths/n) %>% 
+  ggplot(
+    mapping = aes(
+      x = hospital,
+      y = prop_death))+
+  geom_col()+
+  theme_minimal()+
+  labs(title = "Display y-axis as percents (%)")+
+  scale_y_continuous(
+    labels = scales::percent                    # display proportions as percents
+  )
+
+```
+
+#### Log scale {.unnumbered}  
+
+To transform a continuous axis to log scale, add `trans = "log2"` to the scale command. For purposes of example, we create a data frame of regions with their respective `preparedness_index` and cumulative cases values.  
+
+```{r}
+plot_data <- data.frame(
+  region = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+  preparedness_index = c(8.8, 7.5, 3.4, 3.6, 2.1, 7.9, 7.0, 5.6, 1.0),
+  cases_cumulative = c(15, 45, 80, 20, 21, 7, 51, 30, 1442)
+)
+
+plot_data
+```
+
+The cumulative cases for region "I" are dramatically greater than all the other regions. In circumstances like this, you may elect to display the y-axis using a log scale so the reader can see differences between the regions with fewer cumulative cases.  
+
+```{r, warning=F, message=F, out.width=c('50%', '50%'), fig.show='hold'}
+# Original y-axis
+preparedness_plot <- ggplot(data = plot_data,  
+       mapping = aes(
+         x = preparedness_index,
+         y = cases_cumulative))+
+  geom_point(size = 2)+            # points for each region 
+  geom_text(
+    mapping = aes(label = region),
+    vjust = 1.5)+                  # add text labels
+  theme_minimal()
+
+preparedness_plot                  # print original plot
+
+
+# print with y-axis transformed
+preparedness_plot+                   # begin with plot saved above
+  scale_y_continuous(trans = "log2") # add transformation for y-axis
+```
+
+
 
 ### Gradient scales {.unnumbered}  
 
@@ -24892,6 +25212,7 @@ trans_matrix +
 
 ### Palettes {.unnumbered}  
 
+#### Colorbrewer and Viridis {.unnumbered}
 More generally, if you want predefined palettes, you can use the `scale_xxx_brewer` or `scale_xxx_viridis_y` functions.  
 
 The 'brewer' functions can draw from [colorbrewer.org](colorbrewer.org) palettes.  
@@ -24956,7 +25277,7 @@ Changing the order that discrete variables appear in is often difficult to under
 We can look at a common example using age groups - by default the 5-9 age group will be placed in the middle of the age groups (given alphanumeric order), but we can move it behind the 0-4 age group of the chart by releveling the factors.
 
 
-```{r, eval = T, warning=F, message=F}
+```{r, , warning=F, message=F}
 ggplot(
   data = linelist %>% drop_na(age_cat5),                         # remove rows where age_cat5 is missing
   mapping = aes(x = fct_relevel(age_cat5, "5-9", after = 1))) +  # relevel factor
@@ -24971,6 +25292,9 @@ ggplot(
 
 ```
 
+#### **ggthemr** {.unnnumbered}  
+
+Also consider using the **ggthemr** package. You can download this package from Github using the instructions [here](https://github.com/Mikata-Project/ggthemr). It offers palettes that are very aesthetically pleasing, but be aware that these typically have a maximum number of values that can be limiting if you want more than 7 or 8 colors.  
 
 
 
@@ -25079,7 +25403,7 @@ A few tips:
 
 See this is very in-depth [tutorial](https://ggrepel.slowkow.com/articles/examples.html) for more.  
 
-```{r, eval = T, warning=F, message=F}
+```{r, , warning=F, message=F}
 pacman::p_load(ggrepel)
 
 linelist %>%                                               # start with linelist
@@ -25157,7 +25481,7 @@ The single most useful set of functions for working with dates in `ggplot2` are 
   2. `date_labels` allows you to define the format dates are shown in. You can pass a date format string to these arguments (e.g. `"%b-%d-%Y"`):
 
 
-```{r, eval = T, warning=F, message=F}
+```{r, , warning=F, message=F}
 # make epi curve by date of onset when available
 ggplot(linelist, aes(x = date_onset)) +
   geom_histogram(binwidth = 7) +
@@ -25180,7 +25504,7 @@ Highlighting specific elements in a chart is a useful way to draw attention to a
 
 The **gghighlight** package uses the `gghighlight()` function to achieve this effect. To use this function, supply a logical statement to the function - this can have quite flexible outcomes, but here we'll show an example of the age distribution of cases in our linelist, highlighting them by outcome.
 
-```{r, eval = T, warning=F, message=F}
+```{r, , warning=F, message=F}
 # load gghighlight
 library(gghighlight)
 
@@ -25199,7 +25523,7 @@ ggplot(
 
 This also works well with faceting functions - it allows the user to produce facet plots with the background data highlighted that doesn't apply to the facet! Below we count cases by week and plot the epidemic curves by hospital (`color = ` and `facet_wrap()` set to `hospital` column).  
 
-```{r, eval = T, warning=F, message=F}
+```{r, , warning=F, message=F}
 
 # produce a histogram of all cases by age
 linelist %>% 
@@ -25254,7 +25578,7 @@ While faceting (described in the [ggplot basics] page) is a convenient approach 
 The **cowplot** package has a fairly wide range of functions, but the easiest use of it can be achieved through the use of `plot_grid()`. This is effectively a way to arrange predefined plots in a grid formation. We can work through another example with the malaria dataset - here we can plot the total cases by district, and also show the epidemic curve over time.
 
 
-```{r, eval = T, warning=F, message=F}
+```{r, , warning=F, message=F}
 malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) 
 
 # bar chart of total cases by district
@@ -25539,7 +25863,7 @@ aligned_plotted                                                                #
 <!-- For example, if we want to show the number of positive RDTs in the malaria dataset for facility 1, showing 0-4 year olds and all cases on chart: -->
 
 
-<!-- ```{r, eval = T, warning=F, message=F} -->
+<!-- ```{r, , warning=F, message=F} -->
 
 <!-- # take malaria data from facility 1 -->
 <!-- malaria_facility_1 <- malaria_data %>% -->
@@ -25754,6 +26078,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/ggplot_tips.Rmd-->
@@ -25954,20 +26282,20 @@ To *plot* the *incidence* object, use `plot()` on the *name of the incidence obj
 plot(epi_day)
 ```
 
-If you notice lots of tiny white vertical lines (like above) try to adjust the size of your image. For example, if you export your plot with `ggsave()`, you can provide numbers to `width = ` and `height = `. If you widen the plot those lines may disappear.    
+If you notice lots of tiny white vertical lines, try to adjust the size of your image. For example, if you export your plot with `ggsave()`, you can provide numbers to `width = ` and `height = `. If you widen the plot those lines may disappear.    
 
 
 
 ### Change time interval of case aggregation {.unnumbered}  
-The `interval` argument of `incidence()` defines how the observations are grouped into vertical bars. 
+The `interval = ` argument of `incidence()` defines how the observations are grouped into vertical bars. 
 
 **Specify interval**  
 
-**incidence2** provides flexibility and understandable syntax for specifying how you want to aggregate your cases into epicurve bars. Provide a value like the ones below to the `interval = ` argument:   
+**incidence2** provides flexibility and understandable syntax for specifying how you want to aggregate your cases into epicurve bars. Provide a value like the ones below to the `interval = ` argument. You can write any of the below as plural (e.g. "week**s**"), and you can add numbers before (e.g. "3 months").  
 
 Argument option | Further explanation 
 ------------------- | ------------------------------------ |
-Number (1, 7, 13, 14, etc.) | Number of days  
+Number (1, 7, 13, 14, etc.) | Number of days per interval  
 "week" | note: Monday start day is default
 "2 weeks" | or 3, 4, 5...
 "Sunday week" | weeks beginning on Sundays (could also use Thursday, etc.)
@@ -26015,25 +26343,25 @@ plot(epi_year)+    labs(title = "Years")
 ```
 
 
-**Begin at first case**  
+<!-- **Begin at first case**   -->
 
-If you want the intervals to begin at the first case, you can add the argument `standard = TRUE` to the `incidence()` command. This only works if the interval is either "week", "month", "quarter" or "year".  
+<!-- If you want the intervals to begin at the first case, you can add the argument `standard = TRUE` to the `incidence()` command. This only works if the interval is either "week", "month", "quarter" or "year".   -->
 
-**First and late date**  
+**First date**
 
-You can optionally specify the `first_date = ` and `last_date = ` in the `incidence()` command. If given, the data will be trimmed to this range.  
+You can optionally specify a value of class Date (e.g. `as.Date("2016-05-01")`) to `firstdate = ` in the `incidence()` command. If given, the data will be trimmed to this range and the intervals will begin on this date. 
 
 
 
 ### Groups {.unnumbered}
 
-Groups are specified in the `incidence()` command, and can be used to color the bars or to facet the data. To specify groups in your data provide the column name(s) to the `groups =` argument in the `incidence()` command (no quotes). If specifying multiple columns, put their names within `c()`.
+Groups are specified in the `incidence()` command, and can be used to color the bars or to facet the data. To specify groups in your data provide the column name(s) to the `groups =` argument in the `incidence()` command (no quotes around the column name). If specifying multiple columns, put their names within `c()`.
 
 You can specify that cases with missing values in the grouping columns be listed as a distinct `NA` group by setting `na_as_group = TRUE`. Otherwise, they will be excluded from the plot.   
 
-* To color the bars by a grouping column*, you must again provide the column name to `fill = ` in the `plot()` command.  
+* To *color the bars by a grouping column*, you must again provide the column name to `fill = ` in the `plot()` command.  
 
-* To facet based on a grouping column*, see the section below on facets with **incidence2**.  
+* To *facet based on a grouping column*, see the section below on facets with **incidence2**.  
 
 In the example below, the cases in the whole outbreak are grouped by their age category. Missing values are included as a group. The epicurve interval is weeks.  
 
@@ -26072,7 +26400,7 @@ plot(
   stack = FALSE)    # side-by-side (not stacked)
 ``` 
 
-
+You can set the `na_as_group = ` argument to FALSE in the `incidence()` command to remove rows with missing values from the plot.  
 
 
 
@@ -26096,7 +26424,7 @@ central_data <- linelist %>%
 central_outbreak <- incidence(central_data, date_index = date_onset, interval = "week")
 
 # plot the incidence object
-plot(central_outbreak) + labs(title = "Weekly case incidence at Central Hospital")
+plot(central_outbreak, title = "Weekly case incidence at Central Hospital")
 ```
 
 
@@ -26104,7 +26432,7 @@ plot(central_outbreak) + labs(title = "Weekly case incidence at Central Hospital
 
 ### Aggregated counts {.unnumbered}
 
-If your original data are aggregated (counts), provide the name of the column that contains the case counts to the `count = ` argument when creating the incidence object.  
+If your original data are aggregated (counts), provide the name of the column that contains the case counts to the `count = ` argument when creating the incidence object with `incidence()`.  
 
 For example, this data frame `count_data` is the linelist aggregated into daily counts by hospital. The first 50 rows look like this:  
 
@@ -26115,7 +26443,7 @@ DT::datatable(head(count_data,50), rownames = FALSE, options = list(pageLength =
 If you are beginning your analysis with daily count data like the dataset above, your `incidence()` command to convert this to a weekly epicurve by hospital would look like this:  
 
 ```{r}
-epi_counts <- incidence(
+epi_counts <- incidence(              # create weekly incidence object
   count_data,                         # dataset with counts aggregated by day
   date_index = date_hospitalisation,  # column with dates
   count = n_cases,                    # column with counts
@@ -26152,9 +26480,9 @@ epi_wks_hosp_out <- incidence(
 
 # plot
 incidence2::facet_plot(
-  x = epi_wks_hosp_out,    # incidence object
-  facets = hospital,   # facet column
-  fill = outcome)      # fill column
+  epi_wks_hosp_out,      # incidence object
+  facets = hospital,     # facet column
+  fill = outcome)        # fill column
 
 ```
 
@@ -26164,41 +26492,63 @@ Note that the package **ggtree** (used for displaying phylogenetic trees) also h
 
 ### Modifications with `plot()` {.unnumbered} 
 
-An epicurve produced by **incidence2** can be modified via these arguments *within the **incidence2** `plot()` function*.  
+An epicurve produced by **incidence2** can be modified via these arguments *within the `plot()` function*.  
 
-**Here are `plot()` arguments relating to the bars:**  
+**Here are `plot()` arguments that modify the appearance of the bars:**  
 
 Argument | Description | Examples
 ------------------|---------------------------------------|-------------------
-`fill = `|Bar color. Either a color name or a column name previously specified to `groups = ` in `incidence()` command|`fill = "red"`, or `fill = gender`  
-`na_as_group = `|If FALSE, missing values of a grouping column are excluded from plot|`na_as_group = FALSE`
-`border = ` |Color around each bar/box, or grouping within a bar|`border = "white"` 
+`fill = `|Bar color. Either a color name or a column name previously specified to `groups = ` in the `incidence()` command|`fill = "red"`, or `fill = gender`  
+`color = ` |Color around each bar, or around each grouping within a bar|`border = "white"` 
 `legend = `|Location of legend|One of "bottom", "top", "left", "right", or "none"  
 `alpha = `|Transparency of bars/boxes|1 is fully opaque, 0 is fully transparent
-`show_cases = `|Logical; if TRUE, each case shows as a box. Displays best on smaller outbreaks. Can be used with `coord_equal = T` to ensure squares.|`show_cases = TRUE`
-`coord_equal = `|For use if `show_cases = TRUE`; if TRUE the x and y axes display with equal ratio|`coord_equal = TRUE`
+`width = `|Value between 0 and 1 indicating the relative size of the bars to their time interval|`width = .7`  
+`show_cases = `|Logical; if TRUE, each case shows as a box. Displays best on smaller outbreaks.|`show_cases = TRUE`  
 
-
-**Here are `plot()` arguments relating to the date axis:**  
+**Here are `plot()` arguments that modify the date axis:**  
 
 Argument(s)|Description
 ----------------------|----------------------------------------------------
-`n_breaks = `|Number of x-axis label breaks, absent other modifications. These will start counting from the interval of the first case.  
-`angle = `|Angle of x-axis date labels|`angle = 45`  
-`group_labels = `|Used if plotting weekly interval. If FALSE labels will appear YYYY-MM-DD, else YYYY-Www (absent other modifications)
+`centre_dates = `|TRUE/FALSE as to whether date displays appear under center of bars, or at beginning of bars  
+`date_format = `|Adjust the date display format using strptime ("%") syntax. Only works if `centre_dates = FALSE` (details below).  
+`n.breaks = `|Approximate number of x-axis label breaks desired.  
+`angle = `|Angle of x-axis date labels (number of degrees)  
+`size = `|Size of text in points  
 
-<span style="color: darkgreen;">**_TIP:_** For breaks every "nth" interval (e.g. every 4th), use `n_breaks = nrow(i)/n` (where “i” is your incidence object name and “n” is a number). If your data are grouped, you will need to multiply "n" by the number of unique groups.</span>  
+Note that the `date_breaks = ` argument only works if `centre_dates = FALSE`. Provide a character value in quotation marks using the strptime syntax below, as detailed in the [Working with dates] page. You can use `\n` for a "newline".  
+
+%d = Day number of month (5, 17, 28, etc.)  
+%j = Day number of the year (Julian day 001-366)  
+%a = Abbreviated weekday (Mon, Tue, Wed, etc.)  
+%A = Full weekday (Monday, Tuesday, etc.)  
+%w = Weekday number (0-6, Sunday is 0)  
+%u = Weekday number (1-7, Monday is 1)  
+%W = Week number (00-53, Monday is week start)  
+%U = Week number (01-53, Sunday is week start)  
+%m = Month number (e.g. 01, 02, 03, 04)  
+%b = Abbreviated month (Jan, Feb, etc.)  
+%B = Full month (January, February, etc.)  
+%y = 2-digit year  (e.g. 89)  
+%Y = 4-digit year  (e.g. 1989)  
+%h = hours (24-hr clock)  
+%m = minutes  
+%s = seconds  
+%z = offset from GMT  
+%Z = Time zone (character)
+
+
+<!-- <span style="color: darkgreen;">**_TIP:_** For breaks every "nth" interval (e.g. every 4th), use `n.breaks = nrow(i)/n` (where “i” is your incidence object name and “n” is a number). If your data are grouped, you will need to multiply "n" by the number of unique groups.</span>   -->
 
 
 
-**Here are `plot()` arguments relating to labels:**
+**Here are `plot()` arguments that modify plot labels:**
 
 Argument(s)|Description
 ----------------------|----------------------------------------------------
 `title = `|Title of plot|`title = "Epidemic curve of Acute Jaundice Syndrome (AJS)"`
 `xlab = `|Title of x-axis|`xlab = "Date of onset"`  
 `ylab = `|Title of y-axis|`ylab = "Daily case"`  
-`size = `|Size of x-axis text in pts (use ggplot's theme() to adjust other sizes etc.)  
+`size = `|Size of x-axis text in pts (use ggplot's theme() to adjust other sizes)  
 
 
 An example using many of the above arguments:  
@@ -26213,7 +26563,7 @@ central_outbreak <- incidence(
   central_data,
   date_index = date_onset,
   interval = "week",
-  groups = c(outcome))
+  groups = outcome)
 
 # plot incidence object
 plot(
@@ -26226,12 +26576,13 @@ plot(
   show_cases = TRUE,                    # show each case as an individual box
   alpha = 0.7,                          # transparency 
   border = "grey",                      # box border
-  n_breaks = nrow(central_outbreak)/15, # date labels every X weeks
-  angle = 45                            # angle of date labels
+  angle = 30,                           # angle of date labels
+  centre_dates = FALSE,                 # date labels at edge of bar
+  date_format = "%a %d %b %Y\n(Week %W)" # adjust how dates are displayed
   )
 ```
 
-To further adjust plot appearance, see the section below on applying `ggplot()` to the **incidence** plot.  
+To further adjust plot appearance, see the section below on modifications with `ggplot()`.  
 
 
 
@@ -26267,23 +26618,12 @@ plot(
   xlab = "Week of onset",               # x-axis label
   ylab = "Week of onset",               # y-axis label
   show_cases = TRUE,                    # show each case as an individual box
-  #centre_ticks = TRUE,                  # ticks appear in center of interval
   alpha = 0.7,                          # transparency 
-  n_breaks = 20,
   border = "grey",                      # box border
-  #format = "%a %d %B\n%Y (Week %W)",    # overwritten below
-  #n_breaks = nrow(central_outbreak)/15, # overwritten below
-  angle = 45                           # angle of date labels
+  centre_dates = FALSE,                   
+  date_format = "%a %d %b\n%Y (Week %W)", 
+  angle = 30                           # angle of date labels
   )+
-  
-  # Add modifications using ggplot() functions
-  # NOT CURRENTLY FUNCTIONAL WITH VERSION 1.0.0 OF INCIDENCE 2
-  #############################################################
-  # scale_x_date(                              # converts to ggplot date scale (changes default label format)
-  #   expand = c(0,0),                         # remove excess space on left and right
-  #   date_labels = "%a %d %B\n%Y (Week %W)",  # set how dates appear
-  #   date_breaks = "6 weeks"                  # set how often dates appear
-  #   )+      
   
   scale_y_continuous(
     breaks = seq(from = 0, to = 30, by = 5),  # specify y-axis increments by 5
@@ -26525,7 +26865,7 @@ rolling_avg <- incidence(                    # make incidence object
   i2extras::add_rolling_average(before = 6)  # add rolling averages (in this case, by gender)
 
 # plot
-plot(rolling_avg, n_breaks = 3) # faceted automatically because rolling average on groups
+plot(rolling_avg, n.breaks = 3) # faceted automatically because rolling average on groups
 ```
 
 To learn how to apply rolling averages more generally on data, see the Handbook page on [Moving averages].  
@@ -28002,6 +28342,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/epicurves.Rmd-->
@@ -28779,6 +29123,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/age_pyramid.Rmd-->
@@ -29064,7 +29412,7 @@ agg_weeks <- facility_count_data %>%
     data_date < as.Date("2020-08-01")) 
 ```
 
-Now the dataset has `r nrow(agg_weeks)` rows, when it previously had `r nrow(facility_count_data)`.  
+Now the dataset has ` nrow(agg_weeks)` rows, when it previously had ` nrow(facility_count_data)`.  
 
 Next we create a `week` column reflecting the start date of the week for each record. This is achieved with the **lubridate** package and the function `floor_date()`, which is set to "week" and for the weeks to begin on Mondays (day 1 of the week - Sundays would be 7). The top rows are shown below.  
 
@@ -29109,7 +29457,7 @@ DT::datatable(head(agg_weeks,30), rownames = FALSE, options = list(pageLength = 
 
 Finally, we run the command below to ensure that ALL possible facility-weeks are present in the data, even if they were missing before.  
 
-We are using a `right_join()` on itself (the dataset is represented by ".") but having been expanded to include all possible combinations of the columns `week` and `location_name`. See documentation on the `expand()` function in the page on [Pivoting]. Before running this code the dataset contains `r nrow(agg_weeks)` rows.   
+We are using a `right_join()` on itself (the dataset is represented by ".") but having been expanded to include all possible combinations of the columns `week` and `location_name`. See documentation on the `expand()` function in the page on [Pivoting]. Before running this code the dataset contains ` nrow(agg_weeks)` rows.   
 
 ```{r, message=F, warning=F}
 # Create data frame of every possible facility-week
@@ -29126,7 +29474,7 @@ Here is `expanded_weeks`:
 DT::datatable(expanded_weeks, rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
 ```
 
-Before running this code, `agg_weeks` contains `r nrow(agg_weeks)` rows.   
+Before running this code, `agg_weeks` contains ` nrow(agg_weeks)` rows.   
 
 ```{r}
 # Use a right-join with the expanded facility-week list to fill-in the missing gaps in the data
@@ -29135,7 +29483,7 @@ agg_weeks <- agg_weeks %>%
   mutate(p_days_reported = replace_na(p_days_reported, 0))  # convert missing values to 0                           
 ```
 
-After running this code, `agg_weeks` contains `r nrow(agg_weeks)` rows.   
+After running this code, `agg_weeks` contains ` nrow(agg_weeks)` rows.   
 
 
 <!-- ======================================================= -->
@@ -29430,6 +29778,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/heatmaps.Rmd-->
@@ -30221,6 +30573,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/diagrams.Rmd-->
@@ -30543,6 +30899,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/combination_analysis.Rmd-->
@@ -30691,7 +31051,7 @@ the columns we have specified within the function. The `drop_na` function will
 filter out any rows where the specified columns have an `NA` value; in this
 case, we only want to keep the rows where the infector is known.
 
-```{r transmission_chains_create_contacts, eval=T}
+```{r transmission_chains_create_contacts,}
 ## generate contacts
 contacts <- linelist %>%
   transmute(
@@ -30711,7 +31071,7 @@ that infection is going _from_ the infector _to_ the case, so we need to specify
 the `from` and `to` arguments accordingly. We therefore also set the `directed`
 argument to `TRUE`, which will affect future operations.
 
-```{r transmission_chains_create_epicontacts, eval=T}
+```{r transmission_chains_create_epicontacts,}
 ## generate epicontacts object
 epic <- make_epicontacts(
   linelist = linelist,
@@ -30727,7 +31087,7 @@ in the linelist has been renamed to `id` and the `case_id` and `infector`
 columns in the contacts have been renamed to `from` and `to`. This ensures
 consistency in subsequent handling, visualisation and analysis operations.
 
-```{r transmission_chains_view_epicontacts, eval=T}
+```{r transmission_chains_view_epicontacts,}
 ## view epicontacts object
 epic
 ```
@@ -30745,7 +31105,7 @@ male cases in the linelist that have an infection date between April and
 July 2014 (dates are specified as ranges), and transmission links that occured
 in the hospital.
 
-```{r transmission_chains_subset_nodes, eval=T}
+```{r transmission_chains_subset_nodes,}
 sub_attributes <- subset(
   epic,
   node_attribute = list(
@@ -30765,7 +31125,7 @@ epicontacts object to keep only the transmission links involving the male cases
 infected between April and July which we had filtered for above. We can see that
 only two known transmission links fit that specification.
 
-```{r transmission_chains_thin, eval=T}
+```{r transmission_chains_thin,}
 sub_attributes <- thin(sub_attributes, what = "contacts")
 nrow(sub_attributes$contacts)
 ```
@@ -30805,13 +31165,13 @@ dataset, and can be parameterized as follows:
 - **common**: IDs that appear in both contacts dataset and line list
     
 For example, what are the first ten IDs in the contacts dataset?
-```{r transmission_chains_get_ids, eval=T}
+```{r transmission_chains_get_ids,}
 contacts_ids <- get_id(epic, "contacts")
 head(contacts_ids, n = 10)
 ```
 
 How many IDs are found in both the linelist and the contacts?
-```{r transmission_chains_get_both, eval=T}
+```{r transmission_chains_get_both,}
 length(get_id(epic, "common"))
 ```
 
@@ -30825,7 +31185,7 @@ function. We will first filter the **epicontacts** object to include only the
 cases with onset dates in June 2014 using the `subset` function, and only
 include the contacts linked to those cases using the `thin` function.
 	
-```{r transmission_chains_basic_plot_sub, eval=T}
+```{r transmission_chains_basic_plot_sub,}
 ## subset epicontacts object
 sub <- epic %>%
   subset(
@@ -30836,7 +31196,7 @@ sub <- epic %>%
 
 We can then create the basic, interactive plot very simply as follows:
 
-```{r transmission_chains_basic_plot, eval=T}
+```{r transmission_chains_basic_plot,}
 ## plot epicontacts object
 plot(
   sub,
@@ -30875,7 +31235,7 @@ provide a gradient of colours between the ones specified.
 Here an example, where color represents the outcome, shape the gender and size
 the age:
 
-```{r transmission_chains_node_attribute, eval=T}
+```{r transmission_chains_node_attribute,}
 plot(
   sub, 
   node_color = "outcome",
@@ -30901,7 +31261,7 @@ arguments. The specific colors and widths of the edges can be specified as follo
 
 Here an example:
 
-```{r transmission_chains_edge_attribute, eval=T}
+```{r transmission_chains_edge_attribute,}
 
 plot(
   sub, 
@@ -30930,7 +31290,7 @@ represents the date of symptom onset. We have also specified the `arrow_size`
 argument to ensure the arrows are not too large, and set `label = FALSE` to make
  the figure less cluttered.
 
-```{r transmission_chains_x_axis, eval=T}
+```{r transmission_chains_x_axis,}
 plot(
   sub,
   x_axis = "date_onset",
@@ -30959,7 +31319,7 @@ representation, however can result in overlapping edges in a densely connected
 network. The second shape is `rectangle`, which produces a tree resembling a
 phylogeny. For example:
 
-```{r transmission_chains_rectangle, eval=T}
+```{r transmission_chains_rectangle,}
 plot(
   sub,
   x_axis = "date_onset",
@@ -30978,7 +31338,7 @@ Each case node can be assigned a unique vertical position by toggling the
 `position_dodge` argument. The position of unconnected cases (i.e. with no
 reported contacts) is specified using the `unlinked_pos` argument.
 
-```{r transmission_chains_dodge, eval=T}
+```{r transmission_chains_dodge,}
 plot(
   sub,
   x_axis = "date_onset",
@@ -31000,7 +31360,7 @@ specified using the `parent_pos` argument. The default option is to place the
 parent node in the middle, however it can be placed at the bottom (`parent_pos =
 'bottom'`) or at the top (`parent_pos = 'top'`).
 
-```{r transmission_chains_parent_pos, eval=T}
+```{r transmission_chains_parent_pos,}
 plot(
   sub,
   x_axis = "date_onset",
@@ -31062,7 +31422,7 @@ outcome, and keep the outcome and hospital variables which we use to define the
 node shape and colour. Note that you can have more than one timeline row/event
 per case, for example if a case is transferred between multiple hospitals.
 
-```{r transmission_chains_create_timeline, eval=T}
+```{r transmission_chains_create_timeline,}
 
 ## generate timeline
 timeline <- linelist %>%
@@ -31089,7 +31449,7 @@ See `?vis_temporal_interactive` (the function called when plotting an
 epicontacts object) for detailed documentation on the arguments. Each argument
 is annotated in the code below too:
 
-```{r transmission_chains_vis_timeline, eval=T}
+```{r transmission_chains_vis_timeline,}
 
 ## define shapes
 shapes <- c(
@@ -31175,7 +31535,7 @@ plot(
 We can get an overview of some of the network properties using the
 `summary` function.
 
-```{r transmission_chains_summarise_epicontacts, eval=T}
+```{r transmission_chains_summarise_epicontacts,}
 ## summarise epicontacts object
 summary(epic)
 ```
@@ -31192,7 +31552,7 @@ of onset of disease is extracted from the line list in order to compute the
 difference between disease date of onset for each pair. The value that is
 produced from this comparison represents the **serial interval (si)**.
 
-```{r transmission_chains_pairwise, eval=T}
+```{r transmission_chains_pairwise,}
 si <- get_pairwise(epic, "date_onset")   
 summary(si)
 tibble(si = si) %>%
@@ -31212,7 +31572,7 @@ the values. When applied to columns that are characters or categorical,
 for arbitrary processing (see "f" argument), these discrete combinations can be
 easily tabulated and analyzed.
     
-```{r transmission_chains_pairwise_2, eval=T}
+```{r transmission_chains_pairwise_2,}
 head(get_pairwise(epic, "gender"), n = 10)
 get_pairwise(epic, "gender", f = table)
 fisher.test(get_pairwise(epic, "gender", f = table))
@@ -31226,7 +31586,7 @@ The `get_clusters()` function can be used for to identify connected components
 in an `epicontacts` object. First, we use it to retrieve a `data.frame`
 containing the cluster information:
 
-```{r transmission_chains_cluster, eval=T}
+```{r transmission_chains_cluster,}
 clust <- get_clusters(epic, output = "data.frame")
 table(clust$cluster_size)
 ggplot(clust, aes(cluster_size)) +
@@ -31240,7 +31600,7 @@ ggplot(clust, aes(cluster_size)) +
 Let us look at the largest clusters. For this, we add cluster information to the
 `epicontacts` object and then subset it to keep only the largest clusters:
 
-```{r transmission_chains_cluster_2, eval=T}
+```{r transmission_chains_cluster_2,}
 epic <- get_clusters(epic)
 max_size <- max(epic$linelist$cluster_size)
 plot(subset(epic, cs = max_size))
@@ -31255,7 +31615,7 @@ who was in contact with many others. The `type` argument indicates that we want
 to count both the in-degree and out-degree, the `only_linelist` argument
 indicates that we only want to calculate the degree for cases in the linelist.
 
-```{r transmission_chains_degree, eval=T}
+```{r transmission_chains_degree,}
 deg_both <- get_degree(epic, type = "both", only_linelist = TRUE)
 ```
 
@@ -31316,6 +31676,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/transmission_chains.Rmd-->
@@ -32019,6 +32383,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/phylogenetic_trees.Rmd-->
@@ -32175,7 +32543,7 @@ p <- incidence2::incidence(
 p %>% plotly::ggplotly()
 ```
   
-```{r, warning = F, message = F, eval=TRUE, out.width=c('95%'), out.height=c('500px'), echo=FALSE}
+```{r, warning = F, message = F, , out.width=c('95%'), out.height=c('500px'), echo=FALSE}
 p %>% 
   ggplotly() %>% 
   partial_bundle() 
@@ -32217,7 +32585,7 @@ You can make almost any `ggplot()` plot interactive, including heat tiles. In th
 
 Here is the code, although we will not describe it in depth here.  
 
-```{r eval=T, message=F, warning=F}
+```{r  message=F, warning=F}
 # import data
 facility_count_data <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
 
@@ -32275,7 +32643,7 @@ metrics_plot # print
 
 Below, we make it interactive and modify it for simple buttons and file size.  
 
-```{r, eval=T, out.width=c('95%'), out.height=c('500px')}
+```{r,  out.width=c('95%'), out.height=c('500px')}
 metrics_plot %>% 
   plotly::ggplotly() %>% 
   plotly::partial_bundle() %>% 
@@ -32298,7 +32666,7 @@ metrics_plot %>%
 
 <!-- GeoJSON files are stored in R as complex lists and you'll need to maipulate them a little. -->
 
-<!-- ```{r, echo=T, eval=T} -->
+<!-- ```{r, echo=T,} -->
 <!-- ## You need two new packages: {rjson} and {purrr} -->
 <!-- pacman::p_load(plotly, rjson, purrr) -->
 
@@ -32392,6 +32760,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/interactive_plots.Rmd-->
@@ -32432,6 +32804,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_reports_dashboards.Rmd-->
@@ -33273,6 +33649,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/rmarkdown.Rmd-->
@@ -33584,6 +33964,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/reportfactory.Rmd-->
@@ -33716,7 +34100,7 @@ Code chunks are created with three back-ticks and curly brackets with a lowercas
 
 Outside of an R code "chunk", you can write narrative text. As described in the page on [Reports with R Markdown], you can italicize text by surrounding it with one asterisk (*), or bold by surrounding it with two asterisks (**). Recall that bullets and numbering schemes are sensitive to newlines, indentation, and finishing a line with two spaces.  
 
-You can also insert in-line R code into text as described in the [Reports with R Markdown] page, by surrounding the code with backticks and starting the command with "r": `` `r 1+1` ``(see example with date above).  
+You can also insert in-line R code into text as described in the [Reports with R Markdown] page, by surrounding the code with backticks and starting the command with "r": `` ` 1+1` ``(see example with date above).  
 
 
 
@@ -34099,6 +34483,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/flexdashboard.Rmd-->
@@ -35069,7 +35457,7 @@ With all the facilites in our data, it isn't very clear which facilities corresp
 
 
 
-```{r, eval = TRUE, message =  FALSE}
+```{r, , message =  FALSE}
 
 all_districts <- c("All", unique(malaria_data$District))
 
@@ -35539,6 +35927,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/shiny_basics.Rmd-->
@@ -35579,6 +35971,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/cat_misc.Rmd-->
@@ -35670,7 +36066,7 @@ Once you have created your function, you can verify each of these components by 
 
 ## Basic syntax and structure
 
-- A function will need to be named properly so that its job is easily understandable as soon as we read its name. Actually this is already the case with majority of the base R architecture. Functions like  `mean()`, `print()`, `summary()` have name that are very straightforward 
+- A function will need to be named properly so that its job is easily understandable as soon as we read its name. Actually this is already the case with majority of the base R architecture. Functions like  `mean()`, `print()`, `summary()` have names that are very straightforward 
 
 - A function will need arguments, such as the data to work on and other objects that can be static values among other options  
 
@@ -35696,9 +36092,9 @@ We can create our first function that will be called `contain_covid19()`.
 
 contain_covid19 <- function(barrier_gest, wear_mask, get_vaccine){
   
-                            if (barrier_gest == "yes" & wear_mask =="yes" & get_vaccine == "yes" ) 
+                            if(barrier_gest == "yes" & wear_mask == "yes" & get_vaccine == "yes" ) 
        
-                            return ("success")
+                            return("success")
   
   else("please make sure all are yes, this pandemic has to end!")
 }
@@ -35737,27 +36133,34 @@ Then let's look what happens if one of the values is `"no"` or **not** `"yes"`.
 
 ```{r}
 
-contain_covid19(barrier_gest="yes", wear_mask="yes", get_vaccine="no")
+contain_covid19(barrier_gest = "yes", wear_mask = "yes", get_vaccine = "no")
 ```
 
-If we provide an argument that is not recognized, we get an error: `Error in contain_covid19(barrier_gest = "sometimes", wear_mask = "yes",  : 
-  could not find function "contain_covid19"`
+If we provide an argument that is not recognized, we get an error: 
 
 ```{r, eval=F}
-contain_covid19(barrier_gest="sometimes", wear_mask="yes", get_vaccine="no")
+contain_covid19(barrier_gest = "sometimes", wear_mask = "yes", get_vaccine = "no")
 ```
+
+`Error in contain_covid19(barrier_gest = "sometimes", wear_mask = "yes",  : 
+  could not find function "contain_covid19"`
+
 
 <span style="color: black;">**_NOTE:_** Some functions  (most of time very short and straightforward) may not need a name and can be used directly on a line of code or inside another function to do quick task. They are called **anonymous functions** .</span>
 
 For instance below is a first anonymous function that   keeps only character variables the dataset.
 
-```{r}
-
+```{r, eval=F}
 linelist %>% 
   dplyr::slice_head(n=10) %>%  #equivalent to R base "head" function and that return first n observation of the  dataset
-  select(function(x) is.character(x)) %>% 
+  select(function(x) is.character(x)) 
+```
+  
+```{r, echo=F}
+linelist %>% 
+  dplyr::slice_head(n=10) %>%  #equivalent to R base "head" function and that return first n observation of the  dataset
+  select(function(x) is.character(x)) %>%  
 DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
-
 ```
 
 
@@ -35765,12 +36168,18 @@ Then another function that selects every second observation of our dataset (may 
 In this case, the proper function writing outside dplyr would be `function (x) (x%%2 == 0)` to apply to the vector containing all row numbers.
 
 
-```{r}
-
+```{r, eval=F}
 linelist %>%   
    slice_head(n=20) %>% 
-   tibble::rownames_to_column() %>% #add indices of each obs as rownames to clearly see the final selection
-    filter(row_number() %%2 == 0) %>% 
+   tibble::rownames_to_column() %>% # add indices of each obs as rownames to clearly see the final selection
+   filter(row_number() %%2 == 0)
+```
+
+```{r, echo=F}
+linelist %>%   
+   slice_head(n=20) %>% 
+   tibble::rownames_to_column() %>%    # add indices of each obs as rownames to clearly see the final selection
+   filter(row_number() %%2 == 0) %>% 
 DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, scrollX=T), class = 'white-space: nowrap' )
 
 ```
@@ -35778,7 +36187,14 @@ DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, sc
 
 A possible base R code for the same task would be:
 
-```{r}
+```{r, eval = F}
+
+linelist_firstobs <- head(linelist, 20)
+
+linelist_firstobs[base::Filter(function(x) (x%%2 == 0), seq(nrow(linelist_firstobs))),]
+```
+
+```{r, echo=F}
 
 linelist_firstobs <- head(linelist, 20)
 
@@ -35788,15 +36204,15 @@ DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, sc
 ```
 
 
-<span style="color: orange;">**_CAUTION:_** Tough it is true that using functions can help us with our code, it can nevertheless be  time consuming to write some functions or to fix one if it has not been thought thoroughly, written adequately and is returning errors as a result. For this reason it is often recommended to first write the R code, make sure it does what we intend it to do, and then transform it into a function with its three main components as listed above. </span>
+<span style="color: orange;">**_CAUTION:_** Though it is true that using functions can help us with our code, it can nevertheless be  time consuming to write some functions or to fix one if it has not been thought thoroughly, written adequately and is returning errors as a result. For this reason it is often recommended to first write the R code, make sure it does what we intend it to do, and then transform it into a function with its three main components as listed above. </span>
 
-## Examples of functions
+## Examples  
 
-## A function that returns proportions tables for several variables of interest.
+### Return proportion tables for several columns {.unnumbered}  
 
-Yes we already have nice functions in many packages allowing to summarize information in a very easy and nice way. But we will still try fo make our own in our first steps to getting used to writing functions.
+Yes, we already have nice functions in many packages allowing to summarize information in a very easy and nice way. But we will still try to make our own, in our first steps to getting used to writing functions.
 
-In this example we want to show how writing a simple function would avoid you copy-pasting the same code a multiple times.
+In this example we want to show how writing a simple function would avoid you copy-pasting the same code multiple times.
 
 ```{r}
 
@@ -35852,14 +36268,14 @@ base::lapply(linelist[,c("gender","age_cat", "outcome")], table)
 
 <span style="color: darkgreen;">**_TIP:_** R is often defined as a functional programming language and almost anytime you run a line of code you are using some built-in functions. A good habit to be more comfortable with writing functions is to often have an internal look at how the basic functions you are using daily are built. The shortcut to do so is selecting the function name and then clicking on`Ctrl+F2` or `fn+F2` or `Cmd+F2` (depending on your computer) .</span>
 
-## Using *purrr*: writing a function that can be iteratively applied
+## Using **purrr**: writing functions that can be iteratively applied
 
-### Modify multiple variables class in a dataset.
+### Modify class of multiple columns in a dataset {.unnumbered}  
 
-Let's say many character variables in the original `linelist` data need to be changes to "factor" for analysis and plotting purposes. Instead of repeating the step several times, we can just use `lapply` to do the transformation of all variables concerned on a single line of code.
+Let's say many character variables in the original `linelist` data need to be changes to "factor" for analysis and plotting purposes. Instead of repeating the step several times, we can just use `lapply()` to do the transformation of all variables concerned on a single line of code.
 
 
-<span style="color: orange;">**_CAUTION:_** `lapply` returns a list, thus its use may require an additional modification as a last step.</span>
+<span style="color: orange;">**_CAUTION:_** `lapply()` returns a list, thus its use may require an additional modification as a last step.</span>
 
 
 ```{r, include=FALSE}
@@ -35873,7 +36289,7 @@ linelist_factor1 <- linelist %>%
 ```
 
 
-The same step can be done using `map_if` function from the *purrr* package
+The same step can be done using `map_if()` function from the **purrr** package
 
 ```{r}
 
@@ -35887,9 +36303,9 @@ linelist_factor2 %>%
 ```
 
 
-### Iteratively produce graphs for different levels of a variable
+### Iteratively produce graphs for different levels of a variable {.unnumbered}
 
-We will produce here piechart to look at the distribution of patient's outcome in China during the H7N9 outbreak for each province. Instead of repeating the code for each of them, we will just apply a funtion that we will create.
+We will produce here pie chart to look at the distribution of patient's outcome in China during the H7N9 outbreak for each province. Instead of repeating the code for each of them, we will just apply a function that we will create.
 
 ```{r}
 
@@ -35930,7 +36346,7 @@ chart_outcome_province(flu_china,"Jiangsu")
 
 
 
-### Iteratively produce tables for different levels of a variable
+### Iteratively produce tables for different levels of a variable {.unnumbered}
 
 Here we will create three indicators to summarize in a table and we would like to produce this table for each of the provinces. Our indicators are the delay between onset and hospitalization, the percentage of recovery and the median age of cases.
 
@@ -36030,7 +36446,7 @@ print_indic_prov(table_indic_all, "Jiangsu")
 Functional programming is meant to ease code and facilitates its reading. It should produce the contrary. The tips below will help you having a clean code and easy to read code. 
 
 
-### Naming and syntax
+### Naming and syntax {.unnumbered}
 
 - Avoid using character that could have been easily already taken by other functions already existing in your environment
 
@@ -36058,7 +36474,7 @@ mtcars %>%
 ```
 
 
-### Testing and Error handling
+### Testing and Error handling {.unnumbered}
 
 The more complicated a function's task the higher the possibility of errors. Thus it is sometimes necessary to add some verification within the funtion to help quickly understand where the error is from and find a way t fix it.
 
@@ -36127,7 +36543,8 @@ linelist %>%
 ```
 
 
-- As said previously, well commenting our codes is already a good way for having documentation on  a work
+As said previously, well commenting our codes is already a good way for having documentation in our work.  
+
 
 <!-- ======================================================= -->
 ## Resources
@@ -36175,6 +36592,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/writing_functions.Rmd-->
@@ -36483,6 +36904,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/directories.Rmd-->
@@ -37673,6 +38098,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/collaboration.Rmd-->
@@ -37720,6 +38149,18 @@ Error in select(data, var) : unused argument (var)
 You think you are using `dplyr::select()` but the `select()` function has been masked by `MASS::select()` - specify `dplyr::` or re-order your package loading so that dplyr is after all the others.
 
 Other common masking errors stem from: `plyr::summarise()` and `stats::filter()`. Consider using the [**conflicted** package](https://www.tidyverse.org/blog/2018/06/conflicted/).
+
+
+
+
+```
+Error in install.packages : ERROR: failed to lock directory ‘C:\Users\Name\Documents\R\win-library\4.0’ for modifying
+Try removing ‘C:\Users\Name\Documents\R\win-library\4.0/00LOCK’
+```
+
+If you get an error saying you need to remove an "00LOCK" file, go to your "R" library in your computer directory (e.g. R/win-library/) and look for a folder called "00LOCK". Delete this manually, and try installing the package again. A previous install process was probably interrupted, which led to this.  
+
+
 
 
 ### Object errors {.unnumbered}  
@@ -37837,6 +38278,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/errors.Rmd-->
@@ -38026,6 +38471,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/help.Rmd-->
@@ -38242,6 +38691,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/network_drives.Rmd-->
@@ -38510,6 +38963,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 # Settings
 
 options(scipen=1, digits=7)
+
+# print only text (not code)
+#library(knitr)
+#opts_chunk$set(list(echo = FALSE, eval = FALSE))
 ```
 
 <!--chapter:end:new_pages/data_table.Rmd-->
