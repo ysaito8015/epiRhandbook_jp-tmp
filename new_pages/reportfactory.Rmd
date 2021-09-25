@@ -1,91 +1,101 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# ルーチンで作成するレポートを整理する {  }  { #reportfactory }
 
-# Organizing routine reports {  }  
+このページは、**reportfactory** パッケージについて解説いたします。このパッケージは *R Markdown でレポートを作成する場合に補助的に利用する*ものとなります。
 
-This page covers the **reportfactory** package, which is an *accompaniment to using R Markdown for reports*. 
+日次、週次などで、日常的にレポートを作成するような場合、パッケージを利用することで複数の R Markdown ファイルの出力と結果の整理を簡単にします。手短にまとめると、パッケージは 自動的に日付と時間が記録された出力用フォルダを作成したうえで、「手軽に」バージョン管理を行うことができる、R Markdown レポートを実行するための「工場」を用意してくれます。
 
-In scenarios where you run reports routinely (daily, weekly, etc.), it eases the compilation of multiple R Markdown files and the organization of their outputs. In essence, it provides a "factory" from which you can run the R Markdown reports, get automatically date- and time-stamped folders for the outputs, and have "light" version control.  
-
-**reportfactory** is one of the packages developed by RECON (R Epidemics Consortium). Here is their [website](https://www.repidemicsconsortium.org/) and [Github](https://github.com/reconverse).  
+**reportfactory**は RECON （ R Epidemics Consortium ） が開発したパッケージの一つです。RECON のウェブサイトと Github は ここ（[ウェブサイト](https://www.repidemicsconsortium.org/)）とここ（[Github](https://github.com/reconverse)）にあります。  
 
 
-## Preparation
+## 準備
 
-### Load packages {.unnumbered}  
+### パッケージの読み込み {.unnumbered}  
 
-From within RStudio, install the latest version of the **reportfactory** package from Github.  
+RStudio の中で、Github から最新版の**reportfactory**パッケージをインストールしましょう。
 
-You can do this via the **pacman** package with `p_load_current_gh()` which will force intall of the latest version from Github. Provide the character string "reconverse/reportfactory", which specifies the Github organization (reconverse) and repository (reportfactory). You can also use `install_github()` from the **remotes** package, as an alternative.
+You can do this via the **pacman** package with `p_load_current_gh()` which will force intall of the latest version from Github. 
+インストールは、**pacman** パッケージの `p_load_curreng_gh()` を利用することで行えます。この関数を利用すると Github からパッケージの最新バージョンを強制的にインストールしてくれます。 関数に、"reconverse/reportfactory" という文字を引数として与えましょう。 reconverse は Github 上の organization を表し、 reportfactory が repository を表します。 別のインストール方法としては、 **remotes**  パッケージの `install_github()` を利用することも可能です。
 
 ```{r, eval=FALSE}
-# Install and load the latest version of the package from Github
+# Github からパッケージの最新版をインストールして読み込む
 pacman::p_load_current_gh("reconverse/reportfactory")
-#remotes::install_github("reconverse/reportfactory") # alternative
+#remotes::install_github("reconverse/reportfactory") # 別の方法はこちら
 ```
 
-
-## New factory  
+## 新しい「工場」
 
 To create a new factory, run the function `new_factory()`. This will create a new self-contained R project folder. By default:  
+`new_factory()`を実行して、新しい工場を作りましょう。実行すると、必要なものが含まれた新しい R プロジェクトフォルダが作成されます。初期設定では次のような動作となります：
 
-* The factory will be added to your working directory
-* The name of the factory R project will be called "new_factory.Rproj"  
-* Your RStudio session will "move in" to this R project  
+* 現在のワーキングディレクトリに工場が追加されます
+* 新しい「工場 R プロジェクト」は "new_factory.Rproj"となります
+* RStudio のセッションは、この「工場 R プロジェクト」に「移動」します。
+
 
 ```{r, eval=F}
 # This will create the factory in the working directory
+# これを実行すると現在のワーキングディレクトリに新しい「工場」が作成されます
 new_factory()
 ```
 
 Looking inside the factory, you can see that sub-folders and some files were created automatically.  
-
+新しい「工場」の中には、自動的にサブフォルダやファイルが作成されているはずです。
 
 ```{r, warning=F, message=F, echo=F}
+# nn:このチャンクは画像表示用。
+# 新しく作成された「工場」の初期ファイルやサブフォルダの画像。
 knitr::include_graphics(here::here("images", "factory_new2.png"))
 ```
 
-* The *report_sources* folder will hold your R Markdown scripts, which generate your reports  
-* The *outputs* folder will hold the report outputs (e.g. HTML, Word, PDF, etc.)  
-* The *scripts* folder can be used to store other R scripts (e.g. that are sourced by your Rmd scripts)  
-* The *data* folder can be used to hold your data ("raw" and "clean" subfolders are included)  
+* *report_sources* フォルダは、レポートを生成する R Markdown スクリプトを保存する場所です。
+* *outputs* フォルダは、生成されたレポートが保存される場所です。（例：HTML、Word、PDF などのファイル）
+* The *scripts* folder can be used to store other R scripts (e.g. that are sourced by your Rmd scripts)
+* *scripts* フォルダは、他の R スクリプトを保存する場所として利用できます。（例：Rmd ファイルから呼び出されるスクリプトなど）  
+* *data* フォルダは、データを保存する場所として利用できます。（サブフォルダとして "raw" と "clean" フォルダが含まれています）
 * A *.here* file, so you can use the **here** package to call files in sub-folders by their relation to this root folder (see [R projects] page for details)  
-* A *gitignore* file was created in case you link this R project to a Github repository (see [Version control and collaboration with Github])  
-* An empty README file, for if you use a Github repository  
+* *.here* ファイル：**here**パッケージを使用して、サブフォルダー内のファイルを、このルートフォルダーからの相対的なパスで呼び出すことができます（詳細は[R projects]ページを参照してください）。
+* *gitignore* ファイル：「工場 R プロジェクト」をGithub レポジトリと関連付けた場合に備えて作成されています。（詳細は、[Version control and collaboration with Github] べージを参照してください）。
+* *README* ファイル（空）：Githubレポジトリを利用した場合に備えて作成されています。
 
-
-<span style="color: orange;">**_CAUTION:_** depending on your computer's setting, files such as ".here" may exist but be invisible.</span>  
+<span style="color: orange;">**_注意:_** ".here" ファイルなどのいくつかのファイルは存在していたとしても、コンピューターの設定によっては見えない場合があります。</span>  
 
 Of the default settings, below are several that you might want to adjust within the `new_factory()` command:  
+初期設定のうち、`new_factory()`関数の実行の際に動作を調整したいと思う可能性があるものをいくつか紹介します。
 
-* `factory = ` - Provide a name for the factory folder (default is "new_factory")  
-* `path = ` - Designate a file path for the new factory (default is the working directory)  
-* `report_sources = ` Provide an alternate name for the subfolder which holds the R Markdown scripts (default is "report_sources")  
-* `outputs = ` Provide an alternate name for the folder which holds the report outputs (default is "outputs")  
+* `factory = ` - 新しく生成される「工場」のフォルダ名を変更できます (初期設定は "new_factory" です)
+* `path = ` - 新しい「工場」フォルダが作成されるパスを指定できます（初期設定は現在の作業ディレクトリ）
+* `report_sources = ` R Markdown スクリプトを保存するサブフォルダの名前を指定できます（初期設定は "report_sources"）
+* `outputs = ` 生成されたレポートが保存されるフォルダの名前を指定できます（初期設定は "outputs"）
 
-See `?new_factory` for a complete list of the arguments.  
+設定可能な全ての引数のリストは `?new_factory` でヘルプファイルを参照してください。 
 
-
-When you create the new factory, your R session is transferred to the new R project, so you should again load the **reportfactory** package.  
+新しいファクトリーを作成すると、R のセッションは新しく作成された R プロジェクトに移されるので、再度 **reportfactory** パッケージを読み込む必要があります。  
 
 ```{r, eval=FALSE}
 pacman::p_load(reportfactory)
 ```
-
-Now you can run a the `factory_overview()` command to see the internal structure (all folders and files) in the factory.  
+ 
+これで準備が整いました。`factory_overview()`コマンドを実行すると、「工場の構造」（すべてのフォルダとファイル）を見ることができます。  
 
 ```{r, eval=F}
-factory_overview()            # print overview of the factory to console
+factory_overview()            # コンソールに「工場の構造」を表示する
 ```
 
-The following "tree" of the factory's folders and files is printed to the R console. Note that in the "data" folder there are sub-folders for "raw" and "clean" data, and example CSV data. There is also "example_report.Rmd" in the "report_sources" folder.    
+次の図のように、「工場」に含まれるフォルダとファイルが R コンソールに表示されます。"data" フォルダの中に "raw" と "clean" サブフォルダと例示のための CSV データが含まれていることに注意してください。また、 "example_report.Rmd" ファイルが同じように "report_sources" フォルダに含まれています。
 
 ```{r, warning=F, message=F, echo=F}
+# nn:画像の表示用。 factory_overview()の実行結果が表示されている。
 knitr::include_graphics(here::here("images", "factory_overview.png"))
 ```
 
+## レポートの作成
 
-## Create a report  
-
-From within the factory R project, create a R Markdown report just as you would normally, and save it into the "report_sources" folder. See the [R Markdown][Reports with R Markdown] page for instructions. For purposes of example, we have added the following to the factory:  
+「工場 R プロジェクト」の中で、普段行うように R Markdown ファイルを作成して、"report_sources" フォルダに保存してみましょう。 R Markdown ファイルの作成方法は、[R Markdown][Reports with R Markdown]のページを参照してください。例示することを目的に、ここでは次のように「工場」を変更しています。
 
 * A new R markdown script entitled "daily_sitrep.Rmd", saved within the "report_sources" folder  
 * Data for the report ("linelist_cleaned.rds"), saved to the "clean" sub-folder within the "data" folder  
