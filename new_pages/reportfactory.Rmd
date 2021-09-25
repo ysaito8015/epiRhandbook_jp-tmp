@@ -3,7 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-# ルーチンで作成するレポートを整理する {  }  { #reportfactory }
+# ルーチンで作成するレポートの整理 { #reportfactory }
 
 このページは、**reportfactory** パッケージについて解説いたします。このパッケージは *R Markdown でレポートを作成する場合に補助的に利用する*ものとなります。
 
