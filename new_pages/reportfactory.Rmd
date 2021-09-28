@@ -52,10 +52,8 @@ knitr::include_graphics(here::here("images", "factory_new2.png"))
 
 * *report_sources* フォルダは、レポートを生成する R Markdown スクリプトを保存する場所です。
 * *outputs* フォルダは、生成されたレポートが保存される場所です。（例：HTML、Word、PDF などのファイル）
-* The *scripts* folder can be used to store other R scripts (e.g. that are sourced by your Rmd scripts)
 * *scripts* フォルダは、他の R スクリプトを保存する場所として利用できます。（例：Rmd ファイルから呼び出されるスクリプトなど）  
 * *data* フォルダは、データを保存する場所として利用できます。（サブフォルダとして "raw" と "clean" フォルダが含まれています）
-* A *.here* file, so you can use the **here** package to call files in sub-folders by their relation to this root folder (see [R projects] page for details)  
 * *.here* ファイル：**here**パッケージを使用して、サブフォルダー内のファイルを、このルートフォルダーからの相対的なパスで呼び出すことができます（詳細は[R projects]ページを参照してください）。
 * *gitignore* ファイル：「工場 R プロジェクト」をGithub レポジトリと関連付けた場合に備えて作成されています。（詳細は、[Version control and collaboration with Github] べージを参照してください）。
 * *README* ファイル（空）：Githubレポジトリを利用した場合に備えて作成されています。
@@ -159,7 +157,6 @@ knitr::include_graphics(here::here("images", "factory_compile1.png"))
 `reports = ` に数字または数字ベクトルを指定することで、コンパイルする Rmd スクリプトを指定することができます。これらの数字は `list_reports()` を実行した際に表示されるレポートの順番と一致している必要があります。  
 
 ```{r, eval=F}
-# Compile the second and fourth Rmds in the "report_sources" folder
 # "report_sources" フォルダ内の二番目と四番目の Rmd ファイルをコンパイルする
 compile_reports(reports = c(2, 4))
 ```
