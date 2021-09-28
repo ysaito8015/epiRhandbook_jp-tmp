@@ -20,7 +20,6 @@ editor_options:
 
 RStudio の中で、Github から最新版の**reportfactory**パッケージをインストールしましょう。
 
-You can do this via the **pacman** package with `p_load_current_gh()` which will force intall of the latest version from Github. 
 インストールは、**pacman** パッケージの `p_load_curreng_gh()` を利用することで行えます。この関数を利用すると Github からパッケージの最新バージョンを強制的にインストールしてくれます。 関数に、"reconverse/reportfactory" という文字を引数として与えましょう。 reconverse は Github 上の organization を表し、 reportfactory が repository を表します。 別のインストール方法としては、 **remotes**  パッケージの `install_github()` を利用することも可能です。
 
 ```{r, eval=FALSE}
