@@ -31,7 +31,6 @@ pacman::p_load_current_gh("reconverse/reportfactory")
 
 ## 新しい「工場」
 
-To create a new factory, run the function `new_factory()`. This will create a new self-contained R project folder. By default:  
 `new_factory()`を実行して、新しい工場を作りましょう。実行すると、必要なものが含まれた新しい R プロジェクトフォルダが作成されます。初期設定では次のような動作となります：
 
 * 現在のワーキングディレクトリに工場が追加されます
@@ -40,12 +39,10 @@ To create a new factory, run the function `new_factory()`. This will create a ne
 
 
 ```{r, eval=F}
-# This will create the factory in the working directory
 # これを実行すると現在のワーキングディレクトリに新しい「工場」が作成されます
 new_factory()
 ```
 
-Looking inside the factory, you can see that sub-folders and some files were created automatically.  
 新しい「工場」の中には、自動的にサブフォルダやファイルが作成されているはずです。
 
 ```{r, warning=F, message=F, echo=F}
@@ -66,7 +63,6 @@ knitr::include_graphics(here::here("images", "factory_new2.png"))
 
 <span style="color: orange;">**_注意:_** ".here" ファイルなどのいくつかのファイルは存在していたとしても、コンピューターの設定によっては見えない場合があります。</span>  
 
-Of the default settings, below are several that you might want to adjust within the `new_factory()` command:  
 初期設定のうち、`new_factory()`関数の実行の際に動作を調整したいと思う可能性があるものをいくつか紹介します。
 
 * `factory = ` - 新しく生成される「工場」のフォルダ名を変更できます (初期設定は "new_factory" です)
@@ -116,8 +112,7 @@ knitr::include_graphics(here::here("images", "factory_overview2.png"))
 ```{r, warning=F, message=F, echo=F}
 knitr::include_graphics(here::here("images", "factory_new_rmd.png"))
 ```
-
-In this simple script, there are commands to:  
+ 
 この単純なスクリプトの中には次のようなコマンドが記述されています：
 
 * 必要なパッケージを読み込むためのコード
@@ -162,7 +157,6 @@ knitr::include_graphics(here::here("images", "factory_compile1.png"))
 
 ### 数字でのコンパイル {.unnumbered} 
 
-You can also specify the Rmd script to compile by providing a number or vector of numbers to `reports = `. The numbers must align with the order the reports appear when you run `list_reports()`.  
 `reports = ` に数字または数字ベクトルを指定することで、コンパイルする Rmd スクリプトを指定することができます。これらの数字は `list_reports()` を実行した際に表示されるレポートの順番と一致している必要があります。  
 
 ```{r, eval=F}
@@ -173,7 +167,6 @@ compile_reports(reports = c(2, 4))
 
 ### すべてをコンパイルする {.unnumbered}
 
-You can compile *all* the R Markdown reports in the "report_sources" folder by setting the `reports = ` argument to TRUE.  
 "report_sources" フォルダ内の R Markdown レポート*すべて*をコンパイルするには、`reports = ` 引数をTRUEに設定します。
 
 ```{r, warning=F, message=F, echo=F}
