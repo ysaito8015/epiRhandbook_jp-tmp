@@ -1,6 +1,6 @@
 # ルーチンで作成するレポートの整理 { #reportfactory }
 
-このページは、**reportfactory** パッケージについて解説いたします。このパッケージは *R Markdown でレポートを作成する場合に補助的に利用する*ものとなります。
+このページは、**reportfactory** パッケージについて解説いたします。このパッケージは <u>R Markdown でレポートを作成する場合に補助的に利用する</u>ものとなります。
 
 日次、週次などで、日常的にレポートを作成するような場合、パッケージを利用することで複数の R Markdown ファイルの出力と結果の整理を簡単にします。手短にまとめると、パッケージは 自動的に日付と時間が記録された出力用フォルダを作成したうえで、「手軽に」バージョン管理を行うことができる、R Markdown レポートを実行するための「工場」を用意してくれます。
 
@@ -43,13 +43,13 @@ new_factory()
 knitr::include_graphics(here::here("images", "factory_new2.png"))
 ```
 
-* *report_sources* フォルダは、レポートを生成する R Markdown スクリプトを保存する場所です。
-* *outputs* フォルダは、生成されたレポートが保存される場所です。（例：HTML、Word、PDF などのファイル）
-* *scripts* フォルダは、他の R スクリプトを保存する場所として利用できます。（例：Rmd ファイルから呼び出されるスクリプトなど）  
-* *data* フォルダは、データを保存する場所として利用できます。（サブフォルダとして "raw" と "clean" フォルダが含まれています）
-* *.here* ファイル：**here**パッケージを使用して、サブフォルダー内のファイルを、このルートフォルダーからの相対的なパスで呼び出すことができます（詳細は[R projects]ページを参照してください）。
-* *gitignore* ファイル：「工場 R プロジェクト」をGithub レポジトリと関連付けた場合に備えて作成されています。（詳細は、[Version control and collaboration with Github] べージを参照してください）。
-* *README* ファイル（空）：Githubレポジトリを利用した場合に備えて作成されています。
+* <u>report_sources</u> フォルダは、レポートを生成する R Markdown スクリプトを保存する場所です。
+* <u>outputs</u> フォルダは、生成されたレポートが保存される場所です。（例：HTML、Word、PDF などのファイル）
+* <u>scripts</u> フォルダは、他の R スクリプトを保存する場所として利用できます。（例：Rmd ファイルから呼び出されるスクリプトなど）  
+* <u>data</u> フォルダは、データを保存する場所として利用できます。（サブフォルダとして "raw" と "clean" フォルダが含まれています）
+* <u>.here</u> ファイル：**here**パッケージを使用して、サブフォルダー内のファイルを、このルートフォルダーからの相対的なパスで呼び出すことができます（詳細は[R projects]ページを参照してください）。
+* <u>gitignore</u> ファイル：「工場 R プロジェクト」をGithub レポジトリと関連付けた場合に備えて作成されています。（詳細は、[Version control and collaboration with Github] べージを参照してください）。
+* <u>README</u> ファイル（空）：Githubレポジトリを利用した場合に備えて作成されています。
 
 <span style="color: orange;">**_注意:_** ".here" ファイルなどのいくつかのファイルは存在していたとしても、コンピューターの設定によっては見えない場合があります。</span>  
 
@@ -156,7 +156,7 @@ compile_reports(reports = c(2, 4))
 
 ### すべてをコンパイルする {.unnumbered}
 
-"report_sources" フォルダ内の R Markdown レポート*すべて*をコンパイルするには、`reports = ` 引数をTRUEに設定します。
+"report_sources" フォルダ内の R Markdown レポート<u>すべて</u>をコンパイルするには、`reports = ` 引数をTRUEに設定します。
 
 ```{r, warning=F, message=F, echo=F}
 knitr::include_graphics(here::here("images", "factory_compile_all.png"))
