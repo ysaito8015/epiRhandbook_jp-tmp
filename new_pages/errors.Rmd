@@ -10,7 +10,7 @@
 R のエラーは不可解なことも多々あるので、Google が頼りになります。エラーメッセージを "R" で検索し、[StackExchange.com](StackExchange.com)、[stackoverflow.com](stackoverflow.com)、[community.rstudio.com](community.rstudio.com)、twitter(#rstats)、その他プログラマーが質問や回答を提出するためのフォーラムで最近の投稿を探します。似たような問題を解決した最近の投稿を探してみてください。 
 
 
-いくら探しても答えが見つからない場合は、*再現可能な例*（"reprex"）を作成して、自分で質問を投稿することを検討してください。再現可能な例を作成してフォーラムに投稿する方法については、[Getting help]のページを参照してください。
+いくら探しても答えが見つからない場合は、<ul>再現可能な例</ul>（"reprex"）を作成して、自分で質問を投稿することを検討してください。再現可能な例を作成してフォーラムに投稿する方法については、[Getting help]のページを参照してください。
 
 
 ## よくあるエラー  
@@ -78,9 +78,6 @@ install.packages でエラー: ディレクトリ‘C:\Users\Name\Documents\R\wi
 No such file or directory:
 ```
 
-```
-エラー: `path` does not exist:
-```
 エクスポートまたはインポートしようとしたときにこのエラーが表示される場合は、次のことを確認してください。ファイルとファイルパスのスペルを確認してください。また、パスにスラッシュが含まれている場合は、前方の `/` であり、後方の `/` ではないことを確認してください。また、正しいファイル拡張子を使用していることを確認してください（例：.csv、.xlsx）。 
 
 ```
@@ -133,16 +130,16 @@ if (...) { でエラー:
 これは、TRUE でも FALSE でもないものに `if` 文が適用されたことを意味していると思われます。 
 
 
-### 因子のエラー {.unnumbered}  
+### ファクタのエラー {.unnumbered}  
 
 ```
-# 因子クラスに、許されていない値 ("Missing") を追加しようとする ( replace_na をオプションで使用)
+# ファクタクラスに、許されていない値 ("Missing") を追加しようとする ( replace_na をオプションで使用)
 Problem with `mutate()` input `age_cat`.
 i invalid factor level, NA generated
 i Input `age_cat` is `replace_na(age_cat, "Missing")`.invalid factor level, NA generated
 ```
 
-このエラーは無効な因子水準（level）に関するものです。このエラーが表示された場合、因子クラス（あらかじめ定義されたレベルを含む）の列があり、そこに新しい値を追加しようとした可能性があります。新しい値を追加する前に、文字列クラスに変換してください。 
+このエラーは無効なファクタ水準（level）に関するものです。このエラーが表示された場合、ファクタクラス（あらかじめ定義されたレベルを含む）の列があり、そこに新しい値を追加しようとした可能性があります。新しい値を追加する前に、文字列クラスに変換してください。 
 
 
 ### プロットのエラー {.unnumbered}  
@@ -150,7 +147,7 @@ i Input `age_cat` is `replace_na(age_cat, "Missing")`.invalid factor level, NA g
 `Error: Insufficient values in manual scale. 3 needed but only 2 provided.`
 ggplot() scale_fill_manual() values = c("orange", "purple") ... insufficient for number of factor levels ... consider whether NA is now a factor level...
 
-NA が因子水準になっているかどうかを確認してください。
+NA がファクタの水準になっているかどうかを確認してください。
 
 ```
 Can't add x object
