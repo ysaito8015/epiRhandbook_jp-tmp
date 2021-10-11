@@ -75,7 +75,6 @@ factory_overview()            # コンソールにファクトリーの構造を
 次の図のように、ファクトリーに含まれるフォルダとファイルが R コンソールに表示されます。"data" フォルダの中に "raw" と "clean" サブフォルダと例示のための CSV データが含まれていることに注意してください。また、 "example_report.Rmd" ファイルが同じように "report_sources" フォルダに含まれています。
 
 ```{r, warning=F, message=F, echo=F}
-# nn:画像の表示用。 factory_overview()の実行結果が表示されている。
 knitr::include_graphics(here::here("images", "factory_overview.png"))
 ```
 
@@ -91,7 +90,6 @@ knitr::include_graphics(here::here("images", "factory_overview.png"))
 `factory_overview()`を使うと、R Markdown スクリプトが "report_sources" フォルダに、レポート用のデータファイルが "clean" サブフォルダに格納されているのがわかります（次の画像でのハイライト部分）。
 
 ```{r, warning=F, message=F, echo=F}
-# nn:画像の表示用。 factory_overview()の実行結果と変更されているファイルがハイライトされている。
 knitr::include_graphics(here::here("images", "factory_overview2.png"))
 ```
 
