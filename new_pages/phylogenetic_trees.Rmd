@@ -1,8 +1,8 @@
-# 系統樹
+# 系統樹 {phylogenetic_trees}
 
 <!-- ======================================================= -->
 
-## 概要
+## 概要 {}
 
 **系統樹**とは、生物の遺伝暗号の配列に基づいて、その近縁性や進化を可視化・記述するためのものです。
 
@@ -19,25 +19,25 @@ tree <- ape::read.tree(here::here("data", "phylo", "Shigella_tree.txt"))
 sample_data <- read.csv(here::here("data","phylo", "sample_data_Shigella_tree.csv"),sep=",", na.strings=c("NA"), head = TRUE, stringsAsFactors=F)
 
 
-ggtree(tree, layout="circular", branch.length='none') %<+% sample_data + # %<+% の部分は、サンプルデータの入ったデータフレームをツリーに追加するためのものです
-  aes(color=I(Belgium))+ # データフレーム内の変数に応じて枝に色をつけます
-  scale_color_manual(name = "Sample Origin", # カラースキームの名前（凡例ではこのように表示されます
+ggtree(tree, layout="circular", branch.length='none') %<+% sample_data + # %<+% の部分は、サンプルデータの入ったデータフレームをツリーに追加するためのものである
+  aes(color=I(Belgium))+ # データフレーム内の変数に応じて枝に色をつける
+  scale_color_manual(name = "Sample Origin", # カラースキームの名前（凡例ではこのように表示される
                     breaks = c("Yes", "No"), # 変数内の異なるオプション
-                   labels = c("NRCSS Belgium", "Other"), # 凡例の中で異なるオプションをどのように命名するか、フォーマットを可能にします
+                   labels = c("NRCSS Belgium", "Other"), # 凡例の中で異なるオプションをどのように命名するか、フォーマットを可能にする
                  values= c("blue", "black"), # 変数に割り当てる色
-                 na.value = "black") + # NAにも黒色を割り当てます
-  new_scale_color()+ # 別の変数の配色を追加することができます
-     geom_tippoint(aes(color=Continent), size=1.5)+ # 先端の色を大陸ごとに変えていく場合は、"shape = ""を加えて形を変えることができます
+                 na.value = "black") + # NAにも黒色を割り当てる
+  new_scale_color()+ # 別の変数の配色を追加する
+     geom_tippoint(aes(color=Continent), size=1.5)+ # 先端の色を大陸ごとに変えていく場合は、"shape = ""を加えて形を変えることができる
 scale_color_brewer(name = "Continent",  # name of your color scheme (will show up in the legend like this)
-                       palette="Set1", # カラースキームの名前（凡例ではこのように表示されます）
-                   na.value="grey")+ # NAにはグレーを選択しています
+                       palette="Set1", # カラースキームの名前（凡例ではこのように表示される）
+                   na.value="grey")+ # NAにはグレーを選択する
   theme(legend.position= "bottom")
 
 ```
 
 <!-- ======================================================= -->
 
-## 準備
+## 準備 {}
 
 ### パッケージの読み込み {.unnumbered}
 
@@ -101,13 +101,13 @@ DT::datatable(head(sample_data,50), rownames = FALSE, options = list(pageLength 
 
 データのクリーニングと点検を行います。正しいサンプルデータを系統樹に割り当てるためには、`sample_data` データフレームの `Sample_ID` カラムの値が、`tree` ファイルの `tip.labels` の値と一致する必要があります。
 
-**base** Rの `head()` を使って最初の６つのエントリーを見ることで、 `tree` ファイルの `tip.labels` のフォーマットをチェックします。
+R の **base** パッケージ `head()` を使って最初の６つのエントリーを見ることで、 `tree` ファイルの `tip.labels` のフォーマットをチェックします。
 
 ```{r, phylogenetic_trees_inspect_sampledata}
 head(tree$tip.label) 
 ```
 
-また、`sample_data` データフレームの最初の列が `Sample_ID` であることを確認します。**base** Rの `colnames()` を使って、データフレームのカラム名を調べます。
+また、`sample_data` データフレームの最初の列が `Sample_ID` であることを確認します。R の **base** パッケージ `colnames()` を使って、データフレームのカラム名を調べます。
 
 ```{r}
 colnames(sample_data)   
@@ -116,7 +116,7 @@ colnames(sample_data)
 データフレーム内の `Sample_IDs` を見て、フォーマットが `tip.label` と同じであることを確認します（例：文字はすべて大文字、文字と数字の間に余分なアンダースコア `_` がない、など）。
 
 ```{r}
-head(sample_data$Sample_ID) # もう一度、head() を使用して、初めの６つのデータだけ確認します。
+head(sample_data$Sample_ID) # もう一度、head() を使用して、初めの６つのデータだけ確認する
 ```
 
 また、すべてのサンプルが `tree` ファイルに存在するかどうか、あるいはその逆かどうかを、一致する部分と一致しない部分に TRUE または FALSE の論理ベクトルを生成することで比較することができます。これらは、簡単にするために、ここでは表示しません。
@@ -139,7 +139,7 @@ sample_data$Sample_ID[!tree$tip.label %in% sample_data$Sample_ID]
 
 <!-- ======================================================= -->
 
-## 単純な系統樹の可視化
+## 単純な系統樹の可視化 {}
 
 ### 様々な系統樹のレイアウト {.unnumbered}
 
@@ -157,30 +157,32 @@ ggtree(tree, layout="circular", branch.length = "none") # 全ての先端が揃�
 
 ### 単純な系統樹とサンプルデータ {.unnumbered}
 
-`sample_data` データフレームを `tree` ファイルに接続するには、%\<+% 演算子を使用します。系統樹の最も簡単な注釈は、先端にサンプル名を追加することと、先端のポイントや必要に応じて枝に色を付けることです。
+`sample_data` データフレームを `tree` ファイルに接続するには、%\<+%演算子を使用します。
+
+系統樹の最も簡単な注釈は、先端にサンプル名を追加することと、先端のポイントや必要に応じて枝に色を付けることです。
 
 以下は、円形の系統樹の例です。
 
 ```{r, phylogenetic_trees_adding_sampledata, fig.align='center', warning=F, message=F}
 
 ggtree(tree, layout = "circular", branch.length = 'none') %<+% sample_data + # %<+% で、tree にサンプルデータを追加する
-  aes(color = I(Belgium))+                       # データフレームの変数に応じて分枝に色付けます
+  aes(color = I(Belgium))+                       # データフレームの変数に応じて分枝に色付ける
   scale_color_manual(
     name = "Sample Origin",                      # カラースキームの名前
     breaks = c("Yes", "No"),                     # 変数の異なるオプション
     labels = c("NRCSS Belgium", "Other"),        # 凡例の中で異なるオプションをどのように命名するか
     values = c("blue", "black"),                  # 変数に割り当てたい色
     na.value = "black") +                        #  NA 値を黒に
-  new_scale_color()+                             # 別の変数の配色を追加します
+  new_scale_color()+                             # 別の変数の配色を追加する
     geom_tippoint(
-      mapping = aes(color = Continent),          # 大陸別の先端の色。"shape = " を加えて形状を変更できます
-      size = 1.5)+                               # 先端のポイントのサイズを定義します
+      mapping = aes(color = Continent),          # 大陸別の先端の色。"shape = " を加えて形状を変更する
+      size = 1.5)+                               # 先端のポイントのサイズを定義する
   scale_color_brewer(
-    name = "Continent",                    # カラースキームの名前（凡例ではこのように表示されます
-    palette = "Set1",                      # brewer パッケージに付属しているカラーセットを選びます
+    name = "Continent",                    # カラースキームの名前（凡例ではこのように表示される
+    palette = "Set1",                      # brewer パッケージに付属しているカラーセットを選ぶ
     na.value = "grey") +                    # NA 値はグレーを選択
   geom_tiplab(                             # 枝の先端にサンプルの名前を追加 
-    color = 'black',                       # (テキストラインは + で好きなだけ追加できますが、隣り合うように配置するにはオフセット値を調整する必要があります)
+    color = 'black',                       # (テキストラインは + で好きなだけ追加できるが、隣り合うように配置するにはオフセット値を調整する必要がある)
     offset = 1,
     size = 1,
     geom = "text",
@@ -189,17 +191,17 @@ ggtree(tree, layout = "circular", branch.length = 'none') %<+% sample_data + # %
   theme(
     axis.title.x = element_blank(), # x 軸のタイトルを削除
     axis.title.y = element_blank(), # y 軸のタイトルを削除
-    legend.title = element_text(    # 凡例のタイトルのフォントサイズとフォーマットを定義します
+    legend.title = element_text(    # 凡例のタイトルのフォントサイズとフォーマットを定義する
       face = "bold",
       size = 12),   
-    legend.text=element_text(       # 凡例テキストのフォントサイズとフォーマットを定義します
+    legend.text=element_text(       # 凡例テキストのフォントサイズとフォーマットを定義する
       face = "bold",
       size = 10),  
-    plot.title = element_text(      # プロットタイトルのフォントサイズとフォーマットを定義します
+    plot.title = element_text(      # プロットタイトルのフォントサイズとフォーマットを定義する
       size = 12,
       face = "bold"),  
-    legend.position = "bottom",     # 凡例の配置を決めます
-    legend.box = "vertical",        # 凡例の配置を決めます
+    legend.position = "bottom",     # 凡例の配置を決める
+    legend.box = "vertical",        # 凡例の配置を決める
     legend.margin = margin())   
 ```
 
@@ -212,7 +214,7 @@ ggsave("example_tree_circular_1.png", width = 12, height = 14)
 
 <!-- ======================================================= -->
 
-## 系統樹の操作・処理・加工
+## 系統樹の操作・処理・加工 {}
 
 非常に大きな系統樹であっても、その中の一部分にしか興味がない場合があります。例えば、歴史的または国際的なサンプルを含む系統樹を作成して、データセットが全体像の中でどこに当てはまるかを大まかに把握する場合です。しかし、データをより詳しく見るためには、大きな系統樹の一部だけを確認したいとします。
 
@@ -227,16 +229,16 @@ ggsave("example_tree_circular_1.png", width = 12, height = 14)
 ```{r, phylogenetic_trees_zoom_in, out.width=c('50%'), fig.show='hold', fig.align='center'}
 
 p <- ggtree(tree,) %<+% sample_data +
-  geom_tiplab(size = 1.5) +                # すべての枝の先端に、tree ファイルのサンプル名をラベル付けます
+  geom_tiplab(size = 1.5) +                # すべての枝の先端に、tree ファイルのサンプル名をラベル付ける
   geom_text2(
     mapping = aes(subset = !isTip,
                   label = node),
     size = 5,
     color = "darkred",
     hjust = 1,
-    vjust = 1)                            # 系統樹内のすべてのノードにラベルを付けます
+    vjust = 1)                            # 系統樹内のすべてのノードにラベルを付ける
 
-p  # 表示します
+p  # 表示する
 ```
 
 ある特定の枝（右に突き出ている）にズームインするには、ggtree オブジェクト `p` で `viewClade()` を使用し、ノード番号を指定すると、より詳しく見ることができます。
@@ -244,7 +246,6 @@ p  # 表示します
 ```{r phylogenetic_trees_zoom_in_452, out.width=c('50%'), fig.show='hold', fig.align='center'}
 
 viewClade(p, node = 452)
-
 ```
 
 ### 枝の折り畳み {.unnumbered}
@@ -261,10 +262,10 @@ p_collapsed
 
 ```{r}
 p_collapsed + 
-geom_point2(aes(subset = (node == 452)),  # 折り畳んだノードに記号を割り当てます
-            size = 5,                     # 記号のサイズを定義します
-            shape = 23,                   # 記号の形を定義します
-            fill = "steelblue")           # 記号の塗りつぶしを定義します
+geom_point2(aes(subset = (node == 452)),  # 折り畳んだノードに記号を割り当てる
+            size = 5,                     # 記号のサイズを定義する
+            shape = 23,                   # 記号の形を定義する
+            fill = "steelblue")           # 記号の塗りつぶしを定義する
 ```
 
 ### 系統樹の分割（サブセット） {.unnumbered}
@@ -275,12 +276,12 @@ geom_point2(aes(subset = (node == 452)),  # 折り畳んだノードに記号を
 ggtree(
   tree,
   branch.length = 'none',
-  layout = 'circular') %<+% sample_data +               # %<+% 演算子を使って、サンプルデータを追加します
+  layout = 'circular') %<+% sample_data +               # %<+% 演算子を使って、サンプルデータを追加する
   geom_tiplab(size = 1)+                                # すべての枝の先端にサンプル名をラベル付けしてツリーファイルに保存
   geom_text2(
     mapping = aes(subset = !isTip, label = node),
     size = 3,
-    color = "darkred") +                                # 系統樹内のすべてのノードにラベルを付けます
+    color = "darkred") +                                # 系統樹内のすべてのノードにラベルを付ける
  theme(
    legend.position = "none",                            # 凡例も全て削除
    axis.title.x = element_blank(),
@@ -293,7 +294,7 @@ ggtree(
 ```{r}
 sub_tree1 <- tree_subset(
   tree,
-  node = 528)                                            # ノード 528 で系統樹をサブセットします
+  node = 528)                                            # ノード 528 で系統樹をサブセットする
 ```
 
 subset tree 1 を見てみましょう。
@@ -304,13 +305,13 @@ ggtree(sub_tree1) +
   ggtitle("Subset tree 1")
 ```
 
-また、１つの特定のサンプルに基づいてサブセット化することもできます。その際には、含める「後ろ」のノード数を指定します。系統樹の同じ部分を、サンプル（ここでは S17BD07692 ）に基づいて９ノードさかのぼってサブセット化し、新しい `sub_tree2` オブジェクトとして保存します。
+また、１つの特定のサンプルに基づいてサブセットすることもできます。その際には、含める「後ろ」のノード数を指定します。系統樹の同じ部分を、サンプル（ここでは S17BD07692 ）に基づいて９ノードさかのぼってサブセットし、新しい `sub_tree2` オブジェクトとして保存します。
 
 ```{r}
 sub_tree2 <- tree_subset(
   tree,
   "S17BD07692",
-  levels_back = 9) # levels back は、先端（各サンプル）から何ノード後方に移動するかを定義します
+  levels_back = 9) # levels back は、先端（各サンプル）から何ノード後方に移動するかを定義する
 ```
 
 subset tree 2 を見てみましょう。
@@ -341,7 +342,7 @@ ape::write.tree(sub_tree2, file='data/phylo/Shigella_subtree_2.txt')
 
 p <- ggtree(sub_tree2) +  
   geom_tiplab(size = 4) +
-  geom_text2(aes(subset=!isTip, label=node), # 系統樹内のすべてのノードにラベルを付けます
+  geom_text2(aes(subset=!isTip, label=node), # 系統樹内のすべてのノードにラベルを付ける
              size = 5,
              color = "darkred", 
              hjust = 1, 
@@ -349,22 +350,24 @@ p <- ggtree(sub_tree2) +
 p
 ```
 
-その後、 **ggtree::rotate()** や **ggtree::flip()** を使ってノードを操作することができます。注：どのノードを操作しているかを示すために、まず、**ggtree** の**geom_hilight()** 関数を適用して、興味のあるノードのサンプルをハイライトし、その ggtree プロットオブジェクトを新しいオブジェクト `p1` に格納します。
+その後、 **ggtree::rotate()** や **ggtree::flip()** を使ってノードを操作することができます。
+
+注：どのノードを操作しているかを示すために、まず、**ggtree** の**geom_hilight()** 関数を適用して、興味のあるノードのサンプルをハイライトし、その ggtree プロットオブジェクトを新しいオブジェクト `p1` に格納します。
 
 ```{r, phylogenetic_trees_rotating_2, out.width=c('50%'), fig.show='hold', fig.align='center'}
 
-p1 <- p + geom_hilight(  # ノード 39 を青くハイライトし、"extend ="でカラーブロックの長さを定義します。
+p1 <- p + geom_hilight(  # ノード 39 を青くハイライトし、"extend ="でカラーブロックの長さを定義する
   node = 39,
   fill = "steelblue",
   extend = 0.0017) +  
-geom_hilight(            # ノード 37 を黄色くハイライトします
+geom_hilight(            # ノード 37 を黄色くハイライトする
   node = 37,
   fill = "yellow",
   extend = 0.0017) +               
 ggtitle("Original tree")
 
 
-p1 # 表示します
+p1 # 表示する
 ```
 
 ここで、オブジェクト `p1` のノード 37 を回転させ、ノード 38 上のサンプルが一番上に移動するようにします。回転したツリーを新しいオブジェクト `p2` に格納します。
@@ -373,7 +376,7 @@ p1 # 表示します
 p2 <- rotate(p1, 37) + 
       ggtitle("Rotated Node 37")
 
-p2   # 表示します
+p2   # 表示する
 ```
 
 また、flip コマンドを使って、オブジェクト `p1` のノード 36 を回転させ、ノード 37 を上に、ノード 39 を下に切り替えることもできます。反転したツリーを新しいオブジェクト `p3` に格納します。
@@ -382,7 +385,7 @@ p2   # 表示します
 p3 <-  flip(p1, 39, 37) +
       ggtitle("Rotated Node 36")
 
-p3   # 表示します
+p3   # 表示する
 ```
 
 ### サンプルデータを付加したサブツリーの例 {.unnumbered}
@@ -391,14 +394,14 @@ p3   # 表示します
 
 ```{r, phylogenetic_trees_inspect_subset_example, out.width=c('80%'), fig.show='hold', fig.align='center', warning=F, message=F}
 
-ggtree(sub_tree2) %<+% sample_data +     # %<+% 演算子を使ってsample_data にリンクしています
-  geom_tiplab(                          # すべての枝の先端に、ツリーファイルのサンプル名をラベル付けします
+ggtree(sub_tree2) %<+% sample_data +     # %<+% 演算子を使ってsample_data にリンクしている
+  geom_tiplab(                          # すべての枝の先端に、ツリーファイルのサンプル名をラベル付けする
     size = 2.5,
     offset = 0.001,
     align = TRUE) + 
   theme_tree2()+
   xlim(0, 0.015)+                       # 系統樹の x 軸の 下限、上限を設定
-  geom_tippoint(aes(color=Country),     # 大陸別に先端を色付けます
+  geom_tippoint(aes(color=Country),     # 大陸別に先端を色付ける
                 size = 1.5)+ 
   scale_color_brewer(
     name = "Country", 
@@ -472,7 +475,6 @@ rownames(gender) <- sample_data$Sample_ID
 ```{r}
 cipR <- data.frame("cipR" = sample_data[,c("gyrA_mutations")])
 rownames(cipR) <- sample_data$Sample_ID
-
 ```
 
 実験室で測定されたシプロフロキサシンの最小発育阻止濃度（ MIC ）のデータフレームを作成します。
@@ -486,11 +488,11 @@ rownames(MIC_Cip) <- sample_data$Sample_ID
 
 ```{r, phylogenetic_trees_sampledata_heatmap_gender, out.width=c('70%'), fig.show='hold', fig.align='center'}
 
-h1 <-  gheatmap(p, gender,                                 # 性別データフレームのヒートマップレイヤーをツリープロットに追加します
-                offset = 10,                               # offset は、ヒートマップを右方向に移動させます
-                width = 0.10,                              # width は、ヒートマップのカラムの幅を定義します
-                color = NULL,                              # color は、ヒートマップの列の境界線を定義します
-         colnames = FALSE) +                               # ヒートマップのカラム名を隠します
+h1 <-  gheatmap(p, gender,                                 # 性別データフレームのヒートマップレイヤーをツリープロットに追加する
+                offset = 10,                               # offset は、ヒートマップを右方向に移動する
+                width = 0.10,                              # width は、ヒートマップのカラムの幅を定義する
+                color = NULL,                              # color は、ヒートマップの列の境界線を定義する
+         colnames = FALSE) +                               # ヒートマップのカラム名を隠す
   scale_fill_manual(name = "Gender",                       # 性別の配色と凡例の定義
                     values = c("#00d1b1", "purple"),
                     breaks = c("Male", "Female"),
@@ -500,12 +502,11 @@ h1 <-  gheatmap(p, gender,                                 # 性別データフ�
         legend.text = element_text(size = 10),
         legend.box = "vertical", legend.margin = margin())
 h1
-
 ```
 
 その後、シプロフロキサシンに対する耐性を付与する gyrA 遺伝子の変異の情報を追加しています。
 
-注：WGS データにおける染色体の点変異の有無は、Zankari らが開発したPointFinder ツールを用いて事前に判断しています（参考文献の項を参照）。
+注：WGS データにおける染色体の点変異の有無は、Zankari らが開発した PointFinder ツールを用いて事前に判断しています（参考文献の項を参照）。
 
 まず、既存のプロットオブジェクト `h1` に新しい配色を割り当てて、今のオブジェクト `h2` に格納します。これにより、ヒートマップの２つ目の変数の色を定義・変更することができます。
 
@@ -536,15 +537,15 @@ h3
 以上のプロセスを繰り返し、まず既存のオブジェクト `h3` に新しいカラースケール層を追加し、次に得られたオブジェクト `h4` に各菌株に対するシプロフロキサシンの最小発育阻止濃度（ MIC ）の連続データを追加して、最終的なオブジェクト `h5` を作成します。
 
 ```{r, phylogenetic_trees_sampledata_heatmap_cip_MIC, out.width=c('90%'), fig.show='hold', fig.align='center'}
-# まず、新しいカラーリングを追加します
+# まず、新しいカラーリングを追加する
 h4 <- h3 + new_scale_fill()
 
-# そして、その２つを組み合わせて新しいプロットを作ります
+# そして、その２つを組み合わせて新しいプロットを作る
 h5 <- gheatmap(h4, MIC_Cip,  
                offset = 14, 
                width = 0.10,
                 colnames = FALSE)+
-  scale_fill_continuous(name = "MIC for Ciprofloxacin",  # ここでは、MIC の連続変数のグラデーションカラースキームを定義します
+  scale_fill_continuous(name = "MIC for Ciprofloxacin",  # ここでは、MIC の連続変数のグラデーションカラースキームを定義する
                       low = "yellow", high = "red",
                       breaks = c(0, 0.50, 1.00),
                       na.value = "white") +
@@ -642,7 +643,7 @@ h5
 
 <!-- ======================================================= -->
 
-## リソース
+## リソース {}
 
 <http://hydrodictyon.eeb.uconn.edu/eebedia/index.php/Ggtree#> Clade_Colors <https://bioconductor.riken.jp/packages/3.2/bioc/vignettes/ggtree/inst/doc/treeManipulation.html> <https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html> <https://bioconductor.riken.jp/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeManipulation.html>
 
