@@ -1,8 +1,8 @@
-# 系統樹 {phylogenetic_trees}
+# [系統樹](#phylogenetic-trees) 
 
 <!-- ======================================================= -->
 
-## 概要 {}
+## 概要
 
 **系統樹**とは、生物の遺伝暗号の配列に基づいて、その近縁性や進化を可視化・記述するためのものです。
 
@@ -27,9 +27,15 @@ ggtree(tree, layout="circular", branch.length='none') %<+% sample_data + # %<+% 
                  values= c("blue", "black"), # 変数に割り当てる色
                  na.value = "black") + # NA にも黒色を割り当てる
   new_scale_color()+ # 別の変数の配色を追加する
+<<<<<<< Updated upstream
      geom_tippoint(aes(color=Continent), size=1.5)+ # 先端の色を大陸ごとに変えていく場合は、"shape = " を加えて形を変えることができる
 scale_color_brewer(name = "Continent",  # name of your color scheme (will show up in the legend like this)
                        palette="Set1", # カラースキームの名前（凡例ではこのように表示される）
+=======
+     geom_tippoint(aes(color=Continent), size=1.5)+ # 先端の色を大陸ごとに変えていく場合は、"shape = ""を加えて形を変えることができる
+scale_color_brewer(name = "Continent",  #  カラースキームの名前（凡例ではこのように表示される）
+                       palette="Set1", # brewer パッケージの色のセットを選ぶ。
+>>>>>>> Stashed changes
                    na.value="grey")+ # NA にはグレーを選択する
   theme(legend.position= "bottom")
 
@@ -37,11 +43,15 @@ scale_color_brewer(name = "Continent",  # name of your color scheme (will show u
 
 <!-- ======================================================= -->
 
-## 準備 {}
+## 準備
 
 ### パッケージの読み込み {.unnumbered}
 
+<<<<<<< Updated upstream
 このコードチャンクは、分析に必要なパッケージのロードを示しています。このハンドブックでは **pacman** の `p_load()` を重視しています。`p_load()` は必要に応じてパッケージをインストールし、使用するためにパッケージを読み込みます。インストールされたパッケージは R の **base** パッケージの `library()` でも読み込めます。R のパッケージに関する詳細は [R の基礎](#r_basic) のページをご覧ください。
+=======
+このコードチャンクは、分析に必要なパッケージのロードを示しています。このハンドブックでは **pacman** の `p_load()` を重視しています。`p_load()` は必要に応じてパッケージをインストールし、使用するためにパッケージをロードします。インストールされたパッケージは R の **base** パッケージの `library()` でもロードできます。R のパッケージに関する詳細は [R の基礎](#r_basic) のページをご覧ください。
+>>>>>>> Stashed changes
 
 ```{r, phylogenetic_trees_loading_packages}
 pacman::p_load(
@@ -57,7 +67,11 @@ pacman::p_load(
 
 ### データのインポート {.unnumbered}
 
+<<<<<<< Updated upstream
 このページのデータは、[Download handbook and data](#download_handbook_and_data)のページの説明に従ってダウンロードできます。
+=======
+このページのデータは、[Download handbook and data](#data-used) のページの説明に従ってダウンロードできます。
+>>>>>>> Stashed changes
 
 系統樹の保存形式にはいくつかの種類があります（ Newick、NEXUS、Phylip など）。一般的なのはNewickファイル形式（.nwk）で、これは木をコンピュータで読める形で表現するための標準的なものです。つまり、木全体を "((t2:0.04,t1:0.34):0.89,(t5:0.37,(t4:0.03,t3:0.67):0.9):0.59);" のような文字列形式で表現し、すべてのノードと先端、そしてそれらの関係（枝の長さ）を列挙することができます。
 
@@ -139,7 +153,7 @@ sample_data$Sample_ID[!tree$tip.label %in% sample_data$Sample_ID]
 
 <!-- ======================================================= -->
 
-## 単純な系統樹の可視化 {}
+## 単純な系統樹の可視化
 
 ### 様々な系統樹のレイアウト {.unnumbered}
 
@@ -157,7 +171,11 @@ ggtree(tree, layout="circular", branch.length = "none") # 全ての先端が揃�
 
 ### 単純な系統樹とサンプルデータ {.unnumbered}
 
+<<<<<<< Updated upstream
 `sample_data` データフレームを `tree` ファイルに接続するには、%<+% 演算子を使用します。
+=======
+`sample_data` データフレームを `tree` ファイルに接続するには、%\<+% 演算子を使用します。
+>>>>>>> Stashed changes
 
 系統樹の最も簡単な注釈は、先端にサンプル名を追加することと、先端のポイントや必要に応じて枝に色を付けることです。
 
@@ -214,7 +232,7 @@ ggsave("example_tree_circular_1.png", width = 12, height = 14)
 
 <!-- ======================================================= -->
 
-## 系統樹の操作・処理・加工 {}
+## 系統樹の操作・処理・加工
 
 非常に大きな系統樹であっても、その中の一部分にしか興味がない場合があります。例えば、歴史的または国際的なサンプルを含む系統樹を作成して、データセットが全体像の中でどこに当てはまるかを大まかに把握する場合です。しかし、データをより詳しく見るためには、大きな系統樹の一部だけを確認したいとします。
 
@@ -643,7 +661,7 @@ h5
 
 <!-- ======================================================= -->
 
-## リソース {}
+## リソース
 
 <http://hydrodictyon.eeb.uconn.edu/eebedia/index.php/Ggtree#> Clade_Colors <https://bioconductor.riken.jp/packages/3.2/bioc/vignettes/ggtree/inst/doc/treeManipulation.html> <https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html> <https://bioconductor.riken.jp/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeManipulation.html>
 
