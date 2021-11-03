@@ -1,120 +1,142 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
 
-# Data Table { }  
-     
-The handbook focusses on the **dplyr** “verb” functions and the **magrittr** pipe operator `%>%` as a method to clean and group data, but the **data.table** package offers an alternative method that you may encounter in your R career.  
+# データテーブル
 
-
-
-<!-- ======================================================= -->
-## Intro to data tables {  }
-
-A data table is a 2-dimensional data structure like a data frame that allows complex grouping operations to be performed. The data.table syntax is structured so that operations can be performed on rows, columns and groups. 
-
-The structure is **DT[i, j, by]**, separated by 3 parts; the **i, j** and **by** arguments. The **i** argument allows for subsetting of required rows, the **j** argument allows you to operate on columns and the **by** argument allows you operate on columns by groups.
-  
-This page will address the following topics:  
-
-* Importing data and use of `fread()` and `fwrite()`
-* Selecting and filtering rows using the **i** argument
-* Using helper functions `%like%`, `%chin%`, `%between%` 
-* Selecting and computing on columns using the **j** argument
-* Computing by groups using the **by** argument
-* Adding and updating data to data tables using `:=`
+このハンドブックでは、データを整理しグループ化する方法として、**dplyr**の「動詞」関数と**magrittr**パイプ演算子`%>%`
+に焦点を当てていますが、**data.table**パッケージは、Rを使用していく上で経験する可能性のある代替方法を提供します。
 
 <!-- ======================================================= -->
-## Load packages and import data { }
 
-### Load packages {.unnumbered}  
+## データテーブルの概要
 
-Using the `p_load()` function from **pacman**, we load (and install if necessary) packages required for this analysis.
-     
-     
+データ表は、データフレームのような2次元のデータ構造であり、複雑なグループ化操作を実行することができます。
+data.table構文は、行、列、およびグループに対して操作を実行できるように構成されています。
+
+構造は**DT\[i, j,
+by\]**で、**i**、**j**、**by**による3つの部分で区切られています。
+**i**引数を使用すると、必要な行をサブセット化できます。**j**引数を使用すると、列を操作できます。**by**引数を使用すると、グループごとに列を操作できます。
+
+このページでは、次のトピックについて説明します。
+
+-   データのインポートと`fread()` および`fwrite()` の使用
+-   **i**引数を使用した行の選択とフィルタリング
+-   ヘルパー関数`%like%`、`%chin%`,、`%between%` の使用
+-   **j**引数を使用した列の選択と計算
+-   **by**引数を使用したグループによる計算
+-   `:=` を使用してデータテーブルにデータを追加および更新する
+
+<!-- ======================================================= -->
+
+## パッケージの読み込みとデータのインポート
+
+### パッケージの読み込み {.unnumbered}
+
+**pacman**の `p_load()`
+関数を使用して、この分析に必要なパッケージを読み込み（および必要に応じてインストールし）ます。
+
 ```{r}
 pacman::p_load(
-  rio,        # to import data
-  data.table, # to group and clean data
-  tidyverse,  # allows use of pipe (%>%) function in this chapter
+  rio,        # データのインポート
+  data.table, # データのグループ化
+  tidyverse,  # この章でパイプ（%>%）関数を使用できるようにします
   here 
   ) 
 ```
 
+### データのインポート {.unnumbered}
 
-### Import data {.unnumbered}
+このページでは、ハンドブック全体で参照されているケースラインリストを使用して、**data.table**のコア機能のいくつかについて説明します。
 
-This page will explore some of the core functions of **data.table** using the case linelist referenced throughout the handbook.
-
-We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download book and data] page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data. From here we use `data.table()` to convert the data frame to a data table.
+シミュレートされたエボラ出血熱の流行から症例のデータセットをインポートします。
+データをダウンロードして段階的に実行する場合は、［Download book and
+data］の手順を参照してください。 データセットは、**rio**パッケージの
+`import()` 関数を使用してインポートされます。
+データをインポートするさまざまな方法については、［インポートとエクスポート］のページを参照してください。
+ここから、 `data.table()`
+を使用してデータフレームをデータテーブルに変換します。
 
 ```{r}
 linelist <- rio::import(here("data", "linelist_cleaned.xlsx")) %>% data.table()
 ```
 
-The `fread()` function is used to directly import regular delimited files, such as .csv files, directly to a data table format. This function, and its counterpart, `fwrite()`, used for writing data.tables as regular delimited files are very fast and computationally efficient options for large databases.
+`fread()`
+関数は、.csvファイルなどの通常の区切りファイルをデータテーブル形式に直接インポートするために使用されます。この関数とそれに対応する`fwrite()`
+は、通常の区切りファイルとしてdata.tablesを書き込むために使用され、大規模なデータベースでは非常に高速で計算効率の高いオプションです。
 
-
-The first 20 rows of `linelist`:  
+`linelist` の最初の20行：
 
 ```{r message=FALSE, echo=F, eval=FALSE}
 DT::datatable(head(linelist,20), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-Base R commands such as `dim()` that are used for data frames can also be used for data tables
+データフレームに使用される `dim()`
+などのベースRコマンドは、データテーブルにも使用できます。
 
 ```{r}
-dim(linelist) #gives the number of rows and columns in the data table
+dim(linelist) #データテーブルの行と列の数を示す
 ```
-
 
 <!-- ======================================================= -->
-## The i argument: selecting and filtering rows{ }
-     
-Recalling the **DT[i, j, by]** structure, we can filter rows using either row numbers or logical expressions. The i argument is first; therefore, the syntax **DT[i]** or **DT[i,]** can be used. 
 
-The first example retrieves the first 5 rows of the data table, the second example subsets cases are 18 years or over, and the third example subsets cases 18 years old or over but not diagnosed at the Central Hospital:
+## i引数: 行の選択とフィルタリング
 
+先ほど説明した**DT\[i, j, by\]**
+構造を使い、行番号または論理式のいずれかを使用して行をフィルタリングできます。
+i引数が最初です。 したがって、構文**DT\[i\]** または**DT\[i,\]**
+を使用できます。
+
+最初の例ではデータテーブルの最初の5行を取得し、2番目の例では18歳以上のケースをサブセット化し、3番目の例では18歳以上であるが中央病院で診断されていないケースをサブセット化します。
 
 ```{r, eval=F}
-linelist[1:5] #returns the 1st to 5th row
-linelist[age >= 18] #subsets cases are equal to or over 18 years
-linelist[age >= 18 & hospital != "Central Hospital"] #subsets cases equal to or over 18 years old but not diagnosed at the Central Hospital
+linelist[1:5] #1行目から5行目を取得
+linelist[age >= 18] #18歳以上をサブセット化
+linelist[age >= 18 & hospital != "Central Hospital"] #18歳以上であるが、中央病院で診断されていない症例のサブセット
 
 ```
 
-Using .N in the i argument represents the total number of rows in the data table. This can be used to subset on the row numbers: 
+i引数で.Nを使用すると、データテーブルの行の総数を表します。
+これは、行番号のサブセット化に使用できます。
 
 ```{r, eval=F}
-linelist[.N] #returns the last row
-linelist[15:.N] #returns the 15th to the last row
+linelist[.N] #最後の行を取得
+linelist[15:.N] #15行目から最後の行を取得
 ```
 
+### ヘルパー関数を使用したフィルタリング {.unnumbered}
 
-### Using helper functions for filtering {.unnumbered}  
+データテーブルは、行のサブセット化を容易にするヘルパー関数を使用します。
+`%like%` 関数は列のパターンを照合するために使用され、`%chin%`
+は特定の文字を照合するために使用され、`%between%`
+ヘルパー関数は事前に指定された範囲内の数値列を照合するために使用されます。
 
-Data table uses helper functions that make subsetting rows easy. The `%like%` function is used to match a pattern in a column, `%chin%` is used to match a specific character, and the `%between%` helper function is used to match numeric columns within a prespecified range.
-
-In the following examples we:
-*  filter rows where the hospital variable contains “Hospital”
-*  filter rows where the outcome is “Recover” or “Death”
-*  filter rows in the age range 40-60
+以下の例では、\*病院変数に「Hospital」が含まれる行をフィルタリングする、\*予後が「回復」または「死」である行をフィルタリング、\*40〜60歳の範囲の行をフィルタリングします。
 
 ```{r, eval=F}
-linelist[hospital %like% "Hospital"] #filter rows where the hospital variable contains “Hospital”
-linelist[outcome %chin% c("Recover", "Death")] #filter rows where the outcome is “Recover” or “Death”
-linelist[age %between% c(40, 60)] #filter rows in the age range 40-60
+linelist[hospital %like% "Hospital"] #病院変数に「Hospital」が含まれる行をフィルタリングする
+linelist[outcome %chin% c("Recover", "Death")] #予後が「回復」または「死」である行をフィルタリングする
+linelist[age %between% c(40, 60)] #40〜60歳の範囲の行をフィルタリングする
 
-#%between% must take a vector of length 2, whereas %chin% can take vectors of length >= 1
+#%between%を使う際は長さ2のベクトルが必要だが、%chin%を使う場合は長さ1以上のベクトルが使用できる。
 
 ```
 
-## The j argument: selecting and computing on columns{ }
+## j引数: 列の選択と計算
 
-Using the **DT[i, j, by]** structure, we can select columns using numbers or names. The **j** argument is second; therefore, the syntax **DT[, j]** is used. To facilitate computations on the **j** argument, the column is wrapped using either `list()` or `.()`. 
+Using the **DT\[i, j, by\]** structure, we can select columns using
+numbers or names. The **j** argument is second; therefore, the syntax
+**DT\[, j\]** is used. To facilitate computations on the **j** argument,
+the column is wrapped using either `list()` or `.()`.
 
+### 列の選択 {.unnumbered}
 
-### Selecting columns {.unnumbered} 
-
-The first example retrieves the first, third and fifth columns of the data table, the second example selects all columns except the height, weight and gender columns. The third example uses the `.()` wrap to select the **case_id** and **outcome** columns.
-
+The first example retrieves the first, third and fifth columns of the
+data table, the second example selects all columns except the height,
+weight and gender columns. The third example uses the `.()` wrap to
+select the **case_id** and **outcome** columns.
 
 ```{r, eval=F}
 linelist[ , c(1,3,5)]
@@ -123,14 +145,17 @@ linelist[ , list(case_id, outcome)] #linelist[ , .(case_id, outcome)] works just
 
 ```
 
-### Computing on columns {.unnumbered} 
+### 列での計算 {.unnumbered}
 
-By combining the **i** and **j** arguments it is possible to filter rows and compute on the columns. Using **.N** in the **j** argument also represents the total number of rows in the data table and can be useful to return the number of rows after row filtering.
+By combining the **i** and **j** arguments it is possible to filter rows
+and compute on the columns. Using **.N** in the **j** argument also
+represents the total number of rows in the data table and can be useful
+to return the number of rows after row filtering.
 
-In the following examples we:
-* Count the number of cases that stayed over 7 days in hospital
-* Calculate the mean age of the cases that died at the military hospital
-* Calculate the standard deviation, median, mean age of the cases that recovered at the central hospital
+In the following examples we: \* Count the number of cases that stayed
+over 7 days in hospital \* Calculate the mean age of the cases that died
+at the military hospital \* Calculate the standard deviation, median,
+mean age of the cases that recovered at the central hospital
 
 ```{r}
 linelist[days_onset_hosp > 7 , .N]
@@ -142,19 +167,24 @@ linelist[hospital == "Central Hospital" & outcome == "Recover",
 
 ```
 
-Remember using the .() wrap in the j argument facilitates computation, returns a data table and allows for column naming.
+Remember using the .() wrap in the j argument facilitates computation,
+returns a data table and allows for column naming.
 
-## The by argument: computing by groups{ }
+## by引数: グループによる計算
 
-The **by** argument is the third argument in the **DT[i, j, by]** structure. The **by** argument accepts both a character vector and the `list()` or `.()` syntax. Using the `.()` syntax in the **by** argument allows column renaming on the fly.
+The **by** argument is the third argument in the **DT\[i, j, by\]**
+structure. The **by** argument accepts both a character vector and the
+`list()` or `.()` syntax. Using the `.()` syntax in the **by** argument
+allows column renaming on the fly.
 
-In the following examples we:	
-* group the number of cases by hospital
-* in cases 18 years old or over, calculate the mean height and weight of cases according to gender and whether they recovered or died
-* in admissions that lasted over 7 days, count the number of cases according to the month they were admitted and the hospital they were admitted to
+In the following examples we:\
+\* group the number of cases by hospital \* in cases 18 years old or
+over, calculate the mean height and weight of cases according to gender
+and whether they recovered or died \* in admissions that lasted over 7
+days, count the number of cases according to the month they were
+admitted and the hospital they were admitted to
 
-
-````{r}
+```{r}
 linelist[, .N, .(hospital)] #the number of cases by hospital
 linelist[age > 18, .(mean_wt = mean(wt_kg, na.rm = T),
                              mean_ht = mean(ht_cm, na.rm = T)), .(gender, outcome)] #NAs represent the categories where the data is missing
@@ -164,66 +194,71 @@ linelist[days_onset_hosp > 7, .N, .(month = month(date_hospitalisation), hospita
 
 Data.table also allows the chaining expressions as follows:
 
-````{r}
+```{r}
 
 linelist[, .N, .(hospital)][order(-N)][1:3] #1st selects all cases by hospital, 2nd orders the cases in descending order, 3rd subsets the 3 hospitals with the largest caseload
 
 
 ```
 
-In these examples we are following the assumption that a row in the data table is equal to a new case, and so we can use the **.N** to represent the number of rows in the data table. Another useful function to represent the number of unique cases is `uniqueN()`, which returns the number of unique values in a given input. This is illustrated here:
+In these examples we are following the assumption that a row in the data
+table is equal to a new case, and so we can use the **.N** to represent
+the number of rows in the data table. Another useful function to
+represent the number of unique cases is `uniqueN()`, which returns the
+number of unique values in a given input. This is illustrated here:
 
-````{r}
+```{r}
 
 linelist[, .(uniqueN(gender))] #remember .() in the j argument returns a data table
 
 ```
 
-The answer is 3, as the unique values in the gender column are m, f and N/A. Compare with the base R function `unique()`, which returns all the unique values in a given input:
+The answer is 3, as the unique values in the gender column are m, f and
+N/A. Compare with the base R function `unique()`, which returns all the
+unique values in a given input:
 
-````{r}
+```{r}
 
 linelist[, .(unique(gender))]
 ```
 
-To find the number of unique cases in a given month we would write the following:
+To find the number of unique cases in a given month we would write the
+following:
 
-````{r}
+```{r}
 
 linelist[, .(uniqueN(case_id)), .(month = month(date_hospitalisation))]
 
 ```
 
-## Adding and updating to data tables { }
+## データテーブルへの追加と更新
 
-The `:=` operator is used to add or update data in a data table. Adding columns to your data table can be done in the following ways:
+`:=`
+演算子は、データテーブルのデータを追加または更新するために使用されます。
+データテーブルへの列の追加は、次の方法で実行できます。
 
-````{r}
+```{r}
 
-linelist[, adult := age >= 18] #adds one column
-linelist[, c("child", "wt_lbs") := .(age < 18, wt_kg*2.204)] #to add multiple columns requires c("") and list() or .() syntax
+linelist[, adult := age >= 18] #1列追加
+linelist[, c("child", "wt_lbs") := .(age < 18, wt_kg*2.204)] #複数の列を追加するには、c("") とlist() または。.() 構文が必要です
 linelist[, `:=` (bmi_in_range = (bmi > 16 & bmi < 40),
                          no_infector_source_data = is.na(infector) | is.na(source))] #this method uses := as a functional operator `:=`
-linelist[, adult := NULL] #deletes the column
+linelist[, adult := NULL] #列の削除
 
 ```
 
+これよりも複雑な集計は、本導入章の範囲を超えていますが、データのグループ化と整理のために、**dplyr**の一般的で実行可能な代替手段を提供することを目的としています。
+**data.table**パッケージは、読みやすいコードを可能にする優れたパッケージです。
 
-Further complex aggregations are beyond the scope of this introductory chapter, but the idea is to provide a popular and viable alternative to **dplyr** for grouping and cleaning data. The **data.table** package is a great package that allows for neat and readable code.
+## 資料
 
+詳細については、以下の資料をご覧ください。\*
+<https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html>
+\* <https://github.com/Rdatatable/data.table> \*
+<https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf>
+\*
+<https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/>
+\* <https://www.datacamp.com/community/tutorials/data-table-r-tutorial>
 
-## Resources {  }
-
-Here are some useful resources for more information:
-* https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
-* https://github.com/Rdatatable/data.table
-* https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf
-* https://www.machinelearningplus.com/data-manipulation/datatable-in-r-complete-guide/
-* https://www.datacamp.com/community/tutorials/data-table-r-tutorial
-
-You can perform any summary function on grouped data; see the Cheat Sheet here for more info:
-https://s3.amazonaws.com/assets.datacamp.com/blog_assets/datatable_Cheat_Sheet_R.pdf
-
-
-
-
+グループ化されたデータに対して任意の要約機能を実行できます。
+詳細については、こちらのチートシートをご参照ください。<https://s3.amazonaws.com/assets.datacamp.com/blog_assets/datatable_Cheat_Sheet_R.pdf>
