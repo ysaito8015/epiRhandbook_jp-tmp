@@ -1,11 +1,11 @@
-# Writing functions  
+# 関数の作成 {#writing-functions} 
 
 
 <!-- ======================================================= -->
-## Preparation {  }
+## 準備 {  }
 
 
-### Load packages {-}
+### パッケージの読み込み {-}
 
 This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
 
@@ -26,7 +26,7 @@ pacman::p_load(
   )
 ```
 
-### Import data {-}
+### データのインポート {-}
 
 We import the dataset of cases from a simulated Ebola epidemic. If you want to download the data to follow step-by-step, see instructions in the [Download book and data] page. The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export] for various ways to import data.
 
@@ -41,7 +41,7 @@ flu_china <- rio::import(here::here("data", "case_linelists", "fluH7N9_China_201
 ```
 
 
-## Functions  
+## 関数  
 
 Functions are helpful in programming since they allow to make codes easier to understand, somehow shorter and less prone to errors (given there were no errors in the function itself).
 
@@ -56,7 +56,7 @@ Lot of very advanced resources on functional programming exist and we will only 
 
 
 
-## Why would you use a function? 
+## なぜ関数を使うのか? 
 
 Before answering this question, it is important to note that you have already had tips to get to write your very first R functions in the page on [Iteration, loops, and lists] of this handbook. In fact, use of "if/else" and loops is often a core part of many of our functions since they easily help to either broaden the application of our code allowing multiple conditions or to iterate codes for repeating tasks.
 
@@ -68,7 +68,7 @@ Before answering this question, it is important to note that you have already ha
 
 If the answer to one of the previous questions is "YES", then you probably need to write a function
 
-## How does R  build functions?
+## R でどのように関数を作成するか?
 
 Functions in R have three main components:
 
@@ -83,7 +83,7 @@ and,
 Once you have created your function, you can verify each of these components by calling the function associated.
  
 
-## Basic syntax and structure
+## 基本的な構文と構造
 
 - A function will need to be named properly so that its job is easily understandable as soon as we read its name. Actually this is already the case with majority of the base R architecture. Functions like  `mean()`, `print()`, `summary()` have names that are very straightforward 
 
@@ -225,9 +225,9 @@ DT::datatable(rownames = FALSE, filter="top", options = list(pageLength = 10, sc
 
 <span style="color: orange;">**_CAUTION:_** Though it is true that using functions can help us with our code, it can nevertheless be  time consuming to write some functions or to fix one if it has not been thought thoroughly, written adequately and is returning errors as a result. For this reason it is often recommended to first write the R code, make sure it does what we intend it to do, and then transform it into a function with its three main components as listed above. </span>
 
-## Examples  
+## 例  
 
-### Return proportion tables for several columns {.unnumbered}  
+### それぞれの列の割合を返す {.unnumbered}  
 
 Yes, we already have nice functions in many packages allowing to summarize information in a very easy and nice way. But we will still try to make our own, in our first steps to getting used to writing functions.
 
@@ -287,9 +287,9 @@ base::lapply(linelist[,c("gender","age_cat", "outcome")], table)
 
 <span style="color: darkgreen;">**_TIP:_** R is often defined as a functional programming language and almost anytime you run a line of code you are using some built-in functions. A good habit to be more comfortable with writing functions is to often have an internal look at how the basic functions you are using daily are built. The shortcut to do so is selecting the function name and then clicking on`Ctrl+F2` or `fn+F2` or `Cmd+F2` (depending on your computer) .</span>
 
-## Using **purrr**: writing functions that can be iteratively applied
+## **purrr** の使用: 繰り返し利用可能な関数の作成
 
-### Modify class of multiple columns in a dataset {.unnumbered}  
+### データセット内の複数のカラムのクラスを変更する {.unnumbered}  
 
 Let's say many character variables in the original `linelist` data need to be changes to "factor" for analysis and plotting purposes. Instead of repeating the step several times, we can just use `lapply()` to do the transformation of all variables concerned on a single line of code.
 
@@ -322,7 +322,7 @@ linelist_factor2 %>%
 ```
 
 
-### Iteratively produce graphs for different levels of a variable {.unnumbered}
+### 異なる変数で繰り返しグラフを作成する {.unnumbered}
 
 We will produce here pie chart to look at the distribution of patient's outcome in China during the H7N9 outbreak for each province. Instead of repeating the code for each of them, we will just apply a function that we will create.
 
@@ -365,7 +365,7 @@ chart_outcome_province(flu_china,"Jiangsu")
 
 
 
-### Iteratively produce tables for different levels of a variable {.unnumbered}
+### 異なる変数で繰り返しテーブルを作成する {.unnumbered}
 
 Here we will create three indicators to summarize in a table and we would like to produce this table for each of the provinces. Our indicators are the delay between onset and hospitalization, the percentage of recovery and the median age of cases.
 
@@ -460,12 +460,12 @@ print_indic_prov(table_indic_all, "Jiangsu")
 ```
 
 
-## Tips and best Practices for well functioning functions
+## 関数をよりよく使うためのヒントとベストプラクティス
 
 Functional programming is meant to ease code and facilitates its reading. It should produce the contrary. The tips below will help you having a clean code and easy to read code. 
 
 
-### Naming and syntax {.unnumbered}
+### 名付けと構文 {.unnumbered}
 
 - Avoid using character that could have been easily already taken by other functions already existing in your environment
 
@@ -474,7 +474,7 @@ Functional programming is meant to ease code and facilitates its reading. It sho
 - It is preferred to use verbs as the function name and nouns for the argument names.
 
 
-### Column names and tidy evaluation {.unnumbered}  
+### カラム名と整頓された評価 {.unnumbered}  
 
 If you want to know how to reference *column names* that are provided to your code as arguments, read this [tidyverse programming guidance](https://dplyr.tidyverse.org/articles/programming.html). Among the topics covered are *tidy evaluation* and use of the *embrace* `{{ }}` "double braces"
 
@@ -493,7 +493,7 @@ mtcars %>%
 ```
 
 
-### Testing and Error handling {.unnumbered}
+### テストとエラー処理 {.unnumbered}
 
 The more complicated a function's task the higher the possibility of errors. Thus it is sometimes necessary to add some verification within the funtion to help quickly understand where the error is from and find a way t fix it.
 
@@ -566,7 +566,7 @@ As said previously, well commenting our codes is already a good way for having d
 
 
 <!-- ======================================================= -->
-## Resources
+## 資料
 
 
 [R for Data Science link](https://r4ds.had.co.nz/functions.html)   
