@@ -1,18 +1,18 @@
 
-# ggplot tips {}
+# ggplotのヒント {}
 
-In this page we will cover tips and tricks to make your ggplots sharp and fancy. See the page on [ggplot basics] for the fundamentals.  
+このページでは、ggplotを使ってより美しい図を作るためのヒント・トリックを紹介します。より基礎的な使い方については、前章 [ggplot の基礎](#ggplot-basics)のページを参照してください。 
 
-There a several extensive [**ggplot2** tutorials](https://ggplot2.tidyverse.org/) linked in the Resources section. You can also download this [data visualization with ggplot cheatsheet](https://rstudio.com/resources/cheatsheets/) from the RStudio website. We strongly recommend that you peruse for inspiration at the [R graph gallery](https://www.r-graph-gallery.com/) and [Data-to-viz](https://www.data-to-viz.com/caveats.html). 
+この章の終わりにあるリソースのページには、ggplot2に関するいくつかの詳細な[チュートリアル](https://ggplot2.tidyverse.org/)を掲載しています。RStudio のウェブサイトからはこちらの [ggplot によるデータ可視化のためのチートシート](https://rstudio.com/resources/cheatsheets/)をダウンロードすることができます。また [R graph gallery](https://www.r-graph-gallery.com/) と [Data-to-viz](https://www.data-to-viz.com/caveats.html) は美しい図を作るインスピレーションを得るためにとてもおすすめのウェブサイトです。
 
 
 
 <!-- ======================================================= -->
-## Preparation {}
+## 準備 {}
 
-### Load packages {.unnumbered}
+### パッケージの読み込み {.unnumbered}
 
-This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
+以下のコードにより必要なパッケージを読み込みます。このハンドブックでは **pacman** パッケージの `p_load()` を使うことで、パッケージのインストールと読み込みを同時に行っています。インストールされたパッケージの読み込みはRの基本パッケージ **base**　に含まれる `library()` でも可能です。詳細は[R の基礎](#r-basics)のページを参照してください。 
 
 ```{r}
 pacman::p_load(
@@ -27,9 +27,9 @@ pacman::p_load(
 )
 ```
 
-### Import data {.unnumbered}  
+### データの読み込み {.unnumbered}  
 
-For this page, we import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).  
+このページでは、エボラウイルスパンデミックのシミュレーションデータから、症例リストを読み込みます。チュートリアルに沿って操作したい場合は、<a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>こちらのリンクから</a>整頓されたラインリスト（.rdsファイル）をダウンロードしてください。 **rio** パッケージの `import()` を使ってデータを読み込みます（この関数は.xlsx、.csv、.rdsなど多くのファイル形式を処理できます。詳細は[インポートとエクスポート](#import-and-export)のページを参照してください）。
 
 ```{r,  echo=F}
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
@@ -40,10 +40,10 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 linelist <- rio::import("linelist_cleaned.rds")
 ```
 
-The first 50 rows of the linelist are displayed below.
+以下に最初の５０行を表示します。
 
 ```{r, message=FALSE, echo=F}
-# display the linelist data as a table
+# ラインリストをテーブルで表示
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
@@ -51,27 +51,26 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 
 
 <!-- ======================================================= -->
-## Scales for color, fill, axes, etc. {#ggplot_tips_colors}
+## color、fill、座標軸などのスケール {#ggplot_tips_colors}
 
-In **ggplot2**, when aesthetics of plotted data (e.g. size, color, shape, fill, plot axis) are mapped to columns in the data, the exact display can be adjusted with the corresponding "scale" command. In this section we explain some common scale adjustments.  
+**ggplot2** でエステティクスパラーメータ（size、color、shape、fill、座標軸など）をデータフレームの列に対応させるとき、それぞれのスケールを操作することで、どのように図に反映するかを詳細に調整することができます。
 
 
+### 色の調整
 
-### Color schemes
+**ggplot2** を使う上で最初に躓きやすいものが色の調整です。この節では点や線、棒グラフやタイルなど、図のオブジェクトの色の調整を扱います。テキストやタイトル、背景などの色の調整に関しては [ggplot の基礎](#ggplot-basics)のページの [Themes](#ggplot_basics_themes) の節を参照してください。
 
-One thing that can initially be difficult to understand with **ggplot2** is control of color schemes. Note that this section discusses the color of *plot objects* (geoms/shapes) such as points, bars, lines, tiles, etc. To adjust color of accessory text, titles, or background color see the [Themes](#ggplot_basics_themes) section of the [ggplot basics] page. 
+図の "色" を調整するとき、影響されるエステティクスパラメータは `color = `（外側の色）もしくは `fill = `（内側の色）です。`geom_point()` では例外的に `color = ` のみを調整することで、点の色（内と外両方）を操作します。
 
-To control "color" of *plot objects* you will be adjusting either the `color = ` aesthetic (the *exterior* color) or the `fill = ` aesthetic (the *interior* color). One exception to this pattern is `geom_point()`, where you really only get to control `color = `, which controls the color of the point (interior and exterior).  
-
-When setting colour or fill you can use colour names recognized by R like `"red"` (see [complete list](http://sape.inf.usi.ch/quick-reference/ggplot2/colour) or enter `?colors`), or a specific hex colour such as `"#ff0505"`.
+色を指定するには、`"red"` のような色の名前（[こちらのリスト](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)を参照するか、`?colors` コマンドで一覧が表示できます）か、`"#ff0505"` のような16進コードを用います。
 
 ```{r, warning=F, message=F}
-# histogram - 
-ggplot(data = linelist, mapping = aes(x = age))+       # set data and axes
-  geom_histogram(              # display histogram
-    binwidth = 7,                # width of bins
-    color = "red",               # bin line color
-    fill = "lightblue")          # bin interior color (fill) 
+# ヒストグラム 
+ggplot(data = linelist, mapping = aes(x = age))+       # データと軸を指定
+  geom_histogram(              # ヒストグラムを表示
+    binwidth = 7,                # ビンの幅
+    color = "red",               # ビンの外側の色
+    fill = "lightblue")          # ビンの内側の色
 ```
 
 
