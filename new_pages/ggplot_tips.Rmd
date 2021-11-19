@@ -75,26 +75,26 @@ ggplot(data = linelist, mapping = aes(x = age))+       # データと軸を指�
 
 
 
-As explained the [ggplot basics] section on [mapping data to the plot](#ggplot_basics_mapping), aesthetics such as `fill = ` and `color = ` can be defined either *outside* of a `mapping = aes()` statement or *inside* of one. If *outside* the `aes()`, the assigned value should be static (e.g. `color = "blue"`) and will apply for *all* data plotted by the geom. If *inside*, the aesthetic should be mapped to a column, like `color = hospital`, and the expression will vary by the value for that row in the data. A few examples:  
+前章 [ggplot の基礎](#ggplot-basics)の [mapping data to the plot](#ggplot_basics_mapping) のページで示した通り、`fill = ` や `color = ` などのエステティクスは `mapping = aes()` の*外側*と*内側*どちらからでも定義できます。`aes()` の外側で定義する場合、値は定数でなければならず（例 `color = "blue"`）、描画される全てのデータポイントに適応されます。内側から定義する場合、エステティクスは `color = hospital` のようにデータフレームの列に対応され、描画のされ方は各行の値に依存します。以下にいくつかの例を示します：  
 
 ```{r, out.width=c('50%', '50%'), fig.show='hold', warning=F, message=F}
-# Static color for points and for line
+# 点と線の色を単一色で指定する
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+     
   geom_point(color = "purple")+
   geom_vline(xintercept = 50, color = "orange")+
   labs(title = "Static color for points and line")
 
-# Color mapped to continuous column
+# 連続数からなる列に色を対応させる
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+     
   geom_point(mapping = aes(color = temp))+         
   labs(title = "Color mapped to continuous column")
 
-# Color mapped to discrete column
+# 離散数からなる列に色を対応させる
 ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+     
   geom_point(mapping = aes(color = gender))+         
   labs(title = "Color mapped to discrete column")
 
-# bar plot, fill to discrete column, color to static value
+# バープロットの fill を離散数からなる列、color を単一色で指定する
 ggplot(data = linelist, mapping = aes(x = hospital))+     
   geom_bar(mapping = aes(fill = gender), color = "yellow")+         
   labs(title = "Fill mapped to discrete column, static color")
@@ -102,78 +102,78 @@ ggplot(data = linelist, mapping = aes(x = hospital))+
 ```
 
 
-### Scales {#ggplot_tips_scales .unnumbered}  
+### スケール {#ggplot_tips_scales .unnumbered}  
 
-Once you map a column to a plot aesthetic (e.g. `x = `, `y = `, `fill = `, `color = `...), your plot will gain a scale/legend. See above how the scale can be continuous, discrete, date, etc. values depending on the class of the assigned column. If you have multiple aesthetics mapped to columns, your plot will have multiple scales.  
+列をエステティクスに対応させると（例 `x = `、`y = `、`fill = `、`color = `...）、 図にスケールとレジェンドが加わります。上記の例を見ると、スケールが連続数、離散数、日付など、スケールが対応する列のクラスによって変化する様子が分かると思います。列に対応するエステティクスが複数あるときは、スケールもその数だけ存在します。
 
-You can control the scales with the appropriate `scales_()` function. The scale functions of **ggplot()** have 3 parts that are written like this: `scale_AESTHETIC_METHOD()`.  
+スケールは一連の `scales_()` 関数を使うことで操作することができます。これらの関数は `scale_AESTHETIC_METHOD()` のように、3 つの部分からなります：  
 
-1) The first part, `scale_()`, is fixed.  
-2) The second part, the AESTHETIC, should be the aesthetic that you want to adjust the scale for (`_fill_`, `_shape_`, `_color_`, `_size_`, `_alpha_`...) - the options here also include `_x_` and `_y_`.  
-3) The third part, the METHOD, will be either `_discrete()`, `continuous()`, `_date()`, `_gradient()`, or `_manual()` depending on the class of the column and *how* you want to control it. There are others, but these are the most-often used.  
+1) 最初の部分 `scale_()` は共通です。 
+2) 2 つ目の部分 AESTHETIC　はスケールを調整したいエステティクス（`_fill_`、`_shape_`、`_color_`、`_size_`、`_alpha_`...) が入ります - ここには `_x_` や `_y_` も含まれます。  
+3) 最後に来る METHOD は列のクラスまたは目的に応じて `_discrete()`、`continuous()`、`_date()`、`_gradient()`、`_manual()` などが入ります。その他のオプションもありますが、ここに挙げたものが最もよく使われます。  
 
-Be sure that you use the correct function for the scale! Otherwise your scale command will not appear to change anything. If you have multiple scales, you may use multiple scale functions to adjust them! For example:  
+スケールを操作する際は、適切な関数を使うことに気をつけてください。間違った関数を使うと、狙った結果が得られません。複数のスケールがある場合も、複数の対応する関数を用いてそれらを操作することができます
 
-### Scale arguments {.unnumbered}  
+### スケールの引数 {.unnumbered}  
 
-Each kind of scale has its own arguments, though there is some overlap. Query the function like `?scale_color_discrete` in the R console to see the function argument documentation.  
+スケールを操作するための関数はそれぞれ独自の、しかし一部は共通した、引数を持ちます。`?scale_color_discrete` などのコマンドを R コンソールで実行することで、引数の解説を表示できます。
 
-For continuous scales, use `breaks = ` to provide a sequence of values with `seq()` (take `to = `, `from = `, and `by = ` as shown in the example below. Set `expand = c(0,0)` to eliminate padding space around the axes (this can be used on any `_x_` or `_y_` scale.  
+連続数のスケールでは、`breaks = ` と `seq()`（以下の例のように `to = `、`from = `、and `by = `を引数に取ります）を組み合わせて操作します。さらに `expand = c(0,0)` を設定することで軸の両端の余白を削除できます。この引数は `_x_` または `_y_` を含むスケール関数のいずれでも使用できます。  
 
-For discrete scales, you can adjust the order of level appearance with `breaks = `, and how the values display with the `labels = ` argument. Provide a character vector to each of those (see example below). You can also drop `NA` easily by setting `na.translate = FALSE`.  
+離散数のスケールでは、レベルが表示される順序を `breaks = `、値の表示を `labels = `で操作できます。以下の例のように、各引数に文字ベクターを指定してください。また、`NA` は `na.translate = FALSE` で簡単に除外することができます。
 
-The nuances of date scales are covered more extensively in the [Epidemic curves] page.  
-
-
-### Manual adjustments {.unnumbered}  
-
-One of the most useful tricks is using "manual" scaling functions to explicitly assign colors as you desire. These are functions with the syntax `scale_xxx_manual()` (e.g. `scale_colour_manual()` or `scale_fill_manual()`). Each of the below arguments are demonstrated in the code example below.  
-
-* Assign colors to data values with the `values = ` argument  
-* Specify a color for `NA` with `na.value = `  
-* Change how the values are *written* in the legend with the `labels = ` argument  
-* Change the legend title with `name = `  
+日付スケールについては [Epidemic curves](#epidemic-curves) のページでより詳しく解説しています。
 
 
-Below, we create a bar plot and show how it appears by default, and then with three scales adjusted - the continuous y-axis scale, the discrete x-axis scale, and manual adjustment of the fill (interior bar color).  
+### マニュアル調整 {.unnumbered}  
+
+"マニュアル" スケール関数を用いることで、色を具体的に指定することができます。これらの関数は `scale_xxx_manual()` の形（例：`scale_colour_manual()` や `scale_fill_manual()`）を取ります。例を通して下に挙げた引数の使用法をそれぞれ見ていきましょう。
+
+* `values = `により色を指定します。  
+* `na.value = `により `NA` の色を指定します。  
+* `labels = `によりレジェンド中の *表記* を指定します。  
+* `name = `によりレジェンドタイトルを指定します。
+
+
+以下の例では、まず棒グラフを初期設定で作成します。次に 3 つのスケール – 連続数のy軸、離散値のx軸、fill（バー内部の色指定）のマニュアル調整 – を変更したグラフを作成します。
 
 
 ```{r, warning=F, message=F}
-# BASELINE - no scale adjustment
+# 初期設定 - スケール調整なし
 ggplot(data = linelist)+
   geom_bar(mapping = aes(x = outcome, fill = gender))+
   labs(title = "Baseline - no scale adjustments")
 
-# SCALES ADJUSTED
+# スケール調整あり
 ggplot(data = linelist)+
   
   geom_bar(mapping = aes(x = outcome, fill = gender), color = "black")+
   
-  theme_minimal()+                   # simplify background
+  theme_minimal()+                   # 背景をシンプルにする
   
-  scale_y_continuous(                # continuous scale for y-axis (counts)
-    expand = c(0,0),                 # no padding
+  scale_y_continuous(                # 連続数の y 軸（カウント）
+    expand = c(0,0),                 # パディングなし
     breaks = seq(from = 0,
                  to = 3000,
                  by = 500))+
   
-  scale_x_discrete(                   # discrete scale for x-axis (gender)
-    expand = c(0,0),                  # no padding
-    drop = FALSE,                     # show all factor levels (even if not in data)
-    na.translate = FALSE,             # remove NA outcomes from plot
-    labels = c("Died", "Recovered"))+ # Change display of values
+  scale_x_discrete(                   # 離散値の x 軸（性別）
+    expand = c(0,0),                  # パディングなし
+    drop = FALSE,                     # 全てのファクターレベルを表示（データに存在しないものを含む）
+    na.translate = FALSE,             # NA を図から除外
+    labels = c("Died", "Recovered"))+ # 表記の変更
     
   
-  scale_fill_manual(                  # Manually specify fill (bar interior color)
-    values = c("m" = "violetred",     # reference values in data to assign colors
+  scale_fill_manual(                  # fill の色をマニュアル指定する（バー内部の色）
+    values = c("m" = "violetred",     # 色の指定
                "f" = "aquamarine"),
-    labels = c("m" = "Male",          # re-label the legend (use "=" assignment to avoid mistakes)
+    labels = c("m" = "Male",          # レジェンドの表記を変更（"=" を使い間違いをなくす）
               "f" = "Female",
               "Missing"),
-    name = "Gender",                  # title of legend
-    na.value = "grey"                 # assign a color for missing values
+    name = "Gender",                  # レジェンドタイトル
+    na.value = "grey"                 # 欠測地の色を指定
   )+
-  labs(title = "Adjustment of scales") # Adjust the title of the fill legend
+  labs(title = "Adjustment of scales") # fill レジェンドのタイトルを設定
 ```
 
 ### 連続数の座標軸スケール {.unnumbered}  
@@ -444,7 +444,7 @@ ggplot(
 
 #### **ggthemr** {.unnnumbered}  
 
-Also consider using the **ggthemr** パッケージも有用なパッケージの１つです。[こちらの Github](https://github.com/Mikata-Project/ggthemr) からチュートリアルに従ってダウンロードできます。このパッケージはとても美しいカラーパレットを使用できますが、扱える色の数に上限があるため、7-8 色以上の図を作成する際には注意が必要です。
+**ggthemr** パッケージも有用なパッケージの１つです。[こちらの Github](https://github.com/Mikata-Project/ggthemr) からチュートリアルに従ってダウンロードできます。このパッケージはとても美しいカラーパレットを使用できますが、扱える色の数に上限があるため、7-8 色以上の図を作成する際には注意が必要です。
 
 
 
