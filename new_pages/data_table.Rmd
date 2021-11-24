@@ -192,34 +192,31 @@ Data.table では、次のように式を連鎖させることもできます。
 
 ```{r}
 
-linelist[, .N, .(hospital)][order(-N)][1:3] #1st selects all cases by hospital, 2nd orders the cases in descending order, 3rd subsets the 3 hospitals with the largest caseload
-
+linelist[, .N, .(hospital)][order(-N)][1:3] #1番目は病院ごとにすべての症例を選択し、2番目は症例を降順で並べ替え、3番目は最大の症例数を持つ3つの病院をサブセット化する
 
 ```
 
-In these examples we are following the assumption that a row in the data
-table is equal to a new case, and so we can use the **.N** to represent
-the number of rows in the data table. Another useful function to
-represent the number of unique cases is `uniqueN()`, which returns the
-number of unique values in a given input. This is illustrated here:
+これらの例では、データテーブルの行は新しい症例にあたるという仮定に従っているため、**.N**を使用してデータテーブルの行数を表すことができます。Another
+useful function to represent the number of unique cases is `uniqueN()`,
+which returns the number of unique values in a given input. This is
+illustrated here:　固有の症例数を表すもう1つの便利な関数は、 `uniqueN()`
+です。これにより、指定されたインプットの固有値の数を取得できます。
+以下のように実行されます。
 
 ```{r}
 
-linelist[, .(uniqueN(gender))] #remember .() in the j argument returns a data table
-
+linelist[, .(uniqueN(gender))] #j引数の .()によりデータテーブルを取得する
 ```
 
-The answer is 3, as the unique values in the gender column are m, f and
-N/A. Compare with the base R function `unique()`, which returns all the
-unique values in a given input:
+性別の列の固有値はm、f、およびN/Aであるため、答えは3になります。
+指定されたインプットのすべての固有の値を\`取得するベースR関数`unique()`と比較してください。
 
 ```{r}
 
 linelist[, .(unique(gender))]
 ```
 
-To find the number of unique cases in a given month we would write the
-following:
+特定の月の固有の症例数を取得するには、次のように記述します。
 
 ```{r}
 
