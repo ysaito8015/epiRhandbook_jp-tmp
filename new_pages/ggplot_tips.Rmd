@@ -56,7 +56,6 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 **ggplot2** で描画する図のエステティック属性（size、color、shape、fill、座標軸など）をデータフレームの列に対応させるとき、それぞれの "scale" を操作することで、どのように図に反映するかを詳細に調整することができます。
 
 
-
 ### 配色
 
 **ggplot2** を使う上で最初に躓きやすいものが配色の調整です。この節では点や線、棒グラフやタイルなど、<u>図のオブジェクト</u>（geoms/shapes）の配色を扱うことに注意してください。テキストやタイトル、背景などの色の調整に関しては [ggplot の基礎](#ggplot-basics)のページの[テーマ](#ggplot_basics_themes)の節を参照してください。
@@ -875,7 +874,7 @@ combined  # 図を表示
 <span style="color: darkgreen;">**_コラム：_****cowplot** の "cow" は **cowplot** パッケージ製作者の名前 - Claus O. Wilke - から来ています。</span>  
 
 
-### Inset plots {.unnumbered} 
+### 図の中に図を挿入する {.unnumbered} 
 
 **cowplot** では図の内部にさらに違う図を表示することもできます。使用に際していくつかの注意点があります：
 
