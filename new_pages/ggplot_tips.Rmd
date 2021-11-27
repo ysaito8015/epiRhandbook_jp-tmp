@@ -40,7 +40,7 @@ linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.r
 linelist <- rio::import("linelist_cleaned.rds")
 ```
 
-以下に最初の５０行を表示します。
+以下にラインリストの最初の 50 行を表示します。
 
 ```{r, message=FALSE, echo=F}
 # ラインリストをテーブルで表示
@@ -53,17 +53,16 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 <!-- ======================================================= -->
 ## color、fill、座標軸などのスケール {#ggplot_tips_colors}
 
-**ggplot2** でエステティクスパラーメータ（size、color、shape、fill、座標軸など）をデータフレームの列に対応させるとき、それぞれのスケールを操作することで、どのように図に反映するかを詳細に調整することができます。
+**ggplot2** で描画する図のエステティック属性（size、color、shape、fill、座標軸など）をデータフレームの列に対応させるとき、それぞれの "scale" を操作することで、どのように図に反映するかを詳細に調整することができます。
 
 
+### 配色
 
-### 色の調整
+**ggplot2** を使う上で最初に躓きやすいものが配色の調整です。この節では点や線、棒グラフやタイルなど、<u>図のオブジェクト</u>（geoms/shapes）の配色を扱うことに注意してください。テキストやタイトル、背景などの色の調整に関しては [ggplot の基礎](#ggplot-basics)のページの[テーマ](#ggplot_basics_themes)の節を参照してください。
 
-**ggplot2** を使う上で最初に躓きやすいものが色の調整です。この節では点や線、棒グラフやタイルなど、図のオブジェクトの色の調整を扱います。テキストやタイトル、背景などの色の調整に関しては [ggplot の基礎](#ggplot-basics)のページの[テーマ](#ggplot_basics_themes)の節を参照してください。
+<u>図のオブジェクト</u>の "色" を調整するとき、影響されるエステティクスパラメータは `color = `（<u>外側</u>の色）もしくは `fill = `（<u>内側</u>の色）です。`geom_point()` では例外的に `color = `のみを調整することで、点の色（内と外両方）を操作します。
 
-図の "色" を調整するとき、影響されるエステティクスパラメータは `color = `（外側の色）もしくは `fill = `（内側の色）です。`geom_point()` では例外的に `color = `のみを調整することで、点の色（内と外両方）を操作します。
-
-色を指定するには、`"red"` のような色の名前（[こちらのリスト](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)を参照するか、`?colors` コマンドで一覧が表示できます）か、`"#ff0505"` のような16進コードを用います。
+色を指定するには、R が認識できる `"red"` のような色の名前（[こちらのリスト](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)を参照するか、`?colors` コマンドで一覧が表示できます）か、`"#ff0505"` のような16進コードを用います。
 
 ```{r, warning=F, message=F}
 # ヒストグラム
@@ -95,7 +94,7 @@ ggplot(data = linelist, mapping = aes(x = age, y = wt_kg))+
   geom_point(mapping = aes(color = gender))+         
   labs(title = "Color mapped to discrete column")
 
-# バープロットのfillを離散数からなる列、colorを単一色で指定する
+# 棒グラフのfillを離散数からなる列、colorを単一色で指定する
 ggplot(data = linelist, mapping = aes(x = hospital))+     
   geom_bar(mapping = aes(fill = gender), color = "yellow")+         
   labs(title = "Fill mapped to discrete column, static color")
@@ -128,7 +127,7 @@ ggplot(data = linelist, mapping = aes(x = hospital))+
 
 ### マニュアルでの調整 {.unnumbered}  
 
-"マニュアル" スケール関数を用いることで、色を具体的に指定することができます。これらの関数は `scale_xxx_manual()` の形（例：`scale_colour_manual()` や `scale_fill_manual()`）を取ります。例を通して下に挙げた引数の使用法をそれぞれ見ていきましょう。
+"マニュアル" スケール関数を用いることの利点の一つとして、望む色を具体的に指定することができます。これらの関数は `scale_xxx_manual()` の形（例：`scale_colour_manual()` や `scale_fill_manual()`）を取ります。例を通して下に挙げた引数の使用法をそれぞれ見ていきましょう。
 
 * `values = `により色を指定します。  
 * `na.value = `により `NA` の色を指定します。  
@@ -204,7 +203,7 @@ ggplot(data = linelist)+
 
 
 
-#### パーセント表示 {.unnumbered}  
+#### 割合をパーセントで表示する {.unnumbered}  
 
 座標軸に対応させるデータの値が割合のとき、以下のようにスケール関数中に `labels = scales::percent` を加えることで、簡単にパーセント表示に変更することができます。
 
@@ -291,7 +290,7 @@ preparedness_plot+                   # 上記の図を修正する
 
 ### 勾配スケール {.unnumbered}  
 
-配色に勾配スケールを用いることで、表現の幅を広げることができます。初期設定でも美しい図が得られますが、値や切り捨て値などの詳細を調整することが可能です。
+配色に勾配スケールを用いることで、表現の幅を広げることができます。初期設定でも美しい図が得られますが、値や切り捨て値などの詳細を調整したい場合もあります。
 
 ここでは、[コンタクトトレーシング](#contact-tracing-1)のページで扱った各症例とその感染源の年齢を値に持つデータを用いて、連続数に対応するカラースケールの調整方法を紹介します。 
 
@@ -365,11 +364,11 @@ trans_matrix +
 ### カラーパレット {.unnumbered}  
 
 #### Colorbrewer と Viridis {.unnumbered}
-`scale_xxx_brewer` もしくは `scale_xxx_viridis_y` の関数によって既成のカラーパレットを使用できます。  
+一般的に、もし既成のカラーパレットを使いたい場合は `scale_xxx_brewer` もしくは `scale_xxx_viridis_y` 関数を利用することができます。　
 
 'brewer' 関数は [colorbrewer.org](colorbrewer.org) にあるパレットを使用します。  
 
-'Viridis' 関数は viridis パレットを使用します。Viridis は "色付きでも白黒でも同様に認識でき、かつ色盲のひとにも識別しやすい色調になっています。"（詳細は[こちら](https://ggplot2.tidyverse.org/reference/scale_viridis.html)と[こちら](https://bids.github.io/colormap/)のリンクを参照してください。）カラーパレットが連続数、離散数、もしくはビニングスケールかによって、関数の末尾を変更します（例：離散数では `scale_xxx_viridis_d`）。
+'Viridis' 関数は viridis（色覚障害の方でも見やすい！）パレットを使用します。Viridis は "色付きでも白黒でも同様に認識でき、かつ色覚障害があるひとにも識別しやすい色調になっています。"（詳細は[こちら](https://ggplot2.tidyverse.org/reference/scale_viridis.html)と[こちら](https://bids.github.io/colormap/)のリンクを参照してください。）カラーパレットが連続数、離散数、もしくはビニングスケールかによって、関数の末尾を変更します（例：離散数では `scale_xxx_viridis_d`）。
 
 作成した図は[色覚障害シミュレータ](https://www.color-blindness.com/coblis-color-blindness-simulator/)で色覚障害があるひとへの見え方をテストするようにしましょう。赤と緑の配色は色覚障害がある場合は識別しづらいため、[こちら](https://www.visualisingdata.com/2019/08/five-ways-to-design-for-red-green-colour-blindness/#:~:text=The%20pink%2Dred%20through%20to,green%20hues%20used%20by%20default.)で紹介されているように "熱冷"（赤・青）配色を代わりに用いましょう。 
 
@@ -541,9 +540,9 @@ ggMarginal(
 ## スマートラベリング {}  
 
 
-**ggplot2** では図中にテキストを表示することもできます。しかし、テキストと図中のデータポイントが重なり読みづらくなってしまうということがしばしば起こります。R の基本関数ではこの問題を解決することは難しいですが、**ggrepel** という追加パッケージを使うことでうまく処理することができます！
+**ggplot2** では図中にテキストを表示することもできます。しかし、テキストと図中のデータポイントが重なり読みづらくなってしまうということがしばしば起こります。R の base 関数ではこの問題を解決することは難しいですが、**ggrepel** という追加パッケージを使うことでうまく処理することができます！
 
-**ggrepel** パッケージは `geom_label()` と `geom_text()` それぞれの代わりとなる新しい関数`geom_label_repel()` と `geom_text_repel()` を持ちます。これらの関数を基本関数の代わりに使うだけで、整ったラベルを作ることができます。これらの関数内では `aes()` を通常通り設定しますが、その中で `label = `によりラベルに使いたい列（例：患者 ID や名前など）を指定します。また `str_glue()` を使えば、以下の例のように複数の列を改行（`\n`）で繋いでより複雑なラベルを作ることも可能です。
+**ggrepel** パッケージは `geom_label()` と `geom_text()` それぞれの代わりとなる新しい関数`geom_label_repel()` と `geom_text_repel()` を提供してくれます。これらの関数を基本関数の代わりに使うだけで、整ったラベルを作ることができます。これらの関数内では `aes()` を通常通り設定しますが、その中で `label = `によりラベルに使いたい列（例：患者 ID や名前など）を指定します。また `str_glue()` を使えば、以下の例のように複数の列を改行（`\n`）で繋いでより複雑なラベルを作ることも可能です。
 
 いくつかのヒントを示します：
 
