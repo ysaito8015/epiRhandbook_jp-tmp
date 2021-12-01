@@ -224,26 +224,25 @@ knitr::include_graphics(here::here("images", "shiny", "simple_UI_view.png"))
 
 また、ここで年齢データに<ul>名前付きのベクトル</ul>を利用していることに注目してみることは価値があるでしょう。 多くのウィジェットでは、名前付きベクトルを選択として利用すると、ベクトルの<ul>名前</ul>が選択できる表示として利用されますが、ベクトルの<ul>値</ul>がサーバーに渡されます。つまり、誰かが "15+" をドロップダウンメニューから選択した場合、UI は`"malaria_rdt_15"` をサーバーに渡します。これは、処理などで利用したいデータの列名そのものです！
 
+アプリで様々なことを行うために使用できるウィジェットがたくさんあります。 ウィジェットはファイルのアプリへのアップロードとダウンロードも可能にします。基本の shiny に含まれるウィジェットを拡張してくれる素晴らしいパッケージもあり、**shinyWidgets** はこのような拡張例の一つです。使用例を見るには次のリンクを確認してください：
 
-There are loads of widgets that you can use to do lots of things with your app. Widgets also allow you to upload files into your app, and download outputs. There are also some excellent shiny extensions that give you access to more widgets than base shiny - the **shinyWidgets** package is a great example of this. To look at some examples you can look at the following links:
-
-- [base shiny widget gallery](https://shiny.rstudio.com/gallery/widget-gallery.html)
-- [shinyWidgets gallery](https://github.com/dreamRs/shinyWidgets)
-
+- [基本の shiny ウィジェットギャラリー](https://shiny.rstudio.com/gallery/widget-gallery.html)
+- [shinyWidgets ギャラリー](https://github.com/dreamRs/shinyWidgets)
 
 
-## Loading data into our app
 
-The next step in our app development is getting the server up and running. To do this however, we need to get some data into our app, and figure out all the calculations we're going to do. A shiny app is not straightforward to debug, as it's often not clear where errors are coming from, so it's ideal to get all our data processing and visualisation code working before we start making the server itself.
+## アプリにデータを読み込む
 
-So given we want to make an app that shows epi curves that change based on user input, we should think about what code we would need to run this in a normal R script. We'll need to:
+アプリ開発の次のステップはサーバーを動かすことです。これをするには、何らかのデータをアプリに入れなければなりません。また、実行するべき全ての処理を把握する必要があります。Shiny アプリのデバッグは、エラーの発生している場所が明確がないことが多いため簡単にはいきません。そのため、データの加工と可視化のコードが問題なく動くようにしてからサーバーを作り始められると理想的です。
 
-1. Load our packages
-2. Load our data
-3. Transform our data
-4. Develop a _function_ to visualise our data based on user inputs
+そのため、ユーザーの入力に応じて変化するエピカーブを表示するアプリを作る状況では、これを通常の R スクリプトで実行するにはどのようなコードが必要かを考える必要があります。必要な工程は：
 
-This list is pretty straightforward, and shouldn't be too hard to do. It's now important to think about which parts of this process need to *be done only once* and which parts need to *run in response to user inputs*. This is because shiny apps generally run some code before running, which is only performed once. It will help our app's performance if as much of our code can be moved to this section. For this example, we only need to load our data/packages and do basic transformations once, so we can put that code *outside the server*. This means the only thing we'll need in the server is the code to visualise our data. Lets develop all of these componenets in a script first. However, since we're visualising our data with a function, we can also put the code _for the function_ outside the server so our function is in the environment when the app runs!
+1. パッケージの読み込み
+2. データの読み込み
+3. データの加工
+4. ユーザーの入力に応じてデータを可視化する<ul>関数</ul>の作成
+
+このリストは非常にわかりやすく、それほど難しいことではないはずです。ここで重要なのは、このプロセスのうち、どの部分が<ul>一度だけ</ul>実行が必要で、どの部分が<ul>ユーザーの入力に応じて</ul>実行が必要なのかを考えることです。なぜなら、Shiny アプリは一般的には実行される前にコードの一部分が一度だけ実行されるためです。大部分のコードをこの一度だけ実行される部分に移動することができれば、アプリのパフォーマンスが大きく改善するでしょう。この例では、データとパッケージの読み込みと基本的なデータの加工は一度だけしか必要ありません。そのため、これらのコードを<ul>サーバーの外</ul>に置くことができます。これが意味するところは、サーバーの中に必要なコードは可視化に関するコードだけということです。まず、これらの構成要素をすべてスクリプトとして開発してみましょう。しかし、今回は関数を使ってデータを可視化しているので、<ul>可視化をする関数のコード</ul>をサーバーの外に置くことで、アプリの実行時に関数が実行環境中に存在するようにすることもできます。
 
 First lets load our data. Since we're working with a new project, and we want to make it clean, we can create a new directory called data, and add our malaria data in there. We can run this code below in a testing script we will eventually delete when we clean up the structure of our app.
 
