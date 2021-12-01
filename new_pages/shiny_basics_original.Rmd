@@ -1,79 +1,79 @@
 
-# Shiny で作るダッシュボード {#shiny-basics}  
+# Shiny で作るダッシュボード { }  
 
-ダッシュボードは多くの場合、他の人と分析の結果を共有する場合に非常に良い方法です。**Shiny** を利用してダッシュボードを作成することは、R 言語について、比較的高度な知識が必要ですが、大いなる可能性と自由を与えてくれます。
+Dashboards are often a great way to share results from analyses with others. Producing a dashboard with **shiny** requires a relatively advanced knowledge of the R language, but offers incredible customization and possibilities.  
 
 <!-- One of the largest drawbacks of `R` is its usability for people who are new to or have no experience with programming languages. While these skills are very valuable, most people will find that this represents a barrier to sharing analyses, especially in multidisciplinary environments. It requires some work to maintain an `R` installation, and not everyone will be comfortable running shared code, even if it's well documented and easy to read. This is *especially* true when users have to change parameters of code!  -->
 
 <!-- R based dashboards are also advantageous in that they centralise how code is run - when the same code is run on different machines, often people will have to deal with differing file paths, different R versions, and different package installations. For this reason, dashboards are a great way to share code with others in a user friendly way! -->
 
-**Shiny** によるダッシュボードについて学ぶ人は、データの加工と可視化についてある程度理解していることが必要です。また、コードのデバッグや関数を書くことについても慣れている必要があります。ダッシュボードの作成は、最初は分かりにくく、ときに理解することが難しいでしょう。しかし、このスキルは学ぶ価値のあるもので、習熟とともに簡単になっていきます！
+It is recommended that someone learning dashboards with **shiny** has good knowledge of data transformation and visualisation, and is comfortable debugging code, and writing functions. Working with dashboards is not intuitive when you're starting, and is difficult to understand at times, but is a great skill to learn and gets much easier with practice!
 
-このページでは、**shiny** とその拡張によるダッシュボード作成について短く概要をお伝えします。
-別の速く簡単で、しかし自由度は低い方法でのダッシュボード作成方法については **flextable** のページ([R Markdownで作るダッシュボード](#flexdashboard))を参考にしてください。  
-
-
-
-## 準備  
+This page will give a short overview of how to make dashboards with **shiny** and its extensions. 
+For an alternative method of making dashboards that is faster, easier, but perhaps less customizeable, see the page on **flextable** ([Dashboards with R Markdown]).  
 
 
-### パッケージの読み込み {.unnumbered}  
 
-このハンドブックでは、**pacman** パッケージの `p_load()`を利用します。これは、パッケージのインストールが必要であればインストールしてくれて、<ul>かつ</ul>使えるように読み込んでくれます。あるいは、**base**の`library()`を利用してインストールされたパッケージを読み込んでもよいでしょう。より詳しくは[Rの基礎](#basics)のページを確認してください。
+## Preparation  
 
-まずは、R パッケージの **shiny** をインストールするところからはじめていきます：
+
+### Load packages {.unnumbered}  
+
+In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
+
+We begin by installing the **shiny** R package:  
 
 ```{r, eval = FALSE}
 pacman::p_load("shiny")
 ```
 
 
-### データのインポート {.unnumbered}  
+### Import data {.unnumbered}  
 
-もしあなたがこのページのコードを追いたいのであれば[ハンドブックとデータのダウンロード](#data_shiny)を見てください。そこには最終的な Shiny アプリを作成するための R のスクリプトとデータファイルへのリンクがあります。  
+If you would like to follow-along with this page, see this section of the [Download handbook and data](#data_shiny). There are links to download the R scripts and data files that produce the final Shiny app.  
 
-これらのファイルを利用してアプリを再現したい場合は、R のプロジェクトがあるフォルダ構造が解説のなかでどのように作成されたかについて注意してください（例 "data" フォルダや "funcs" フォルダ）。
+If you try to re-construct the app using these files, please be aware of the R project folder structure that is created over the course of the demonstration (e.g. folders for "data" and for "funcs").  
 
 
 
 <!-- ======================================================= -->
-## Shiny アプリの構造 {  }
+## The structure of a shiny app {  }
 
-### 基本的なファイル構造 {.unnumbered}  
+### Basic file structures {.unnumbered}  
 
-`shiny` について理解するためには、まずアプリのファイル構造をどのようにすればうごくかを理解するひつようがあります！まず、真新しいディレクトリを作るところからはじめる必要があります。これは、<ul>R Studio</ul>で、<ul>New Project</ul>を選び、<ul>Shiny Web Application</ul>を選択することで簡単に作成できます。この操作で、 shiny アプリの基本的な構造が作成されます。
+To understand `shiny`, we first need to understand how the file structure of an app works! We should make a brand new directory before we start. This can actually be made easier by choosing _New project_ in _Rstudio_, and choosing _Shiny Web Application_. This will create the basic structure of a shiny app for you.
 
-このプロジェクトをひらくと、すでに<ul>app.R</ul>という名前の `.R` ファイルが作成されています。次の二つのうちのいずれか一つのファイル構造をとることが<ul>ul</ul>必須です：
+When opening this project, you'll notice there is a `.R` file already present called _app.R_. It is *essential* that we have one of two basic file structures:
 
-1. 一つのファイルが _app.R_、という名前をもつ *あるいは*  
-2. 二つのファイルのうち一つが _ui.R_ でもう一つが _server.R_ という名前をもつ  
+1. One file called _app.R_, *or*  
+2. Two files, one called _ui.R_ and the other _server.R_  
 
-このページでは、*app.R* という名前をつける一つ目の方法を利用します。次が例となるスクリプトです：
+In this page, we will use the first approach of having one file called *app.R*. Here is an example script:  
 
 ```{r, eval = FALSE}
-# app.R の例
+# an example of app.R
 
 library(shiny)
 
 ui <- fluidPage(
 
-    # アプリのタイトル
+    # Application title
     titlePanel("My app"),
 
-    # スライダーインプットウィジェットを含むサイドバー
+    # Sidebar with a slider input widget
     sidebarLayout(
         sidebarPanel(
             sliderInput("input_1")
         ),
 
-        # グラフを表示する
+        # Show a plot 
         mainPanel(
            plotOutput("my_plot")
         )
     )
 )
 
-# ヒストグラムを描画するためのサーバーロジックを定義
+# Define server logic required to draw a histogram
 server <- function(input, output) {
      
      plot_1 <- reactive({
@@ -86,65 +86,65 @@ server <- function(input, output) {
 }
 
 
-# アプリを走らせる
+# Run the application 
 shinyApp(ui = ui, server = server)
 
 
 ```
 
 
-ファイルを開くと、二つのオブジェクトが定義されています - 一つは `ui` でもう一つは `server` です。これらのオブジェクトは<u>全ての</ul> shiny アプリで定義される必要があり、アプリそのものの中心的な構造体です！実際には、上で説明した二つのファイル構造の違いは、構造 1 では、`ui` と `server` が一つのファイルで定義されているのに対して、構造 2 では別々のファイルで定義されているだけです。注意：他の .R ファイルを `source()` を利用してアプリで利用することも可能です（これは大きなアプリでは必須となります）。
+If you open this file, you'll notice that two objects are defined - one called `ui` and another called `server`. These objects *must* be defined in *every* shiny app and are central to the structure of the app itself! In fact, the only difference between the two file structures described above is that in structure 1, both `ui` and `server` are defined in one file, whereas in structure 2 they are defined in separate files. Note: we can also (and we should if we have a larger app) have other .R files in our structure that we can `source()` into our app.
 
 
 
-### server と ui {.unnumbered}
+### The server and the ui {.unnumbered}
 
-次に、実際に `server` と `ui` オブジェクトが何を<ul>する</ul>かを理解しなければなりません。<ul>単純に説明するなら、shiny アプリをユーザーが操作すると、常に二つのオブジェクトが互いに影響しあう状態となります。</ul>
+We next need to understand what the `server` and `ui` objects actually _do_. *Put simply, these are two objects that are interacting with each other whenever the user interacts with the shiny app.*
 
-Shiny アプリの UI 要素は、基本的なレベルにおいては、HTML インターフェイスを作る R のコードです。これは、アプリの UI に<ul>表示</ul>されているものすべてです。これは、一般的に次のようなものを含みます：
+The UI element of a shiny app is, on a basic level, R code that creates an HTML interface. This means everything that is *displayed* in the UI of an app. This generally includes:
 
-* 「ウィジェット」 - ドロップダウンメニュー、チェックボックス、スライダーなどユーザーが操作できるもの
-* 図、表など - R のコードで作成できる出力
-* アプリのナビゲーションに関する要素 - タブ、ペーンなど 
-* テキスト、ハイパーリンクなど
-* HTML と CSS 要素 (後に解説します)
+* "Widgets" - dropdown menus, check boxes, sliders, etc that can be interacted with by the user
+* Plots, tables, etc - outputs that are generated with R code
+* Navigation aspects of an app - tabs, panes, etc. 
+* Generic text, hyperlinks, etc
+* HTML and CSS elements (addressed later)
 
-UI において最も大切なことは、UI は入力をユーザーから<ul>受け</ul>、サーバーから出力を受け取り<ul>表示する</ul>ということです。<ul>どのような時<ul>でも、コードが ui のなかで<ul>能動的</ul>に動くことはありません。UI における全ての変化は（多かれ少なかれ）サーバーを経由したものです。そのため、図の表示やダウンロードなどの処理はサーバーの中で行わなければなりません。
+The most important thing to understand about the UI is that it *receives inputs* from the user and *displays outputs* from the server. There is no *active* code running in the ui *at any time* - all changes seen in the UI are passed through the server (more or less). So we have to make our plots, downloads, etc in the server
 
-Shiny アプリのサーバーはアプリが立ち上がれば、すべてのコードが実行される場所となります。この挙動は少し混乱しやすいです。サーバー関数は効果的に UI のユーザーインターフェースに対して<ul>react</ul>（反応）し、対応してコードの塊を実行します。もしサーバー内でなにかが変われば、その変化は ui に再度渡され、その変化が目に見える形になります。大切なのは、サーバー内のコードが<u>非連続的</ul>に実行される（と考えておくことが良いでしょう）という点です。 基本は、ui がサーバー内のコードの塊に影響を与えた場合は常に、自動的にそのコードが実行されて、出力が作成・表示されます。
+The server of the shiny app is where all code is being run once the app starts up. The way this works is a little confusing. The server function will effectively _react_ to the user interfacing with the UI, and run chunks of code in response. If things change in the server, these will be passed back up to the ui, where the changes can be seen. Importantly, the code in the server will be executed *non-consecutively* (or it's best to think of it this way). Basically, whenever a ui input affects a chunk of code in the server, it will run automatically, and that output will be produced and displayed.
 
-この一連の動作は、今は難解に聞こえると思います。なので、これが実際にどのように動くかをいくつか例を体験して明快にしましょう。
-
-
-### アプリを作成する前に {.unnumbered}
-
-アプリを作る前に、<ul>何</ul>を作りたいかを知ることはとても助けになります。あなたが作る UI はコードで書かれるため、何か具体的なものを狙って作成しなければ、何を作っているかを可視化することができません。このような理由から、何が Shiny アプリとして作れるか、沢山の例を見てのアイデアを得ておくことは非常に有効です。もし、それらのアプリのソースコードを見ることができればもっと良いでしょう！この目的のための素晴らしいリソースは次のリンクにあります：
-
-* [Rstudio アプリギャラリー](https://shiny.rstudio.com/gallery/)  
-
-どんなことができるかのイメージを持つことができれば、どのような見た目のアプリを作りたいかを描いてみることも助けになります。 - これは、紙に書いても、絵を描くソフトを利用してもよいでしょう (パワーポイント、 MS ペイント、 など)。 最初のアプリは、単純なもので開始するのもよいでしょう！ネットでみつけたすごいアプリのコードをひな型として利用することを恥ずかしがる必要はありません - 全くのゼロから作ることに比べればはるかに楽に作ることができます！
+This all probably sounds very abstract for now, so we'll have to dive into some examples to get a clear idea of how this actually works. 
 
 
+### Before you start to build an app {.unnumbered}
 
-## UI の作成 
+Before you begin to build an app, its immensely helpful to know *what* you want to build. Since your UI will be written in code, you can't really visualise what you're building unless you are aiming for something specific. For this reason, it is immensely helpful to look at lots of examples of shiny apps to get an idea of what you can make - even better if you can look at the source code behind these apps! Some great resources for this are:
 
-アプリを作成する際には、最初にUIを作成した方が、何を作っているのかがわかりやすく、サーバーのエラーでアプリがうまく動かなくなるリスクもありません。前述したように、UI を作成する際にはテンプレートを使用するのが良いでしょう。Shiny で利用できる標準的なレイアウトが沢山、基本となる shiny パッケージに含まれています、また、`shinydashboard` のような拡張パッケージが沢山存在することも注目しておいてもよいでしょう。まずは shiny の例を使って説明します。 
+* The [Rstudio app gallery](https://shiny.rstudio.com/gallery/)  
 
-Shiny の UI は、一般的に次のような順序でネスト（入れ子になった）した関数として定義されます。
+Once you get an idea for what is possible, it's also helpful to map out what you want yours to look like - you can do this on paper or in any drawing software (PowerPoint, MS paint, etc.). It's helpful to start simple for your first app! There's also no shame in using code you find online of a nice app as a template for your work - its much easier than building something from scratch!
 
-1. 一般的なレイアウトを定義する関数（最も基本的なものとしては `fluidPage()` があるが、他にも沢山存在）
-2. レイアウトの中のパネル群
-     - サイドバー (`sidebarPanel()`)
-     - 「メイン」パネル (`mainPanel()`)
-     - タブ (`tabPanel()`)
-     - 一般的な「コラム」 (`column()`)
-3. ウィジェットとアウトプット - これらは入力をサーバーに送ったり（ウィジェット）、出力をサーバーから送ったり（アウトプット）する
-     - ウィジェットは一般的には `xxxInput()` のような名前となっています 例 `selectInput()`
-     - アウトプットは一般的には `xxxOutput()` のような名前となっています 例 `plotOutput()`
 
-繰り返しになりますが、これらは抽象的で、可視化することは簡単ではありません、そのため、例を見るのが一番です！ マラリア施設数のデータを地区ごとに視覚化する基本的なアプリを作ってみましょう。 このデータは多くのパラメータを持っているので、ユーザーが自分で抽出して、年齢層や地区別にデータを見ることができれば素晴らしいです。とても単純な shiny のレイアウトを利用しましょう ― サイドバーレイアウトです。これは、左側のサイドバーにウィジェットを配置し、右側にプロットを配置したレイアウトです。
 
-どのようなアプリにするかを計画しましょう。まずは、可視化したい地区を選択することができるセレクターからはじめましょう。次いで、別のセレクターを利用して興味のある年齢のグループ可視化します。これらの抽出条件を用いて、これらのパラメーターを反映したエピカーブを表示することを目指しましょう。このために必要なのは：
+## Building a UI 
+
+When building our app, its easier to work on the UI first so we can see what we're making, and not risk the app failing because of any server errors. As mentioned previously, its often good to use a template when working on the UI. There are a number of standard layouts that can be used with shiny that are available from the base shiny package, but it's worth noting that there are also a number of package extensions such as `shinydashboard`. We'll use an example from base shiny to start with. 
+
+A shiny UI is generally defined as a series of nested functions, in the following order
+
+1. A function defining the general layout (the most basic is `fluidPage()`, but more are available)
+2. Panels within the layout such as:
+     - a sidebar (`sidebarPanel()`)
+     - a "main" panel (`mainPanel()`)
+     - a tab (`tabPanel()`)
+     - a generic "column" (`column()`)
+3. Widgets and outputs - these can confer inputs to the server (widgets) or outputs from the server (outputs)
+     - Widgets generally are styled as `xxxInput()` e.g. `selectInput()`
+     - Outputs are generally styled as `xxxOutput()` e.g. `plotOutput()`
+
+It's worth stating again that these can't be visualised easily in an abstract way, so it's best to look at an example! Lets consider making a basic app that visualises our malaria facility count data by district. This data has a lot of differnet parameters, so it would be great if the end user could apply some filters to see the data by age group/district as they see fit! We can use a very simple shiny layout to start - the sidebar layout. This is a layout where widgets are placed in a sidebar on the left, and the plot is placed on the right.
+
+Lets plan our app - we can start with a selector that lets us choose the district where we want to visualise data, and another to let us visualise the age group we are interested in. We'll aim to use these filters to show an epicurve that reflects these parameters. So for this we need:
 
 1. Two dropdown menus that let us choose the district we want, and the age group we're interested in. 
 2. An area where we can show our resulting epicurve.
