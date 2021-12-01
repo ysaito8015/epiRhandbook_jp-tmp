@@ -146,10 +146,10 @@ Shiny の UI は、一般的に次のような順序でネスト（入れ子に�
 
 どのようなアプリにするかを計画しましょう。まずは、可視化したい地区を選択することができるセレクターからはじめましょう。次いで、別のセレクターを利用して興味のある年齢のグループ可視化します。これらの抽出条件を用いて、これらのパラメーターを反映したエピカーブを表示することを目指しましょう。このために必要なのは：
 
-1. Two dropdown menus that let us choose the district we want, and the age group we're interested in. 
-2. An area where we can show our resulting epicurve.
+1. 望む地区と興味のある年齢を選ぶことができるドロップダウンメニュー二つ。
+2. 結果として出力されるエピカーブを表示する領域
 
-This might look something like this:
+これは次のようなものです:
 
 ```{r, eval = FALSE}
 
@@ -162,7 +162,7 @@ ui <- fluidPage(
   sidebarLayout(
 
     sidebarPanel(
-         # selector for district
+         # 地区を選択するためのインプット
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -176,7 +176,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = TRUE
          ),
-         # selector for age group
+         # 年齢を選択するためのインプット
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -193,7 +193,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # エピカーブはここに描画されます
       plotOutput("malaria_epicurve")
     )
     
@@ -204,25 +204,25 @@ ui <- fluidPage(
 ```
 
 
-When app.R is run with the above UI code (with no active code in the `server` portion of app.R) the layout appears looking like this - note that there will be no plot if there is no server to render it, but our inputs are working!
+上の UI を伴って（`server` 部分に何もコードがない状態で）app.R が実行されると、レイアウトは次のようになります - グラフはサーバー部分がないため描画されていませんが入力部分は動いていることに注意してください！
 
 ```{r, out.width = c('100%'), out.height = c('100%'), echo=F}
 knitr::include_graphics(here::here("images", "shiny", "simple_UI_view.png"))
 ```
 
-This is a good opportunity to discuss how widgets work - note that each widget is accepting an `inputId`, a `label`, and a series of other options that are specific to the widget type. This `inputId` is extremely important - these are the IDs that are used to pass information from the UI to the server. For this reason, they *must be unique*. You should make an effort to name them something sensible, and specific to what they are interacting with in cases of larger apps.
+ここで、ウィジェットがどのように機能するかを議論する良い機会です。 - それぞれのウィジェットは `inputId`、`label`、それぞれのウィジェットに特有のオプションを設定することができます。 `inputId` は非常に重要です。これらは UI からサーバーに情報を渡すIDとして扱われます。そのため、ID は他と重複しないことが必要です。大規模なアプリの場合には、感覚的に理解できる名前をつけるように努力する必要がありますし、何を扱うのかを具体的に示す必要があります。
 
-You should read documentation carefully for full details on what each of these widgets do. Widgets will pass specific types of data to the server depending on the widget type, and this needs to be fully understood. For example, `selectInput()` will pass a character type to the server:
+それぞれのウィジェットがどのような動作をするのかについて、完全な詳細を把握するにはドキュメント（公式文書）を注意深く読む必要があります。ウィジェットはその種類に応じて、特定のデータをサーバーに渡し、このことについて完全に理解していなければなりません。例えば、`selectInput()` は文字型をサーバーに渡します：
 
-- If we select _Spring_ for the first widget here, it will pass the character object `"Spring"` to the server. 
-- If we select two items from the dropdown menu, they will come through as a character vector (e.g. `c("Spring", "Bolo")`).
+- もし、<ul>Spring</ul>を最初のウィジェットで選択したら、それは、文字オブジェクトである `"Spring"` をサーバーに渡します。
+- もし、ドロップダウンメニューから二項目を選択した場合、それらは文字ベクトルとして渡されます（例 `c("Spring", "Bolo")`）。
 
-Other widgets will pass different types of object to the server! For example:
+他のウィジェットは違う種類のオブジェクトをサーバーに渡します！例えば：
 
-- `numericInput()` will pass a numeric type object to the server
-- `checkboxInput()` will pass a logical type object to the server (`TRUE` or `FALSE`)
+- `numericInput()` は数字オブジェクトをサーバーに渡します
+- `checkboxInput()` はロジカルオブジェクト（`TRUE` か `FALSE`）をサーバーに渡します
 
-It's also worth noting the *named vector* we used for the age data here. For many widgets, using a named vector as the choices will display the *names* of the vector as the display choices, but pass the selected *value* from the vector to the server. I.e. here someone can select "15+" from the drop-down menu, and the UI will pass `"malaria_rdt_15"` to the server - which happens to be the name of the column we're interested in!
+また、ここで年齢データに<ul>名前付きのベクトル</ul>を利用していることに注目してみることは価値があるでしょう。 多くのウィジェットでは、名前付きベクトルを選択として利用すると、ベクトルの<ul>名前</ul>が選択できる表示として利用されますが、ベクトルの<ul>値</ul>がサーバーに渡されます。つまり、誰かが "15+" をドロップダウンメニューから選択した場合、UI は`"malaria_rdt_15"` をサーバーに渡します。これは、処理などで利用したいデータの列名そのものです！
 
 
 There are loads of widgets that you can use to do lots of things with your app. Widgets also allow you to upload files into your app, and download outputs. There are also some excellent shiny extensions that give you access to more widgets than base shiny - the **shinyWidgets** package is a great example of this. To look at some examples you can look at the following links:
