@@ -224,6 +224,7 @@ knitr::include_graphics(here::here("images", "shiny", "simple_UI_view.png"))
 
 また、ここで年齢データに<ul>名前付きのベクトル</ul>を利用していることに注目してみることは価値があるでしょう。 多くのウィジェットでは、名前付きベクトルを選択として利用すると、ベクトルの<ul>名前</ul>が選択できる表示として利用されますが、ベクトルの<ul>値</ul>がサーバーに渡されます。つまり、誰かが "15+" をドロップダウンメニューから選択した場合、UI は`"malaria_rdt_15"` をサーバーに渡します。これは、処理などで利用したいデータの列名そのものです！
 
+
 アプリで様々なことを行うために使用できるウィジェットがたくさんあります。 ウィジェットはファイルのアプリへのアップロードとダウンロードも可能にします。基本の shiny に含まれるウィジェットを拡張してくれる素晴らしいパッケージもあり、**shinyWidgets** はこのような拡張例の一つです。使用例を見るには次のリンクを確認してください：
 
 - [基本の shiny ウィジェットギャラリー](https://shiny.rstudio.com/gallery/widget-gallery.html)
@@ -244,7 +245,7 @@ knitr::include_graphics(here::here("images", "shiny", "simple_UI_view.png"))
 
 このリストは非常にわかりやすく、それほど難しいことではないはずです。ここで重要なのは、このプロセスのうち、どの部分が<ul>一度だけ</ul>実行が必要で、どの部分が<ul>ユーザーの入力に応じて</ul>実行が必要なのかを考えることです。なぜなら、Shiny アプリは一般的には実行される前にコードの一部分が一度だけ実行されるためです。大部分のコードをこの一度だけ実行される部分に移動することができれば、アプリのパフォーマンスが大きく改善するでしょう。この例では、データとパッケージの読み込みと基本的なデータの加工は一度だけしか必要ありません。そのため、これらのコードを<ul>サーバーの外</ul>に置くことができます。これが意味するところは、サーバーの中に必要なコードは可視化に関するコードだけということです。まず、これらの構成要素をすべてスクリプトとして開発してみましょう。しかし、今回は関数を使ってデータを可視化しているので、<ul>可視化をする関数のコード</ul>をサーバーの外に置くことで、アプリの実行時に関数が実行環境中に存在するようにすることもできます。
 
-First lets load our data. Since we're working with a new project, and we want to make it clean, we can create a new directory called data, and add our malaria data in there. We can run this code below in a testing script we will eventually delete when we clean up the structure of our app.
+最初に、データを読み込みましょう。新しいプロジェクトで作業を行っていることと、そのデータをキレイな形にしたいので、新しい data というディレクトリを作成してマラリアデータをそこに保存しましょう。次の、最終的にはアプリの構造を整える際に削除するテスト用のコードを実行してください。
 
 ```{r, echo = TRUE}
 pacman::p_load("tidyverse", "lubridate")
@@ -259,7 +260,7 @@ print(malaria_data)
 ```
 
 
-It will be easier to work with this data if we use tidy data standards, so we should also transform into a longer data format, where age group is a column, and cases is another column. We can do this easily using what we've learned in the [Pivoting data] page.  
+Tidy な形のデータで作業する方が楽にとりくめるため、このデータを縦持ちのデータに変換する必要があります。年齢群が列になり、ケースも別の列になpivotingる形です。[Pivoting data](#pivoting)のページで学んだようにこの処理は簡単にできます。 
 
 
 ```{r, echo = TRUE}
@@ -272,13 +273,13 @@ print(malaria_data)
 
 ```
 
-And with that we've finished preparing our data! This crosses items 1, 2, and 3 off our list of things to develop for our "testing R script". The last, and most difficult task will be building a function to produce an epicurve based on user defined parameters. As mentioned previously, it's *highly recommended* that anyone learning shiny first look at the section on functional programming ([Writing functions]) to understand how this works!
+これでデータの準備は終了しました！これで、「テスト用の R スクリプト」の項目１、２、３を終えたことになります。最後の、そして最も難しいタスクが、ユーザーが指定したパラメータを利用してエピカーブを描画する関数作成です。以前にもお伝えしたように、shiny を学ぶ全ての人が関数型プログラミングのセクション（[関数の作成](#writing-functions)）を一読して、これがどのように動作するのかを理解しておくことを<ul>強く推奨します</ul>！
 
-When defining our function, it might be hard to think about what parameters we want to include. For functional programming with shiny, every relevent parameter will generally have a widget associated with it, so thinking about this is usually quite easy! For example in our current app, we want to be able to filter by district, and have a widget for this, so we can add a district parameter to reflect this. We *don't* have any app functionality to filter by facility (for now), so we don't need to add this as a parameter. Lets start by making a function with three parameters:
+関数を定義する際に、どのパラメータを含みたいかを考えることは難しいかもしれません。Shiny における関数型プログラミングでは、全てのパラメータは一般的にはそれに関連したウィジェットがあるずです。そのため、これは通常すごく簡単です！現在とりくんでいるアプリを例にすると、地区でデータを絞り込めるようにしたいのですが、そのためのウィジェットはあります。そのため、これを反映する地区のパラメータを足しましょう。（現状では、）施設で絞り込む機能は<ul>ない</ul>ので、これをパラメータとして追加する必要はありません。次の三つのパラメータを含む関数を作るところからはじめましょう！
 
-1. The core dataset
-2. The district of choice
-3. The age group of choice
+1. 核となるデータセット
+2. 選んだ地区
+3. 選んだ年齢区分
 
 ```{r}
 
@@ -296,7 +297,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     
   }
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -306,7 +307,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     filter(age_group == agegroup)
   
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -336,7 +337,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
 ```
 
 
-We won't go into great detail about this function, as it's relatively simple in how it works. One thing to note however, is we handle errors by returning `NULL` when it would otherwise give an error. This is because when a shiny server produces a `NULL` object instead of a plot object, nothing will be shown in the ui! This is important, as otherwise errors will often cause your app to stop working.  
+この関数の働きは比較的単純なため、関数の詳細な解説には踏み込みません。一点だけ注意することとしては、エラーを発生させないために `NULL` を返すことで対応しているということです。これは、shiny サーバーがグラフオブジェクトではなくて `NULL` オブジェクトを生成すると ui には何も表示されないからです！この処理を行わなければアプリは頻繁に動きを止めてしまうため、この処理を入れることは大切です。
 
 Another thing to note is the use of the `%in%` operator when evaluating the `district` input. As mentioned above, this could arrive as a character vector with multiple values, so using `%in%` is more flexible than say, `==`.  
 
