@@ -339,9 +339,9 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
 
 この関数の働きは比較的単純なため、関数の詳細な解説には踏み込みません。一点だけ注意することとしては、エラーを発生させないために `NULL` を返すことで対応しているということです。これは、shiny サーバーがグラフオブジェクトではなくて `NULL` オブジェクトを生成すると ui には何も表示されないからです！この処理を行わなければアプリは頻繁に動きを止めてしまうため、この処理を入れることは大切です。
 
-Another thing to note is the use of the `%in%` operator when evaluating the `district` input. As mentioned above, this could arrive as a character vector with multiple values, so using `%in%` is more flexible than say, `==`.  
+追加で注意するべき点としては、地区のインプットを評価する場合の`%in%` 演算子の利用です。前述の通り、入力は複数の値を含む文字ベクトルとなる可能性があります。そのため、`%in%` の方が、`==` より柔軟に対応できます。
 
-Let's test our function!
+それでは、関数をテストしてみましょう！
 
 ```{r, echo = TRUE, warning = FALSE}
 
@@ -349,33 +349,33 @@ plot_epicurve(malaria_data, district = "Bolo", agegroup = "malaria_rdt_0-4")
 
 ```
 
-With our function working, we now have to understand how this all is going to fit into our shiny app. We mentioned the concept of _startup code_ before, but lets look at how we can actually incorporate this into the structure of our app. There are two ways we can do this!
+関数がうまく動作した後は、これらの機能がどのようにして shiny アプリに組み込まれていくのかを理解する必要があります。「スタートアップコード」<!--nishida: 注釈がいらなければ削除します。-->（訳者注：サーバーの外にコードをおいて実行を1回だけに制限する）の概念を前述しました。この概念をここではどのように実際にアプリに組み込むのかを見ていきましょう。これを行う方法は二通りあります！
 
-1. Put this code in your _app.R_ file at the start of the script (above the UI), or  
-2. Create a new file in your app's directory called _global.R_, and put the startup code in this file.
+1. このコードを<ul>app.R</ul>ファイルの一番最初（UI の前）におく、か
+2. global.R という名前の新しいファイルをアプリのディレクトにおいて、スタートアップコードをそのファイルの中に記述する
 
-It's worth noting at this point that it's generally easier, especially with bigger apps, to use the second file structure, as it lets you separate your file structure in a simple way. Lets fully develop a this global.R script now. Here is what it could look like:
+特筆すべき点としては、一般的には大きいアプリでは二つ目の方法をとることがより楽です。この方法は、簡単にファイル構造をシンプルな方法で分割することができるからです。それでは、ここでは global.R スクリプトを完成させてみましょう。次のような形になるはずです：
 
 
 ```{r, eval = F}
-# global.R script
+# global.R スクリプト
 
 pacman::p_load("tidyverse", "lubridate", "shiny")
 
-# read data
+# データの読み込み
 malaria_data <- rio::import(here::here("data", "malaria_facility_count_data.rds")) %>% 
   as_tibble()
 
-# clean data and pivot longer
+# データをキレイにして縦持ちデータへ変換する
 malaria_data <- malaria_data %>%
   select(-newid) %>%
   pivot_longer(cols = starts_with("malaria_"), names_to = "age_group", values_to = "cases_reported")
 
 
-# define plotting function
+# グラフの描画をする関数を定義する
 plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
   
-  # create plot title
+  # グラフのタイトルを作成する
   if (!("All" %in% district)) {            
     data <- data %>%
       filter(District %in% district)
@@ -388,18 +388,18 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
     
   }
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
   }
   
-  # filter to age group
+  # 年齢群で抽出する
   data <- data %>%
     filter(age_group == agegroup)
   
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -431,9 +431,9 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot") {
 ```
 
 
-Easy! One great feature of shiny is that it will understand what files named _app.R_, _server.R_, _ui.R_, and _global.R_ are for, so there is no need to connect them to each other via any code. So just by having this code in _global.R_ in the directory it will run before we start our app!.  
+簡単ですね！Shiny の良い点の一つは、<ul>app.R</ul>、<ul>servver.R</ul>、<ul>ui.R</ul>、<ul>global.R</ul>と名前がついたファイルを認識してくれることです。そのため、これらのファイルを関係させるためのコードを一切書く必要がありません。このコードを<ul>global.R</ul>に直接記載しておくだけで、アプリの開始時に自動的に実行されます！
 
-We should also note that it would improve our app's organisation if we moved the plotting function to its own file - this will be especially helpful as apps become larger. To do this, we could make another directory called _funcs_, and put this function in as a file called _plot_epicurve.R_. We could then read this function in via the following command in _global.R_
+また、アプリの構成はグラフの描画をする関数を別の独自のファイルに移動させると改善します。これは、アプリが大きくなると非常に役立ちます。これをするには、funcs という名前の別のディレクトリを作成して<ul>plot_epicurve.R</ul>という名前のファイルを作成してそこに関数を保存します。その後、<ul>global.R</ul>から次のコードを利用して関数を読み込みましょう。
 
 ```{r, eval = F}
 
