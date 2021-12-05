@@ -1,14 +1,12 @@
-# Interactive plots
-
-インタラクティブプロット
+# インタラクティブプロット
 
 Data visualisation is increasingly required to be interrogable by the audience. Consequently, is is becoming common to create interactive plots. There are several ways to include these but the two most common are **plotly** and **shiny**.
 
-データビジュアライゼーションでは、視聴者が質問できることがますます求められています。そのため、インタラクティブなプロットを作成することが一般的になっています。これらを組み込む方法はいくつかありますが、最も一般的なのは plotly と shiny の2つです。
+データビジュアライゼーションでは、視聴者が質問できることがますます求められています。そのため、インタラクティブなプロットを作成することが一般的になっています。これらを組み込む方法はいくつかありますが、最も一般的なのは **plotly** と shiny の2つです。
 
 In this page we will focus on converting an existing `ggplot()` plot into an interactive plot with **plotly**. You can read more about **shiny** in the \[Dashboards with Shiny\] page. What is worth mentioning is that interactive plots are only useable in HTML format R markdown documents, not PDF or Word documents.
 
-このページでは、既存の ggplot（）で作成したプロットを plotly でインタラクティブなプロットに変換することに焦点を当てます。shiny については、 \[Dashboards with Shiny\] のページで詳しく説明しています。特筆すべき点は、インタラクティブなプロットは HTML 形式の R マークダウン文書でのみ使用可能であり、PDFやWord文書では使用できないということです。
+このページでは、既存の `ggplot()` で作成したプロットを plotly でインタラクティブなプロットに変換することに焦点を当てます。shiny については、 \[Dashboards with Shiny\] のページで詳しく説明しています。特筆すべき点は、インタラクティブなプロットは HTML 形式の R マークダウン文書でのみ使用可能であり、PDFやWord文書では使用できないということです。
 
 Below is a basic epicurve that has been transformed to be interactive using the integration of **ggplot2** and **plotly** (hover your mouse over the plot, zoom in, or click items in the legend).
 
