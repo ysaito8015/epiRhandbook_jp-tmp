@@ -1,11 +1,18 @@
+# Interactive plots
 
-# Interactive plots { }  
+インタラクティブプロット
 
-Data visualisation is increasingly required to be interrogable by the audience. Consequently, is is becoming common to create interactive plots. There are several ways to include these but the two most common are **plotly** and **shiny**. 
+Data visualisation is increasingly required to be interrogable by the audience. Consequently, is is becoming common to create interactive plots. There are several ways to include these but the two most common are **plotly** and **shiny**.
 
-In this page we will focus on converting an existing `ggplot()` plot into an interactive plot with **plotly**. You can read more about **shiny** in the [Dashboards with Shiny] page. What is worth mentioning is that interactive plots are only useable in HTML format R markdown documents, not PDF or Word documents.
+データビジュアライゼーションでは、視聴者が質問できることがますます求められています。そのため、インタラクティブなプロットを作成することが一般的になっています。これらを組み込む方法はいくつかありますが、最も一般的なのは plotly と shiny の2つです。
 
-Below is a basic epicurve that has been transformed to be interactive using the integration of **ggplot2** and **plotly** (hover your mouse over the plot, zoom in, or click items in the legend). 
+In this page we will focus on converting an existing `ggplot()` plot into an interactive plot with **plotly**. You can read more about **shiny** in the \[Dashboards with Shiny\] page. What is worth mentioning is that interactive plots are only useable in HTML format R markdown documents, not PDF or Word documents.
+
+このページでは、既存の ggplot（）で作成したプロットを plotly でインタラクティブなプロットに変換することに焦点を当てます。shiny については、 \[Dashboards with Shiny\] のページで詳しく説明しています。特筆すべき点は、インタラクティブなプロットは HTML 形式の R マークダウン文書でのみ使用可能であり、PDFやWord文書では使用できないということです。
+
+Below is a basic epicurve that has been transformed to be interactive using the integration of **ggplot2** and **plotly** (hover your mouse over the plot, zoom in, or click items in the legend).
+
+ggplot2 と plotly の統合により、インタラクティブに変換された基本的な流行曲線を以下に示します（プロット上にマウスを置き、ズームインしたり、凡例のアイテムをクリックしたりします）。
 
 ```{r plotly_demo, out.width=c('75%'), out.height=c('500px'), echo=F, warning=F, message=F}
 pacman::p_load(plotly, rio, here, ggplot2, dplyr, lubridate)
@@ -34,12 +41,18 @@ p %>%
 ```
 
 <!-- ======================================================= -->
-## Preparation {  }
 
-### Load packages {.unnumbered}  
+## Preparation
 
-This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
+準備
 
+### Load packages {.unnumbered}
+
+パッケージの読み込み
+
+This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with `library()` from **base** R. See the page on \[R basics\] for more information on R packages.
+
+このコードチャンクは、分析に必要なパッケージの読み込みを示しています。このハンドブックでは必要に応じてパッケージをインストールし、使用することができる pacman の p_load() を推奨します。 インストールされたパッケージは Rのbase パッケージ（以下、base R） の library() でも読み込みができます。Rのパッケージに関する詳細は \[R basics\] のページをご覧ください。
 
 ```{r}
 pacman::p_load(
@@ -52,14 +65,21 @@ pacman::p_load(
   ) 
 ```
 
-### Start with a `ggplot()` {.unnumbered}  
+### Start with a `ggplot()` {.unnumbered}
 
-In this page we assume that you are beginning with a `ggplot()` plot that you want to convert to be interactive. We will build several of these plots in this page, using the case `linelist` used in many pages of this handbook.  
+ggplot()で始める
 
+In this page we assume that you are beginning with a `ggplot()` plot that you want to convert to be interactive. We will build several of these plots in this page, using the case `linelist` used in many pages of this handbook.
+
+このページでは、インタラクティブなプロットに変換したい図表を ggplot() を用いて作成するところから始めることを想定しています。このページでは、このハンドブックの多くのページで使われている linelist を使って、このようなプロットをいくつか作ってみます。
 
 ### Import data {.unnumbered}
 
-To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).  
+データの取り込み
+
+To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the \[Import and export\] page for details).
+
+まず始めに、エボラ出血熱のシミュレーションで得られた症例がクリーニングされたラインリストの取り込みをします。続きをご覧になりたい方は、\<a href='<https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds'> class='download-button'>クリックして「クリーニングされた」ラインリストをダウンロードしてください\</a>（.rdsファイルとして）。rio パッケージの import() 関数を使ってデータの読み込みをします（.xlsx, .csv, .rdsなどの多くのファイルの種類を扱うことができます。
 
 ```{r, echo=F}
 # import the linelist into R
@@ -73,26 +93,30 @@ linelist <- import("linelist_cleaned.rds")
 
 The first 50 rows of the linelist are displayed below.
 
+ラインリストの最初の50行を以下に表示します。
+
 ```{r, message=FALSE, echo=F}
 # display the linelist data as a table
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-
-
-
-
-
-  
 <!-- ======================================================= -->
-## Plot with `ggplotly()` {  }
 
-The function `ggplotly()` from the **plotly** package makes it easy to convert a `ggplot()` to be interactive. Simply save your `ggplot()` and then pipe it to the `ggplotly()` function.  
+## Plot with `ggplotly()`
 
+ggplotly() によるプロット
 
-Below, we plot a simple line representing the proportion of cases who died in a given week:  
+The function `ggplotly()` from the **plotly** package makes it easy to convert a `ggplot()` to be interactive. Simply save your `ggplot()` and then pipe it to the `ggplotly()` function.
 
-We begin by creating a summary dataset of each epidemiological week, and the percent of cases with a known outcome that died.  
+Below, we plot a simple line representing the proportion of cases who died in a given week:
+
+We begin by creating a summary dataset of each epidemiological week, and the percent of cases with a known outcome that died.
+
+plotly パッケージの関数である ggplotly() を使うと、ggplot() をインタラクティブな図表に変換することが簡単にできます。ggplot()を保存して、それをggplotly()関数にパイプするだけです。
+
+下の図は、ある週に死亡した症例の割合を表すシンプルな線をプロットしたものです。
+
+まず、各疫学週のサマリーデータと、結果がわかっている症例のうち死亡した症例の割合を作成します。
 
 ```{r}
 weekly_deaths <- linelist %>%
@@ -103,12 +127,18 @@ weekly_deaths <- linelist %>%
     pct_death = 100*(n_death / n_known_outcome)           # percent of cases with known outcome who died
   )
 ```
-Here is the first 50 rows of the `weekly_deaths` dataset.  
+
+Here is the first 50 rows of the `weekly_deaths` dataset.
+
+weekly_deaths データセットの最初の50行を示します。
 
 ```{r message=FALSE, echo=F}
 DT::datatable(head(weekly_deaths, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
-Then we create the plot with **ggplot2**, using `geom_line()`.  
+
+Then we create the plot with **ggplot2**, using `geom_line()`.
+
+そして、ggplot2 で geom_line() を使ってプロットを作成します。
 
 ```{r, warning=F, message=F}
 deaths_plot <- ggplot(data = weekly_deaths)+            # begin with weekly deaths data
@@ -117,24 +147,39 @@ deaths_plot <- ggplot(data = weekly_deaths)+            # begin with weekly deat
 deaths_plot   # print
 ```
 
+We can make this interactive by simply passing this plot to `ggplotly()`, as below. Hover your mouse over the line to show the x and y values. You can zoom in on the plot, and drag it around. You can also see icons in the upper-right of the plot. In order, they allow you to:
 
-We can make this interactive by simply passing this plot to `ggplotly()`, as below. Hover your mouse over the line to show the x and y values. You can zoom in on the plot, and drag it around. You can also see icons in the upper-right of the plot. In order, they allow you to:  
+-   Download the current view as a PNG image\
+-   Zoom in with a select box\
+-   "Pan", or move across the plot by clicking and dragging the plot\
+-   Zoom in, zoom out, or return to default zoom\
+-   Reset axes to defaults\
+-   Toggle on/off "spike lines" which are dotted lines from the interactive point extending to the x and y axes\
+-   Adjustments to whether data show when you are not hovering on the line
 
-* Download the current view as a PNG image  
-* Zoom in with a select box  
-* "Pan", or move across the plot by clicking and dragging the plot  
-* Zoom in, zoom out, or return to default zoom  
-* Reset axes to defaults  
-* Toggle on/off "spike lines" which are dotted lines from the interactive point extending to the x and y axes  
-* Adjustments to whether data show when you are not hovering on the line  
+このプロットを以下のように ggplotly() に渡すだけで、インタラクティブに表示することができます。線の上にマウスを置くと、x と y の値が表示されます。プロットを拡大したり、ドラッグしたりすることができます。また、プロットの右上には、アイコンが表示されています。順に、以下のことができます。
 
+-   今表示されている図表を PNG 画像としてダウンロードする
+
+-   select box によるズームイン
+
+-   "Pan", つまりプロットをクリックしてドラッグすることでプロットを移動する
+
+-   ズームイン、ズームアウト、またはデフォルトのズームに戻る
+
+-   軸をデフォルトに戻す
+
+-   インタラクティブポイントからx軸、y軸に伸びる点線である "spike lines" のオン/オフを切り替える
+
+-   線上にカーソルを置いていないときにデータを表示するかどうかの調整
 
 ```{r}
 deaths_plot %>% plotly::ggplotly()
 ```
 
-Grouped data work with `ggplotly()` as well. Below, a weekly epicurve is made, grouped by outcome. The stacked bars are interactive. Try clicking on the different items in the legend (they will appear/disappear).  
+Grouped data work with `ggplotly()` as well. Below, a weekly epicurve is made, grouped by outcome. The stacked bars are interactive. Try clicking on the different items in the legend (they will appear/disappear).
 
+グループ化されたデータは、ggplotly() でも動作します。下の図は、結果ごとにグループ化された1週間分の流行曲線を作成したものです。積み上げられた棒はインタラクティブです。凡例の各項目をクリックしてみてください（現れたり消えたりします）。
 
 ```{r plot_show, eval=F}
 # Make epidemic curve with incidence2 pacakge
@@ -149,19 +194,26 @@ p <- incidence2::incidence(
 # Plot interactively  
 p %>% plotly::ggplotly()
 ```
-  
+
 ```{r, warning = F, message = F, , out.width=c('95%'), out.height=c('500px'), echo=FALSE}
 p %>% 
   ggplotly() %>% 
   partial_bundle() 
 ```
-  
+
 <!-- ======================================================= -->
-## Modifications {  }
 
-### File size {.unnumbered}  
+## Modifications
 
-When exporting in an R Markdown generated HTML (like this book!) you want to make the plot as small data size as possible (with no negative side effects in most cases). For this, just pipe the interactive plot to `partial_bundle()`, also from **plotly**.  
+修正
+
+### File size {.unnumbered}
+
+ファイルサイズ
+
+When exporting in an R Markdown generated HTML (like this book!) you want to make the plot as small data size as possible (with no negative side effects in most cases). For this, just pipe the interactive plot to `partial_bundle()`, also from **plotly**.
+
+R Markdown で生成された HTML にエクスポートする場合（本書のように！）、プロットをできるだけ小さなデータサイズにしたい（ほとんどの場合、悪影響はない）。そのためには、インタラクティブなプロットを plotly の partial_bundle() にパイプします。
 
 ```{r plot_tidyshow, eval=F}
 p <- p %>% 
@@ -169,9 +221,13 @@ p <- p %>%
   plotly::partial_bundle()
 ```
 
-### Buttons {.unnumbered}  
+### Buttons {.unnumbered}
 
-Some of the buttons on a standard plotly are superfluous and can be distracting, so you can remove them. You can do this simply by piping the output into `config()` from **plotly** and specifying which buttons to remove. In the below example we specify in advance the names of the buttons to remove, and provide them to the argument `modeBarButtonsToRemove = `. We also set `displaylogo = FALSE` to remove the plotly logo.  
+ボタン
+
+Some of the buttons on a standard plotly are superfluous and can be distracting, so you can remove them. You can do this simply by piping the output into `config()` from **plotly** and specifying which buttons to remove. In the below example we specify in advance the names of the buttons to remove, and provide them to the argument `modeBarButtonsToRemove =`. We also set `displaylogo = FALSE` to remove the plotly logo.
+
+標準的な plotly のボタンの中には、余計なものや邪魔なものがあるので、それらを取り除くことができます。これは、plotly の config() の出力をパイプでつなぎ、削除するボタンを指定するだけでできます。以下の例では、削除するボタンの名前をあらかじめ指定し、引数の modeBarButtonsToRemove = に与えています。 また、displaylogo = FALSE とすることで、 plotly のロゴを削除しています。
 
 ```{r plot_tidyshow2, eval=F}
 ## these buttons are distracting and we want to remove them
@@ -183,14 +239,19 @@ p <- p %>%          # re-define interactive plot without these buttons
   plotly::config(displaylogo = FALSE, modeBarButtonsToRemove = plotly_buttons_remove)
 ```
 
-
-
 <!-- ======================================================= -->
-## Heat tiles {  }
 
-You can make almost any `ggplot()` plot interactive, including heat tiles. In the page on [Heat plots] you can read about how to make the below plot, which displays the proportion of days per week that certain facilities reported data to their province.  
+## Heat tiles
 
-Here is the code, although we will not describe it in depth here.  
+ヒートタイル
+
+You can make almost any `ggplot()` plot interactive, including heat tiles. In the page on \[Heat plots\] you can read about how to make the below plot, which displays the proportion of days per week that certain facilities reported data to their province.
+
+Here is the code, although we will not describe it in depth here.
+
+ggplot() では、ヒートタイルを含むほとんどのプロットをインタラクティブにすることができます。\[ヒートプロット\] のページでは、ある施設が国にデータを報告した週の日数の割合を表示するプロットの作成方法について説明しています。
+
+ここでは詳細な説明はしませんが、コードを紹介します。
 
 ```{r  message=F, warning=F}
 # import data
@@ -248,7 +309,9 @@ metrics_plot <- ggplot(agg_weeks,
 metrics_plot # print
 ```
 
-Below, we make it interactive and modify it for simple buttons and file size.  
+Below, we make it interactive and modify it for simple buttons and file size.
+
+以下では、それをインタラクティブにして、シンプルなボタンやファイルサイズに合わせて修正しています。
 
 ```{r,  out.width=c('95%'), out.height=c('500px')}
 metrics_plot %>% 
@@ -274,61 +337,91 @@ metrics_plot %>%
 <!-- GeoJSON files are stored in R as complex lists and you'll need to maipulate them a little. -->
 
 <!-- ```{r, echo=T,} -->
+
 <!-- ## You need two new packages: {rjson} and {purrr} -->
+
 <!-- pacman::p_load(plotly, rjson, purrr) -->
 
 <!-- ## This is a simplified version of the WHO data -->
+
 <!-- df <- rio::import(here::here("data", "gis", "covid_incidence.csv")) -->
 
 <!-- ## Load your geojson file -->
+
 <!-- geoJSON <- rjson::fromJSON(file=here::here("data", "gis", "africa_countries.geo.json")) -->
 
 <!-- ## Here are some of the properties for each element of the object -->
+
 <!-- head(geoJSON$features[[1]]$properties) -->
 
 <!-- ``` -->
 
-
 <!-- This is the tricky part. For {**plotly**} to match your incidence data to GeoJSON, the countries in the geoJSON need an id in a specific place in the list of lists. For this we need to build a basic function: -->
+
 <!-- ```{r} -->
+
 <!-- ## The property column we need to choose here is "sovereignt" as it is the names for each country -->
+
 <!-- give_id <- function(x){ -->
 
 <!--   x$id <- x$properties$sovereignt  ## Take sovereignt from properties and set it as the id -->
 
 <!--   return(x) -->
+
 <!-- } -->
 
 <!-- ## Use {purrr} to apply this function to every element of the features list of the geoJSON object -->
+
 <!-- geoJSON$features <- purrr::map(.x = geoJSON$features, give_id) -->
+
 <!-- ``` -->
 
-<!-- <!-- ======================================================= --> -->
-<!-- ### Maps - plot {  } -->
+<!-- <!-- ======================================================= -->
+
+--> <!-- ### Maps - plot {  } -->
 
 <!-- UNDER CONSTRUCTION -->
 
 <!-- ```{r, echo=FALSE, eval=FALSE, out.width=c('95%'), out.height=c('500px'),warning=F} -->
+
 <!-- plotly::plot_ly() %>%  -->
+
 <!--   plotly::add_trace(                    #The main plot mapping functionn -->
+
 <!--     type="choropleth", -->
+
 <!--     geojson=geoJSON, -->
+
 <!--     locations=df$Name,          #The column with the names (must match id) -->
+
 <!--     z=df$Cumulative_incidence,  #The column with the incidence values -->
+
 <!--     zmin=0, -->
+
 <!--     zmax=57008, -->
+
 <!--     colorscale="Viridis", -->
+
 <!--     marker=list(line=list(width=0)) -->
+
 <!--   ) %>% -->
+
 <!--   colorbar(title = "Cases per million") %>% -->
+
 <!--   layout(title = "Covid-19 cumulative incidence", -->
+
 <!--                  geo = list(scope = 'africa')) %>%  -->
+
 <!--   config(displaylogo = FALSE, modeBarButtonsToRemove = plotly_buttons_remove) -->
+
 <!-- ``` -->
 
 <!-- ======================================================= -->
-## Resources {  }
+
+## Resources
+
+リソース
 
 Plotly is not just for R, but also works well with Python (and really any data science language as it's built in JavaScript). You can read more about it on the [plotly website](https://plotly.com/r/)
 
-
+Plotly はR だけではなく、Python （ JavaScript で作られているため、実際にはあらゆるデータサイエンスで用いられている言語）でも動作します。詳しくは plotly のウェブサイトをご覧ください。
