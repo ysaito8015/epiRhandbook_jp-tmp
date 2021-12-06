@@ -104,7 +104,7 @@ ggplot(data = linelist, mapping = aes(x = hospital))+
 
 ### スケール {#ggplot_tips_scales .unnumbered}  
 
-列をエステティクスに対応させると（例 `x = `、`y = `、`fill = `、`color = `...）、 図にスケールとレジェンドが加わります。上記の例を見ると、スケールが連続数、離散数、日付など、スケールが対応する列のクラスによって変化する様子が分かると思います。列に対応するエステティクスが複数あるときは、スケールもその数だけ存在します。
+列をエステティクスに対応させると（例 `x = `、`y = `、`fill = `、`color = `...）、 図にスケールと凡例が加わります。上記の例を見ると、スケールが連続数、離散数、日付など、スケールが対応する列のクラスによって変化する様子が分かると思います。列に対応するエステティクスが複数あるときは、スケールもその数だけ存在します。
 
 スケールは一連の `scales_()` 関数を使うことで操作することができます。これらの関数は `scale_AESTHETIC_METHOD()` のように、3 つの部分からなります：  
 
@@ -167,13 +167,13 @@ ggplot(data = linelist)+
   scale_fill_manual(                  # fillの色をマニュアル指定する（バー内部の色）
     values = c("m" = "violetred",     # 色の指定
                "f" = "aquamarine"),
-    labels = c("m" = "Male",          # レジェンドの表記を変更（"="を使い間違いをなくす）
+    labels = c("m" = "Male",          # 凡例の表記を変更（"="を使い間違いをなくす）
               "f" = "Female",
               "Missing"),
-    name = "Gender",                  # レジェンドタイトル
+    name = "Gender",                  # 凡例タイトル
     na.value = "grey"                 # 欠測地の色を指定
   )+
-  labs(title = "Adjustment of scales") # fillレジェンドのタイトルを設定
+  labs(title = "Adjustment of scales") # fill凡例のタイトルを設定
 ```
 
 ### 連続数の座標軸スケール {.unnumbered}  
@@ -333,7 +333,7 @@ trans_matrix +
     low = "aquamarine",    # 低い値の色
     high = "purple",       # 高い値の色
     na.value = "grey",     # NAの色
-    name = "Density")+     # レジェンドタイトル
+    name = "Density")+     # 凡例タイトル
   labs(title = "Manually specify high/low colors")
 
 # 3色以上の指定
@@ -550,7 +550,7 @@ ggMarginal(
 * `size = ` を `aes()` の外側で設定することで文字サイズを指定できます。
 * `force = `によりラベルとデータポイント間をどの程度離すかを設定できます（初期設定は 1 ）。
 * `fill = `を `aes()` 内で設定することでラベルの色を指定できます。
-  * その場合、レジェンドには文字 "a" が表示されますが、これは `guides(fill = guide_legend(override.aes = aes(color = NA)))` により除くことができます。
+  * その場合、凡例には文字 "a" が表示されますが、これは `guides(fill = guide_legend(override.aes = aes(color = NA)))` により除くことができます。
 
 より詳細なチュートリアルは[こちら](https://ggrepel.slowkow.com/articles/examples.html)を参照してください。
 
@@ -606,7 +606,7 @@ ggplot()+
       label = stringr::str_glue("Delay: {days_onset_hosp}d")), # str_glue()によりラベルを作成
     min.segment.length = 0) +                                  # 全てのデータポイントとラベル間に線を表示
   
-  # レジェンド内の文字"a"を削除
+  # 凡例内の文字"a"を削除
   guides(fill = guide_legend(override.aes = aes(color = NA)))+
   
   # 座標軸のラベル
@@ -653,7 +653,7 @@ ggplot(linelist, aes(x = date_onset)) +
 
 図中の特定の要素を強調することで、全てのデータポイントを表示しつつ、任意の変数や事象について注意を引くことができます。これについて **ggplot2** の基本関数はあまり得意ではありませんが、追加パッケージ **gghighlight** により簡単に行うことができます。このパッケージは ggplot の基本構文と容易に組み合わせることができます。
 
-**gghighlight** パッケージの `gghighlight()` 関数を用います。入力には論理分を用います – これにより様々な要素を強調した図を作成することができますが、ここではラインリストから年齢の分布を、臨床結果を強調しながら図示してみましょう。
+**gghighlight** パッケージの `gghighlight()` 関数を用いることでこの効果を得ることができます。この関数を利用するには、ロジカル型の結果となる構文を用います – これにより様々な要素を強調した図を作成することができますが、ここではラインリストから年齢の分布を、臨床結果を強調しながら図示してみましょう。
 
 ```{r, , warning=F, message=F}
 # gghighlightを読み込む
@@ -672,7 +672,7 @@ ggplot(
 
 ```
 
-これはファセットプロットとの相性も良いです – ファセットに用いた変数を図ごとに強調することができます！以下では週ごとの症例数を用いて流行曲線を作成し、病院ごとに分けて描画します（`color = `と `facet_wrap()` に `hospital` を設定）。
+これは、グラフのファセットを作成する関数との相性も良いです – ファセットに用いた変数を図ごとに強調することができます！以下では週ごとの症例数を用いて流行曲線を作成し、病院ごとに分けて描画します（`color = `と `facet_wrap()` に `hospital` を設定）。
 
 ```{r, , warning=F, message=F}
 
@@ -726,7 +726,7 @@ pacman::p_load(
 
 ### `plot_grid()` {.unnumbered}
 
-**cowplot** パッケージには多くの関数がありますが、そのうち最も使いやすいものが `plot_grid()` です。この関数は、複数の図をグリッドにそって並べることができます。ここではマラリアデータセットを使って、地区毎の症例数、および時間毎の流行曲線を並べて図示する例を見ていきます。
+**cowplot** パッケージには多くの関数がありますが、そのうち最も使いやすいものが `plot_grid()` です。この関数は、複数のすでに作成された図を格子状に並べることができます。ここではマラリアデータセットを使って、地区毎の症例数、および時間毎の流行曲線を並べて図示する例を見ていきます。
 
 
 ```{r, , warning=F, message=F}
@@ -766,17 +766,17 @@ cowplot::plot_grid(p1, p2,
 
 ### 凡例を組み合わせる {.unnumbered}  
 
-もし複数の図が同じ凡例を持つ場合、それらを統合することは比較的単純です。上記の例と同様 **cowplot** により図を組み合わせ、そのうちの 1 つを残してレジェンドを取り除きます。
+もし複数の図が同じ凡例を持つ場合、それらを統合することは比較的単純です。上記の例と同様 **cowplot** により図を組み合わせ、そのうちの 1 つを残して凡例を取り除きます（重複を除きます）。
 
-複数の図が異なるレジェンドを持つ場合は、以下のアプローチを取ります：
+複数の図が異なる凡例を持つ場合は、別のアプローチを取ります：
 
-1) `theme(legend.position = "none")` を用いてレジェンドを持たない図を作成する。
-2) 以下の例のように `get_legend()` を用いて各図 – <u>レジェンドを表示するよう変更したもの</u> - からレジェンドを抜き出す。
-3) 抽出したレジェンドをレジェンドパネルにまとめる。 
-4) 図とレジェンドパネルを組み合わせる。
+1) `theme(legend.position = "none")` を用いて凡例を持たない図を作成する。
+2) 以下の例のように `get_legend()` を用いて各図 – <u>判例を表示するよう変更したもの</u> - から凡例を抜き出す。
+3) 抽出した判例を反例凡例パネルにまとめる。 
+4) 図と凡例パネルを組み合わせる。
 
 
-先ずは、2 つの図をレジェンドを統合せずに組み合わせます（美しくなく非効率なスペースの使い方）：
+例として 2 つの図を別々に作成してからそれぞれの凡例を表示したまま格子状に（美しなく非効率的なスペースの使い方で）並べてみます：
 
 ```{r, out.width=c('50%'), fig.show='hold', warning=F, message=F}
 p1 <- linelist %>% 
@@ -803,7 +803,7 @@ p2 <- linelist %>%
 
 ```
 
-`plot_grid()` でレジェンドはそのままに図を組み合わせます：  
+次が 2 つのグラフが、凡例をまとめずに plot_grid() を利用した場合にどのような表現になるかを示します：
 
 ```{r, warning=F, message=F}
 cowplot::plot_grid(p1, p2, rel_widths = c(0.3))
@@ -813,7 +813,7 @@ cowplot::plot_grid(p1, p2, rel_widths = c(0.3))
 
 ```{r, warning=F, message=F}
 
-# レジェンドなし図1を作成
+# 凡例なし図1を作成
 p1 <- linelist %>% 
   mutate(hospital = recode(hospital, "St. Mark's Maternity Hospital (SMMH)" = "St. Marks")) %>% 
   count(hospital, outcome) %>% 
@@ -826,7 +826,7 @@ p1 <- linelist %>%
   labs(title = "Cases by outcome")
 
 
-# レジェンドなし図2を作成
+# 凡例なし図2を作成
 p2 <- linelist %>% 
   mutate(hospital = recode(hospital, "St. Mark's Maternity Hospital (SMMH)" = "St. Marks")) %>% 
   count(hospital, age_cat) %>% 
@@ -843,24 +843,24 @@ p2 <- linelist %>%
   labs(title = "Cases by age")
 
 
-# p1（p1 + レジェンド）からレジェンドを抜き出す
+# p1（p1 + 凡例）から凡例を抜き出す
 leg_p1 <- cowplot::get_legend(p1 +
-                                theme(legend.position = "right",        # レジェンドの抜き出し
-                                      legend.justification = c(0,0.5))+ # レジェンドの配列
-                                labs(fill = "Outcome"))                 # レジェンドタイトル
-# p2（p2 + レジェンド）からレジェンドを抜き出す
+                                theme(legend.position = "right",        # 凡例の抜き出し
+                                      legend.justification = c(0,0.5))+ # 凡例の配列
+                                labs(fill = "Outcome"))                 # 凡例タイトル
+# p2（p2 + 凡例）から凡例を抜き出す
 leg_p2 <- cowplot::get_legend(p2 + 
-                                theme(legend.position = "right",         # レジェンドの抜き出し
-                                      legend.justification = c(0,0.5))+  # レジェンドの配列
-                                labs(fill = "Age Category"))             # レジェンドタイトル
+                                theme(legend.position = "right",         # 凡例の抜き出し
+                                      legend.justification = c(0,0.5))+  # 凡例の配列
+                                labs(fill = "Age Category"))             # 凡例タイトル
 
-# レジェンド配置用の空白図を作成
+# 凡例配置用の空白図を作成
 #blank_p <- patchwork::plot_spacer() + theme_void()
 
-# レジェンドパネルを作成。2つのレジェンドを上下に組み合わせる（もしくは上記コメント中のplot_spacer()を用いる）
+# 凡例パネルを作成。2つの凡例を上下に組み合わせる（もしくは上記コメント中のplot_spacer()を用いる）
 legends <- cowplot::plot_grid(leg_p1, leg_p2, nrow = 2, rel_heights = c(.3, .7))
 
-# 2つの図とレジェンドパネルを組み合わせる
+# 2つの図と凡例パネルを組み合わせる
 combined <- cowplot::plot_grid(p1, p2, legends, ncol = 3, rel_widths = c(.4, .4, .2))
 
 combined  # 図を表示
@@ -868,13 +868,13 @@ combined  # 図を表示
 
 ```
 
-上記のアプローチは[こちらのポスト](https://stackoverflow.com/questions/52060601/ggplot-multiple-legends-arrangement)を参照し、 レジェンド配置のための小さな修正を[こちら](https://github.com/wilkelab/cowplot/issues/33)を参考に加えています。
+上記のアプローチは[こちらのポスト](https://stackoverflow.com/questions/52060601/ggplot-multiple-legends-arrangement)を参照し、 凡例配置のための小さな修正を[こちら](https://github.com/wilkelab/cowplot/issues/33)を参考に加えています。
 
 
 <span style="color: darkgreen;">**_コラム：_****cowplot** の "cow" は **cowplot** パッケージ製作者の名前 - Claus O. Wilke - から来ています。</span>  
 
 
-### 図の中に図を挿入する {.unnumbered} 
+### 図中に図を挿入する {.unnumbered} 
 
 **cowplot** では図の内部にさらに違う図を表示することもできます。使用に際していくつかの注意点があります：
 
@@ -1129,8 +1129,8 @@ scales::scientific(100000)
 [ggplot2 の変数の並べ替え](https://www.r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html)  
 [データサイエンスのための R - ファクター](https://r4ds.had.co.nz/factors.html)  
 
-レジェンド  
-[レジェンドの並べ替え](https://stackoverflow.com/questions/38425908/reverse-stacking-order-without-affecting-legend-order-in-ggplot2-bar-charts)  
+凡例  
+[凡例の並べ替え](https://stackoverflow.com/questions/38425908/reverse-stacking-order-without-affecting-legend-order-in-ggplot2-bar-charts)  
 
 キャプション
 [キャプションの整列](https://stackoverflow.com/questions/64701500/left-align-ggplot-caption)  
