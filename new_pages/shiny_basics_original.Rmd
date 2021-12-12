@@ -604,7 +604,7 @@ tags$ol(
 - `br()` and `hr()` - these tags create *linebreaks* and *horizontal lines* (with a linebreak) respectively. Use them to separate out the sections of your app and text! There is no need to pass any items to these tags (parentheses can remain empty).
 
 
-- `div()` - this is a *generic* tag that can *contain anything*, and can be *named anything*. Once you progress with ui design, you can use these to compartmentalize your ui, give specific sections specific styles, and create interactions between the server and UI elements. We won't go into these in detail, but they're worth being aware of!
+- `div()` - this is a *generic* tag that can *contain anything*, and can be *named anything*. Once you progress with ui design, you can use 詳細は省きますが、知っておいて損はありません。tyles, and create interactions between the server and UI elements. We won't go into these in detail, but they're worth being aware of!
 
 Note that every one of these objects can be accessed through `tags$...` or for some, just the function. These are effectively synonymous, but it may help to use the `tags$...` style if you'd rather be more explicit and not overwrite the functions accidentally. This is also by no means an exhaustive list of tags available. There is a full list of all tags available in shiny  [here](https://shiny.rstudio.com/articles/tag-glossary.html) and even more can be used by inserting HTML directly into your ui!
 
