@@ -767,9 +767,9 @@ ui <- fluidPage(
 
 ```
  
-Note that we've also added in a `hr()` tag - this adds a horizontal line separating our control widgets from our download widgets. This is another one of the HTML tags that we discussed previously.
+`hr()` タグを追加したことに注意してください。これは、ダウンロードウィジェットを操作ウィジェットから分離させる水平線を追加します。これは、先に紹介した HTML タグの一つです。
 
-Now that we have our ui ready, we need to add the server component. Downloads are done in the server with the `downloadHandler()` function. Similar to our plot, we need to attach it to an output that has the same inputId as the download button. This function takes two arguments - `filename` and `content` - these are both functions. As you might be able to guess, `filename` is used to specify the name of the downloaded file, and `content` is used to specify what should be downloaded. `content` contain a function that you would use to save data locally - so if you were downloading a csv file you could use `rio::export()`. Since we're downloading a plot, we'll use `ggplot2::ggsave()`. Lets look at how we would program this (we won't add it to the server yet). 
+ui が準備できたので、サーバー関数に要素を追加しなければなりません。ダウンロードは、サーバー関数内の `downloadHandler()` 関数を利用して行われます。図でやったように、ダウンロードボタンと同じ inputId をもつ output に割り当てなければなりません。この関数は引数を二つ必要とします。`filename` と `content` です。これら二つとも関数として指定します。推測することが可能かもしれませんが、`filename` はダウンロードするファイルの名前を指定し、`content` は何がダウンロードするかを指定します。`content` はローカル環境に保存するデータを含みます。そのため、 csv ファイルをダウンロードする場合は、`rio::export()` を利用します。ここでは、図をダウンロードするので、`ggplot2::ggsave() `を利用します。これをどのようにプログラムするか見ていきましょう（サーバーにはまだ追加しません）。
 
 ```{r, eval = FALSE}
 
@@ -798,14 +798,14 @@ server <- function(input, output, session) {
 ```
 
 
-Note that the `content` function always takes a `file` argument, which we put where the output file name is specified. You might also notice that we're repeating code here - we are using our `plot_epicurve()` function twice in this server, once for the download and once for the image displayed in the app. While this wont massively affect performance, this means that the code to generate this plot will have to be run when the user changes the widgets specifying the district and age group, *and* again when you want to download the plot. In larger apps, suboptimal decisions like this one will slow things down more and more, so it's good to learn how to make our app more efficient in this sense. What would make more sense is if we had a way to run the epicurve code when the districts/age groups are changes, *and let that be used by* the renderPlot() and downloadHandler() functions. This is where reactive conductors come in! 
+なお、`content` 関数は常に `file` という引数を取り、出力するファイルを指定された場所に保存します。また、ここではコードを繰り返していることに気づいたかもしれません。`plot_epicurve()` 関数をサーバー関数内で、ダウンロードのためと描画のために二回利用しています。このことはアプリのパフォーマンスを劇的に低下させるようなことはありませんが、ユーザーが地区と年齢の設定をウィジェットから変更した場合<ul>と</ul>、ダウンロードをした場合にコードが実行されてしまいます。大規模なアプリでは、このような最適でないコードが繰り返されることで、じょじょにアプリ全体が重くなっていきます。そのため、この観点からアプリをより効率化する方法を学んでおくことは推奨されます。この方法をより理解しやすく言い換えるとすると、地区／年齢が変更されたときにエピカーブを描画するコードを実行させて、 renderPlot() と downloadHandler() 関数に<ul>その結果を利用させる</ul>ということです。ここで、リアクティブコンダクターが登場します！
 
-Reactive conductors are objects that are created in the shiny server in a *reactive* way, but are not outputted - they can just be used by other parts of the server. There are a number of different kinds of *reactive conductors*, but we'll go through the basic two.
+リアクティブコンダクターは shiny サーバー関数内のリアクティブなオブジェクトです。しかし、それは出力はされません。ただ、サーバー関数内の別の部分に利用されるだけです。<ul>リアクティブコンダクター</ul>には沢山の種類がありますが、ここでは、基本となる二種類だけを見ていきます。
 
-1.`reactive()` - this is the most basic reactive conductor - it will react whenever any inputs used inside of it change (so our district/age group widgets)  
-2. `eventReactive()`- this rective conductor works the same as `reactive()`, except that the user can specify which inputs cause it to rerun. This is useful if your reactive conductor takes a long time to process, but this will be explained more later.  
+1.`reactive()` - これが最も基本的なリアクティブコンダクターです。これはこの中の input が変更されるたびに反応します（今作成しているアプリでの例では地区／年齢を指定するウィジェットです）。  
+2. `eventReactive()`- これは `reactive()` と同様な機能をもつリアクティブコンダクターです。違う点は、どの input がこれを反応させるかを指定できるという点です。これは、リアクティブコンダクターの処理に時間がかかるような場合に便利ですが、後で詳しく説明します。  
 
-Lets look at the two examples:
+二つの例をみてみましょう：
 
 ```{r, eval = FALSE}
 
@@ -816,7 +816,7 @@ malaria_plot_r <- reactive({
 })
 
 
-# only runs when the district selector changes!
+# 地区の選択が変更されたときにのみ実行
 malaria_plot_er <- eventReactive(input$select_district, {
   
   plot_epicurve(malaria_data, district = input$select_district, agegroup = input$select_agegroup)
@@ -827,9 +827,9 @@ malaria_plot_er <- eventReactive(input$select_district, {
 
 ```
 
-When we use the `eventReactive()` setup, we can specify which inputs cause this chunk of code to run - this isn't very useful to us at the moment, so we can leave it for now. Note that you can include multiple inputs with `c()`
+`eventReactive()` を使う場合、どの input がこの関数ないのコードを実行させるかを指定できます。今の状況ではそれほど便利ではないので、置いておきましょう。注：`c()` を利用して複数の input を指定することもできます。
 
-Lets look at how we can integrate this into our server code:
+この機能をサーバー関数内に組み込む方法を見てみましょう：
 
 
 ```{r, eval = FALSE}
@@ -865,7 +865,7 @@ server <- function(input, output, session) {
 
 ```
 
-You can see we're just calling on the output of our reactive we've defined in both our download and plot rendering functions. One thing to note that often trips people up is you have to use the outputs of reactives as if they were functions - so you *must add empty brackets at the end of them* (i.e. `malaria_plot()` is correct, and `malaria_plot` is not). Now that we've added this solution our app is a little tidyer, faster, and easier to change since all our code that runs the epicurve function is in one place.
+ダウンロード関数とプロットレンダリング関数の両方で reactive で定義したものの結果を呼び出しているだけであることがわかります。注意しなければならない、多くの人が引っかかるのが、 reactive の結果の使い方で、関数のように利用しなければならないということです。呼び出すには、<ul>空のカッコを最後につける</ul>ことが必須です（例：`malaria_plot()`は正しく、`malaria_plot` は間違いです）。この部分を追加したことで、アプリは少し整理され、速くなり、epicurve 関数を実行するすべてのコードが一つの場所にあるため、変更も容易になりました。
 
 
 ```{r, echo=F}
@@ -873,9 +873,9 @@ knitr::include_graphics(here::here("images", "shiny", "download_button_view.png"
 ```
 
 
-### Adding a facility selector {.unnumbered}  
+### 施設の選択を追加する {.unnumbered}  
 
-Lets move on to our next feature - a selector for specific facilities. We'll implement another parameter into our function so we can pass this as an argument from our code. Lets look at doing this first - it just operates off the same principles as the other parameters we've set up. Lets update and test our function.
+次の機能に進みましょう。施設を選択するためのセレクターの追加です。`plot_epicurve` 関数が、施設を選択した結果を受け取ることができるように、別のパラメターをとれるように実装していきます。これは、別のパラメターでやったことを繰り返せばよいです。新しくして、テストしてみましょう。
 
 
 ```{r, echo = TRUE}
@@ -894,7 +894,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
     
   }
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -904,7 +904,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
     filter(age_group == agegroup)
   
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -928,7 +928,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
     
   }
   
-  # if no remaining data, return NULL
+  # データが残っていなければNULLを返す
   if (nrow(data) == 0) {
     
     return(NULL)
@@ -951,7 +951,7 @@ plot_epicurve <- function(data, district = "All", agegroup = "malaria_tot", faci
 }
 ```
 
-Let's test it:  
+試して見ましょう：
 
 ```{r, warning=F, message=F}
 
@@ -960,7 +960,8 @@ plot_epicurve(malaria_data, district = "Spring", agegroup = "malaria_rdt_0-4", f
 ```
 
 
-With all the facilites in our data, it isn't very clear which facilities correspond to which districts - and the end user won't know either. This might make using the app quite unintuitive. For this reason, we should make the facility options in the UI change dynamically as the user changes the district - so one filters the other! Since we have so many variables that we're using in the options, we might also want to generate some of our options for the ui in our _global.R_ file _from the data_. For example, we can add this code chunk to _global.R_ after we've read our data in:
+全ての施設がデータに含まれているため、どの地区にどの施設が含まれているかは明確ではありません。これは、ユーザーももちろん同様です。このことは、このアプリの利用をひどく不親切なものとするかもしれません。そのため、ユーザーが地区を選択すると、施設の UI の内容が
+動的に変化するようにするべきです。選択肢として使用する変数が非常に多いので、ui の選択肢の一部を、<ul>global.R</ul> ファイルの中でデータから生成してもいいかもしれません。例えば、次のようなコードを <ul>global.R</ul> ファイルのデータを読み込んだ部分の後に追加してもよいでしよう：
 
 
 
@@ -968,7 +969,7 @@ With all the facilites in our data, it isn't very clear which facilities corresp
 
 all_districts <- c("All", unique(malaria_data$District))
 
-# data frame of location names by district
+# 地区毎の施設名
 facility_list <- malaria_data %>%
   group_by(location_name, District) %>%
   summarise() %>% 
@@ -976,7 +977,7 @@ facility_list <- malaria_data %>%
 
 ```
 
-Let's look at them:  
+眺めてみましょう：
 
 ```{r}
 all_districts
@@ -988,7 +989,7 @@ facility_list
 ```
 
 
-We can pass these new variables to the ui without any issue, since they are globally visible by both the server and the ui! Lets update our UI:
+この新しい変数は、サーバー関数と ui から見える状態となっているため、ui に特に問題なく渡すことができます。UI も更新しておきましょう：
 
 
 ```{r, eval = FALSE}
@@ -1001,7 +1002,7 @@ ui <- fluidPage(
   sidebarLayout(
 
     sidebarPanel(
-         # selector for district
+         # 地区の選択
          selectInput(
               inputId = "select_district",
               label = "Select district",
@@ -1009,7 +1010,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = FALSE
          ),
-         # selector for age group
+         # 年齢の選択
          selectInput(
               inputId = "select_agegroup",
               label = "Select age group",
@@ -1022,7 +1023,7 @@ ui <- fluidPage(
               selected = "All",
               multiple = FALSE
          ),
-         # selector for facility
+         # 施設の選択
          selectInput(
            inputId = "select_facility",
            label = "Select Facility",
@@ -1030,7 +1031,7 @@ ui <- fluidPage(
            selected = "All"
          ),
          
-         # horizontal line
+         # 水平線
          hr(),
          downloadButton(
            outputId = "download_epicurve",
@@ -1040,7 +1041,7 @@ ui <- fluidPage(
     ),
 
     mainPanel(
-      # epicurve goes here
+      # エピカーブ
       plotOutput("malaria_epicurve"),
       br(),
       hr(),
@@ -1064,19 +1065,19 @@ ui <- fluidPage(
 ```
 
 
-Notice how we're now passing variables for our choices instead of hard coding them in the ui! This might make our code more compact as well! Lastly, we'll have to update the server. It will be easy to update our function to incorporate our new input (we just have to pass it as an argument to our new parameter), but we should remember we also want the ui to update dynamically when the user changes the selected district. It is important to understand here that we *can change the parameters and behaviour of widgets* while the app is running, but this needs to be done *in the server*. We need to understand a new way to output to the server to learn how to do this.
+選択肢を UI の中に直接記載（ハードコーディング）するのではなく、変数を利用して指定していることに注目してください。これにより、コードがよりコンパクトになる可能性もあります。最後に、サーバー関数を更新しましょう。新しい入力を取り込むために関数を更新するのは簡単ですが（新しいパラメータに引数として渡すだけです）、ユーザーが選択した地区を変更したときに UI を動的に更新することも忘れてはなりません。ここで理解していただきたいのは、アプリの実行中にウィジェット<ul>のパラメータや動作を変更する</ul>ことはできますが、これは<ul>サーバー関数</ul>の中で行う必要があるということです。この方法を学ぶためには、サーバーに出力する新しい方法を理解する必要があります。
 
-The functions we need to understand how to do this are known as *observer* functions, and are similar to *reactive* functions in how they behave. They have one key difference though:
+この方法を理解するために必要な関数は、<ul>observer</ul> 関数と呼ばれ、その振る舞いは <ul>reactive</ul> 関数と似ています。しかし、この二つには重要な違いが一つあります。
 
-- Reactive functions do not directly affect outputs, and produce objects that can be seen in other locations in the server
-- Observer functions *can* affect server outputs, but do so via side effects of other functions. (They can also do other things, but this is their main function in practice)
+- reactive 関数は出力に直接影響を与えず、サーバー関数内の他の場所で呼び出すことができるオブジェクトを生成します
+- observer 関数は サーバー関数の output に影響を与えることが<ul>できます</ul>が、それは他の関数の副作用によって行われます（他のこともできますが、実際にはこれが主な機能です）。
 
-Similar to reactive functions, there are two flavours of observer functions, and they are divided by the same logic that divides reactive functions:
+reactive 関数と同様に、oserver 関数にも二つの種類があり、reacive 関数と同じ仕組みで分けられています。
 
-1. `observe()` - this function runs whenever any inputs used inside of it change
-2. `observeEvent()` - this function runs when a *user-specified* input changes
+1. `observe()` - この関数は、内部で使用されている input が変化するたびに実行されます。
+2. `observeEvent()` - この関数は<ul>設定された input</ul> が変化する度に実行されます。
 
-We also need to understand the shiny-provided functions that update widgets. These are fairly straightforward to run - they first take the `session` object from the server function (this doesn't need to be understood for now), and then the `inputId` of the function to be changed. We then pass new versions of all parameters that are already taken by `selectInput()` - these will be automatically updated in the widget. 
+Shiny で提供されているウィジェットを更新する関数についての理解も必要です。これらは、かなり簡単に実行できます。サーバー関数の `session` オブジェクト（今は理解できなくても問題ありません）を一つ目の引数としてとしてとり、二つ目に変更したい ui の `inputId`をとります。 We then pass new versions of all parameters that are already taken by `selectInput()` - these will be automatically updated in the widget. 
 
 Lets look at an isolated example of how we could use this in our server. When the user changes the district, we want to filter our tibble of facilities by district, and update the choices to *only reflect those that are available in that district* (and an option for all facilities)
 
