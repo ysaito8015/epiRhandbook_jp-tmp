@@ -1362,40 +1362,40 @@ knitr::include_graphics(here::here("images", "shiny", "app_table_view.gif"))
 
 <ul>アカウントへのサインアップ</ul>
 
-Once you have your account, you can navigate to the tokens page under _Accounts_. Here you will want to add a new token - this will be used to deploy your app. 
+アカウントを取得したら、<ul>Accounts</ul>にあるトークンのページに移動できます。ここでは、新しいトークンを追加します。これは、アプリのデプロイ<!--nishida：後に訳者注としてデプロイの説明を追加したい-->に使用されます。 
 
-From here, you should note that the url of your account will reflect the name of your app - so if your app is called _my_app_, the url will be appended as _xxx.io/my_app/_. Choose your app name wisely! Now that you are all ready, click deploy - if successful this will run your app on the web url you chose!
+ここからは、アカウントのURLにアプリの名前が反映されることに注意してください。つまり、アプリの名前が「my app」であれば、URLは「xxx.io/my_app/」となります。アプリの名前は賢く選びましょう！全ての準備が完了です。デプロイをクリックしましょう。成功していれば、選んだ url でアプリが実行されているはずです。
 
-*something on making apps in documents?*
+*something on making apps in documents?*<!--nishida:ここの訳が思いつきませんでした。-->
 
-## Further reading
+## 参考資料
 
-So far, we've covered a lot of aspects of shiny, and have barely scratched the surface of what is on offer for shiny. While this guide serves as an introduction, there is loads more to learn to fully understand shiny. You should start making apps and gradually add more and more functionality
-
-
-## Recommended extension packages
-
-The following represents a selection of high quality shiny extensions that can help you get a lot more out of shiny. In no particular order:
-
-- **shinyWidgets** - this package gives you many many more widgets that can be used in your app. Run `shinyWidgets::shinyWidgetsGallery()` to see a selection of available widgets with this package. See examples [here](https://github.com/dreamRs/shinyWidgets)  
-
-- **shinyjs** - this is an excellent package that gives the user the ability to greatly extend shiny's utility via a series of javascript. The applications of this package range from very simple to highly advanced, but you might want to first use it to manipulate the ui in simple ways, like hiding/showing elements, or enabling/disabling buttons. Find out more [here](https://deanattali.com/shinyjs/basic)
-
-- **shinydashboard** - this package massively expands the available ui that can be used in shiny, specifically letting the user create a complex dashboard with a variety of complex layouts. See more [here](https://rstudio.github.io/shinydashboard/)
-
-- **shinydashboardPlus** - get even more features out of the **shinydashboard** framework! See more [here](https://rinterface.github.io/shinydashboardPlus/articles/shinydashboardPlus.html)
-
-- **shinythemes** - change the default css theme for your shiny app with a wide range of preset templates! See more [here](https://rstudio.github.io/shinythemes/)
+ここまでは、shiny の様々な側面を紹介してきましたが、shiny の機能の「さわり」に触れただけです。このガイドは入門編ですが、shiny を完全に理解するためには、さらに多くのことを学ぶ必要があります。アプリを作り始めて、徐々に機能を増やしていくのが良いでしょう。
 
 
-There are also a number of packages that can be used to create interactive outputs that are shiny compatible. 
+## 推奨される機能を拡張するパッケージ
 
-- **DT** is semi-incorporated into base-shiny, but provides a great set of functions to create interactive tables.
+以下に、高品質な shiny の機能を拡張できるパッケージを集めました。順番にとくに意味はありません：
 
-- **plotly** is a package for creating interactive plots that the user can manipulate in app. You can also convert your plot to interactive versions via `plotly::ggplotly()`! As alternatives, **dygraphs** and **highcharter** are also excellent.
+- **shinyWidgets** - このパッケージは、アプリで使用できるウィジェットを追加で多数提供します。`shinyWidgets::shinyWidgetsGallery()`を実行すると、このパッケージで利用可能なウィジェットのセレクションが表示されます。 例は [ここ](https://github.com/dreamRs/shinyWidgets)にあります。  
+
+- **shinyjs** - これは、javascript を利用することで shiny の実用性を大幅に向上させることができる優れたパッケージです。このパッケージの用途は非常にシンプルなものから高度なものまで様々ですが、まずは要素の非表示/表示、ボタンの有効化/無効化など、簡単な方法で UI を操作するために使ってみてはいかがでしょうか。[ここ](https://deanattali.com/shinyjs/basic)により沢山の例があります。
+
+- **shinydashboard** - このパッケージは、shiny で使用可能な UI を大幅に拡張し、特に、様々な複雑なレイアウトのダッシュボードを作成できるようにします。[ここ](https://rstudio.github.io/shinydashboard/)に詳細があります。
+
+- **shinydashboardPlus** - **Shinydashboard**フレームワークの機能をさらに充実させます！ [ここ](https://rinterface.github.io/shinydashboardPlus/articles/shinydashboardPlus.html)で詳しく内容を確認できます。
+
+- **shinythemes** - 豊富なテンプレートを利用して、 Shiny アプリのデフォルト CSS テーマを変更できます。 詳細は[ここ](https://rstudio.github.io/shinythemes/)
 
 
-## Recommended resources
+Shiny に対応したインタラクティブな出力を作成するために使用できるパッケージも多数あります。 
+
+- **DT** は base-shiny に半統合されていますが、インタラクティブなテーブルを作成するための素晴らしい関数群を提供しています。
+
+- **plotly** は、ユーザーがアプリで操作できるインタラクティブなグラフを作成するためのパッケージです。 また、`plotly::ggplotly()`を使って、プロットをインタラクティブなバージョンに変換することもできます。**dygraphs**と**highcharter**も同様に優れています。
+
+
+## 推奨されるリソース
 
 
 
