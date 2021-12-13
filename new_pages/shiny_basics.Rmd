@@ -960,8 +960,7 @@ plot_epicurve(malaria_data, district = "Spring", agegroup = "malaria_rdt_0-4", f
 ```
 
 
-全ての施設がデータに含まれているため、どの地区にどの施設が含まれているかは明確ではありません。これは、ユーザーももちろん同様です。このことは、このアプリの利用をひどく不親切なものとするかもしれません。そのため、ユーザーが地区を選択すると、施設の UI の内容が
-動的に変化するようにするべきです。選択肢として使用する変数が非常に多いので、ui の選択肢の一部を、<ul>global.R</ul> ファイルの中でデータから生成してもいいかもしれません。例えば、次のようなコードを <ul>global.R</ul> ファイルのデータを読み込んだ部分の後に追加してもよいでしよう：
+全ての施設がデータに含まれているため、どの地区にどの施設が含まれているかは明確ではありません。これは、ユーザーももちろん同様です。このことは、このアプリの利用をひどく不親切なものとするかもしれません。そのため、ユーザーが地区を選択すると、施設の UI の内容が動的に変化するようにするべきです。選択肢として使用する変数が非常に多いので、ui の選択肢の一部を、<ul>global.R</ul> ファイルの中でデータから生成してもいいかもしれません。例えば、次のようなコードを <ul>global.R</ul> ファイルのデータを読み込んだ部分の後に追加してもよいでしよう：
 
 
 
@@ -1077,9 +1076,9 @@ reactive 関数と同様に、oserver 関数にも二つの種類があり、rea
 1. `observe()` - この関数は、内部で使用されている input が変化するたびに実行されます。
 2. `observeEvent()` - この関数は<ul>設定された input</ul> が変化する度に実行されます。
 
-Shiny で提供されているウィジェットを更新する関数についての理解も必要です。これらは、かなり簡単に実行できます。サーバー関数の `session` オブジェクト（今は理解できなくても問題ありません）を一つ目の引数としてとしてとり、二つ目に変更したい ui の `inputId`をとります。 We then pass new versions of all parameters that are already taken by `selectInput()` - these will be automatically updated in the widget. 
+Shiny で提供されているウィジェットを更新する関数についての理解も必要です。これらは、かなり簡単に実行できます。サーバー関数の `session` オブジェクト（今は理解できなくても問題ありません）を一つ目の引数としてとしてとり、二つ目に変更したい ui の `inputId`をとります。 そして、`selectInput()`によってすでに利用されているすべてのパラメータの更新された新しいバージョンを渡します。そのことにより、ウィジェットは自動的に更新されます。 
 
-Lets look at an isolated example of how we could use this in our server. When the user changes the district, we want to filter our tibble of facilities by district, and update the choices to *only reflect those that are available in that district* (and an option for all facilities)
+この機能をサーバー関数内で使用する場合の、例を見てみましょう。ユーザーが地区を変更した場合、施設の一覧を地区別に抽出し、選択肢を<ul>その地区で利用可能なものだけとする</ul>ように更新します（すべての施設を選択することもできます）。
 
 ```{r, eval = FALSE}
 
@@ -1103,7 +1102,7 @@ observe({
 
 ```
 
-And that's it! we can add it into our server, and that behaviour will now work. Here's what our new server should look like:
+完成しました！これをサーバー関数内に足すことができ、動作します。新しいサーバー関数は次のようになっているはずです：
 
 ```{r, eval = FALSE}
 server <- function(input, output, session) {
@@ -1167,14 +1166,14 @@ knitr::include_graphics(here::here("images", "shiny", "app_menu_view.gif"))
 
 
 
-### Adding another tab with a table {.unnumbered}
+### 表を含んだタブを追加する {.unnumbered}
 
-Now we'll move on to the last component we want to add to our app. We'll want to separate our ui into two tabs, one of which will have an interactive table where the user can see the data they are making the epidemic curve with. To do this, we can use the packaged ui elements that come with shiny relevant to tabs. On a basic level, we can enclose most of our main panel in this general structure:
+次に、アプリに追加したい最後の要素に移りましょう。 アプリの ui を二つのタブに分割します。一つのタブにはエピカーブを描画しているデータをインタラクティブに確認することができる表を挿入します。そのためには、タブに関連した、shiny に付属するパッケージ化された ui 要素を利用します。基本的には、この一般的な構造の中に、メインパネルのほとんどを収めることができます。
 
 ```{r, eval = FALSE}
 
 
-# ... the rest of ui
+# ... は残りのui部分を表す
 
 mainPanel(
   
@@ -1194,7 +1193,7 @@ mainPanel(
 
 ```
 
-Lets apply this to our ui. We also will want to use the **DT** package here - this is a great package for making interactive tables from pre-existing data. We can see it being used for `DT::datatableOutput()` in this example.
+この構造を今作成している ui に当てはめましょう。また、ここでは**DT**パッケージを使用しましょう。 - これは、既存のデータからインタラクティブな表を作成するための素晴らしいパッケージです。この例では、`DT::datatableOutput()`で使用されているのを見ることができます。
 
 ```{r, echo = FALSE}
 library(DT)
@@ -1208,7 +1207,7 @@ ui <- fluidPage(
      sidebarLayout(
           
           sidebarPanel(
-               # selector for district
+               # 地区の選択
                selectInput(
                     inputId = "select_district",
                     label = "Select district",
@@ -1216,7 +1215,7 @@ ui <- fluidPage(
                     selected = "All",
                     multiple = FALSE
                ),
-               # selector for age group
+               # 年齢の選択
                selectInput(
                     inputId = "select_agegroup",
                     label = "Select age group",
@@ -1229,7 +1228,7 @@ ui <- fluidPage(
                     selected = "All",
                     multiple = FALSE
                ),
-               # selector for facility
+               # 施設の選択
                selectInput(
                     inputId = "select_facility",
                     label = "Select Facility",
@@ -1237,7 +1236,7 @@ ui <- fluidPage(
                     selected = "All"
                ),
                
-               # horizontal line
+               # 水平線
                hr(),
                downloadButton(
                     outputId = "download_epicurve",
@@ -1280,7 +1279,7 @@ ui <- fluidPage(
 ```
 
 
-Now our app is arranged into tabs! Lets make the necessary edits to the server as well. Since we dont need to manipulate our dataset at all before we render it this is actually very simple - we just render the malaria_data dataset via DT::renderDT() to the ui!
+これで、アプリがタブを持つ形になりました！サーバー関数にも必要な編集を加えてみましょう。表としてレンダリングする前にデータを加工する必要がないので、これは非常に簡単です。malaria_data データを DT::renderDT() 経由で ui に描画するだけです！
 
 
 ```{r, eval = FALSE}
@@ -1328,7 +1327,7 @@ server <- function(input, output, session) {
     
   )
   
-  # render data table to ui
+  # データテーブルをuiに描画する
   output$raw_data <- DT::renderDT(
     malaria_data
   )
@@ -1345,23 +1344,23 @@ knitr::include_graphics(here::here("images", "shiny", "app_table_view.gif"))
 ```
 
 
-## Sharing shiny apps
+## shiny アプリの共有
 
-Now that you've developed your app, you probably want to share it with others - this is the main advantage of shiny after all! We can do this by sharing the code directly, or we could publish on a server. If we share the code, others will be able to see what you've done and build on it, but this will negate one of the main advantages of shiny - *it can eliminate the need for end-users to maintain an R installation*. For this reason, if you're sharing your app with users who are not comfortable with R, it is much easier to share an app that has been published on a server. 
+アプリが完成したので、他の人と共有したいと思うこともあるでしょう。これが shiny の最大の利点です。そのためには、コードを直接共有することもできますし、サーバーで公開することもできます。コードを共有すれば、他の人があなたのやったことを見て、それに基づいてさらに機能を構築することができますが、これは shiny の主な利点の1つを否定することになります。Shiny は、<ul>ユーザーがRを維持する必要をなくすことができます。</ul>このため、 R が苦手なユーザーとアプリを共有する場合は、サーバーで公開されているアプリの方がはるかに簡単に共有できます。
 
-If you'd rather share the code, you could make a .zip file of the app, or better yet, *publish your app on github and add collaborators.* You can refer to the section on github for further information here.
+もし、コードを直接共有したいのであれば、アプリの .zip ファイルを作成するか、あるいは、<ul>github にアプリを公開して、協力者を追加することもできます。</ul> 詳細は<!--nishida:リンクの付け忘れ？-->こちらのgithubのセクションを参照してください。
 
-However, if we're publishing the app online, we need to do a little more work. Ultimately, we want your app to be able to be accessed via a web URL so others can get quick and easy access to it. Unfortunately, to publish you app on a server, you need to have access to a server to publish it on! There are a number of hosting options when it comes to this:
+しかし、アプリをオンラインで公開する場合は、もう少し作業が必要です。最終的には、あなたのアプリをウェブ  URL からアクセスできるようにして、他の人が素早く簡単に到達できるようにしたいと思います。残念ながら、アプリをサーバーで公開するには、公開するためのサーバーが必要です！これに関しては、いくつかのホスティングするための選択肢があります。
 
-- _shinyapps.io_: this is the easiest place to publish shiny apps, as it has the smallest amount of configuration work needed, and has some free, but limited licenses.
+- <ul>shinyapps.io</ul>：ここは shiny アプリを公開するのに最も簡単な場所です。設定の量は最小限です。無料でも利用できますが、いくつかの制限があります。
 
-- _RStudio Connect_: this is a far more powerful version of an R server, that can perform many operations, including publishing shiny apps. It is however, harder to use, and less recommended for first-time users.
+- <ul>RStudio Connect</ul>：これは、Rサーバーのはるかに強力なバージョンで、Shiny アプリの公開を含む多くの操作を行うことができます。しかし、使い方が難しく、初めての方にはあまりお勧めできません。
 
-For the purposes of this document, we will use _shinyapps.io_, since it is easier for first time users. You can make a free account here to start - there are also different price plans for server licesnses if needed. The more users you expect to have, the more expensive your price plan may have to be, so keep this under consideration. If you're looking to create something for a small set of individuals to use, a free license may be perfectly suitable, but a public facing app may need more licenses.
+本書では、初めての方でも利用しやすいように、<ul>shinyapps.io</ul> を使用します。無料のアカウントを作成してスタートすることもできますし、また、必要に応じてサーバーの増設などの料金プランもあります。利用するユーザー数が増えれば増えるほど、料金プランも高額になる可能性がありますので、ご注意ください。少数が使用するためのものだけを作りたい場合は、無料のライセンスが最適かもしれませんが、一般向けのアプリの場合はより高額のライセンスが必要になるかもしれません。
 
-First we should make sure our app is suitable for publishing on a server. In your app, you should restart your R session, and ensure that it runs without running any extra code. This is important, as an app that requires package loading, or data reading not defined in your app code won't run on a server. Also note that you can't have any *explicit* file paths in your app - these will be invalid in the server setting - using the `here` package solves this issue very well. Finally, if you're reading data from a source that requires user-authentication, such as your organisation's servers, this will not generally work on a server. You will need to liase with your IT department to figure out how to whitelist the shiny server here.
+まず、アプリがサーバーでの公開に適していることを確認します。Rセッションを再起動して、余分なコードを実行せずにアプリが実行されることを確認してください。アプリが、コードで定義されていないパッケージのロードやデータの読み取りを必要とする場合、サーバー上で実行されないため、このことは非常に重要です。また、アプリ内では<ul>明示的な</ul>ファイルパスを持つことができないことにも注意してください。サーバーの環境では、これらはエラーの原因になります。`here` パッケージを使用することで、この問題は非常によく解決されます。最後に、組織のサーバーなど、ユーザー認証を必要とするソースからデータを読み取る場合は、一般的にサーバー上では動作しません。Shiny サーバーをホワイトリストに登録する方法については、IT部門と相談する必要があります。
 
-*signing up for account*
+<ul>アカウントへのサインアップ</ul>
 
 Once you have your account, you can navigate to the tokens page under _Accounts_. Here you will want to add a new token - this will be used to deploy your app. 
 
