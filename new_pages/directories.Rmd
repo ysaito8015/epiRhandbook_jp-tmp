@@ -1,12 +1,12 @@
 
-# Directory interactions { }  
+# ディレクトリの操作 { }  
 
 In this page we cover common scenarios where you create, interact with, save, and import with directories (folders).  
 
 
-## Preparation  
+## 準備  
 
-### **fs** package {.unnumbered}  
+### **fs** パッケージ {.unnumbered}  
 
 The **fs** package is a **tidyverse** package that facilitate directory interactions, improving on some of the **base** R functions. In the sections below we will often use functions from **fs**.  
 
@@ -19,7 +19,7 @@ pacman::p_load(
 ```
 
 
-### Print directory as a dendrogram tree {.unnumbered}  
+### ディレクトリをデンドログラムツリーで表示する {.unnumbered}  
 
 Use the function `dir_tree()` from **fs**.  
 
@@ -31,7 +31,7 @@ fs::dir_tree(path = here("data"), recurse = TRUE)
 ```
 
 
-## List files in a directory  
+## ディレクトリ内のファイルを一覧表示する  
 
 To list just the file names in a directory you can use `dir()` from **base** R. For example, this command lists the file names of the files in the "population" subfolder of the "data" folder in an R project. The relative filepath is provided using `here()` (which you can read about more in the [Import and export] page).  
 
@@ -62,7 +62,7 @@ Here is the data frame returned. Scroll to the right to see all the columns.
 DT::datatable(dir_info(here("data", "gis", "population")), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-## File information  
+## ファイルの情報 
 
 To extract metadata information about a specific file, you can use `file_info()` from **fs** (or `file.info()` from **base** R).  
 
@@ -83,9 +83,9 @@ file_info(here("data", "case_linelists", "linelist_cleaned.rds"))$modification_t
 
 
 
-## Check if exists  
+## 存在するか確認する  
 
-### R objects {.unnumbered}  
+### R オブジェクト {.unnumbered}  
 
 You can use `exists()` from **base** R to check whether an R object exists *within* R (supply the object name in quotes).  
 
@@ -104,7 +104,7 @@ If you are writing a function, you should use `missing()` from **base** R to che
 
 
 
-### Directories {.unnumbered}  
+### ディレクトリ {.unnumbered}  
 
 To check whether a directory exists, provide the file path (and file name) to `is_dir()` from **fs**. Scroll to the right to see that `TRUE` is printed.    
 
@@ -115,7 +115,7 @@ is_dir(here("data"))
 An alternative is `file.exists()` from **base** R.  
 
 
-### Files {.unnumbered}  
+### ファイル {.unnumbered}  
 
 To check if a specific file exists, use `is_file()` from **fs**. Scroll to the right to see that `TRUE` is printed.  
 
@@ -127,9 +127,9 @@ A **base** R alternative is `file.exists()`.
 
 
 
-## Create  
+## 作成  
 
-### Directories {.unnumbered}  
+### ディレクトリ {.unnumbered}  
 
 To create a new directory (folder) you can use `dir_create()` from **fs**. If the directory already exists, it will not be overwritten and no error will be returned. 
 
@@ -139,7 +139,7 @@ dir_create(here("data", "test"))
 
 An alternative is `dir.create()` from **base** R, which will show an error if the directory already exists. In contrast, `dir_create()` in this scenario will be silent.  
 
-### Files {.unnumbered}  
+### ファイル {.unnumbered}  
 
 You can create an (empty) file with `file_create()` from **fs**. If the file already exists, it will not be over-written or changed.  
 
@@ -150,29 +150,29 @@ file_create(here("data", "test.rds"))
 A **base** R alternative is `file.create()`. But if the file already exists, this option will truncate it. If you use `file_create()` the file will be left unchanged.  
 
 
-### Create if does not exists {.unnumbered}  
+### 存在しない場合にのみ作成する {.unnumbered}  
 
 UNDER CONSTRUCTION  
 
 
-## Delete
+## 削除
 
-### R objects {.unnumbered}  
+### R オブジェクト {.unnumbered}  
 
 Use `rm()` from **base** R to remove an R object.  
 
-### Directories {.unnumbered}  
+### ディレクトリ {.unnumbered}  
 
 Use `dir_delete()` from **fs**. 
 
 
-### Files {.unnumbered}  
+### ファイル {.unnumbered}  
 
 You can delete files with `file_delete()` from **fs**.  
 
 
 
-## Running other files  
+## 他のファイルを実行する  
 
 ### `source()` {.unnumbered}  
 
@@ -197,7 +197,7 @@ See the page on [Reports with R Markdown] for more details. Also see the documen
 
 
 
-### Run files in a directory {.unnumbered}
+### ディレクトリ内のファイルを実行する {.unnumbered}
 
 You can create a *for loop* and use it to `source()` every file in a directory, as identified with `dir()`. 
 
@@ -227,7 +227,7 @@ for(script in scripts_to_run) {
 
 Here is a [comparison](https://cran.r-project.org/web/packages/fs/vignettes/function-comparisons.html) of the **fs** and **base** R functions.  
 
-### Import files in a directory  {.unnumbered}
+### ディレクトリ内のファイルをインポートする {.unnumbered}
 
 See the page on [Import and export] for importing and exporting individual files.  
 
@@ -261,7 +261,7 @@ If a file is currently "open", it will display in your folder with a tilde in fr
 
 
 <!-- ======================================================= -->
-## Resources {  }
+## 参照 {  }
 
 https://cran.r-project.org/web/packages/fs/vignettes/function-comparisons.html
 
