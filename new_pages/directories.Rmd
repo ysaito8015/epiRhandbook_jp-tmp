@@ -1,4 +1,4 @@
-# ディレクトリの操作
+# ディレクトリの操作 {#directories}
 
 このページでは、ディレクトリ(フォルダー)の作成、操作、保存、インポートに関する一般的なシナリオを説明します。
 
@@ -164,7 +164,7 @@ R オブジェクトを削除するには、**base** R の `rm()` を使用し�
 source(here("scripts", "cleaning_scripts", "clean_testing_data.R"))
 ```
 
-これは、上記の R スクリプトを表示し、スクリプトの右上にある "Source" ボタンをクリックすることと同じです。これはスクリプトを実行しますが、特に意図しない限り無音で実行されます(R コンソールへの出力はありません)。\[Interactive console\] のページで、`source()` を使ってRコンソールでユーザーと対話する例を参照してください。
+これは、上記の R スクリプトを表示し、スクリプトの右上にある "Source" ボタンをクリックすることと同じです。これはスクリプトを実行しますが、特に意図しない限り無音で実行されます(R コンソールへの出力はありません)。[Interactive console] のページで、`source()` を使ってRコンソールでユーザーと対話する例を参照してください。
 
 ```{r, fig.align = "center", out.height = '300%', echo=F}
 knitr::include_graphics(here::here("images", "source_button.png"))
@@ -174,7 +174,7 @@ knitr::include_graphics(here::here("images", "source_button.png"))
 
 `render()` は `source()` のバリエーションで、R markdown のスクリプトに最もよく使用されます。R markdown ファイルである `input =` と、 `output_format =` (典型的には "html_document"、"pdf_document"、"word_document"、"" のいずれか) を指定します。
 
-詳しくは \[Reports with R Markdown\] をご覧ください。また `render()` のドキュメントを[こちら](https://rmarkdown.rstudio.com/docs/reference/render.html)、もしくは `?render` と入力して参照してください。
+詳しくは [R Markdown で作るレポート](#rmarkdown) をご覧ください。また `render()` のドキュメントを[こちら](https://rmarkdown.rstudio.com/docs/reference/render.html)、もしくは `?render` と入力して参照してください。
 
 ### ディレクトリ内のファイルを実行する {.unnumbered}
 
@@ -208,7 +208,7 @@ for(script in scripts_to_run) {
 
 個別のファイルのインポートとエクスポートについては、[データのインポート・エクスポート](#importing) のページをご覧ください。
 
-また、ファイル名に含まれる日付をもとに、*または*ファイルのメタデータを見て、自動的に最新のファイルをインポートする方法についても [データのインポート・エクスポート](#importing) のページを参照してください。
+また、ファイル名に含まれる日付をもとに、またはファイルのメタデータを見て、自動的に最新のファイルをインポートする方法についても [データのインポート・エクスポート](#importing) のページを参照してください。
 
 **purrr** パッケージによるデモの例については、[ループと反復処理・リストの操作](#iteration) のページを参照してください:
 
