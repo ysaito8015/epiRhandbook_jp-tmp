@@ -34,35 +34,35 @@ knitr::include_graphics(here::here("images", "errors_Github_issues2.png"))
 -   問題を再現するのに必要な[最小限の]{.ul}データとコードを含む\
 -   データ等のすべてのオブジェクトやパッケージを読み込むコード （`library()` や `p_load()`）が含まれているなど、[再現性がある]{.ul}
 
-[投稿する際は、機密データを含まないように注意してください！]{.ul} 投稿する際は、機密データを含まないように注意してください。機密上の理由または他の理由で、実際に使用したデータをオンラインフォーラムや Github に投稿したくない、またはすべきでない場合は、データフレーム（data frame）を用いて別の異なるデータセットを作成する、または、R に組み込まれているデータフレームを使用することをおすすめします。（`data()` を入力すると、R に組み込まれているデータセットのリストが表示されます。）
+[投稿する際は、機密データを含まないように注意してください！]{.ul} 機密上の理由または他の理由で、実際に使用したデータをオンラインフォーラムや Github に投稿したくない、またはすべきでない場合は、データフレーム（data frame）を用いて別の異なるデータセットを作成する、または、R に組み込まれているデータフレームを使用することをおすすめします。（`data()` を入力すると、R に組み込まれているデータセットのリストが表示されます。）
 
-### The **reprex** package {.unnumbered}
+### **reprex** パッケージとは？ {.unnumbered}
 
-The **reprex** package can assist you with making a reproducible example:
+**reprex** パッケージを使用すると、再現可能なサンプルコードを簡単に作成することができます。
 
-1)  **reprex** is installed with **tidyverse**, so load either package
+1)  **tidyverse** パッケージを読み込む。（**reprex** は tidyverse パッケージに含まれています。）
 
 ```{r, eval=F}
-# install/load tidyverse (which includes reprex)
+# tidyverse をインストールし、読み込む
 pacman::p_load(tidyverse)
 ```
 
-2)  Begin an R script that creates your problem, step-by-step, starting from loading packages and data.
+2)  R スクリプトで、投稿したい質問や問題のサンプルコードを作成する。（パッケージやデータの読み込みに関するコードから作成し、質問や問題について明確に説明するコードを段階的に書きましょう。）
 
 ```{r, eval=F}
-# load packages
+# 必要なパッケージを読む込む
 pacman::p_load(
-     tidyverse,  # data mgmt and vizualization
-     outbreaks)  # example outbreak datasets
+     tidyverse,  # データ管理とデータ可視化のためのパッケージ
+     outbreaks)  # アウトブレイクについてのサンプルデータを提供するパッケージ
 
-# flu epidemic case linelist
+# インフルエンザ流行曲線のラインリスト
 outbreak_raw <- outbreaks::fluH7N9_china_2013  # retrieve dataset from outbreaks package
 
-# Clean dataset
+# データクリーニング（前処理）
 outbreak <- outbreak_raw %>% 
      mutate(across(contains("date"), as.Date))
 
-# Plot epidemic
+# 流行曲線をプロットする
 
 ggplot(data = outbreak)+
      geom_histogram(
@@ -75,60 +75,60 @@ ggplot(data = outbreak)+
 
 ```
 
-*Copy* all the code to your clipboard, and run the following command:
+作成したコードを[クリップボードにコピーし]{.ul}、以下のコマンドを実行する。
 
 ```{r, eval=F}
 reprex::reprex()
 ```
 
-You will see an HTML output appear in the RStudio Viewer pane. It will contain all your code and any warnings, errors, or plot outputs. This output is also copied to your clipboard, so you can post it directly into a Github issue or a forum post.
+R Studio の Viewer パネル（pane）に HTML で出力されたアウトプットが表示されます。このアウトプットには、すべてのコードと、警告メッセージ（warnings）、エラー、ならびに作成したプロットが含まれます。このアウトプットはクリップボードにもコピーされているので、Github の Issue やフォーラムの投稿に貼り付けることができます。
 
 ```{r, out.width=c('100%', '100%'), warning=F, message=F, echo=F}
 knitr::include_graphics(here::here("images", "errors_reprex_RStudio1.png"))
 ```
 
--   If you set `session_info = TRUE` the output of `sessioninfo::session_info()` with your R and R package versions will be included\
--   You can provide a working directory to `wd =`\
--   You can read more about the arguments and possible variations at the [documentation]() or by entering `?reprex`
+-   `session_info = TRUE` とした場合、`sessioninfo::session_info()` で出力されるアウトプットと、使用している R ならびに R パッケージのバージョンが表示されます。\
+-   `wd =` 引数を使用した場合、ディレクトリを表示することもできます。\
+-   引数についての詳細は、 [こちらのページ]() を参照いただくか、 R で `?reprex` コマンドを実行してください。
 
-In the example above, the `ggplot()` command did not run because the arguemnt `date_format =` is not correct - it should be `date_labels =`.
+上で紹介したサンプルコードは、 `ggplot()` 関数がエラーを引き起こしました。（`date_format =` ではなく、`date_labels =` を使用する必要があります。
 
-### Minimal data {.unnumbered}
+### 最小限のデータとは？ {.unnumbered}
 
-The helpers need to be able to use your data - ideally they need to be able to create it *with code*.
+第三者があなたの質問に回答するためには、あなたのデータを使用する必要があります。理想は、第三者が[コードで]{.ul}データを作成できるようにすることです。
 
-To create a minumal dataset, consider anonymising and using only a subset of the observations.
+第三者が利用できる最小限のデータセットを作成するためには、データの匿名化や、実際のデータの一部のみを使用することが必要になります。
 
-UNDER CONSTRUCTION - you can also use the function `dput()` to create minimal dataset.
+`dput()` 関数を使用し、最小限のデータセットを作成することもできます。（詳細については、後日追記します。）
 
-## Posting to a forum
+## オンラインフォーラムに質問を投稿する
 
-Read lots of forum posts. Get an understanding for which posts are well-written, and which ones are not.
+質問をオンラインフォーラムに投稿する前に、既に投稿されている質問をたくさん読み、上手に質問を説明している投稿と、そうではない投稿との違いを理解しましょう。質問を投稿する手順は、以下の通りです。
 
-1)  First, decide whether to ask the question at all. Have you *thoroughly* reviewed the forum website, trying various search terms, to see if your question has already been asked?
+1)  まず、質問を投稿するかどうかを決めます。あなたの質問と同じ質問が既に投稿されていないか、そのフォーラムのウェブサイトを様々なキーワードで[徹底的に]{.ul}検索しましょう。
 
-2)  Give your question an informative title (not "Help! this isn't working").
+2)  質問を投稿すると決めた場合、質問には、第三者にわかりやすい具体的なタイトルをつけましょう。（「ヘルプが必要です！」「助けてください！」等のタイトルは避けましょう。）
 
-3)  Write your question:
+3)  質問を書き始めます。質問を書く際の注意点は、以下の通りです。
 
--   Introduce your situation and problem\
--   Link to posts of similar issues and explain how they do not answer your question\
--   Include any relevant information to help someone who does not know the context of your work\
--   Give a minimal reproducible example with your R session information\
--   Use proper spelling, grammar, punctuation, and break your question into paragraphs so that it is easier to read
+-   質問や問題に直面した状況とその問題を説明する\
+-   似たような質問・問題の投稿に言及し、その投稿がどのようにあなたの質問に答えていないかを説明する\
+-   第三者があなたの質問・問題についてよく理解するため、質問・問題に関連する情報を含める\
+-   最低限の再現可能なサンプルコードを R セッションの情報（あなたがそのコードを実行した環境）とともに示す\
+-   タイプミスや文法ミスに注意し、質問を段落に分けて読みやすくする
 
-4)  Monitor your question once posted to respond to any requests for clarification. Be courteous and gracious - often the people answering are volunteering their time to help you. If you have a follow-up question consider whether it should be a separate posted question.
+4)  質問投稿後は、常に更新状況をモニターし、第三者が更なる説明を求めた場合、回答してください。ほとんどの回答者はボランティアであなたを助けています。回答者の方には、礼儀正しく、親切に対応しましょう。追加の質問がある場合は、先に投稿した質問内容に追加するべきか、別の質問として投稿すべきかを検討してください。
 
-5)  Mark the question as answered, *if* you get an answer that meets the *original* request. This helps others later quickly recognize the solution.
+5)  回答が得られて質問が解決した場合は、その投稿のステータスを[解決済み]{.ul}に変更してください。解決済みのマークを付けることで、あなたと同じ質問をもつ他の人が、その解決策を見つけやすくなります。
 
-Read these posts about [how to ask a good question](https://stackoverflow.com/help/how-to-ask) the [Stack overflow code of conduct](https://stackoverflow.com/conduct).
+良い質問をする方法についての詳細は、[こちらの記事](https://stackoverflow.com/help/how-to-ask) や、 [Stack overflow の行動規範](https://stackoverflow.com/conduct) をご覧ください。
 
 <!-- ======================================================= -->
 
-## Resources
+## その他の参考資料
 
-Tidyverse page on how to [get help!](https://www.tidyverse.org/help/#:~:text=When%20you%20want%20to%20make,to%20load%20the%20reprex%20package.&text=Enter%20reprex()%20in%20the,preview%20of%20your%20rendered%20reprex.)
+Tidyverse ウェブサイトのヘルプページは [こちら](https://www.tidyverse.org/help/#:~:text=When%20you%20want%20to%20make,to%20load%20the%20reprex%20package.&text=Enter%20reprex()%20in%20the,preview%20of%20your%20rendered%20reprex.)
 
-Tips on [producing a minimal dataset](https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html#producing-a-minimal-dataset)
+最小限のデータセットを作成するためのヒントは [こちら](https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html#producing-a-minimal-dataset)
 
-Documentation for the [dput function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dput)
+`dput()` 関数についての公式ドキュメントは [こちら](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dput)
