@@ -99,12 +99,12 @@ DT::datatable(head(linelist_sym, 50), rownames = FALSE, filter="top", options = 
 
 <!-- ======================================================= -->
 
-### Re-format values {.unnumbered}
+### 変数の値を変換する {.unnumbered}
 
-To align with the format expected by **ggupset** we convert the "yes" and "no" the the actual symptom name, using `case_when()` from **dplyr**. If "no", we set the value as blank, so the values are eiter `NA` or the symptom.
+**ggupset** パッケージが求めるフォーマットに合わせるために、**dplyr** パッケージの `case_when()` 関数を使用し、症状あり（yes）と症状なし（no）を実際の症状名に変換します。症状なし（no）の場合は、値を空白にします。以下のコードを実行すると、すべての値が NA か症状名のどちらかに変換されます。
 
 ```{r, warning=F, message=F}
-# create column with the symptoms named, separated by semicolons
+# 症状ごとに変数（列）の値を変換する
 linelist_sym_1 <- linelist_sym %>% 
   
   # 症状あり"yes"または症状なし"no"を、症状名に変換する
@@ -131,14 +131,15 @@ linelist_sym_1 <- linelist_sym %>%
     )
 ```
 
-Now we make two final columns:
+次に、最終的にプロットに使用する 2 つの 列 を作成します。
 
-1.  Concatenating (gluing together) all the symptoms of the patient (a character column)\
-2.  Convert the above column to class *list*, so it can be accepted by **ggupset** to make the plot
+1.  患者ごとに、すべての症状を結合した文字列\
+2.  **ggupset** が求めるフォーマットに合わせるため、その文字列を[リスト]{.ul}に変換する
 
-See the page on [Characters and strings] to learn more about the `unite()` function from **stringr**
+以下のコードで使用されている **stringr** パッケージの `unite()` 関数についての詳細は、[文字列型データ] (\#characters-strings) をご覧ください。
 
 ```{r, warning=F, message=F}
+# 上のコードで作成した症状ごとの変数（列）を、セミコロンで結合し、1つの列にする
 linelist_sym_1 <- linelist_sym_1 %>% 
   unite(col = "all_symptoms",
         c(fever, chills, cough, aches, vomit), 
@@ -146,12 +147,12 @@ linelist_sym_1 <- linelist_sym_1 %>%
         remove = TRUE,
         na.rm = TRUE) %>% 
   mutate(
-    # make a copy of all_symptoms column, but of class "list" (which is required to use ggupset() in next step)
+    # 作成した all_symptoms 列をリストで複製する (リスト化は、次のステップで使用する ggupset() 関数に必要)
     all_symptoms_list = as.list(strsplit(all_symptoms, "; "))
     )
 ```
 
-View the new data. Note the two columns towards the right end - the pasted combined values, and the list
+上のコードで作成したデータを以下に表示します。一番右の列が、複数の症状がリストで結合されている列です。
 
 ```{r, echo=F, , warning=F, message=F}
 DT::datatable(head(linelist_sym_1,50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap')
@@ -159,15 +160,15 @@ DT::datatable(head(linelist_sym_1,50), rownames = FALSE, options = list(pageLeng
 
 <!-- ======================================================= -->
 
-## **ggupset**
+## **ggupset でプロットを作成する**
 
-Load the package
+最初に、パッケージを読み込みます。
 
 ```{r}
 pacman::p_load(ggupset)
 ```
 
-Create the plot. We begin with a `ggplot()` and `geom_bar()`, but then we add the special function `scale_x_upset()` from the **ggupset**.
+プロットを作成していきます。まず、`ggplot()` 関数と `geom_bar()` 関数を使用し、次に **ggupset** パッケージの `scale_x_upset()` 関数を使用します。
 
 ```{r, warning=F, message=F}
 ggplot(
@@ -187,34 +188,34 @@ labs(
 
 ```
 
-More information on **ggupset** can be found [online](https://rdrr.io/cran/ggupset/man/scale_x_upset.html) or offline in the package documentation in your RStudio Help tab `?ggupset`.
+**ggupset** についての詳細は、[こちらのページ](https://rdrr.io/cran/ggupset/man/scale_x_upset.html) をご覧ください。オフラインの場合は、RStudio のコンソールで `?ggupset` を実行すると、パッケージに関する詳細を確認することができます。
 
 <!-- ======================================================= -->
 
-## `UpSetR`
+## UpSetR でプロットを作成する
 
-The **UpSetR** package allows more customization of the plot, but it can be more difficult to execute:
+**UpSetR** パッケージを使用すると、 プロットを細かくカスタマイズすることができますが、**ggupset** パッケージよりも難易度が高いです。
 
-**Load package**
+最初に、パッケージを読み込みます。
 
 ```{r}
 pacman::p_load(UpSetR)
 ```
 
-**Data cleaning**
+次に、データの前処理を行います。
 
-We must convert the `linelist` symptoms values to 1 / 0.
+ラインリストの各症状の変数（列）を 1 または 0 に変換する必要があります。.
 
 ```{r}
-# Make using upSetR
+# upSetR を使用してプロットを作成する
 
 linelist_sym_2 <- linelist_sym %>% 
   
-  # convert the "yes" and "no" values into the symptom name itself
+  # 症状あり"yes"または症状なし"no"を、1 または 0 に変換する
   mutate(
     fever = case_when(
-      fever == "yes" ~ 1,    # if old value is "yes", new value is 1
-      TRUE           ~ 0),   # if old value is anything other than "yes", the new value is 0
+      fever == "yes" ~ 1,    # "yes"の場合は、1 に置き換える
+      TRUE           ~ 0),   # "yes"以外の値の場合は、0 に置き換える
          
     chills = case_when(
       chills == "yes" ~ 1,
@@ -234,16 +235,16 @@ linelist_sym_2 <- linelist_sym %>%
     )
 ```
 
-Now make the plot using the custom function `upset()` - using only the symptoms columns. You must designate which "sets" to compare (the names of the symptom columns). Alternatively, use `nsets =` and `order.by = "freq"` to only show the top X combinations.
+プロットをカスタマイズする `upset()` 関数で、症状に関する変数（列）のみを使用し、プロットを作成していきます。`sets =` 引数で、比較する症状の「セット」を指定する必要があります（組み合わせに使用するすべての症状の列の名前を指定する）。また、`nsets =` 引数と `order.by = "freq"` 引数を使用し、上位～個の組み合わせのみを表示することもできます。
 
 ```{r, warning=F, message=F}
 
-# Make the plot
+# プロットを作成する
 UpSetR::upset(
   select(linelist_sym_2, fever, chills, cough, aches, vomit),
   sets = c("fever", "chills", "cough", "aches", "vomit"),
   order.by = "freq",
-  sets.bar.color = c("blue", "red", "yellow", "darkgreen", "orange"), # optional colors
+  sets.bar.color = c("blue", "red", "yellow", "darkgreen", "orange"), # 色の追加
   empty.intersections = "on",
   # nsets = 3,
   number.angles = 0,
