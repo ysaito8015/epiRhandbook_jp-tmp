@@ -57,7 +57,7 @@ find.package("rmarkdown", lib.loc = NULL, quiet = FALSE, verbose = getOption("ve
 
 <!-- ======================================================= -->
 
-## Troubleshooting common errors
+## よくあるエラー
 
 **"Failed to compile...tex in rmarkdown"**
 
