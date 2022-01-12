@@ -138,20 +138,22 @@ RAM（パソコンのメインメモリ）に関するエラーの可能性が�
 
 **Mapping network drives**
 
-Mapping a network drive can be risky. Consult with your IT department before attempting this.
+ネットワークドライブの割り当て（マッピング）は、重大な問題を引き起こす場合があります。割り当てる（マップする）前に、情報システムを担当する部署に相談してください。
 
 A tip borrowed from this [forum discussion](https://stackoverflow.com/questions/48161177/r-markdown-openbinaryfile-does-not-exist-no-such-file-or-directory/55616529?noredirect=1#comment97966859_55616529):
 
 How does one open a file "through a mapped network drive"?
 
--   First, you'll need to know the network location you're trying to access.\
+-   まず、First, you'll need to know the network location you're trying to access.\
 -   Next, in the Windows file manager, you will need to right click on "This PC" on the right hand pane, and select "Map a network drive".\
 -   Go through the dialogue to define the network location from earlier as a lettered drive.\
 -   Now you have two ways to get to the file you're opening. Using the drive-letter path should work.
 
 **Error in install.packages()**
 
-If you get an error that includes mention of a "lock" directory, for example: `Error in install.packages : ERROR: failed to lock directory...`
+エラーメッセージに「lock directory」が含まれている場合、
+
+例）`Error in install.packages : ERROR: failed to lock directory...`
 
 Look in your package library and you will see a folder whose name begins with "00LOCK". Try the following tips:
 
