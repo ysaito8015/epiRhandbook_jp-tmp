@@ -100,39 +100,41 @@ R Markdown ファイルをニット（knit）する際、「pandoc error 1」が
 
 -   複数のライブラリがある場合は、文字で始まるドライブ（C: ドライブ等）が先にくるように、ライブラリを並べ替えてください。（上の「便利なコマンド」セクションを参照してください。）\
 -   上の対処法は、インターネットが繋がっている時に筆者がローカルドライブで試し、成功した対処法です。\
--   詳細については、こちら（<https://ciser.cornell.edu/rmarkdown-knit-to-html-word-pdf/>）をご覧ください。
+-   詳細については、こちら（ <https://ciser.cornell.edu/rmarkdown-knit-to-html-word-pdf/> ）をご覧ください。
 
 **Pandoc Error 83 が表示された**
 
-The error will look something like this: `can't find file...rmarkdown...lua...`. This means that it was unable to find this file.
+対象のファイルが見つからなかった時に表示されるエラーです。
 
-See <https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word>
+例）`can't find file...rmarkdown...lua...`
 
-Possibilities:
+解決法については、こちら（ [<https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word>](https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word){.uri} ）をご覧ください。
 
-1)  Rmarkdown package is not installed\
-2)  Rmarkdown package is not findable\
-3)  An admin rights issue.
+原因としては、以下の 3 つが考えられます。
 
-It is possible that R is not able to find the **rmarkdown** package file, so check which library the **rmarkdown** package lives (see code above). If the package is installed to a library that in inaccessible (e.g. starts with "\\") consider manually moving it to C: or other named drive library. Be aware that the **rmarkdown** package has to be able to connect to TinyTex installation, so can not live in a library on a network drive.
+1)  Rmarkdown パッケージがインストールされていない\
+2)  Rmarkdown package が見つけられない\
+3)  管理者権限に何かしら問題がある
+
+R が **rmarkdown** のパッケージファイルを見つけられないためにこのエラーが発生している可能性があるので、**rmarkdown** パッケージがどのライブラリにインストールされているか確認してください。（上の「便利なコマンド」セクションのコードを参照ください。）アクセスできないライブラリにパッケージがインストールされている場合（例：「\\」で始まるライブラリ）は、手動で C: ドライブまたは他の名前付きドライブのライブラリに移すことをおすすめします。**rmarkdown** パッケージは TinyTex インストールに接続する必要があるため、ネットワークドライブ上のライブラリには置かないでください。
 
 **Pandoc Error 61 が表示された**
 
-For example: `Error: pandoc document conversion failed with error 61` or `Could not fetch...`
+例 ） `Error: pandoc document conversion failed with error 61` または `Could not fetch...`
 
--   Try running RStudio as administrator (right click icon, select run as admin, see above instructions)\
--   Also see if the specific package that was unable to be reached can be moved to C: library.
+-   RStudio を管理者として実行してください。（RStudio アイコンを右クリックし、「run as admin」を選択してください。詳細は、上の「管理者として RStudio を実行する」セクションをご覧ください。)\
+-   アクセスできないライブラリにインストールされたパッケージは、C: ドライブ内のライブラリに移動してください。
 
-**LaTex error (see below)**
+**LaTex に関するエラー**
 
-An error like: `! Package pdftex.def Error: File 'cict_qm2_2020-06-29_files/figure-latex/unnamed-chunk-5-1.png' not found: using draft setting.` or `Error: LaTeX failed to compile file_name.tex.`
+例）`! Package pdftex.def Error: File 'cict_qm2_2020-06-29_files/figure-latex/unnamed-chunk-5-1.png' not found: using draft setting.` または `Error: LaTeX failed to compile file_name.tex.`
 
--   See <https://yihui.org/tinytex/r/#debugging> for debugging tips.\
--   See file_name.log for more info.
+-   対処法については、こちら（ <https://yihui.org/tinytex/r/#debugging> ）をご覧ください。\
+-   file_name.log ファイルを確認してください。
 
 **Pandoc Error 127 が表示された**
 
-This could be a RAM (space) issue. Re-start your R session and try again.
+RAM（パソコンのメインメモリ）に関するエラーの可能性があります。実行中の R セッションをリスタート（re-start）してください。
 
 **Mapping network drives**
 
