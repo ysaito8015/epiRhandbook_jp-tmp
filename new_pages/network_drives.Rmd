@@ -2,56 +2,60 @@
 
 <!-- ======================================================= -->
 
-## 本章の概要
+## はじめに
 
 ネットワークドライブや会社の共有ドライブで R を使用する場合、様々な問題が発生することがあります。この章では、よくあるエラーについて説明し、筆者の経験から得たアプローチ並びに対処法を提案します。R Markdown に関するヒントも紹介します。
 
 **R をネットワークドライブで使用する場合の原則**
 
 1)  お使いのコンピュータの管理者権限が必要です。RStudio を管理者として実行するように設定してください。\
-2)  パッケージはできるだけ文字のあるドライブ（C ドライブなど）のライブラリに保存してください。パスが 「\\」 で始まるパッケージライブラリは、できるだけ使用しないでください。\
-3)  **rmarkdown** [パッケージは、「\\」で始まるパッケージライブラリに保存しないでください。]{.ul}「\\」で始まるパッケージライブラリに保存した場合、TinyTex や Pandoc に接続できなくなります。
+2)  パッケージはできるだけ文字のあるドライブ（C: ドライブなど）のライブラリに保存してください。パスが 「\\」 で始まるライブラリは、できるだけ使用しないでください。\
+3)  **rmarkdown** [パッケージは、「\\」で始まるライブラリに保存しないでください。]{.ul}「\\」で始まるライブラリに保存した場合、TinyTex や Pandoc に接続できなくなります。
 
 ## 管理者として RStudio を使用する
 
 RStudio のアイコンを右クリックし、RStudio を開くと、「管理者として実行」のオプションが表示されます。お使いのコンピュータによっては、表示されない場合があります。その場合は、プロパティ（Properties）を開いてください。プロパティを開くと、「互換性（Compatibility）」オプションのあるウィンドウが表示されるので、「管理者として実行（Run as Administrator）」のチェックボックスにチェックを入れてください。
 
-## Useful commands
+## 便利なコマンド
 
 ネットワークドライブ上で R を使用している際に直面した問題のトラブルシューティングに役立つコマンドをいくつか以下に示します。
 
-まず、パッケージがどこにインストールされているかを知りたい場合は、以下のコードを実行するとパッケージライブラリのパスを確認できます。R がパッケージのインストール・ロード・検索に使用している順序で、パスが表示されます。他のデフォルトライブラリを使用したい場合は、パスの順序を変更することができます（以下を参照）。
+まず、R にインストール済みのパッケージが保存されている場所（ライブラリ）を知りたい場合は、以下のコードを実行するとライブラリのパスを確認できます。R がパッケージのインストール・読み込み・検索に使用している順序で、パスが表示されます。他のデフォルトライブラリを使用したい場合は、パスの順序を変更することができます（2 つ下のコードを参照ください）。
 
 ```{r, eval=F}
-# Find libraries
-.libPaths()                   # Your library paths, listed in order that R installs/searches. 
-                              # Note: all libraries will be listed, but to install to some (e.g. C:) you 
-                              # may need to be running RStudio as an administrator (it won't appear in the 
-                              # install packages library drop-down menu) 
+# ライブラリの場所を表示する
+.libPaths()                   # ライブラリパスを表示
+                              # 注意: 表時れたパスにはすべてのパッケージが含まれて
+                              # いるが、C: 等いくつかのドライブに保存された
+                              # パッケージを表示するためには、管理者として 
+                              # RStudioを実行する必要がある場合もある
+                              # （install packages library 
+                                   # のドロップダウンには表示されない）
 ```
 
-You may want to switch the order of the package libraries used by R. For example if R is picking up a library location that begins with "\\" and one that begins with a letter e.g. "D:". You can adjust the order of `.libPaths()` with the following code.
+R がパッケージを検索する際に、「\\」で始まるライブラリや「D:」等の文字で始まる場所に保存されたライブラリを先に拾っている場合など、R が使用するライブラリの順番を入れ替えたい場合は、以下のコードで `.libPaths()` の順序を変更することができます。
 
 ```{r, eval=F}
-# Switch order of libraries
-# this can effect the priority of R finding a package. E.g. you may want your C: library to be listed first
-myPaths <- .libPaths() # get the paths
-myPaths <- c(myPaths[2], myPaths[1]) # switch them
-.libPaths(myPaths) # reassign them
+# ライブラリの順序を変更する
+# 順序を変更することで、R がパッケージを検索する際の優先順位度が変更される
+# 例えば、C:ドライブのライブラリを先に表示したい場合
+myPaths <- .libPaths() # パッケージライブラリのパスをオブジェクトにアサインする
+myPaths <- c(myPaths[2], myPaths[1]) # パスの順序を変更する
+.libPaths(myPaths) # 変更した順序のパスを再度アサインする
 ```
 
-If you are having difficulties with R Markdown connecting to Pandoc, begin with this code to find out where RStudio thinks your Pandoc installation is.
+R MarkdownがPandocに接続する際にエラーが発生した場合は、以下のコードを使用して Pandoc が RStudio のどこにインストールされているかを確認できます。
 
 ```{r, eval=F}
-# Find Pandoc
-Sys.getenv("RSTUDIO_PANDOC")  # Find where RStudio thinks your Pandoc installation is
+# Pandocを探す
+Sys.getenv("RSTUDIO_PANDOC")  # Pandoc がどこにインストールされているか確認する
 ```
 
-If you want to see which library a package is loading from, try the below code:
+どのライブラリからパッケージを読み込みしているかを知りたい場合は、以下のコードを実行してください。
 
 ```{r, eval=F}
-# Find a package
-# gives first location of package (note order of your libraries)
+# パッケージを探す
+# ライブラリの場所が表示される（複数のライブラリに保存されている場合は、最初のライブラリが表示される）
 find.package("rmarkdown", lib.loc = NULL, quiet = FALSE, verbose = getOption("verbose")) 
 ```
 
@@ -61,10 +65,10 @@ find.package("rmarkdown", lib.loc = NULL, quiet = FALSE, verbose = getOption("ve
 
 **"Failed to compile...tex in rmarkdown"**
 
--   Check the installation of TinyTex, or install TinyTex to C: location. See the [R basics] page on how to install TinyTex.
+-   TinyTex がインストールされているか確認してください。インストールされていない場合は、C: ドライブに TinyTex をインストールしてください。TinyTex のインストール方法については、[R の基礎] (\#basics) の章をご覧ください。
 
 ```{r, eval=F}
-# check/install tinytex, to C: location
+# tinytex がインストールされているか確認し、C:ドライブにインストールする
 tinytex::install_tinytex()
 tinytex:::is_tinytex() # should return TRUE (note three colons)
 ```
