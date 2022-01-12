@@ -108,7 +108,7 @@ R Markdown ファイルをニット（knit）する際、「pandoc error 1」が
 
 例）`can't find file...rmarkdown...lua...`
 
-解決法については、こちら（ [<https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word>](https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word){.uri} ）をご覧ください。
+解決法については、こちら（ [\<https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word\>](https://stackoverflow.com/questions/58830927/rmarkdown-unable-to-locate-lua-filter-when-knitting-to-word){.uri} ）をご覧ください。
 
 原因としては、以下の 3 つが考えられます。
 
@@ -136,28 +136,24 @@ R が **rmarkdown** のパッケージファイルを見つけられないため
 
 RAM（パソコンのメインメモリ）に関するエラーの可能性があります。実行中の R セッションをリスタート（re-start）してください。
 
-**Mapping network drives**
+**ネットワークドライブの割り当てに関するエラー**
 
-ネットワークドライブの割り当て（マッピング）は、重大な問題を引き起こす場合があります。割り当てる（マップする）前に、情報システムを担当する部署に相談してください。
+ネットワークドライブの割り当て（マッピング）は、重大な問題を引き起こす場合があります。割り当てが必要な場合は、割り当てる前に情報システムを担当する部署に相談してください。
 
-A tip borrowed from this [forum discussion](https://stackoverflow.com/questions/48161177/r-markdown-openbinaryfile-does-not-exist-no-such-file-or-directory/55616529?noredirect=1#comment97966859_55616529):
+既に割り当てられたネットワークドライブに保存されたファイルを開きたい場合は、[こちらの](https://stackoverflow.com/questions/48161177/r-markdown-openbinaryfile-does-not-exist-no-such-file-or-directory/55616529?noredirect=1#comment97966859_55616529) Stack Overflow のページに記載されている対処法を参照してください。
 
-How does one open a file "through a mapped network drive"?
+-   まず、アクセスが必要なネットワークドライブがどこにあるか、確認します。\
+-   次に、ウィンドウズ（Windows）のファイルマネージャー（File Manager）を開き、右パネルにある「This PC」を右クリックし、「Map a network drive」を選択します。\
+-   表示されたダイアログボックスで、アクセスが必要なネットワークドライブを選択します。
+-   ネットワークドライブに保存されたファイルを開いてください。
 
--   まず、First, you'll need to know the network location you're trying to access.\
--   Next, in the Windows file manager, you will need to right click on "This PC" on the right hand pane, and select "Map a network drive".\
--   Go through the dialogue to define the network location from earlier as a lettered drive.\
--   Now you have two ways to get to the file you're opening. Using the drive-letter path should work.
-
-**Error in install.packages()**
-
-エラーメッセージに「lock directory」が含まれている場合、
+**install.packages() に関するエラー**
 
 例）`Error in install.packages : ERROR: failed to lock directory...`
 
-Look in your package library and you will see a folder whose name begins with "00LOCK". Try the following tips:
+エラーメッセージに「lock directory」が含まれている場合、パッケージが保存されたライブラリを開き、ライブラリに「00LOCK」と名付けられたフォルダがあるか確認してください。「00LOCK」フォルダがあった場合の対処法は、以下の通りです。
 
--   Manually delete the "00LOCK" folder directory from your package library. Try installing the package again.\
--   You can also try the command `pacman::p_unlock()` (you can also put this command in the Rprofile so it runs every time project opens.). Then try installing the package again. It may take several tries.\
--   Try running RStudio in Administrator mode, and try installing the packages one-by-one.\
--   If all else fails, install the package to another library or folder (e.g. Temp) and then manually copy the package's folder over to the desired library.
+-   「00LOCK」フォルダのディレクトリをライブラリから削除し、インストールに失敗したパッケージを再度インストールする。\
+-   `pacman::p_unlock()` を実行し、再度パッケージをインストールする。何度か実行する必要があるかもしれません。（`pacman::p_unlock()` をRprofile に追加すると、R プロジェクトを開くたびに実行されます。）\
+-   管理者として RStudioを開き、1 つずつパッケージをインストールする。\
+-   上の 3 つの対処法のいづれも成功しなかった場合、インストールしたいパッケージを別のライブラリやフォルダ（Temp など）にインストールし、インストール後にそのパッケージが保存されたフォルダを、R がアクセスするライブラリに移してみてください。
