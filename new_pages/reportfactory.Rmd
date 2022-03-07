@@ -13,7 +13,7 @@
 
 RStudio の中で、Github から最新版の**reportfactory**パッケージをインストールしましょう。
 
-インストールは、**pacman** パッケージの `p_load_curreng_gh()` を利用することで行えます。この関数を利用すると Github からパッケージの最新バージョンを強制的にインストールしてくれます。 関数に、"reconverse/reportfactory" という文字を引数として与えましょう。 reconverse は Github 上の organization を表し、 reportfactory が repository を表します。 別のインストール方法としては、 **remotes**  パッケージの `install_github()` を利用することも可能です。
+インストールは、**pacman** パッケージの `p_load_curreng_gh()` を利用することで行えます。この関数を利用すると Github からパッケージの最新バージョンを強制的にインストールしてくれます。 関数に、"reconverse/reportfactory" という文字を引数として与えましょう。 reconverse は Github 上の organization を表し、 reportfactory が レポジトリ を表します。 別のインストール方法としては、 **remotes**  パッケージの `install_github()` を利用することも可能です。
 
 ```{r, eval=FALSE}
 # Github からパッケージの最新版をインストールして読み込む
@@ -23,9 +23,9 @@ pacman::p_load_current_gh("reconverse/reportfactory")
 
 ## 新しいファクトリー
 
-`new_factory()`を実行して、新しいファクトリーを作りましょう。実行すると、必要なものが含まれた新しい R プロジェクトフォルダが作成されます。初期設定では次のような動作となります：
+`new_factory()` を実行して、新しいファクトリーを作りましょう。実行すると、必要なものが含まれた新しい R プロジェクトフォルダが作成されます。初期設定では次のような動作となります：
 
-* 現在のワーキングディレクトリに                                                                                  が追加されます
+* 現在のワーキングディレクトリにファクトリーが追加されます
 * 新しい「ファクトリー R プロジェクト」は "new_factory.Rproj"となります
 * RStudio のセッションは、この「ファクトリー R プロジェクト」に「移動」します。
 
@@ -45,9 +45,9 @@ knitr::include_graphics(here::here("images", "factory_new2.png"))
 * <u>outputs</u> フォルダは、生成されたレポートが保存される場所です。（例：HTML、Word、PDF などのファイル）
 * <u>scripts</u> フォルダは、他の R スクリプトを保存する場所として利用できます。（例：Rmd ファイルから呼び出されるスクリプトなど）  
 * <u>data</u> フォルダは、データを保存する場所として利用できます。（サブフォルダとして "raw" と "clean" フォルダが含まれています）
-* <u>.here</u> ファイル：**here**パッケージを使用して、サブフォルダー内のファイルを、このルートフォルダーからの相対的なパスで呼び出すことができます（詳細は[R projects]ページを参照してください）。
-* <u>gitignore</u> ファイル：ファクトリー R プロジェクトをGithub レポジトリと関連付けた場合に備えて作成されています。（詳細は、[Version control and collaboration with Github] べージを参照してください）。
-* <u>README</u> ファイル（空）：Githubレポジトリを利用した場合に備えて作成されています。
+* <u>.here</u> ファイル：**here** パッケージを使用して、サブフォルダ内のファイルを、このルートフォルダからの相対的なパスで呼び出すことができます（詳細は[R projects]ページを参照してください）。
+* <u>gitignore</u> ファイル：ファクトリー R プロジェクトを Github レポジトリと関連付けた場合に備えて作成されています。（詳細は、[Version control and collaboration with Github] べージを参照してください）。
+* <u>README</u> ファイル（空）：Github レポジトリを利用した場合に備えて作成されています。
 
 <span style="color: orange;">**_注意:_** ".here" ファイルなどのいくつかのファイルは存在していたとしても、コンピューターの設定によっては見えない場合があります。</span>  
 
@@ -93,7 +93,7 @@ knitr::include_graphics(here::here("images", "factory_overview.png"))
 knitr::include_graphics(here::here("images", "factory_overview2.png"))
 ```
 
-次の画像は、R Markdown ファイル、"daily_sitrep.Rmd" の冒頭部分のスクリーンショットです。YAMLヘッダの `output: html_document` から、出力形式がHTMLに設定されていることが確認できます。
+次の画像は、R Markdown ファイル、"daily_sitrep.Rmd" の冒頭部分のスクリーンショットです。YAML ヘッダの `output: html_document` から、出力形式がHTMLに設定されていることが確認できます。
 
 ```{r, warning=F, message=F, echo=F}
 knitr::include_graphics(here::here("images", "factory_new_rmd.png"))
@@ -109,7 +109,7 @@ linelist <- import(here("data", "clean", "linelist_cleaned.rds"))
 ```
 
 * 事例の要約表を表示し、`export()` で表を .csv ファイルとしてエクスポートするためのコード
-* エピカーブを印刷し、`ggsave()`で.pngファイルとしてエクスポートするためのコード
+* エピカーブを印刷し、`ggsave()` で .png ファイルとしてエクスポートするためのコード
 
 次のコマンドで「report_sources」フォルダ内の R Markdown レポートのリストを確認することができます：
 
@@ -129,13 +129,13 @@ list_reports()
 
 ### 名前でのコンパイル {.unnumbered}   
 
-特定のレポートをコンパイルするには、`compile_reports()`を実行し、`reports = `に Rmd スクリプト名（.Rmd 拡張子は含めない）を指定します。 簡単にするには、以下のように`reports = `を省略して、R Markdown の名前をクオート（`"`や`'`）で囲んで書くこともできます。 
+特定のレポートをコンパイルするには、`compile_reports()` を実行し、`reports = `に Rmd スクリプト名（.Rmd 拡張子は含めない）を指定します。 簡単にするには、以下のように`reports = `を省略して、R Markdown の名前をクオート（`"`や`'`）で囲んで書くこともできます。 
 
 ```{r, warning=F, message=F, echo=F}
 knitr::include_graphics(here::here("images", "factory_compile1.png"))
 ```
 
-このコマンドは、"daily_sitrep.Rmd" レポートのみをコンパイルします。HTMLレポート、.csvの表、.png の epicurve 画像の出力結果を、"outputs" フォルダ内のレポート専用のサブフォルダに、日付とタイムスタンプ付きで保存します。  
+このコマンドは、"daily_sitrep.Rmd" レポートのみをコンパイルします。HTML レポート、.csv の表、.png の epicurve 画像の出力結果を、"outputs" フォルダ内のレポート専用のサブフォルダに、日付とタイムスタンプ付きで保存します。  
 
 なお、.Rmd の拡張子を付けた場合は、ファイルの拡張子を正確に入力する必要があります（ .rmd と .Rmd ）。  
 
@@ -152,7 +152,7 @@ compile_reports(reports = c(2, 4))
 
 ### すべてをコンパイルする {.unnumbered}
 
-"report_sources" フォルダ内の R Markdown レポート<u>すべて</u>をコンパイルするには、`reports = ` 引数をTRUEに設定します。
+"report_sources" フォルダ内の R Markdown レポート<u>すべて</u>をコンパイルするには、`reports = ` 引数を TRUE に設定します。
 
 ```{r, warning=F, message=F, echo=F}
 knitr::include_graphics(here::here("images", "factory_compile_all.png"))
@@ -160,7 +160,7 @@ knitr::include_graphics(here::here("images", "factory_compile_all.png"))
 
 ### サブフォルダからコンパイルする {.unnumbered}
 
-"report_sources" フォルダにサブフォルダを追加することができます。サブフォルダから R Markdown レポートを実行するには、`subfolder = `にフォルダの名前を指定するだけです。下記は "report_sources "のサブフォルダに存在するRmdレポートをコンパイルするコードの例です。  
+"report_sources" フォルダにサブフォルダを追加することができます。サブフォルダから R Markdown レポートを実行するには、`subfolder = `にフォルダの名前を指定するだけです。下記は "report_sources" のサブフォルダに存在する Rmd レポートをコンパイルするコードの例です。  
 
 ```{r, eval=F}
 compile_reports(
@@ -191,7 +191,7 @@ compile_reports(
 
 ### "run-file" を利用する {.unnumbered}
 
-作成するレポートが複数ある場合は、すべてのレポートに対する`compile_reports()`コマンドを含んだ R スクリプトを作成することを検討してください。ユーザーは、この R スクリプト内のすべてのコマンドを実行するだけで、すべてのレポートがコンパイルされます。この "run-file" を "scripts" フォルダに保存することができます。 
+作成するレポートが複数ある場合は、すべてのレポートに対する`compile_reports()` コマンドを含んだ R スクリプトを作成することを検討してください。ユーザーは、この R スクリプト内のすべてのコマンドを実行するだけで、すべてのレポートがコンパイルされます。この "run-file" を "scripts" フォルダに保存することができます。 
 
 ## 出力結果
 
@@ -201,7 +201,7 @@ compile_reports(
 knitr::include_graphics(here::here("images", "factory_overview_all.png"))
 ```
 
-* "outputs" フォルダの中には、それぞれの Rmd レポート用のサブフォルダーが作成されています。 
+* "outputs" フォルダの中には、それぞれの Rmd レポート用のサブフォルダが作成されています。 
 * そのサブフォルダの中には、コンパイルされる度にサブフォルダが作られています。 
   * これらのフォルダには、日付と時間が記録されています ("2021-04-23_T11-07-36" は 2021 年 4 月 23 日 11 時 7 分 36 秒を表します)  
   * 日付と時間のフォーマットを編集することが可能です。詳しくは `?compile_reports` を確認してください。
@@ -225,7 +225,7 @@ knitr::include_graphics(here::here("images", "factory_html.png"))
 
 ### Knit {.unnumbered} 
 
-必要であれば、"Knit" ボタンを押して、R Markdown レポートの1つを "Knit"することもできます。 "knit" した場合、デフォルトでは Rmd が保存されている、 "report_sources" フォルダに出力が表示されます。 以前のバージョンの **reportfactory** では、"report_sources" に Rmd 以外のファイルがあるとコンパイルができませんでしたが、現在はそのようなことはありません。 `compile_reports()`を実行してもエラーにはなりません。  
+必要であれば、"Knit" ボタンを押して、R Markdown レポートの1つを "Knit" することもできます。 "knit" した場合、デフォルトでは Rmd が保存されている、 "report_sources" フォルダに出力が表示されます。 以前のバージョンの **reportfactory** では、"report_sources" に Rmd 以外のファイルがあるとコンパイルができませんでしたが、現在はそのようなことはありません。 `compile_reports()`を実行してもエラーにはなりません。  
 
 ### スクリプト {.unnumbered}  
 
