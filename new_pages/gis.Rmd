@@ -5,14 +5,14 @@ library(tidyverse)
 library(here)
 
 
-# 訳注: macOS で日本語が文字化けしたので、フォント設定を入れています。これは Windows と Linux では逆に余計な警告を出すので、デフォルトでは "sans" にしています。
-gis_jfontname <- "sans"
-gis_sysinf <- Sys.info()
-if (!is.null(gis_sysinf)) {
-  if (gis_sysinf['sysname'] == "Darwin") {
-    gis_jfontname <- "HiraginoSans-W3"
-  }
-}
+# 訳注: macOS で日本語が文字化けしたので、フォント設定を入れています。これは Windows と Linux では逆に余計な警告を出すので、デフォルトでは "sans" にしています。（レビューアー注釈：レビュールールに沿わない記載ですが、今後、日本版にローカライズする際に有用な記載と考え、コメントとしてのこしておきます。）
+# gis_jfontname <- "sans"
+# gis_sysinf <- Sys.info()
+# if (!is.null(gis_sysinf)) {
+#   if (gis_sysinf['sysname'] == "Darwin") {
+#     gis_jfontname <- "HiraginoSans-W3"
+#   }
+# }
 
 knitr::include_graphics(here::here("images", "gis_head_image.png"))
 ```
@@ -26,7 +26,7 @@ knitr::include_graphics(here::here("images", "gis_head_image.png"))
 * ホットスポットは時系列でどのように変化しているか？
 * 医療施設へのアクセスはどうなっているか？改善が必要か？
 
-この GIS ページでは、応用疫学者がアウトブレイク対応において知りたいニーズに応えることを目的としています。ここでは、**tmap** と **ggplot2** パッケージを使って、基本的な空間データの可視化方法を学びます。また、**sf** パッケージを使用して、基本的な空間データの管理とクエリの方法についても説明します。最後に、**spdep** パッケージを用いて、空間的関係、空間的自己相関、空間回帰など、<u>空間統計</u>の概念に簡単に触れます。 
+この GIS の章では、疫学業務担当者がアウトブレイク対応において知りたいニーズに応えることを目的としています。ここでは、**tmap** と **ggplot2** パッケージを使って、基本的な空間データの可視化方法を学びます。また、**sf** パッケージを使用して、基本的な空間データの管理とクエリの方法についても説明します。最後に、**spdep** パッケージを用いて、空間的関係、空間的自己相関、空間回帰など、<u>空間統計</u>の概念に簡単に触れます。 
 
 
 
@@ -139,7 +139,7 @@ knitr::include_graphics(here::here("images", "gis_heatmap.png"))
 knitr::include_graphics(here::here("images", "gis_hf_catchment.png"))
 ```
 
-注：この GIS ページの主な焦点は、現場でのアウトブレイク対応の状況に基づいています。そのため、このページの内容は、基本的な空間データの操作、視覚化、および分析をカバーしています。
+注：この GIS の章の主な焦点は、現場でのアウトブレイク対応の状況に基づいています。そのため、この章の内容は、基本的な空間データの操作、視覚化、および分析をカバーしています。
 
 
 <!-- ======================================================= -->
@@ -147,7 +147,7 @@ knitr::include_graphics(here::here("images", "gis_hf_catchment.png"))
 
 ### パッケージを読み込む {.unnumbered}  
 
-このコードチャンクは、分析に必要なパッケージのロードを示しています。このハンドブックでは、**pacman** の `p_load()` を使うことを強調しています。`p_load()` は、必要に応じてパッケージをインストールし、<u>そして</u>使用するためにパッケージをロードします。R の base パッケージ（以下、base R）から `library()` を使用してパッケージをロードすることもできます。R のパッケージについての詳細は [R basics] のページを参照してください。
+以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、pacman パッケージの p_load() を主に使用しています。p_load() は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである base （以下、base R）の library() を使用して読み込むこともできます。R のパッケージに関する詳細は[R の基礎](#basics)の章をご覧ください。
 
 ```{r}
 pacman::p_load(
@@ -172,7 +172,7 @@ pacman::p_load(
 
 ここではランダムにサンプルを取っているので、実際にコードを実行してみると、ここでデモされているものとは若干異なる結果になるかもしれません。
 
-データを **rio** パッケージ（.xlsx, .csv, .rds など多くのファイルタイプを扱えます - 詳細は [Import and export]() ページを参照してください）の `import()` 関数を使ってインポートします。 
+データを **rio** パッケージ（.xlsx, .csv, .rds など多くのファイルタイプを扱えます - 詳細は[データのインポート・エクスポート](#importing)の章を参照してください）の `import()` を使ってインポートします。 
 
 ```{r, echo=F}
 # 前処理済みのlinelistをインポート
@@ -196,7 +196,7 @@ linelist <- linelist[sample_rows,]
 
 このデータフレームクラスの `linelist` をクラス "sf"（空間フィーチャ）のオブジェクトに変換したいと思います。この linelist には、各症例の居住地の経度と緯度を表す "lon" と "lat" の2つの列があるので、これは簡単です。 
 
-ここでは、**sf**（空間的フィーチャ）パッケージとその関数 `st_as_sf()` を使用して、`linelist_sf` という新しいオブジェクトを作成します。この新しいオブジェクトは、基本的には linelist と同じですが、列 `lon` と `lat` を座標列として指定し、点を表示する際の座標参照系 (CRS) を割り当てています。4326では、GPS座標の標準である [World Geodetic System 1984 (WGS84)](https://gisgeography.com/wgs84-world-geodetic-system/) に基づいた座標が指定されています。  
+ここでは、**sf**（空間的フィーチャ）パッケージとその関数、 `st_as_sf()` を使用して、`linelist_sf` という新しいオブジェクトを作成します。この新しいオブジェクトは、基本的には linelist と同じですが、列 `lon` と `lat` を座標列として指定し、点を表示する際の座標参照系 (CRS) を割り当てています。4326では、GPS座標の標準である [World Geodetic System 1984 (WGS84)](https://gisgeography.com/wgs84-world-geodetic-system/) に基づいた座標が指定されています。  
 
 ```{r}
 # sfオブジェクトを生成
@@ -214,7 +214,7 @@ DT::datatable(head(linelist_sf, 10), rownames = FALSE, options = list(pageLength
 
 **シエラレオネ (Sierra Leone): 行政境界シェープファイル**  
 
-事前に、Humanitarian Data Exchange (HDX) [ウェブサイト](https://data.humdata.org/dataset/sierra-leone-all-ad-min-level-boundaries)からシエラレオネのすべての行政（admin）境界データをダウンロードしておきました。あるいは、[Download handbook and data]() のページで説明しているように、私たちの R パッケージを介して、このデータやその他のサンプルデータをダウンロードすることもできます。 
+事前に、Humanitarian Data Exchange (HDX) [ウェブサイト](https://data.humdata.org/dataset/sierra-leone-all-ad-min-level-boundaries)からシエラレオネのすべての行政（admin）境界データをダウンロードしておきました。あるいは、[ハンドブックとデータのダウンロード](#data-used)の章で説明しているように、私たちの R パッケージを介して、このデータやその他のサンプルデータをダウンロードすることもできます。 
 
 では、いよいよ Admin Level 3 のシェープファイルを R に保存するために、以下の作業を行います。 
 
@@ -222,7 +222,7 @@ DT::datatable(head(linelist_sf, 10), rownames = FALSE, options = list(pageLength
 2) 列名を加工する
 3) 興味のある地域だけを残すために行を抽出する
 
-シェープファイルをインポートするには、**sf** の `read_sf()` 関数を使います。ファイルのパスは `here()` で与えられます。- 今回の場合、ファイルはRプロジェクトの "data"、"gis"、"shp" というサブフォルダに "sle_adm3.shp" として格納されています（詳細は [データのインポート・エクスポート](#importing) と [R プロジェクトの設定](#r-projects) のページを参照してください）。独自のファイルパスを設定してください。
+シェープファイルをインポートするには、**sf** パッケージの `read_sf()` を使います。ファイルのパスは `here()` で与えられます。- 今回の場合、ファイルはRプロジェクトの "data"、"gis"、"shp" というサブフォルダに "sle_adm3.shp" として格納されています（詳細は [データのインポート・エクスポート](#importing) と [R プロジェクトの設定](#r-projects) の章を参照してください）。独自のファイルパスを設定してください。
 
 ```{r, echo=F}
 sle_adm3_raw <- sf::read_sf(here("data", "gis", "shp", "sle_adm3.shp"))
@@ -238,7 +238,7 @@ sle_adm3 <- sle_adm3_raw %>%
   filter(admin2name %in% c("Western Area Urban", "Western Area Rural")) # 特定の地域を残してフィルター
 ```
 
-下の表は、インポートし、クリーニングした後のシェープファイルの様子です。右側にスクロールして、admin レベル 0（国）、admin レベル 1、admin レベル 2、そして最後に admin レベル 3 の列があることがわかります。それぞれのレベルには、キャラクター名と固有の識別子「pcode」があります。たとえば、SL（Sierra Leone） → 04（Western） → L0410（Western Area Rural）→ L0040101（Koya Rural）のように、pcode は admin レベルが上がるごとに拡張されます。
+下の表は、インポートし、クリーニングした後のシェープファイルの様子です。右側にスクロールして、admin レベル 0（国）、admin レベル 1、admin レベル 2、そして最後に admin レベル 3 の列があることがわかります。それぞれのレベルには、キャラクター名と固有の識別子 "pcode" があります。たとえば、SL（Sierra Leone） → 04（Western） → L0410（Western Area Rural）→ L0040101（Koya Rural）のように、pcode は admin レベルが上がるごとに拡張されます。
 
 ```{r message=FALSE, echo=F}
 # shapefile を表として表示
@@ -251,7 +251,7 @@ DT::datatable(head(sle_adm3, 50), rownames = FALSE, options = list(pageLength = 
 
 **シエラレオネ: ADM3 ごとの人口**  
 
-これらのデータは、HDX からダウンロードすることもできますし（リンクは[こちら](https://data.humdata.org/dataset/sierra-leone-population)）、本ページ[ハンドブックとデータのダウンロード]で説明しているように、**epirhandbook** Rパッケージを介してダウンロードすることもできます。.csv ファイルの読み込みには、`import()` を使用します。また、インポートしたファイルを `clean_names()` に渡して列名の構文を標準化します。
+これらのデータは、HDX からダウンロードすることもできますし（リンクは[こちら](https://data.humdata.org/dataset/sierra-leone-population)）、この章[ハンドブックとデータのダウンロード](#data-used)で説明しているように、**epirhandbook** パッケージを介してダウンロードすることもできます。.csv ファイルの読み込みには、`import()` を使用します。また、インポートしたファイルを `clean_names()` に渡して列名の構文を標準化します。
 
 ```{r}
 # ADM3 ごとの人口
@@ -271,7 +271,7 @@ DT::datatable(head(sle_adm3_pop, 50), rownames = FALSE, options = list(pageLengt
 
 **シエラレオネ: OpenStreetMap からの医療施設**  
 
-今回も HDX から医療施設の位置情報をダウンロードしました。[こちら](https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities) または [Download handbook and data] ページの指示に従ってください。  
+今回も HDX から医療施設の位置情報をダウンロードしました。[こちら](https://data.humdata.org/dataset/hotosm_sierra_leone_health_facilities) または [ハンドブックとデータのダウンロード](#data-used)の章の指示に従ってください。  
 
 施設の位置を示す点のシェープファイルを `read_sf()` でインポートし、列名をクリーニングしてから、病院（"hospital"）、診療所（"clinic"）、医師（"doctor"） のいずれかのタグが付けられた点だけを残すように抽出しました。 
 
@@ -299,16 +299,16 @@ DT::datatable(head(sle_hf, 50), rownames = FALSE, options = list(pageLength = 5,
 
 X-Y座標（経度・緯度で表される点）をプロットする最も簡単な方法は、今回の場合、準備編で作成した `linelist_sf` オブジェクトから直接、点として描画することです。
 
-パッケージ **tmap** は、わずか数行のコードで、静的（"plot" モード）とインタラクティブ（"view" モード）の両方に対応したシンプルなマッピング機能を提供します。**tmap** の構文は **ggplot2** と似ていて、コマンド同士を `+` で追加していきます。詳しくはこの [vignette](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) をご覧ください。
+**tmap** パッケージ は、わずか数行のコードで、静的（"plot" モード）とインタラクティブ（"view" モード）の両方に対応したシンプルなマッピング機能を提供します。**tmap** パッケージ の構文は **ggplot2** パッケージ と似ていて、コマンド同士を `+` で追加していきます。詳しくはこの [vignette](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) をご覧ください。
 
 
-1) **tmap**モードを設定。ここでは plot モードを使い、静的なアウトプットを作成します。  
+1) **tmap** モードを設定。ここでは plot モードを使い、静的なアウトプットを作成します。  
 
 ```{r, warning = F, message=F}
 tmap_mode("plot") # "view" または "plot" を選択
 ```
 
-以下では、点を単独でプロットしています。`tm_shape()` は、`linelist_sf` オブジェクトとともに提供されます。次に、`tm_dots()` でサイズと色を指定して点を追加します。`linelist_sf` は sf オブジェクトなので、緯度・経度座標と座標系（CRS）を格納する2つの列は既に指定されています。
+以下では、点を単独でプロットしています。`tm_shape()` は、`linelist_sf` オブジェクトとともに提供されます。次に、`tm_dots()` でサイズと色を指定して点を追加します。`linelist_sf` は sf オブジェクトなので、緯度・経度座標と座標系（CRS）を格納する2つの列はすでに指定されています。
 
 
 ```{r, warning = F, message=F}
@@ -365,10 +365,10 @@ R でのマッピングオプションの比較については、こちらの [�
 <!-- ======================================================= -->
 ## 空間結合 {}
 
-データセットと別のデータセットを <u>結合</u> することについては知っているでしょう。いくつかの方法は、このハンドブックの [Joining data]() のページで説明しています。空間結合は、同様の目的を持ちますが、空間的な関係を利用します。観測値を正しく一致させるために列の共通の値に頼るのではなく、あるフィーチャが他のフィーチャの中に入っているとか、他のフィーチャに<u>最近傍</u>であるとか、他のフィーチャから一定の半径の<u>バッファ</u>内にあるなど、空間的な関係を利用することができます。 
+データセットと別のデータセットを <u>結合</u> することについては知っているでしょう。いくつかの方法は、このハンドブックの[データの結合](#joining-matching)の章で説明しています。空間結合は、同様の目的を持ちますが、空間的な関係を利用します。観測値を正しく一致させるために列の共通の値に頼るのではなく、あるフィーチャが他のフィーチャの中に入っているとか、他のフィーチャに<u>最近傍</u>であるとか、他のフィーチャから一定の半径の<u>バッファ</u>内にあるなど、空間的な関係を利用することができます。 
 
 
-**sf** パッケージには、空間結合のための様々なメソッドが用意されています。st_join メソッドや空間結合の種類については、こちらの[参考文献](https://r-spatial.github.io/sf/reference/geos_binary_pred.html)に詳しい説明があります。 
+**sf** パッケージには、空間結合のための様々なメソッドが用意されています。st_join メソッドや空間結合の種類については、こちらの[参考資料](https://r-spatial.github.io/sf/reference/geos_binary_pred.html)に詳しい説明があります。 
 
 
 ### ポリゴン内の点 {.unnumbered}
@@ -423,7 +423,7 @@ case_adm3
 
 また、行政単位ごとの症例数の棒グラフを作成することもできます。 
 
-この例では、`ggplot()` を `linelist_adm` で始めているので、頻度で棒グラフを並べる `fct_infreq()` などのファクタ関数を適用することができます（ヒントは [Factors]() のページを参照してください）。 
+この例では、`ggplot()` を `linelist_adm` で始めているので、頻度で棒グラフを並べる `fct_infreq()` などのファクタ関数を適用することができます（ヒントは [因子（ファクタ）型データ](#factors) の章を参照してください）。 
 
 ```{r, warning=F, message=F}
 ggplot(
@@ -432,12 +432,12 @@ ggplot(
       x = fct_rev(fct_infreq(admin3name))))+ # x軸は行政単位、件数で並べ替え
   geom_bar()+                                # 帽を作成、高さは行数
   coord_flip()+                              # adm を読みやすくするためにXとYを入れ替える
-  theme_classic(base_family = gis_jfontname)+   # 背景を単純に、フォントは macOS では、"HiraginoSans-W3" など
+  theme_classic()+   # 背景を単純に
   labs(                                      # タイトルとラベル
     x = "Admin level 3",
-    y = "症例数",
-    title = "行政単位ごとの症例数",
-    caption = "linelistからのランダムな1000個のサンプルから空間結合で決定"
+    y = "Number of cases",
+    title = "Number of cases, by adminstative unit",
+    caption = "As determined by a spatial join, from 1000 randomly sampled cases from linelist"
   )
 ```
 
@@ -449,7 +449,7 @@ ggplot(
 
 病気のホットスポットに関連して、医療施設がどこにあるかを知っておくと便利かもしれません。
 
-ここでは、`st_join()` 関数(**sf** パッケージ)の *st_nearest_feature* 結合メソッドを使って、個々の症例に最も近い医療施設を可視化することができます。 
+ここでは、`st_join()` (**sf** パッケージ)の *st_nearest_feature* 結合メソッドを使って、個々の症例に最も近い医療施設を可視化することができます。 
 
 1) まず、シェープファイルのラインリスト `linelist_sf` を用意します。 
 2) 保健施設や診療所の位置（点）である `sle_hf` と空間的に結合します。 
@@ -482,7 +482,7 @@ hf_catchment <- linelist_sf_hf %>%   # 最寄りの診療所データを含むli
 hf_catchment                         # console に表示
 ```
 
-結果を可視化するために、**tmap** を使用することができます。 
+結果を可視化するために、**tmap** パッケージ を使用することができます。 
 
 ```{r, warning=F, message=F}
 tmap_mode("view")   # tmap モードをインタラクティブに設定
@@ -509,7 +509,7 @@ tm_layout(title = "Cases, colored by nearest clinic")
 地図投影法と座標系については、こちらの[esriの記事](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/)をご覧ください。こちらの[ブログ](http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/map%20coordinate%20systems/how%20to%20choose%20a%20projection.htm) では、様々なタイプの地図投影について、また、興味のある分野や地図・分析の文脈に応じて、どのように適切な投影を選ぶことができるかについて述べられています。
 
 
-**まず**、各医療施設の周囲に半径約2.5kmの円形バッファを作成します。これは **tmap** の関数 `st_buffer()` で行います。地図の単位は緯度・経度の10進法であるため、"0.02" は度数として解釈されます。地図の座標系がメートル単位の場合は、数値もメートル単位で指定する必要があります。 
+**まず**、各医療施設の周囲に半径約2.5kmの円形バッファを作成します。これは **tmap** パッケージ の `st_buffer()` で行います。地図の単位は緯度・経度の10進法であるため、"0.02" は度数として解釈されます。地図の座標系がメートル単位の場合は、数値もメートル単位で指定する必要があります。 
 
 ```{r, warning=F, message=F}
 sle_hf_2k <- sle_hf %>%
@@ -608,7 +608,7 @@ ADM3 ごとの人口データもあるので、この情報を先に作成した
 
 まず、前のステップで作成したデータフレーム `case_adm3` から始めます。これは、各行政単位とその症例数の要約表です。 
 
-1) 人口データ `sle_adm3_pop` は、**dplyr** の `left_join()` を用いて、`case_adm3` データフレームの `admin3pcod` 列と `sle_adm3_pop` データフレームの `adm_pcode` 列に共通する値に基づいて結合されています。[データの結合]()のページを参照）。 
+1) 人口データ `sle_adm3_pop` は、**dplyr** パッケージ の `left_join()` を用いて、`case_adm3` データフレームの `admin3pcod` 列と `sle_adm3_pop` データフレームの `adm_pcode` 列に共通する値に基づいて結合されています。[データの結合](#joining-matching)の章を参照）。 
 2) `select()` を新しいデータフレームに適用して、有用な列だけを残す - `total` は総人口です。 
 3) `mutate()` を用いて、人口 10,000 人あたりの症例数を新しい列として計算します。
 
@@ -671,14 +671,14 @@ tm_shape(case_adm3_sf) +                # ポリゴンをプロット
 ```
 
 ## ggplot2 で地図作成
-すでに **ggplot2** の使用に慣れている場合は、データの静的なマップを作成する代わりに、ggplot2 パッケージを使用することができます。関数 `geom_sf()` は、データに含まれる特徴 (点、線、多角形) に応じて異なるオブジェクトを描画します。例えば、ポリゴンを含む `sf` データを使った `ggplot()` の中で `geom_sf()` を使うと、色分け地図を作ることができます。
+すでに **ggplot2** パッケージ の使用に慣れている場合は、データの静的なマップを作成する代わりに、ggplot2 パッケージを使用することができます。`geom_sf()` は、データに含まれる特徴 (点、線、多角形) に応じて異なるオブジェクトを描画します。例えば、ポリゴンを含む `sf` データを使った `ggplot()` の中で `geom_sf()` を使うと、色分け地図を作ることができます。
 
 これがどのように機能するかを説明するために、先ほど使用した ADM3 ポリゴンのシェープファイルから始めます。このポリゴンは、シエラレオネの Admin Level 3 の地域であることを思い出してください。
 
 ```{r}
 sle_adm3
 ```
-**dplyr** の `left_join()` 関数を使って、マッピングしたいデータをシェープファイルオブジェクトに追加することができます。この例では、先ほど作成した `case_adm3` データフレームを使って、行政区ごとの症例数をまとめていますが、データフレームに格納されているどのようなデータでも、同様の方法でマッピングすることができます。
+**dplyr** パッケージ の `left_join()` を使って、マッピングしたいデータをシェープファイルオブジェクトに追加することができます。この例では、先ほど作成した `case_adm3` データフレームを使って、行政区ごとの症例数をまとめていますが、データフレームに格納されているどのようなデータでも、同様の方法でマッピングすることができます。
 
 ```{r}
 sle_adm3_dat <- sle_adm3 %>% 
@@ -687,7 +687,7 @@ sle_adm3_dat <- sle_adm3 %>%
 select(sle_adm3_dat, admin3name.x, cases) # console に選択した変数を表示
 ```
 
-**ggplot2** を使って、地域別の症例数の棒グラフを作成するには、次のように `geom_col()` を呼び出します。
+**ggplot2** パッケージ を使って、地域別の症例数の棒グラフを作成するには、次のように `geom_col()` を呼び出します。
 
 ```{r, fig.align = "center"}
 ggplot(data=sle_adm3_dat) +
@@ -703,7 +703,7 @@ ggplot(data=sle_adm3_dat) +
 
 ```
 
-もし、**ggplot2** を使って症例数の色分け地図を作りたい場合は、同様の構文で `geom_sf()` 関数を呼び出すことができます。
+もし、**ggplot2** パッケージ を使って症例数の色分け地図を作りたい場合は、同様の構文で `geom_sf()` を呼び出すことができます。
 
 ```{r, fig.align = "center"}
 ggplot(data=sle_adm3_dat) + 
@@ -711,7 +711,7 @@ ggplot(data=sle_adm3_dat) +
 
 ```
 
-そして、例えば、**ggplot2** で統一されている文法を使って、地図の外観をカスタマイズすることができます。
+そして、例えば、**ggplot2** パッケージ で統一されている文法を使って、地図の外観をカスタマイズすることができます。
 
 ```{r, fig.align = "center"}
 ggplot(data=sle_adm3_dat) +                           
@@ -723,7 +723,7 @@ ggplot(data=sle_adm3_dat) +
   )
 ```
 
-**ggplot2** に慣れているRユーザーにとって、`geom_sf()`は、実装がシンプルで直接的であり、基本的な地図の可視化に適しています。詳しくは、[geom_sf() vignette](https://ggplot2.tidyverse.org/reference/ggsf.html) または [ggplot2 book](https://ggplot2-book.org/maps.html) をご覧ください。
+**ggplot2** パッケージ に慣れているRユーザーにとって、`geom_sf()`は、実装がシンプルで直接的であり、基本的な地図の可視化に適しています。詳しくは、[geom_sf() ビニエット（vignette）](https://ggplot2.tidyverse.org/reference/ggsf.html) または [ggplot2 book](https://ggplot2-book.org/maps.html) をご覧ください。
 
 
 
@@ -734,13 +734,13 @@ ggplot(data=sle_adm3_dat) +
 
 ### OpenStreetMap {.unnumbered} 
 
-以下では、OpenStreetMap の機能を使って **ggplot2** マップの基図を作成する方法を説明します。他の方法としては、Google への無料登録が必要な **ggmap** を使用する方法があります([詳細](https://www.earthdatascience.org/courses/earth-analytics/lidar-raster-data-r/ggmap-basemap/))。
+以下では、OpenStreetMap の機能を使って **ggplot2** パッケージを利用したマップの基図を作成する方法を説明します。他の方法としては、Google への無料登録が必要な **ggmap** パッケージ を使用する方法があります([詳細](https://www.earthdatascience.org/courses/earth-analytics/lidar-raster-data-r/ggmap-basemap/))。
 
-[**OpenStreetMap**](https://en.wikipedia.org/wiki/OpenStreetMap) は、自由に編集可能な世界地図を作成する共同プロジェクトです。基本となるジオロケーション・データ（都市、道路、自然、空港、学校、病院、道路などの位置情報）は、このプロジェクトの主要なアウトプットと考えられています。
+[**OpenStreetMap**](https://en.wikipedia.org/wiki/OpenStreetMap) パッケージは、自由に編集可能な世界地図を作成する共同プロジェクトです。基本となるジオロケーション・データ（都市、道路、自然、空港、学校、病院、道路などの位置情報）は、このプロジェクトの主要なアウトプットと考えられています。
 
 まず、**OpenStreetMap** パッケージをロードして、そこから基図を取得します。 
 
-次に、オブジェクト `map` を作成します。これは、**OpenStreetMap** パッケージの関数 `openmap()` を使用して定義します ([documentation](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/openmap))。以下のものを用意します。
+次に、オブジェクト `map` を作成します。これは、**OpenStreetMap** パッケージの `openmap()` を使用して定義します ([documentation](https://www.rdocumentation.org/packages/OpenStreetMap/versions/0.3.4/topics/openmap))。以下のものを用意します。
 
 * `upperLeft` と `lowerRight` 基図タイルの境界を指定する2つの座標ペア。 
   * ここでは、ラインリストの行の最大値と最小値を入れているので、地図は動的にデータに反応します。 
@@ -767,7 +767,7 @@ map <- openmap(
 autoplot.OpenStreetMap(map)
 ```
 
-そこで、 **OpenStreetMap** パッケージの `openproj()` 関数を使って、地図を緯度/経度に変換したいと思います。基図 `map` と、必要な座標系（CRS）を指定します。ここでは、WGS 1984投影の "proj.4"文字列を指定していますが、他の方法でCRSを指定することもできます。(proj.4文字列が何であるかを理解するには、[このページ](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/)を参照してください)  
+そこで、 **OpenStreetMap** パッケージの `openproj()` を使って、地図を緯度/経度に変換したいと思います。基図 `map` と、必要な座標系（CRS）を指定します。ここでは、WGS 1984投影の "proj.4"文字列を指定していますが、他の方法でCRSを指定することもできます。(proj.4文字列が何であるかを理解するには、[このページ](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/)を参照してください)  
 
 ```{r, warning=F, message=F}
 # 座標系 WGS84
@@ -793,12 +793,12 @@ autoplot.OpenStreetMap(map_latlon)
 
 1) 上述のように OpenStreetMap から基図タイルを作成する  
 2) `linelist` の症例を、緯度と経度の列を使ってプロットする。 
-3) **ggplot2** の `stat_density_2d()` を使って、点を密度ヒートマップに変換する。
+3) **ggplot2** パッケージの `stat_density_2d()` を使って、点を密度ヒートマップに変換する。
 
 
 緯度・経度座標を持つ基図があれば、その上に事例の居住地の緯度・経度座標を使ってプロットすることができます。
 
-基図を作成するための関数 `autoplot.OpenStreetMap()` をベースにして、**ggplot2** 関数を使えば、以下の `geom_point()` のように簡単に上に追加することができます。 
+基図を作成するための関数 `autoplot.OpenStreetMap()` をベースにして、**ggplot2** パッケージ の関数を使えば、以下の `geom_point()` のように簡単に上に追加することができます。 
 
 ```{r, warning=F, message=F}
 # 地図をプロット。ggplot と使うためには autoplot が必須。
@@ -815,7 +815,7 @@ autoplot.OpenStreetMap(map_latlon)+                 # 基図から始める
 
 ```
 
-上のマップは、特に点が重なっているところは、解釈が難しいかもしれません。そこで、 **ggplot2** 関数 `stat_density_2d()` を用いて 2 次元密度マップを作成することができます。ラインリストの緯度/軽度座標を使用していますが、2D カーネル密度推定を行い、その結果を等高線で表示します（地形図のように）。完全な[ドキュメントはこちら](https://ggplot2.tidyverse.org/reference/geom_density_2d.html)をご覧ください。 
+上のマップは、特に点が重なっているところは、解釈が難しいかもしれません。そこで、 **ggplot2** パッケージの `stat_density_2d()` を用いて 2 次元密度マップを作成することができます。ラインリストの緯度/軽度座標を使用していますが、2D カーネル密度推定を行い、その結果を等高線で表示します（地形図のように）。完全な[ドキュメントはこちら](https://ggplot2.tidyverse.org/reference/geom_density_2d.html)をご覧ください。 
 
 
 ```{r, warning=F, message=F}
@@ -867,7 +867,7 @@ linelist <- linelist %>%
 table(linelist$date_onset_ym, useNA = "always")
 ```
 
-ここでは、密度ヒートマップに **ggplot2** による分割列を導入するだけです。`facet_wrap()` が適用され、新しい列が行として使用されます。わかりやすくするために、分割列の数を 3 に設定しました。 
+ここでは、密度ヒートマップに **ggplot2** パッケージによる分割列を導入するだけです。`facet_wrap()` が適用され、新しい列が行として使用されます。わかりやすくするために、分割列の数を 3 に設定しました。 
 
 
 ```{r, warning=F, message=F}
@@ -938,9 +938,9 @@ plot(sle_adm3_dat$geometry) +                                           # 地域
 
 ここでは、隣接するポリゴンを特定するために、隣接アプローチを用いました。特定した隣接は、**隣接ベース近傍** (**contiguity-based neighbors**) と呼ばれることもあります。しかし、これは、どの地域が地理的な関係を持っていると予想されるかを選択する一つの方法に過ぎません。地理的関係を特定するため別の方法で、最も一般的な方法は、以下のような**距離ベース近傍**を生成することです。
   
-  * **K-最近傍** - セントロイド（各ポリゴン領域の地理的に重み付けされた中心）間の距離に基づいて、*n*個の最も近い領域を近傍として選択します。最大距離の近さのしきい値を指定することもできます。**spdep** では、`knearneigh()` が使えます（[documentation](https://r-spatial.github.io/spdep/reference/knearneigh.html) 参照）。
+  * **K-最近傍** - セントロイド（各ポリゴン領域の地理的に重み付けされた中心）間の距離に基づいて、*n*個の最も近い領域を近傍として選択します。最大距離の近さのしきい値を指定することもできます。**spdep** パッケージでは、`knearneigh()` が使えます（[ドキュメント](https://r-spatial.github.io/spdep/reference/knearneigh.html)を参照）。
   
-  * **距離閾値近傍** - 距離閾値以内のすべての近傍を選択します。**spdep** では、これらの近傍関係は `dnearneigh()` を使って特定できます（[documentation](https://www.rdocumentation.org/packages/spdep/versions/1.1-7/topics/dnearneigh) 参照）。
+  * **距離閾値近傍** - 距離閾値以内のすべての近傍を選択します。**spdep** パッケージでは、これらの近傍関係は `dnearneigh()` を使って特定できます（[ドキュメント](https://www.rdocumentation.org/packages/spdep/versions/1.1-7/topics/dnearneigh)を参照）。
 
 ### 空間的自己相関 {.unnumbered}
 
@@ -948,7 +948,7 @@ plot(sle_adm3_dat$geometry) +                                           # 地域
 
 **Moran's I** - これは、ある地域での変数の値と、近隣の地域での同じ変数の値との間の相関のグローバルな要約統計です。通常、Moran's I 統計量は、-1 から 1 の範囲をとります。0 は、空間的な相関のパターンがないことを示し、1 や -1 に近い値は、それぞれ空間的な自己相関（似たような値が近くにある）や空間的なばらつき（似ていない値が近くにある）が強いことを示しています。
 
-例として、先ほどマッピングしたエボラ出血熱の症例の空間的自己相関を定量化するために、Moran's I 統計量を計算してみます（これは、シミュレーションされた `linelist` データフレームからの症例のサブセットであることを覚えておいてください）。**spdep** パッケージには、この計算を行うための関数、`moran.test` があります。
+例として、先ほどマッピングしたエボラ出血熱の症例の空間的自己相関を定量化するために、Moran's I 統計量を計算してみます（これは、シミュレーションされた `linelist` データフレームからの症例のサブセットであることを覚えておいてください）。**spdep** パッケージには、この計算を行うための、`moran.test()` があります。
 
 ```{r}
 moran_i <-spdep::moran.test(sle_adm3_dat$cases,    # 指定の変数で数値ベクトル
@@ -957,11 +957,11 @@ moran_i <-spdep::moran.test(sle_adm3_dat$cases,    # 指定の変数で数値ベ
 moran_i                                            # Moran's I 検定の結果を表示
 ```
 
-`moran.test()` 関数の出力を見ると、Moran's I 統計量は `round(moran_i$estimate[1],2)` となっています。これは、データに空間的な自己相関が存在することを示しています。具体的には、エボラ出血熱の患者数が同程度の地域は、近くにある可能性が高いということです。`moran.test()` で得られるp値は、空間的自己相関がないという帰無仮説の下での期待値との比較によって生成され、正式な仮説検定の結果を報告する必要がある場合に使用できます。
+`moran.test()` の出力を見ると、Moran's I 統計量は `round(moran_i$estimate[1],2)` となっています。これは、データに空間的な自己相関が存在することを示しています。具体的には、エボラ出血熱の患者数が同程度の地域は、近くにある可能性が高いということです。`moran.test()` で得られるp値は、空間的自己相関がないという帰無仮説の下での期待値との比較によって生成され、正式な仮説検定の結果を報告する必要がある場合に使用できます。
 
 **Local Moran's I** - 上で計算した（グローバルな）Moran's I 統計を分解することで、<u>局所的な</u>空間的な自己相関を識別することができます。これを利用すると、データ内の特定のクラスターの識別を行うことができます。この統計は、LISA（Local Indicator of Spatial Association）統計量と呼ばれることもあり、個々の地域における空間的自己相関の程度を要約したものです。この値は、地図上の「ホット」と「コールド」な場所を見つけるのに役立ちます。
 
-例として、上で使用したエボラ出血熱の症例数に対して、**spdep** の `local_moran()` 関数を用いて、Local Moran's I を計算し、地図上に描画することができます。
+例として、上で使用したエボラ出血熱の症例数に対して、**spdep** パッケージの `local_moran()` を用いて、Local Moran's I を計算し、地図上に描画することができます。
 
 ```{r, fig.align='center'}
 # local Moran's I を計算
@@ -986,7 +986,7 @@ ggplot(data=sle_adm3_dat) +
 
 **Getis-Ord Gi\*** - これもホットスポットの分析によく使われる統計です。この統計が人気である理由は、ArcGIS のホットスポット分析ツールで使われていることに関係しています。この統計は、通常、近隣地域間の変数の値の差は正規分布に従うはずだという仮定に基づいています。このツールは、z-score を利用したアプローチを用いて、指定された変数の値が近隣の地域に比べて統計的に特定の変数の値が有意に高い（ホットスポット）または低い（コールドスポット）地域を特定します。
 
-**spdep** の `localG()` 関数を使って Gi* 統計量を計算し、マッピングすることができます。 
+**spdep** パッケージの `localG()` を使って Gi* 統計量を計算し、マッピングすることができます。 
 
 ```{r}
 # local G 分析を実行
@@ -1035,7 +1035,7 @@ pop_map <- tm_shape(sle_adm3_dat) +
 tmap_arrange(cases_map, pop_map, ncol=2)   # arrange into 2x1 facets
 ```
 
-視覚的には、この 2 つのパターンは似ていないように見えます。**spdep** の `lee.test()` 関数を使って、2 つの変数の空間的自己相関のパターンが関連しているかどうかを統計的に検定することができます。L 統計量は、パターン間に相関がなければ 0 に近く、強い正の相関があれば（パターンが似ている場合は）1 に近く、強い負の相関があれば（パターンが逆の場合は）-1 に近くなります。
+視覚的には、この 2 つのパターンは似ていないように見えます。**spdep** パッケージの `lee.test()` を使って、2 つの変数の空間的自己相関のパターンが関連しているかどうかを統計的に検定することができます。L 統計量は、パターン間に相関がなければ 0 に近く、強い正の相関があれば（パターンが似ている場合は）1 に近く、強い負の相関があれば（パターンが逆の場合は）-1 に近くなります。
 
 ```{r, warning=F, message=F}
 lee_test <- spdep::lee.test(
@@ -1061,20 +1061,20 @@ Lee's L 統計は、空間的に分布する変数間の関係について、こ
   
 空間回帰アプローチの詳細については、このハンドブックの範囲外です。このセクションでは、最も一般的な空間回帰モデルとその用途の概要を説明し、この分野をさらに探求したい場合に役立つ参考文献を紹介します。
 
-**空間誤差モデル** - これらのモデルは、空間ユニット間の誤差項が相関していると仮定していますが、その場合、データは標準的な最小二乗法(OLS) モデルの仮定に反することになります。空間誤差モデルは、「同時自己回帰（SAR）モデル」と呼ばれることもあります。空間誤差モデルは、 **spatialreg** パッケージの `errorsarlm()` 関数（空間回帰関数、以前は **spdep** の一部だった）を使ってフィットさせることができます。
+**空間誤差モデル** - これらのモデルは、空間ユニット間の誤差項が相関していると仮定していますが、その場合、データは標準的な最小二乗法(OLS) モデルの仮定に反することになります。空間誤差モデルは、「同時自己回帰（SAR）モデル」と呼ばれることもあります。空間誤差モデルは、 **spatialreg** パッケージの `errorsarlm()`（空間回帰関数、以前は **spdep** パッケージの一部だった）を使ってフィットさせることができます。
 
-**空間ラグモデル** - このモデルは、ある地域 *i* の従属変数が、*i* の独立変数の値だけでなく、*i* に隣接する地域のそれらの変数の値にも影響されると仮定しています。空間誤差モデルと同様に、空間ラグモデルもまた、**同時自己回帰（SAR）モデル**と呼ばれることがあります。 空間ラグモデルは、**spatialreg** パッケージの`lagsarlm()`関数を使ってフィットさせることができます。
+**空間ラグモデル** - このモデルは、ある地域 *i* の従属変数が、*i* の独立変数の値だけでなく、*i* に隣接する地域のそれらの変数の値にも影響されると仮定しています。空間誤差モデルと同様に、空間ラグモデルもまた、**同時自己回帰（SAR）モデル**と呼ばれることがあります。 空間ラグモデルは、**spatialreg** パッケージの `lagsarlm()` を使ってフィットさせることができます。
 
-**spdep** パッケージには、標準的な最小二乗法 (OLS)  モデル、空間ラグモデル、空間誤差モデルを決定するための便利な診断テストがいくつか含まれています。これらのテストは、<u>ラグランジュ乗数診断</u>と呼ばれ、データの空間依存性のタイプを特定し、どのモデルが最も適切かを選択するために使用することができます。関数 `lm.LMtests()` を用いると、すべてのラグランジュ乗数検定を計算することができます。Anselin (1988) は、ラグランジュ乗数検定の結果に基づいて、どの空間回帰モデルを使用するかを決定するための便利なフローチャートツールも提供しています。
+**spdep** パッケージには、標準的な最小二乗法 (OLS)  モデル、空間ラグモデル、空間誤差モデルを決定するための便利な診断テストがいくつか含まれています。これらのテストは、<u>ラグランジュ乗数診断</u>と呼ばれ、データの空間依存性のタイプを特定し、どのモデルが最も適切かを選択するために使用することができます。`lm.LMtests()` を用いると、すべてのラグランジュ乗数検定を計算することができます。Anselin (1988) は、ラグランジュ乗数検定の結果に基づいて、どの空間回帰モデルを使用するかを決定するための便利なフローチャートツールも提供しています。
 
 ```{r, fig.align='center', echo=F}
 knitr::include_graphics(here::here("images", "gis_lmflowchart.jpg"))
 ```
 
-**ベイズ階層モデル** - ベイズを用いた手法は、いくつかの応用例において空間分析で一般的に使用されています。最も一般的なのは [疾患マッピング](https://pubmed.ncbi.nlm.nih.gov/15690999/) です。症例データの分布がまばらであったり（例えば、稀な結果の場合）、統計的に「ノイズが多い」場合には、潜在的な空間プロセスを考慮して疾病リスクの「平滑化された」推定値を生成するために使用することができるので、ベイズを用いた手法の方が好まれます。これにより、推定値の質が向上する可能性があります。また、データに存在する可能性のある複雑な空間的相関パターンを（選択することで）事前に指定することができ、独立変数と従属変数の両方における空間依存および非依存の変動を説明することができます。Rでは、**CARbayes** パッケージ（ [vignette](https://cran.r-project.org/web/packages/CARBayes/vignettes/CARBayes.pdf) 参照）や R-INLA（[website](https://www.r-inla.org/home) や [textbook](https://becarioprecario.bitbucket.io/inla-gitbook/) 参照）を用いてベイズ階層モデルをフィットさせることができます。また、R は JAGS や WinBUGS のようなベイズ推定を行う外部ソフトウェアを呼び出すのにも使うことができます。
+**ベイズ階層モデル** - ベイズを用いた手法は、いくつかの応用例において空間分析で一般的に使用されています。最も一般的なのは [疾患マッピング](https://pubmed.ncbi.nlm.nih.gov/15690999/) です。症例データの分布がまばらであったり（例えば、稀な結果の場合）、統計的に「ノイズが多い」場合には、潜在的な空間プロセスを考慮して疾病リスクの「平滑化された」推定値を生成するために使用することができるので、ベイズを用いた手法の方が好まれます。これにより、推定値の質が向上する可能性があります。また、データに存在する可能性のある複雑な空間的相関パターンを（選択することで）事前に指定することができ、独立変数と従属変数の両方における空間依存および非依存の変動を説明することができます。Rでは、**CARbayes** パッケージ（ [ビニエット（vignette）](https://cran.r-project.org/web/packages/CARBayes/vignettes/CARBayes.pdf) 参照）や R-INLA（[website](https://www.r-inla.org/home) や [textbook](https://becarioprecario.bitbucket.io/inla-gitbook/) 参照）を用いてベイズ階層モデルをフィットさせることができます。また、R は JAGS や WinBUGS のようなベイズ推定を行う外部ソフトウェアを呼び出すのにも使うことができます。
 
 <!-- ======================================================= -->
-## リソース {  }
+## 参考資料 {  }
 
 * R Simple Features and sf package [vignette](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)
 
