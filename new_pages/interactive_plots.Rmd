@@ -1,17 +1,17 @@
-# インタラクティブプロット
 
-データビジュアライゼーションでは、視聴者が質問できることがますます求められています。そのため、インタラクティブなプロットを作成することが一般的になっています。これらを組み込む方法はいくつかありますが、最も一般的なのは **plotly** と **shiny** の2つです。
+# 動的な図の作成 {#interactive-plots}
 
-このページでは、既存の `ggplot()` で作成したプロットを **plotly** でインタラクティブなプロットに変換することに焦点を当てます。shiny については、 \[Dashboards with Shiny\] のページで詳しく説明しています。特筆すべき点は、インタラクティブなプロットは HTML 形式の R マークダウン文書でのみ使用可能であり、PDFやWord文書では使用できないということです。
+データの視覚化においては、データの受け取り手がデータと対話可能になることがますます求められています。そのため、動的な図を作成することが一般的になっています。これらを組み込む方法はいくつかありますが、最も一般的な方法は **plotly** パッケージと **shiny** パッケージの 2 つです。
 
-**ggplot2** と **plotly** の統合により、インタラクティブに変換された基本的な流行曲線を以下に示します（プロット上にマウスを置き、ズームインしたり、凡例のアイテムをクリックしたりします）。
+この章では、既存の `ggplot()` で作成したプロットを **plotly** パッケージで動的な図に変換することに焦点を当てます。**shiny** パッケージについては、 [Shiny で作るダッシュボード](#shiny-basics)の章を参照してください。特筆すべき点は、動的な図は HTML 形式の R  Markdown 文書でのみ使用可能であり、PDF や Word 文書では使用できないということです。
+
+**ggplot2** パッケージと **plotly** パッケージの統合により、動的に変換された最低限の情報を持つ流行曲線（エピカーブ）を以下に示します（プロット上にマウスを置き、拡大したり、凡例の項目をクリックしたりします）。
 
 ```{r plotly_demo, out.width=c('75%'), out.height=c('500px'), echo=F, warning=F, message=F}
 pacman::p_load(plotly, rio, here, ggplot2, dplyr, lubridate)
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 
-## これらのボタンは余計なものであり、不要なものです。
-
+## これらのボタンは余計であり、不要
 plotly_buttons_remove <- list('zoom2d','pan2d','lasso2d', 'select2d','zoomIn2d',
                               'zoomOut2d','autoScale2d','hoverClosestCartesian',
                               'toggleSpikelines','hoverCompareCartesian')
@@ -34,108 +34,110 @@ p %>%
 ```
 
 <!-- ======================================================= -->
+## 準備 {  }
 
-## 準備
+### パッケージの読み込み {.unnumbered}  
 
-### パッケージの読み込み {.unnumbered}
+以下のコードを実行すると、分析に必要なパッケージが読み込まれます。このハンドブックでは、パッケージを読み込むために、**pacman** パッケージの `p_load()` を主に使用しています。`p_load()` は、必要に応じてパッケージをインストールし、現在の R セッションで使用するためにパッケージを読み込む関数です。また、すでにインストールされたパッケージは、R の基本パッケージである **base** （以下、**base** R）の `library()` を使用して読み込むこともできます。R のパッケージに関する詳細は [R の基礎](#basics) の章をご覧ください。
 
-このコードチャンクは、分析に必要なパッケージの読み込みを示しています。このハンドブックでは必要に応じてパッケージをインストールし、使用することができる **pacman** の `p_load()` を推奨します。 インストールされたパッケージは Rのbase パッケージ（以下、base R） の `library()` でも読み込みができます。Rのパッケージに関する詳細は \[R basics\] のページをご覧ください。
 
 ```{r}
 pacman::p_load(
-  rio,       #取り込みと出力
-  here,      #ファイルパス
-  lubridate, #日付の操作
-  plotly,    #インタラクティブプロット
-  scales,    #クイックパーセント
-  tidyverse  #データの処理と可視化
+  rio,       # インポート・エクスポート
+  here,      # ファイルパス
+  lubridate, # 日付の操作
+  plotly,    # 動的な作図
+  scales,    # 軸やスケールの調整
+  tidyverse  # データの処理と可視化
   ) 
 ```
 
-### `ggplot()`で始める {.unnumbered}
+### はじめは `ggplot()` 関数から {.unnumbered}  
 
-このページでは、インタラクティブなプロットに変換したい図表を `ggplot()` を用いて作成するところから始めることを想定しています。このページでは、このハンドブックの多くのページで使われている `linelist` を使って、このようなプロットをいくつか作ってみます。
+この章では、動的な図に変換したい図表を `ggplot()` 関数を用いて作成するところから始めることを想定しています。この章では、このハンドブックの多くの章で使われている `linelist` ケースを使って、このようなプロットをいくつか作ってみます。
 
-### データの取り込み {.unnumbered}
 
-まず始めに、エボラ出血熱のシミュレーションで得られた症例がクリーニングされたラインリストの取り込みをします。続きをご覧になりたい方は、\<a href='<https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds'> class='download-button'>クリックして「クリーニングされた」ラインリストをダウンロードしてください\</a>（.rdsファイルとして）。**rio** パッケージの `import()` 関数を使ってデータの読み込みをします（.xlsx, .csv, .rdsなどの多くのファイルの種類を扱うことができます。
+### データのインポート {.unnumbered}
+
+まず始めに、エボラ出血熱のシミュレーションで得られた症例がクリーニングされたラインリストの取り込みをします。続きをご覧になりたい方は、<a href='<https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds'> class='download-button'>クリックして「クリーニングされた」ラインリストをダウンロードしてください</a>（.rdsファイルとして）。**rio** パッケージの `import()` 関数を使ってデータの読み込みをします（.xlsx, .csv, .rdsなどの多くのファイルの種類を扱うことができます。
 
 ```{r, echo=F}
-#ラインリストを R へ取り込み
+# ラインリストを R へインポート
 linelist <- rio::import(here::here("data", "case_linelists", "linelist_cleaned.rds"))
 ```
 
 ```{r, eval=F}
-#結果のラインリストの取り込み
+# 結果のラインリストの取り込み
 linelist <- import("linelist_cleaned.rds")
 ```
 
 ラインリストの最初の50行を以下に表示します。
 
 ```{r, message=FALSE, echo=F}
-#ラインリストのデータをテーブルとして表示
+# ラインリストのデータを表として表示
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
+
+
+
+
+
+  
 <!-- ======================================================= -->
+## `ggplotly()` 関数によるプロット {  }
 
-## `ggplotly()` によるプロット
+**plotly** パッケージの `ggplotly()` 関数を使うと、`ggplot()` 関数の出力を動的な図へかんたんに変換できます。`ggplot()` 関数の出力を保存して、それを `ggplotly()` 関数にパイプするだけです。
 
-**plotly** パッケージの関数である `ggplotly()` を使うと、`ggplot()` をインタラクティブな図表に変換することが簡単にできます。`ggplot()`を保存して、それを`ggplotly()`関数にパイプするだけです。
 
 下の図は、ある週に死亡した症例の割合を表すシンプルな線をプロットしたものです。
 
-まず、各疫学週のサマリーデータと、結果がわかっている症例のうち死亡した症例の割合を作成します。
+まず、疫学週毎のサマリーデータを作成し、結果が判明している症例のうち死亡した症例の割合を計算します。
 
 ```{r}
 weekly_deaths <- linelist %>%
-  group_by(epiweek = floor_date(date_onset, "week")) %>%   #疫学週毎のデータの作成とグループ化
-  summarise(                                              #新しいサマリーデータフレームの作成:
-    n_known_outcome = sum(!is.na(outcome), na.rm=T),       #結果が判明しているグループごとの症例数
-    n_death  = sum(outcome == "Death", na.rm=T),          #死亡したグループごとの症例数
-    pct_death = 100*(n_death / n_known_outcome)            #結果が判明している症例のうち、死亡した症例の割合
+  group_by(epiweek = floor_date(date_onset, "week")) %>%  # 疫学週毎のデータの作成とグループ化
+  summarise(                                              # 新しいサマリーデータフレームの作成:
+    n_known_outcome = sum(!is.na(outcome), na.rm=T),      # 結果が判明しているグループごとの症例数
+    n_death  = sum(outcome == "Death", na.rm=T),          # 死亡したグループごとの症例数
+    pct_death = 100*(n_death / n_known_outcome)           # 結果が判明している症例のうち、死亡した症例の割合
   )
 ```
-
 `weekly_deaths` データセットの最初の50行を示します。
 
 ```{r message=FALSE, echo=F}
 DT::datatable(head(weekly_deaths, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
-
-そして、**ggplot2** で `geom_line()` を使ってプロットを作成します。
+そして、**ggplot2** パッケージで `geom_line()` 関数を使ってプロットを作成します。
 
 ```{r, warning=F, message=F}
-deaths_plot <- ggplot(data = weekly_deaths)+            #週間死亡者数のデータから始める
-  geom_line(mapping = aes(x = epiweek, y = pct_death))  #ラインの作成
+deaths_plot <- ggplot(data = weekly_deaths)+            # weekly_deaths データを使用する
+  geom_line(mapping = aes(x = epiweek, y = pct_death))  # 折れ線グラフの作成
 
-deaths_plot   #出力
+deaths_plot   # 出力
 ```
 
-このプロットを以下のように `ggplotly()` に渡すだけで、インタラクティブに表示することができます。線の上にマウスを置くと、x と y の値が表示されます。プロットを拡大したり、ドラッグしたりすることができます。また、プロットの右上には、アイコンが表示されています。順に、以下のことができます。
 
--   今表示されている図表を PNG 画像としてダウンロードする
+このプロットオブジェクトを以下のように `ggplotly()` 関数に渡すだけで、動的に表示できます。線の上にマウスを置くと、x と y の値が表示されます。図を拡大したり、ドラッグしたりすることができます。また、図の右上には、アイコンが表示されています。順に、以下のことができます。
 
--   select box によるズームイン
+* 今表示されている図を PNG 画像としてダウンロードする
+* 選択範囲を指定して拡大
+* "Pan", つまり図をクリック＆ドラッグすることで図を移動させる
+* 拡大、縮小、またはデフォルトの縮尺に戻る
+* 軸のスケールをデフォルトに戻す
+* 動的にグラフ上の点からx軸、y軸に伸びる点線である "spike lines" のオン・オフを切り替える
+* グラフ線上にカーソルを置いていないときにデータを表示するか否かの設定
 
--   "Pan", つまりプロットをクリックしてドラッグすることでプロットを移動する
-
--   ズームイン、ズームアウト、またはデフォルトのズームに戻る
-
--   軸をデフォルトに戻す
-
--   インタラクティブポイントからx軸、y軸に伸びる点線である "spike lines" のオン/オフを切り替える
-
--   線上にカーソルを置いていないときにデータを表示するかどうかの調整
 
 ```{r}
 deaths_plot %>% plotly::ggplotly()
 ```
 
-グループ化されたデータは、`ggplotly()` でも動作します。下の図は、結果ごとにグループ化された1週間分の流行曲線を作成したものです。積み上げられた棒はインタラクティブです。凡例の各項目をクリックしてみてください（現れたり消えたりします）。
+グループ化されたデータも、`ggplotly()` 関数で動作します。下記の図は、結果ごとにグループ化された週毎の流行曲線（エピカーブ）を作成したものです。積み上げられた棒グラフは動的に表示されています。凡例の各項目をクリックしてみてください（現れたり消えたりします）。
+
 
 ```{r plot_show, eval=F}
-#incidence2 パッケージを用いた流行曲線の作成
+# incidence2 パッケージを用いた流行曲線（エピカーブ）の作成
 p <- incidence2::incidence(
   linelist,
   date_index = date_onset,
@@ -144,23 +146,22 @@ p <- incidence2::incidence(
 ```
 
 ```{r, echo=T, eval=F}
-#インタラクティブなプロットへ
+# 動的な図へ
 p %>% plotly::ggplotly()
 ```
-
+  
 ```{r, warning = F, message = F, , out.width=c('95%'), out.height=c('500px'), echo=FALSE}
 p %>% 
   ggplotly() %>% 
   partial_bundle() 
 ```
-
+  
 <!-- ======================================================= -->
+## 変更・修正 {  }
 
-## 修正
+### ファイルサイズ {.unnumbered}  
 
-### ファイルサイズ {.unnumbered}
-
-R Markdown で生成された HTML にエクスポートする場合（本書のように！）、プロットをできるだけ小さなデータサイズにしたい（ほとんどの場合、悪影響はない）。そのためには、インタラクティブなプロットを **plotly** の `partial_bundle()` にパイプします。
+R Markdown で生成された HTML にエクスポートする場合（本書のように！）、図をできるだけ小さなデータサイズにすることが望まれます（ほとんどの場合悪影響はありません）。そのためには、動的な図オブジェクトを **plotly** パッケージの `partial_bundle()` 関数にパイプします。
 
 ```{r plot_tidyshow, eval=F}
 p <- p %>% 
@@ -168,33 +169,34 @@ p <- p %>%
   plotly::partial_bundle()
 ```
 
-### ボタン {.unnumbered}
+### ボタン {.unnumbered}  
 
-標準的な plotly のボタンの中には、余計なものや邪魔なものがあるので、それらを取り除くことができます。これは、**plotly** の `config()` の出力をパイプでつなぎ、削除するボタンを指定するだけでできます。以下の例では、削除するボタンの名前をあらかじめ指定し、引数の `modeBarButtonsToRemove =` に与えています。 また、`displaylogo = FALSE` とすることで、 **plotly** のロゴを削除しています。
+標準的な plotly のボタンの中には、余計なものや邪魔なものがあるので、それらを取り除くことができます。これは、**plotly** パッケージの `config()` 関数の出力をパイプでつなぎ、削除したいボタンを指定するだけで可能です。以下の例では、削除するボタンの名前をあらかじめ指定し、引数の `modeBarButtonsToRemove =` に渡しています。 また、`displaylogo = FALSE` とすることで、 **plotly** パッケージのロゴを削除しています。
 
 ```{r plot_tidyshow2, eval=F}
-##これらのボタンは不要なので削除したい
+## これらのボタンは不要なので削除する
 plotly_buttons_remove <- list('zoom2d','pan2d','lasso2d', 'select2d','zoomIn2d',
                               'zoomOut2d','autoScale2d','hoverClosestCartesian',
                               'toggleSpikelines','hoverCompareCartesian')
 
-p <- p %>%          #これらのボタンを使わずにインタラクティブ・プロットを再定義する
+p <- p %>%          # 上記のボタンを使わずに動的な図を再定義する
   plotly::config(displaylogo = FALSE, modeBarButtonsToRemove = plotly_buttons_remove)
 ```
 
+
+
 <!-- ======================================================= -->
+## ヒートタイル {  }
 
-## ヒートタイル
-
-`ggplot()` では、ヒートタイルを含むほとんどのプロットをインタラクティブにすることができます。\[ヒートプロット\] のページでは、ある施設が国にデータを報告した週の日数の割合を表示するプロットの作成方法について説明しています。
+ヒートタイルを含むほとんどの `ggplot()` プロットオブジェクトを動的に変えることができます。ある施設が州へデータを報告した日数の割合を表示する下記の図の作成方法について[ヒートマップ](#heatmap)の章で説明しています。
 
 ここでは詳細な説明はしませんが、コードを紹介します。
 
 ```{r  message=F, warning=F}
-#データの取り込み
+# データのインポート
 facility_count_data <- rio::import(here::here("data", "malaria_facility_count_data.rds"))
 
-#春におけるの週毎のにデータを集約
+# Spring 地区におけるデータを週毎に集約
 agg_weeks <- facility_count_data %>% 
   filter(District == "Spring",
          data_date < as.Date("2020-08-01")) %>% 
@@ -210,10 +212,10 @@ agg_weeks <- facility_count_data %>%
     malaria_tot     = sum(malaria_tot, na.rm = T),
     n_days_reported = length(unique(data_date)),
     p_days_reported = round(100*(n_days_reported / n_days))) %>% 
-  right_join(tidyr::expand(., week, location_name)) %>% 
+  right_join(tidyr::expand(., week, "location_name")) %>% 
   mutate(week = aweek::week2date(week))
 
-#プロットの作成
+# プロットの作成
 metrics_plot <- ggplot(agg_weeks,
        aes(x = week,
            y = location_name,
@@ -243,10 +245,10 @@ metrics_plot <- ggplot(agg_weeks,
        subtitle = "District health facilities, April-May 2019",
        caption = "7-day weeks beginning on Mondays.")
 
-metrics_plot #出力
+metrics_plot # 出力
 ```
 
-以下では、それをインタラクティブにして、シンプルなボタンやファイルサイズに合わせて修正しています。
+以下では、上記のグラフを動的にして、単純化したボタンやファイルサイズを修正しています。
 
 ```{r,  out.width=c('95%'), out.height=c('500px')}
 metrics_plot %>% 
@@ -272,87 +274,61 @@ metrics_plot %>%
 <!-- GeoJSON files are stored in R as complex lists and you'll need to maipulate them a little. -->
 
 <!-- ```{r, echo=T,} -->
-
 <!-- ## You need two new packages: {rjson} and {purrr} -->
-
 <!-- pacman::p_load(plotly, rjson, purrr) -->
 
 <!-- ## This is a simplified version of the WHO data -->
-
 <!-- df <- rio::import(here::here("data", "gis", "covid_incidence.csv")) -->
 
 <!-- ## Load your geojson file -->
-
 <!-- geoJSON <- rjson::fromJSON(file=here::here("data", "gis", "africa_countries.geo.json")) -->
 
 <!-- ## Here are some of the properties for each element of the object -->
-
 <!-- head(geoJSON$features[[1]]$properties) -->
 
 <!-- ``` -->
 
+
 <!-- This is the tricky part. For {**plotly**} to match your incidence data to GeoJSON, the countries in the geoJSON need an id in a specific place in the list of lists. For this we need to build a basic function: -->
-
 <!-- ```{r} -->
-
 <!-- ## The property column we need to choose here is "sovereignt" as it is the names for each country -->
-
 <!-- give_id <- function(x){ -->
 
 <!--   x$id <- x$properties$sovereignt  ## Take sovereignt from properties and set it as the id -->
 
 <!--   return(x) -->
-
 <!-- } -->
 
 <!-- ## Use {purrr} to apply this function to every element of the features list of the geoJSON object -->
-
 <!-- geoJSON$features <- purrr::map(.x = geoJSON$features, give_id) -->
-
 <!-- ``` -->
 
-<!-- <!-- ======================================================= -->
-
---> <!-- ### Maps - plot {  } -->
+<!-- <!-- ======================================================= --> -->
+<!-- ### Maps - plot {  } -->
 
 <!-- UNDER CONSTRUCTION -->
 
 <!-- ```{r, echo=FALSE, eval=FALSE, out.width=c('95%'), out.height=c('500px'),warning=F} -->
-
 <!-- plotly::plot_ly() %>%  -->
-
 <!--   plotly::add_trace(                    #The main plot mapping functionn -->
-
 <!--     type="choropleth", -->
-
 <!--     geojson=geoJSON, -->
-
 <!--     locations=df$Name,          #The column with the names (must match id) -->
-
 <!--     z=df$Cumulative_incidence,  #The column with the incidence values -->
-
 <!--     zmin=0, -->
-
 <!--     zmax=57008, -->
-
 <!--     colorscale="Viridis", -->
-
 <!--     marker=list(line=list(width=0)) -->
-
 <!--   ) %>% -->
-
 <!--   colorbar(title = "Cases per million") %>% -->
-
 <!--   layout(title = "Covid-19 cumulative incidence", -->
-
 <!--                  geo = list(scope = 'africa')) %>%  -->
-
 <!--   config(displaylogo = FALSE, modeBarButtonsToRemove = plotly_buttons_remove) -->
-
 <!-- ``` -->
 
 <!-- ======================================================= -->
+## 参考文献 {  }
 
-## リソース
+Plotly はR だけではなく、Python（JavaScript で作られているため、実際にはあらゆるデータサイエンスで用いられている言語）でも動作します。詳しくは [plotly のウェブサイト](https://plotly.com/r/)をご覧ください。
 
-Plotly はR だけではなく、Python （ JavaScript で作られているため、実際にはあらゆるデータサイエンスで用いられている言語）でも動作します。詳しくは [plotly のウェブサイト]{.ul}をご覧ください。
+
