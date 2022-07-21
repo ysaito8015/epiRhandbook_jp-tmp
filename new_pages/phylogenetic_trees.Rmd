@@ -1,9 +1,11 @@
 
-# 系統樹 {#phylogenetic-trees}
+# 系統樹 {#phylogenetic-trees}  
+
 
 <!-- ======================================================= -->
 
 ## 概要 {}
+
 
 **系統樹**とは、生物の遺伝暗号の配列に基づいて、その近縁性や進化を可視化・記述するためのものです。
 
@@ -72,6 +74,7 @@ pacman::p_load(
 tree <- ape::read.tree(here::here("data", "phylo", "Shigella_tree.txt"))
 ```
 
+
 ```{r, echo=T, eval=F}
 tree <- ape::read.tree("Shigella_tree.txt")
 ```
@@ -103,7 +106,6 @@ DT::datatable(head(sample_data,50), rownames = FALSE, options = list(pageLength 
 データのクリーニングと点検を行います。正しいサンプルデータを系統樹に割り当てるためには、`sample_data` データフレームの `Sample_ID` カラムの値が、`tree` ファイルの `tip.labels` の値と一致する必要があります。
 
 R の **base** パッケージの `head()` を使って最初の 6 つのエントリーを見ることで、 `tree` ファイルの `tip.labels` のフォーマットをチェックします。
-
 ```{r, phylogenetic_trees_inspect_sampledata}
 head(tree$tip.label) 
 ```
@@ -138,32 +140,34 @@ sample_data$Sample_ID[!tree$tip.label %in% sample_data$Sample_ID]
 
 これで準備完了です。
 
+
+
+
 <!-- ======================================================= -->
 
 ## 単純な系統樹の可視化 {}
+
 
 ### 様々な系統樹のレイアウト {.unnumbered}
 
 **ggtree** には様々なレイアウトが用意されており、目的に応じて最適なものを選ぶことができます。以下にいくつかのデモンストレーションを紹介します。他のオプションについては、この[オンラインブック](http://yulab-smu.top/treedata-book/chapter4.html)を参照してください。
 
 以下は、ツリーレイアウトの例です。
-
 ```{r, phylogenetic_trees_example_formats, out.width=c('50%'), fig.show='hold'}
 
 ggtree(tree)                                            # 単純な線形の系統樹
 ggtree(tree,  branch.length = "none")                   # 全ての先端が揃えられた単純な線形の系統樹
 ggtree(tree, layout="circular")                         # 単純な円形の系統樹
 ggtree(tree, layout="circular", branch.length = "none") # 全ての先端が揃えられた単純な円形の系統樹
+
 ```
 
 ### 単純な系統樹とサンプルデータ {.unnumbered}
 
 `sample_data` データフレームを `tree` ファイルに接続するには、**%<+%** 演算子を使用します。
-
 系統樹の最も簡単な注釈は、先端にサンプル名を追加することと、先端のポイントや必要に応じて枝に色を付けることです。
 
 以下は、円形の系統樹の例です。
-
 ```{r, phylogenetic_trees_adding_sampledata, fig.align='center', warning=F, message=F}
 
 ggtree(tree, layout = "circular", branch.length = 'none') %<+% sample_data + # %<+% で、tree にサンプルデータを追加する
@@ -213,6 +217,7 @@ ggsave("example_tree_circular_1.png", width = 12, height = 14)
 
 ```
 
+
 <!-- ======================================================= -->
 
 ## 系統樹の操作・処理・加工 {}
@@ -226,7 +231,6 @@ ggsave("example_tree_circular_1.png", width = 12, height = 14)
 系統樹を "切断" するのではなく、一部だけをより詳しく調べたい場合は、ズームインして特定の部分を表示することができます。
 
 まず、系統樹全体を線形のフォーマットでプロットし、系統樹の各ノードに数字のラベルを追加します。
-
 ```{r, phylogenetic_trees_zoom_in, out.width=c('50%'), fig.show='hold', fig.align='center'}
 
 p <- ggtree(tree,) %<+% sample_data +
@@ -240,13 +244,14 @@ p <- ggtree(tree,) %<+% sample_data +
     vjust = 1)                            # 系統樹内のすべてのノードにラベルを付ける
 
 p  # 表示する
+
 ```
 
 ある特定の枝（右に突き出ている）にズームインするには、ggtree オブジェクト `p` で `viewClade()` を使用し、ノード番号を指定すると、より詳しく見ることができます。
-
 ```{r phylogenetic_trees_zoom_in_452, out.width=c('50%'), fig.show='hold', fig.align='center'}
 
 viewClade(p, node = 452)
+
 ```
 
 ### 枝の折り畳み {.unnumbered}
@@ -260,7 +265,6 @@ p_collapsed
 ```
 
 分かりやすくするために、`p_collapsed` をプリントする際に、折り畳まれた枝のノードに `geom_point2()`（青い菱形）を追加しています。
-
 ```{r}
 p_collapsed + 
 geom_point2(aes(subset = (node == 452)),  # 折り畳んだノードに記号を割り当てる
@@ -272,6 +276,7 @@ geom_point2(aes(subset = (node == 452)),  # 折り畳んだノードに記号を
 ### 系統樹の分割（サブセット） {.unnumbered}
 
 より永続的な変更を行い、作業用の縮小された新しい系統樹を作成したい場合は、 `tree_subset()` でツリーの一部をサブセットします。そして、それを新しい newick tree ファイルか .txt ファイルとして保存します。
+
 
 ```{r, phylogenetic_trees_subsetting, out.width=c('50%'), fig.show='hold', fig.align='center'}
 ggtree(
@@ -321,6 +326,7 @@ subset tree 2 を見てみましょう。
 ggtree(sub_tree2) +
   geom_tiplab(size =3)  +
   ggtitle("Subset tree 2")
+
 ```
 
 また、**ape** パッケージの `write.tree()` 関数を使って、新しい系統樹を Newick 型やテキストファイルとして保存することもできます。
@@ -331,9 +337,11 @@ ape::write.tree(sub_tree2, file='data/phylo/Shigella_subtree_2.nwk')
 
 # .txt フォーマットで保存
 ape::write.tree(sub_tree2, file='data/phylo/Shigella_subtree_2.txt')
+
 ```
 
 ### 系統樹内でのノードの回転 {.unnumbered}
+
 
 前述したように、ツリー内の先端やノードの順序を変更することはできません。これは、遺伝子の関連性に基づいており、視覚的な操作の対象にはならないからです。しかし、視覚的にわかりやすくするために、ノードの周りに枝を回転させることはできます。
 
@@ -352,7 +360,6 @@ p
 ```
 
 その後、 **ggtree::rotate()** や **ggtree::flip()** を使ってノードを操作することができます。
-
 注：どのノードを操作しているかを示すために、まず、**ggtree** の **geom_hilight()** 関数を適用して、興味のあるノードのサンプルをハイライトし、その ggtree プロットオブジェクトを新しいオブジェクト `p1` に格納します。
 
 ```{r, phylogenetic_trees_rotating_2, out.width=c('50%'), fig.show='hold', fig.align='center'}
@@ -372,19 +379,20 @@ p1 # 表示する
 ```
 
 ここで、オブジェクト `p1` のノード 37 を回転させ、ノード 38 上のサンプルが一番上に移動するようにします。回転したツリーを新しいオブジェクト `p2` に格納します。
-
 ```{r}
 p2 <- rotate(p1, 37) + 
       ggtitle("Rotated Node 37")
+
 
 p2   # 表示する
 ```
 
 また、flip コマンドを使って、オブジェクト `p1` のノード 36 を回転させ、ノード 37 を上に、ノード 39 を下に切り替えることもできます。反転したツリーを新しいオブジェクト `p3` に格納します。
-
 ```{r}
+
 p3 <-  flip(p1, 39, 37) +
       ggtitle("Rotated Node 36")
+
 
 p3   # 表示する
 ```
@@ -432,6 +440,7 @@ ggtree(sub_tree2) %<+% sample_data +     # %<+% 演算子を使って sample_dat
     legend.title = element_text(face = "bold", size = 12),
     legend.text = element_text(face = "bold", size = 10),
     plot.title = element_text(size = 12, face = "bold"))
+
 ```
 
 私たちの観察によると、アジアからの菌株の輸入があり、それが何年もかけてベルギーで伝播し、今回の流行を引き起こしたと考えられます。
@@ -440,10 +449,10 @@ ggtree(sub_tree2) %<+% sample_data +     # %<+% 演算子を使って sample_dat
 
 ## より複雑な系統樹：サンプルデータのヒートマップの追加 {.unnumbered}
 
+
 **ggtree::gheatmap()** 関数を使用して、抗菌薬耐性遺伝子のカテゴリー的な存在や、実際に測定された抗菌薬耐性の数値など、より複雑な情報をヒートマップの形で追加することができます。
 
 まず、系統樹をプロットし（これは線形でも円形でも構いません）、それを新しい ggtree plot のオブジェクト `p` に保存する必要があります。ここでは、パート 3 の sub_tree を使用します)。
-
 ```{r, phylogenetic_trees_sampledata_heatmap, out.width=c('60%'), fig.align='center', fig.show='hold'}
 
 p <- ggtree(sub_tree2, branch.length='none', layout='circular') %<+% sample_data +
@@ -458,6 +467,7 @@ p <- ggtree(sub_tree2, branch.length='none', layout='circular') %<+% sample_data
       hjust = 0.5,
       vjust = -15))
 p
+
 ```
 
 次に、データの準備です。異なる変数を新しい配色で可視化するために、データフレームを目的の変数にサブセットします。行の名前として `Sample_ID` を追加することが重要で、そうしないとデータを `tip.labels` の系統樹にマッチさせることができません。
@@ -465,28 +475,24 @@ p
 この例では、性別と、赤痢菌感染症の治療に使用される重要な第一選択抗菌薬であるシプロフロキサシンへの耐性を与える可能性のある変異を調べたいと思います。
 
 性別のデータフレームを作成します。
-
 ```{r, phylogenetic_trees_sampledata_heatmap_data}
 gender <- data.frame("gender" = sample_data[,c("Gender")])
 rownames(gender) <- sample_data$Sample_ID
 ```
 
 シプロフロキサシン耐性をもたらす gyrA 遺伝子の変異について、データフレームを作成します。
-
 ```{r}
 cipR <- data.frame("cipR" = sample_data[,c("gyrA_mutations")])
 rownames(cipR) <- sample_data$Sample_ID
+
 ```
-
 実験室で測定されたシプロフロキサシンの最小発育阻止濃度（MIC）のデータフレームを作成します。
-
 ```{r}
 MIC_Cip <- data.frame("mic_cip" = sample_data[,c("MIC_CIP")])
 rownames(MIC_Cip) <- sample_data$Sample_ID
 ```
 
 系統樹に性別の二値のヒートマップを追加した最初のプロットを作成し、それを新しい ggtree plot のオブジェクト `h1` に格納します。
-
 ```{r, phylogenetic_trees_sampledata_heatmap_gender, out.width=c('70%'), fig.show='hold', fig.align='center'}
 
 h1 <-  gheatmap(p, gender,                                 # 性別データフレームのヒートマップレイヤーをツリープロットに追加する
@@ -503,6 +509,7 @@ h1 <-  gheatmap(p, gender,                                 # 性別データフ�
         legend.text = element_text(size = 10),
         legend.box = "vertical", legend.margin = margin())
 h1
+
 ```
 
 その後、シプロフロキサシンに対する耐性を付与する gyrA 遺伝子の変異の情報を追加しています。
@@ -510,7 +517,6 @@ h1
 注：WGS データにおける染色体の点変異の有無は、Zankari らが開発した PointFinder ツールを用いて事前に判断しています（参考文献の項を参照）。
 
 まず、既存のプロットオブジェクト `h1` に新しい配色を割り当てて、今のオブジェクト `h2` に格納します。これにより、ヒートマップの 2 つ目の変数の色を定義・変更することができます。
-
 ```{r}
 h2 <- h1 + new_scale_fill() 
 ```
@@ -536,7 +542,6 @@ h3
 ```
 
 以上のプロセスを繰り返し、まず既存のオブジェクト `h3` に新しいカラースケール層を追加し、次に得られたオブジェクト `h4` に各菌株に対するシプロフロキサシンの最小発育阻止濃度（MIC）の連続データを追加して、最終的なオブジェクト `h5` を作成します。
-
 ```{r, phylogenetic_trees_sampledata_heatmap_cip_MIC, out.width=c('90%'), fig.show='hold', fig.align='center'}
 # まず、新しいカラーリングを追加する
 h4 <- h3 + new_scale_fill()
@@ -556,10 +561,10 @@ h5 <- gheatmap(h4, MIC_Cip,
         legend.text = element_text(size = 10),
         legend.box = "vertical", legend.margin = margin())
 h5
+
 ```
 
 これと同じことを、線形の系統樹についても行うことができます。
-
 ```{r, phylogenetic_trees_sampledata_heatmap_linear_1, out.width=c('80%'), fig.show='hold', fig.align='center'}
 
 p <- ggtree(sub_tree2) %<+% sample_data +
@@ -596,7 +601,9 @@ h1 <-  gheatmap(p, gender,
 h1
 ```
 
+
 そして、もう一つの配色レイヤーを追加した後に、シプロフロキサシン耐性変異を追加します。
+
 
 ```{r, phylogenetic_trees_sampledata_heatmap_linear_3, out.width=c('80%'), fig.show='hold', fig.align='center'}
 
@@ -642,10 +649,15 @@ h5
 
 ```
 
+
 <!-- ======================================================= -->
+## 参考資料 {}
 
-## リソース
+http://hydrodictyon.eeb.uconn.edu/eebedia/index.php/Ggtree# Clade_Colors
+https://bioconductor.riken.jp/packages/3.2/bioc/vignettes/ggtree/inst/doc/treeManipulation.html
+https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html
+https://bioconductor.riken.jp/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeManipulation.html
 
-<http://hydrodictyon.eeb.uconn.edu/eebedia/index.php/Ggtree#> Clade_Colors <https://bioconductor.riken.jp/packages/3.2/bioc/vignettes/ggtree/inst/doc/treeManipulation.html> <https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html> <https://bioconductor.riken.jp/packages/3.8/bioc/vignettes/ggtree/inst/doc/treeManipulation.html>
+Ea Zankari, Rosa Allesøe, Katrine G Joensen, Lina M Cavaco, Ole Lund, Frank M Aarestrup, PointFinder: a novel web tool for WGS-based detection of antimicrobial resistance associated with chromosomal point mutations in bacterial pathogens, Journal of Antimicrobial Chemotherapy, Volume 72, Issue 10, October 2017, Pages 2764–2768, https://doi.org/10.1093/jac/dkx217
 
-Ea Zankari, Rosa Allesøe, Katrine G Joensen, Lina M Cavaco, Ole Lund, Frank M Aarestrup, PointFinder: a novel web tool for WGS-based detection of antimicrobial resistance associated with chromosomal point mutations in bacterial pathogens, Journal of Antimicrobial Chemotherapy, Volume 72, Issue 10, October 2017, Pages 2764--2768, <https://doi.org/10.1093/jac/dkx217>
+
