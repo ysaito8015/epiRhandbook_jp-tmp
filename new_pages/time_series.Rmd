@@ -170,7 +170,7 @@ file_paths <- list.files(
 file_paths <- file_paths[str_detect(file_paths, "germany")]
 
 ## 全てのファイルをstartsオブジェクトとして読み込み
-data <- read_ncdf(file_paths[1]) + read_ncdf(file_paths[2]) + read_ncdf(file_paths[4]) + read_ncdf(file_paths[5]) + read_ncdf(file_paths[6]) + read_ncdf(file_paths[8]) + read_ncdf(file_paths[9]) + read_ncdf(file_paths[10])
+data <- stars::read_stars(file_paths)
 ```
 
 これらのファイルがオブジェクト `data` としてインポートされたら、データフレームに変換します。
