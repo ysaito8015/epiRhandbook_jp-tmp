@@ -132,7 +132,7 @@ pacman::p_load(rio) # rio パッケージのインストールと読み込み
 likert_data <- import("https://raw.githubusercontent.com/nsbatra/Epi_R_handbook/master/data/likert_data.csv")
 ```
 
-#### 柔軟なダッシュボード {#flexdashboard .unnumbered}
+#### 柔軟なダッシュボード {#links-of-flexdashboard .unnumbered}
 
 以下は、[R Markdownで作るダッシュボード](#flexdashboard) の章に関連するファイルへのリンクです。
 
